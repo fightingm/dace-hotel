@@ -1,0 +1,33 @@
+@charset "utf-8";
+@import "~yo3/style/lib/fragment/yo-list";
+
+/**
+ * yo-list通用或全局扩展
+ */
+@include yo-list (
+    $border-color: #eee,
+    $item-border-color: #eee,
+    $item-border-space: 0
+);
+
+@include yo-list(
+    $name: 'nopad',
+    $border-width: 0,
+    $item-padding: 0,
+    $item-border-space: 100%
+);
+
+@include yo-list(
+    $name: 'border',
+    $item-padding: 0
+);
+
+@include yo-list(
+    $name: 'traffic',
+    $item-padding: .1rem .15rem,
+    $item-font-size: .12rem
+){
+    .item {
+        @include align-items(initial);
+    }
+};

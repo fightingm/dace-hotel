@@ -1,0 +1,23 @@
+{
+  "name": "dace-hotel",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/fightingm/dace-hotel.git",
+  "author": "kaiming.xu <kaiming.xu@qunar.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "NODE_ENV=local dace"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "dace": "^1.0.0-beta.16",
+    "dace-plugin-redux": "^1.0.10",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "yo3": "^3.1.7"
+  },
+  "devDependencies": {
+    "node-sass": "^4.9.3",
+    "sass-loader": "^7.1.0"
+  }
+}

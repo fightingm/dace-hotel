@@ -1,0 +1,19 @@
+@charset "utf-8";
+/**
+ * Yo框架全局Variables
+ * Yo基础变量map，如果不想定义某属性，将其value设置为null；
+ * Yo仅使用2种长度单位：px用于边框，rem用于除边框之外的所有地方
+ * variables中map使用“_”开头，本文件中不使用"_"
+ * variables ⇌ config
+ */
+
+ $ico: (
+    // {Boolean} 是否使用图标字体
+    is-use: true,
+    // {String} 图标字体文件名
+    font-name: event_node,
+    // {Url} 图标字体路径
+    // //s.qunarzz.com/mobile_search_touch/fonts/3.1/
+    // ../../src/font/
+    font-path: "//s.qunarzz.com/event_node/font/0.0.36/"
+);

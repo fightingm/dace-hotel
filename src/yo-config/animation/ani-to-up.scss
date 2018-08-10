@@ -1,0 +1,28 @@
+@charset "utf-8";
+
+@-webkit-keyframes ani-to-up {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 400%, 0); 
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes ani-to-up {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 400%, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    } 
+}
+
+.ani.ani-to-up {
+    -webkit-animation-name: ani-to-up;
+    animation-name: ani-to-up; 
+}

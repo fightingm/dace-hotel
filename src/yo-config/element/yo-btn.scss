@@ -1,0 +1,55 @@
+@charset "utf-8";
+@import "~yo3/style/lib/element/yo-btn";
+
+/**
+ * yo-btn通用或全局扩展
+ */
+@include yo-btn(
+    $name: 'common',
+    $font-size: .15rem,
+    $height: .5rem,
+    $bgcolor: map-get($btn, major-default-background)
+) {
+    font-weight: 700;
+};
+
+@include yo-btn(
+    $name: 'common-disabled',
+    $bgcolor: map-get($btn, major-disabled-background)
+);
+
+@include yo-btn(
+    $name: 'common-pressed',
+    $bgcolor: map-get($btn, major-press-background)
+);
+
+//灰色
+@include yo-btn(
+    $name: disabled,
+    $border-color: #999999,
+    $bgcolor: #999999
+);
+
+.yo-btn{
+    &::after {
+        pointer-events: auto;
+    }
+}
+
+@include yo-btn(
+    $name: active,
+    $border-color: #ee4707,
+    $bgcolor: #ee4707
+);
+
+
+
+
+// 红包领按钮
+@include yo-btn(
+    $name: coupon,
+    $color: #ee4707,
+    $bgcolor: #fdee55,
+    $font-size: .16rem,
+    $border-width: 0
+);

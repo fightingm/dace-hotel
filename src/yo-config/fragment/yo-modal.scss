@@ -1,0 +1,16 @@
+@charset "utf-8";
+@import "~yo3/style/lib/fragment/yo-modal";
+
+/**
+ * yo-modal通用或全局扩展
+ */
+
+ @include yo-modal(
+     $name: 'transparent'
+ ) {
+     background: transparent;
+
+     .yo-loading > .yo-ico::before {
+         color: $headerColor;
+     }
+ }

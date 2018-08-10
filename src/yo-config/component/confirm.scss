@@ -1,0 +1,21 @@
+@charset "utf-8";
+@import "../core/reset";
+@import "~yo3/style/lib/component/confirm";
+
+.yo-dialog {
+    .ft {
+        .yo-btn-dialog {
+            font-weight: bold;
+            @include border(
+                $border-width: 1px 0 0
+            );
+
+            /* fix组件自带边框样式在某些adr机型下边框不能完全显示的bug */
+            &:last-child {
+                @include border(
+                    $border-width: 1px 0 0 1px
+                );
+            }
+        }
+    }
+}

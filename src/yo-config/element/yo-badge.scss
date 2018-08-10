@@ -1,0 +1,41 @@
+@charset "utf-8";
+@import "~yo3/style/lib/element/yo-badge";
+
+/**
+ * yo-badge通用或全局扩展
+ */
+
+ @include yo-badge(
+     $name: 'tag',
+     $padding: 0 .05rem,
+     $radius: .03rem,
+     $bgcolor: transparent,
+     $font-size: .12rem
+ ) {
+    line-height: 0.19rem;
+    height: 0.19rem;
+ }
+
+@include yo-badge(
+    $name: 'tag-green',
+    $color: #61C626,
+    $border-color: #61C626
+);
+
+@include yo-badge(
+    $name: 'tag-orange',
+    $color: #F98806,
+    $border-color: #F98806
+);
+
+@include yo-badge(
+    $name: 'tag-red',
+    $color: #EE4707,
+    $border-color: #EE4707
+);
+
+@include yo-badge(
+    $name: 'tag-default',
+    $color: #04ACF8,
+    $border-color: #04ACF8
+);

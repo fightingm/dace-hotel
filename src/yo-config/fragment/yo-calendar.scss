@@ -1,0 +1,60 @@
+@charset "utf-8";
+@import "~yo3/style/lib/fragment/yo-calendar";
+
+/**
+ * yo-calendar通用或全局扩展
+ */
+
+@include yo-calendar (
+    $week-bar-bgcolor: #fff,
+    $week-bar-color: #bdbdbd,
+    $weekend-color: #ff8300,
+    $day-font-size: .18rem
+){  
+    .item,
+    .week {
+        @include border(0);
+    }
+    .week {
+        > li {
+            @include flexbox;
+            @include align-items;
+            @include justify-content;
+            position: relative;
+
+            .holiday-text {
+                .special {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    margin: 0;
+                    width: 100%;
+                    font-size: .1rem;
+                }
+            }
+            .special-work {
+                color: #bdbdbd;
+            }
+        }
+        .start {
+            border-radius: .04rem;
+            background: map-get($base, highlight);
+            color: #fff;
+            .tip {
+                display: none;
+            }
+            .special,
+            .special-work {
+                color: #fff;
+            }
+            .special {
+                display: block;
+            }
+            &.today {
+                .day {
+                    display: none;
+                }
+            }
+        }
+    }
+}

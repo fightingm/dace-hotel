@@ -1,0 +1,16 @@
+@charset "utf-8";
+@import "./g-define";
+@import "./g-no-photo";
+html,
+body {
+    -webkit-overflow-scrolling: touch;
+}
+
+// 解决Scroller在有表单的时候 下不来的情况
+body {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}

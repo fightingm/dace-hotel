@@ -1,0 +1,94 @@
+@charset "utf-8";
+/**
+ * Yo框架全局base定义
+ * 本文件与variables不同地方在于，这里所定义的map可以使用在variables和任何地方
+ * lib中map使用“_”开头，本文件中不使用"_"
+ * base ⇌ extra
+ */
+
+$headerColor: #00bcd4;
+
+$carColor: #03a9f4;
+$airportColor: #03a9f4;
+$travelstrategyColor: #ae56e5;
+$visaColor: #cddc39;
+$cinemaColor: #f33ea0;
+$guideColor: #ae56e5;
+$wifiColor: #cddc39;
+$moiveColor: #cddc39;
+$foodColor: #ffd700;
+$shuttleTrainColor: #03a9f4;
+$shuttleScenicColor: #03a9f4;
+$customCarColor: #03a9f4;
+$smart_travelColor: #ae56e5;
+$ticketColor: #00bf86;
+$hotelColor: #f55;
+$travelskulistColor: #7eb63d;
+$insuranceColor: #ff9800;
+$flightColor: #03a9f4;
+$trainColor: #03a9f4;
+$busColor: #03a9f4;
+$selfDrivingColor: #03a9f4;
+$freeRideColor: #03a9f4;
+$boatColor: #03a9f4;
+$aroundTravelColor: #7eb63d;
+$routeColor: #ff9800;
+$travelBookColor: #ae56e5;
+$freeTourColor: #7eb63d;
+$depTourColor: #7eb63d;
+$financeColor: #ff9800;
+$place-hotelColor: #ff5555;
+$one-dayColor: #7eb63d;
+$packageColor: #7eb63d;
+$freeColor: #7eb63d;
+$checheColor: #03a9f4;
+
+$base: (
+    // 品牌色: 用于品牌标示, 亮的标签,按钮,链接,icon
+    highlight: #00bcd4,
+    // 重要颜色: 用于订单主流程提交按钮, 付按钮
+    import: #ff9800,
+    // 突出提示: 用于特别突出强调的 本,红点标
+    strong: #ff1200,
+    // 线颜色: 分割模块的边线,标签、按钮描边
+    line: #eee,
+    // 背景颜色: 页面底色
+    background: #f5f5f5,
+    // 内容背景: 主要内容区背景
+    content: #fff
+);
+
+$text: (
+    // 重要文本(重要标题、重要信息文本)，由于都是这个，干脆取名为默认算了
+    default: #212121,
+    // 普通文本(普通标题、普通正文文本,弱链接文本)
+    normal: #616161,
+    // 辅助文本(辅助说明性文本)
+    assist: #9e9e9e,
+    // 提示文本(表单占位符, 不可用状态等)
+    notice: #bababa,
+    // 链接文本(文字链, 高亮状态等)
+    link: #00afc7,
+    // 价格文本(价格数字,货币符号等)
+    price: #ff8300
+);
+
+$btn: (
+    // 主要按钮设置，背景色颜色什么的，分布为默认、按下、不可用状态
+    major-default-background: #00bcd4,
+    major-default-color: #fff,
+    major-press-background: #0089a1,
+    major-press-color: #fff,
+    major-disabled-background: #b2eaf2,
+    major-disabled-color: #fff,
+    // 次要按钮设置，背景色颜色边框颜色什么的，分布为默认、按下、不可用状态
+    minor-default-background: #fff,
+    minor-default-border-color: #00bcd4,
+    minor-default-color: #00bcd4,
+    minor-press-background: #b2eaf2,
+    minor-press-border-color: #0089a1,
+    minor-press-color: #0089a1,
+    minor-disabled-background: #fff,
+    minor-disabled-border-color: #b2eaf2,
+    minor-disabled-color: #b2eaf2
+);

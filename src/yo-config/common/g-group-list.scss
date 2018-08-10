@@ -1,0 +1,57 @@
+//城市列表全局样式
+//这块没有强制按照BEM语法
+//一是因为 GroupList 中的 yo-list > .item 优先级高
+//二是每行的默认样式 item，去不掉
+.g-group-list {
+    .index {
+        color: map-get($base, highlight);
+        @include transform(translate(0px, -50%) translateZ(0px));
+    }
+    .item,
+    .item-checkbox {
+        padding: .1rem .1rem .1rem .4rem;
+        overflow: inherit;
+        &::after {
+            left: .4rem;
+        }
+    }
+    .item--on {
+        &::before {
+            position: absolute;
+            left: .1rem;
+            top: .06rem;
+            font-family: map-get($ico, font-name);
+            content: "\F078";
+            font-size: .2rem;
+        }
+        color: map-get($base, highlight);
+    } //热门城市
+    .hot-item,
+    .hot-item--first {
+        padding: 0 .3rem 0 .1rem;
+        &::after {
+            display: none;
+        }
+    }
+    .hot-item--first {
+        padding-top: .1rem;
+    }
+    .hot-box {
+        display: inline-block;
+        width: 30%;
+        margin: 0 3% .1rem 0;
+        height: .3rem;
+        line-height: .3rem;
+        text-align: center;
+        font-size: .14rem;
+        color: #333;
+        @include border( $border-width: 1px, $border-color: #ddd, $radius: 4px);
+        &__text {
+            display: block;
+        }
+    }
+    .hot-box--on {
+        color: map-get($base, highlight);
+        @include border( $border-width: 1px, $border-color: map-get($base, highlight), $radius: 4px);
+    }
+}

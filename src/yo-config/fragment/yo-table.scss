@@ -1,0 +1,29 @@
+@charset "utf-8";
+@import "~yo3/style/lib/fragment/yo-table";
+
+/**
+ * yo-table通用或全局扩展
+ */
+
+@include yo-table (
+    $name: 'member-privilege',
+    $has-vertical-border: true,
+    $thead-bgcolor: rgba(#e3e3e3, .5),
+    $odd-bgcolor: #fafafa,
+    $even-bgcolor: #fafafa
+) {
+    table-layout: auto;
+    border-radius: .04rem;
+    overflow: hidden;
+    th {
+        font-weight: normal;
+        padding: .1rem !important;
+        text-align: center;
+    }
+    td {
+        text-align: center;
+    }
+    &::after {
+        border-radius: .08rem;
+    }
+}

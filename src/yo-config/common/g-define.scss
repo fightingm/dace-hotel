@@ -1,0 +1,104 @@
+@charset "utf-8";
+
+.g-touchable-opacity {
+    opacity: .7;
+}
+
+.g-touchable-gray {
+    background: map-get($base, background) !important;
+}
+
+.g-hide {
+    display: none;
+}
+
+.g-text-left {
+    text-align: left;
+}
+
+.g-text-center {
+    text-align: center;
+}
+
+.g-text-right {
+    text-align: right;
+}
+
+.g-flexbox {
+    @include flexbox;
+}
+
+.g-flex-direction-column {
+    @include flex-direction(column);
+}
+
+.g-flex {
+    @include flex;
+}
+
+.g-flex-wrap {
+    @include flex-wrap(wrap)
+}
+
+.g-flex-center {
+    @include align;
+}
+
+.g-justify-content-center {
+    @include justify-content;
+}
+
+.g-align-items-center {
+    @include align-items;
+}
+
+.g-align-items-end {
+    @include align-items(flex-end);
+}
+
+.g-ellipsis {
+    @include ellipsis;
+}
+
+.g-ellipsis-2 {
+    @include ellipsis($line-clamp: 2);
+}
+
+.g-ellipsis-3 {
+    @include ellipsis($line-clamp: 3);
+}
+
+.g-gray {
+    color: map-get($text, default);
+}
+
+.g-assist {
+    color: map-get($text, assist);
+}
+
+.g-background {
+    background: map-get($base, background);
+}
+
+.g-img {
+    width: 100%;
+    height: 100%;
+}
+
+.g-clearspace {
+    @include clearspace;
+}
+
+.g-fullscreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
+// 将图片平铺在容器内，类似于background-size: cover的效果；
+.g-img-cover {
+    object-fit: cover;
+}
