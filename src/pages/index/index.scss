@@ -1,0 +1,13 @@
+.mh-index {
+  & .hd-banner {
+    & .banner-item {
+      & img {
+        height: 1.375rem;
+      }
+    }
+  }
+}
+
+.condition-search {
+  @include border('5', '#c00');
+}

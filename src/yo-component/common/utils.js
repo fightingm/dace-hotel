@@ -1,72 +1,72 @@
 export function getArrayByLength(length) {
-    const ret = [];
-    for (let i = 0; i < length; i++) {
-        ret[i] = null;
-    }
-    return ret;
+  const ret = [];
+  for (let i = 0; i < length; i++) {
+    ret[i] = null;
+  }
+  return ret;
 }
 
 function is(x, y) {
-    let ret;
-    if (x === y) {
-        ret = x !== 0 || y !== 0 || 1 / x === 1 / y;
-    } else {
-        // return x !== x && y !== y;
-        ret = isNaN(x) && isNaN(y);
-    }
+  let ret;
+  if (x === y) {
+    ret = x !== 0 || y !== 0 || 1 / x === 1 / y;
+  } else {
+    // return x !== x && y !== y;
+    ret = Number.isNaN(x) && Number.isNaN(y);
+  }
 
-    return ret;
+  return ret;
 }
 
 // 判断是否为 Function
 export function isFunction(it) {
-    return Object.prototype.toString.call(it) === '[object Function]';
+  return Object.prototype.toString.call(it) === '[object Function]';
 }
 
 export function shallowEqual(objA, objB) {
-    if (is(objA, objB)) {
-        return true;
-    }
-
-    if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
-        return false;
-    }
-
-    const keysA = Object.keys(objA);
-    const keysB = Object.keys(objB);
-
-    if (keysA.length !== keysB.length) {
-        return false;
-    }
-
-    const hasOwnProperty = Object.prototype.hasOwnProperty;
-
-    for (let i = 0; i < keysA.length; i++) {
-        if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
-            return false;
-        }
-    }
-
+  if (is(objA, objB)) {
     return true;
+  }
+
+  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
+    return false;
+  }
+
+  const keysA = Object.keys(objA);
+  const keysB = Object.keys(objB);
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  const { hasOwnProperty } = Object.prototype;
+
+  for (let i = 0; i < keysA.length; i++) {
+    if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 export function getElementOffsetY(ele, parent) {
-    let y = 0;
-    while (ele !== parent && ele !== null) {
-        y += ele.offsetTop;
-        ele = ele.offsetParent;
-    }
-    return y;
+  let y = 0;
+  while (ele !== parent && ele !== null) {
+    y += ele.offsetTop;
+    ele = ele.offsetParent;
+  }
+  return y;
 }
 
 export const DELAY_TIME_FOR_INFINITE_WITHOUT_HEIGHT = 250;
 export const isEnvNode = Object.prototype.toString.call(typeof process !== 'undefined' ? process : 0) === '[object process]';
 
 export function inheritProps(props, attrs) {
-    return attrs.reduce((ret, attr) => {
-        ret[attr] = props[attr];
-        return ret;
-    }, {});
+  return attrs.reduce((ret, attr) => {
+    ret[attr] = props[attr];
+    return ret;
+  }, {});
 }
 
 /**
@@ -77,14 +77,14 @@ export function inheritProps(props, attrs) {
  * In Qreact: vnode.children = [{xxx}]
  */
 export function getOnlyChild(props) {
-    const children = props.children;
-    if (children) {
-        // for React
-        if (!children.length) return children;
-        // for Qreact
-        if (children.length === 1) return children[0];
-    }
-    return false;
+  const { children } = props;
+  if (children) {
+    // for React
+    if (!children.length) return children;
+    // for Qreact
+    if (children.length === 1) return children[0];
+  }
+  return false;
 }
 /*
     This should find all Android browsers lower than build 535.19 (both stock browser and webview)
@@ -101,125 +101,125 @@ export function getOnlyChild(props) {
     `AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Mobile Safari/537.36 (Chrome/)`
     */
 export function isBadAndroid() {
-    const appVersion = window.navigator.appVersion;
-    let _isBadAndroid = false;
-    // Android browser is not a chrome browser.
-    if (/Android/.test(appVersion) && !(/Chrome\/\d/.test(appVersion))) {
-        const safariVersion = appVersion.match(/Safari\/(\d+.\d)/);
-        if (safariVersion && typeof safariVersion === 'object' && safariVersion.length >= 2) {
-            _isBadAndroid = parseFloat(safariVersion[1]) < 535.19;
-        } else {
-            _isBadAndroid = true;
-        }
+  const { appVersion } = window.navigator;
+  let _isBadAndroid = false;
+  // Android browser is not a chrome browser.
+  if (/Android/.test(appVersion) && !(/Chrome\/\d/.test(appVersion))) {
+    const safariVersion = appVersion.match(/Safari\/(\d+.\d)/);
+    if (safariVersion && typeof safariVersion === 'object' && safariVersion.length >= 2) {
+      _isBadAndroid = parseFloat(safariVersion[1]) < 535.19;
     } else {
-        _isBadAndroid = false;
+      _isBadAndroid = true;
     }
+  } else {
+    _isBadAndroid = false;
+  }
 
-    return _isBadAndroid;
+  return _isBadAndroid;
 }
 
 export function getRAF() {
-    function basicRAF(callback) {
-        return window.setTimeout(callback, 1000 / 60);
-    }
+  function basicRAF(callback) {
+    return window.setTimeout(callback, 1000 / 60);
+  }
 
-    let rAF = window.cancelAnimationFrame && window.requestAnimationFrame ||
+  let rAF = window.cancelAnimationFrame && window.requestAnimationFrame ||
         window.webkitCancelAnimationFrame && window.webkitRequestAnimationFrame ||
         window.mozCancelAnimationFrame && window.mozRequestAnimationFrame ||
         window.oCancelAnimationFrame && window.oRequestAnimationFrame ||
         window.msCancelAnimationFrame && window.msRequestAnimationFrame ||
         basicRAF;
 
-    let cancelrAF = window.cancelAnimationFrame ||
+  let cancelrAF = window.cancelAnimationFrame ||
         window.webkitCancelAnimationFrame ||
         window.mozCancelAnimationFrame ||
         window.oCancelAnimationFrame ||
         window.msCancelAnimationFrame ||
         window.clearTimeout;
 
-    if (isBadAndroid()) {
-        rAF = basicRAF;
-        cancelrAF = window.clearTimeout;
-    }
+  if (isBadAndroid()) {
+    rAF = basicRAF;
+    cancelrAF = window.clearTimeout;
+  }
 
-    return { rAF, cancelrAF };
+  return { rAF, cancelrAF };
 }
 
 export function whichTransitionEventPrefix() {
-    let result;
-    const el = document.createElement('fakeelement');
-    const transitions = {
-        transition: 'transition',
-        WebkitTransition: 'webkitTransition'
-    };
-    Object.keys(transitions).some(t => {
-        if (el.style[t] !== undefined) {
-            result = transitions[t];
-            return true;
-        }
-        return false;
-    });
-    return result;
+  let result;
+  const el = document.createElement('fakeelement');
+  const transitions = {
+    transition: 'transition',
+    WebkitTransition: 'webkitTransition'
+  };
+  Object.keys(transitions).some((t) => {
+    if (el.style[t] !== undefined) {
+      result = transitions[t];
+      return true;
+    }
+    return false;
+  });
+  return result;
 }
 
 export function focus(dom) {
-    if (dom.focus) {
-        dom.focus();
-    }
+  if (dom.focus) {
+    dom.focus();
+  }
 }
 
 export function blur(dom) {
-    if (document.activeElement === dom) {
-        if (dom.blur) {
-            dom.blur();
-        } else {
-            focus(document.body);
-        }
+  if (document.activeElement === dom) {
+    if (dom.blur) {
+      dom.blur();
+    } else {
+      focus(document.body);
     }
+  }
 }
 
 export function isPassive() {
-    let supportsPassiveOption = false;
-    try {
-        addEventListener('test', null, Object.defineProperty({}, 'passive', {
-            get() {
-                supportsPassiveOption = true;
-            }
-        }));
-    } catch (e) { }
-    return supportsPassiveOption;
+  let supportsPassiveOption = false;
+  try {
+    addEventListener('test', null, Object.defineProperty({}, 'passive', {
+      get() {
+        supportsPassiveOption = true;
+      }
+    }));
+  } catch (e) {}
+  return supportsPassiveOption;
 }
 
 // 修复一些手机上 blur 行为的 bug，在 touchstart 的时候自动 blur
 export function autoBlur() {
-    // 防止多次调用
-    if (!window.__autoBlur) {
-        window.__autoBlur = true;
-    } else {
-        return;
+  // 防止多次调用
+  if (!window.__autoBlur) {
+    window.__autoBlur = true;
+  } else {
+    return;
+  }
+
+  const focusTags = ['INPUT', 'TEXTAREA'];
+  const _contains = document.compareDocumentPosition ?
+    (a, b) => !!(a.compareDocumentPosition(b) & 16) :
+    (a, b) => a !== b && (a.contains ? a.contains(b) : true);
+
+  function _blur(container) {
+    const el = document.activeElement;
+    const _container = container || document.body;
+
+    if (el && _contains(_container, el) && typeof el.blur === 'function') {
+      el.blur();
     }
+  }
 
-    const focusTags = ['INPUT', 'TEXTAREA'];
-    const _contains = document.compareDocumentPosition ?
-        (a, b) => !!(a.compareDocumentPosition(b) & 16) :
-        (a, b) => a !== b && (a.contains ? a.contains(b) : true);
+  const passive = isPassive() ? {
+    passive: true
+  } : false;
 
-    function _blur(container) {
-        const el = document.activeElement;
-        const _container = container || document.body;
-
-        if (el && _contains(_container, el) && typeof el.blur === 'function') {
-            el.blur();
-        }
+  document.body.addEventListener('touchstart', (e) => {
+    if (focusTags.indexOf(e.target.tagName.toUpperCase()) === -1) {
+      _blur();
     }
-
-    const passive = isPassive() ? {
-        passive: true
-    } : false;
-
-    document.body.addEventListener('touchstart', e => {
-        if (focusTags.indexOf(e.target.tagName.toUpperCase()) === -1) {
-            _blur();
-        }
-    }, passive);
+  }, passive);
 }

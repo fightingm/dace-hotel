@@ -23,7 +23,7 @@ module.exports =
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "64726103ded9b411b4ae";
+/******/ 	var hotCurrentHash = "a1b7cd98f92551908b03";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -3006,6 +3006,17 @@ module.exports = {"name":"axios","version":"0.18.0","description":"Promise based
 
 /***/ }),
 
+/***/ "./node_modules/babel-runtime/core-js/number/is-nan.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/babel-runtime/core-js/number/is-nan.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(/*! core-js/library/fn/number/is-nan */ "./node_modules/core-js/library/fn/number/is-nan.js"), __esModule: true };
+
+/***/ }),
+
 /***/ "./node_modules/babel-runtime/core-js/object/assign.js":
 /*!*************************************************************!*\
   !*** ./node_modules/babel-runtime/core-js/object/assign.js ***!
@@ -5196,7 +5207,7 @@ function parser (name) {
   // this uses a switch for static require analysis
   switch (name) {
     case 'qs':
-      mod = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js")
+      mod = __webpack_require__(/*! qs */ "./node_modules/body-parser/node_modules/qs/lib/index.js")
       break
     case 'querystring':
       mod = __webpack_require__(/*! querystring */ "querystring")
@@ -8138,6 +8149,681 @@ IconvLiteDecoderStream.prototype.collect = function(cb) {
 
 /***/ }),
 
+/***/ "./node_modules/body-parser/node_modules/qs/lib/formats.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/body-parser/node_modules/qs/lib/formats.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var replace = String.prototype.replace;
+var percentTwenties = /%20/g;
+
+module.exports = {
+    'default': 'RFC3986',
+    formatters: {
+        RFC1738: function (value) {
+            return replace.call(value, percentTwenties, '+');
+        },
+        RFC3986: function (value) {
+            return value;
+        }
+    },
+    RFC1738: 'RFC1738',
+    RFC3986: 'RFC3986'
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/body-parser/node_modules/qs/lib/index.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/body-parser/node_modules/qs/lib/index.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var stringify = __webpack_require__(/*! ./stringify */ "./node_modules/body-parser/node_modules/qs/lib/stringify.js");
+var parse = __webpack_require__(/*! ./parse */ "./node_modules/body-parser/node_modules/qs/lib/parse.js");
+var formats = __webpack_require__(/*! ./formats */ "./node_modules/body-parser/node_modules/qs/lib/formats.js");
+
+module.exports = {
+    formats: formats,
+    parse: parse,
+    stringify: stringify
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/body-parser/node_modules/qs/lib/parse.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/body-parser/node_modules/qs/lib/parse.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/body-parser/node_modules/qs/lib/utils.js");
+
+var has = Object.prototype.hasOwnProperty;
+
+var defaults = {
+    allowDots: false,
+    allowPrototypes: false,
+    arrayLimit: 20,
+    decoder: utils.decode,
+    delimiter: '&',
+    depth: 5,
+    parameterLimit: 1000,
+    plainObjects: false,
+    strictNullHandling: false
+};
+
+var parseValues = function parseQueryStringValues(str, options) {
+    var obj = {};
+    var cleanStr = options.ignoreQueryPrefix ? str.replace(/^\?/, '') : str;
+    var limit = options.parameterLimit === Infinity ? undefined : options.parameterLimit;
+    var parts = cleanStr.split(options.delimiter, limit);
+
+    for (var i = 0; i < parts.length; ++i) {
+        var part = parts[i];
+
+        var bracketEqualsPos = part.indexOf(']=');
+        var pos = bracketEqualsPos === -1 ? part.indexOf('=') : bracketEqualsPos + 1;
+
+        var key, val;
+        if (pos === -1) {
+            key = options.decoder(part, defaults.decoder);
+            val = options.strictNullHandling ? null : '';
+        } else {
+            key = options.decoder(part.slice(0, pos), defaults.decoder);
+            val = options.decoder(part.slice(pos + 1), defaults.decoder);
+        }
+        if (has.call(obj, key)) {
+            obj[key] = [].concat(obj[key]).concat(val);
+        } else {
+            obj[key] = val;
+        }
+    }
+
+    return obj;
+};
+
+var parseObject = function (chain, val, options) {
+    var leaf = val;
+
+    for (var i = chain.length - 1; i >= 0; --i) {
+        var obj;
+        var root = chain[i];
+
+        if (root === '[]') {
+            obj = [];
+            obj = obj.concat(leaf);
+        } else {
+            obj = options.plainObjects ? Object.create(null) : {};
+            var cleanRoot = root.charAt(0) === '[' && root.charAt(root.length - 1) === ']' ? root.slice(1, -1) : root;
+            var index = parseInt(cleanRoot, 10);
+            if (
+                !isNaN(index)
+                && root !== cleanRoot
+                && String(index) === cleanRoot
+                && index >= 0
+                && (options.parseArrays && index <= options.arrayLimit)
+            ) {
+                obj = [];
+                obj[index] = leaf;
+            } else {
+                obj[cleanRoot] = leaf;
+            }
+        }
+
+        leaf = obj;
+    }
+
+    return leaf;
+};
+
+var parseKeys = function parseQueryStringKeys(givenKey, val, options) {
+    if (!givenKey) {
+        return;
+    }
+
+    // Transform dot notation to bracket notation
+    var key = options.allowDots ? givenKey.replace(/\.([^.[]+)/g, '[$1]') : givenKey;
+
+    // The regex chunks
+
+    var brackets = /(\[[^[\]]*])/;
+    var child = /(\[[^[\]]*])/g;
+
+    // Get the parent
+
+    var segment = brackets.exec(key);
+    var parent = segment ? key.slice(0, segment.index) : key;
+
+    // Stash the parent if it exists
+
+    var keys = [];
+    if (parent) {
+        // If we aren't using plain objects, optionally prefix keys
+        // that would overwrite object prototype properties
+        if (!options.plainObjects && has.call(Object.prototype, parent)) {
+            if (!options.allowPrototypes) {
+                return;
+            }
+        }
+
+        keys.push(parent);
+    }
+
+    // Loop through children appending to the array until we hit depth
+
+    var i = 0;
+    while ((segment = child.exec(key)) !== null && i < options.depth) {
+        i += 1;
+        if (!options.plainObjects && has.call(Object.prototype, segment[1].slice(1, -1))) {
+            if (!options.allowPrototypes) {
+                return;
+            }
+        }
+        keys.push(segment[1]);
+    }
+
+    // If there's a remainder, just add whatever is left
+
+    if (segment) {
+        keys.push('[' + key.slice(segment.index) + ']');
+    }
+
+    return parseObject(keys, val, options);
+};
+
+module.exports = function (str, opts) {
+    var options = opts ? utils.assign({}, opts) : {};
+
+    if (options.decoder !== null && options.decoder !== undefined && typeof options.decoder !== 'function') {
+        throw new TypeError('Decoder has to be a function.');
+    }
+
+    options.ignoreQueryPrefix = options.ignoreQueryPrefix === true;
+    options.delimiter = typeof options.delimiter === 'string' || utils.isRegExp(options.delimiter) ? options.delimiter : defaults.delimiter;
+    options.depth = typeof options.depth === 'number' ? options.depth : defaults.depth;
+    options.arrayLimit = typeof options.arrayLimit === 'number' ? options.arrayLimit : defaults.arrayLimit;
+    options.parseArrays = options.parseArrays !== false;
+    options.decoder = typeof options.decoder === 'function' ? options.decoder : defaults.decoder;
+    options.allowDots = typeof options.allowDots === 'boolean' ? options.allowDots : defaults.allowDots;
+    options.plainObjects = typeof options.plainObjects === 'boolean' ? options.plainObjects : defaults.plainObjects;
+    options.allowPrototypes = typeof options.allowPrototypes === 'boolean' ? options.allowPrototypes : defaults.allowPrototypes;
+    options.parameterLimit = typeof options.parameterLimit === 'number' ? options.parameterLimit : defaults.parameterLimit;
+    options.strictNullHandling = typeof options.strictNullHandling === 'boolean' ? options.strictNullHandling : defaults.strictNullHandling;
+
+    if (str === '' || str === null || typeof str === 'undefined') {
+        return options.plainObjects ? Object.create(null) : {};
+    }
+
+    var tempObj = typeof str === 'string' ? parseValues(str, options) : str;
+    var obj = options.plainObjects ? Object.create(null) : {};
+
+    // Iterate over the keys and setup the new object
+
+    var keys = Object.keys(tempObj);
+    for (var i = 0; i < keys.length; ++i) {
+        var key = keys[i];
+        var newObj = parseKeys(key, tempObj[key], options);
+        obj = utils.merge(obj, newObj, options);
+    }
+
+    return utils.compact(obj);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/body-parser/node_modules/qs/lib/stringify.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/body-parser/node_modules/qs/lib/stringify.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/body-parser/node_modules/qs/lib/utils.js");
+var formats = __webpack_require__(/*! ./formats */ "./node_modules/body-parser/node_modules/qs/lib/formats.js");
+
+var arrayPrefixGenerators = {
+    brackets: function brackets(prefix) { // eslint-disable-line func-name-matching
+        return prefix + '[]';
+    },
+    indices: function indices(prefix, key) { // eslint-disable-line func-name-matching
+        return prefix + '[' + key + ']';
+    },
+    repeat: function repeat(prefix) { // eslint-disable-line func-name-matching
+        return prefix;
+    }
+};
+
+var toISO = Date.prototype.toISOString;
+
+var defaults = {
+    delimiter: '&',
+    encode: true,
+    encoder: utils.encode,
+    encodeValuesOnly: false,
+    serializeDate: function serializeDate(date) { // eslint-disable-line func-name-matching
+        return toISO.call(date);
+    },
+    skipNulls: false,
+    strictNullHandling: false
+};
+
+var stringify = function stringify( // eslint-disable-line func-name-matching
+    object,
+    prefix,
+    generateArrayPrefix,
+    strictNullHandling,
+    skipNulls,
+    encoder,
+    filter,
+    sort,
+    allowDots,
+    serializeDate,
+    formatter,
+    encodeValuesOnly
+) {
+    var obj = object;
+    if (typeof filter === 'function') {
+        obj = filter(prefix, obj);
+    } else if (obj instanceof Date) {
+        obj = serializeDate(obj);
+    } else if (obj === null) {
+        if (strictNullHandling) {
+            return encoder && !encodeValuesOnly ? encoder(prefix, defaults.encoder) : prefix;
+        }
+
+        obj = '';
+    }
+
+    if (typeof obj === 'string' || typeof obj === 'number' || typeof obj === 'boolean' || utils.isBuffer(obj)) {
+        if (encoder) {
+            var keyValue = encodeValuesOnly ? prefix : encoder(prefix, defaults.encoder);
+            return [formatter(keyValue) + '=' + formatter(encoder(obj, defaults.encoder))];
+        }
+        return [formatter(prefix) + '=' + formatter(String(obj))];
+    }
+
+    var values = [];
+
+    if (typeof obj === 'undefined') {
+        return values;
+    }
+
+    var objKeys;
+    if (Array.isArray(filter)) {
+        objKeys = filter;
+    } else {
+        var keys = Object.keys(obj);
+        objKeys = sort ? keys.sort(sort) : keys;
+    }
+
+    for (var i = 0; i < objKeys.length; ++i) {
+        var key = objKeys[i];
+
+        if (skipNulls && obj[key] === null) {
+            continue;
+        }
+
+        if (Array.isArray(obj)) {
+            values = values.concat(stringify(
+                obj[key],
+                generateArrayPrefix(prefix, key),
+                generateArrayPrefix,
+                strictNullHandling,
+                skipNulls,
+                encoder,
+                filter,
+                sort,
+                allowDots,
+                serializeDate,
+                formatter,
+                encodeValuesOnly
+            ));
+        } else {
+            values = values.concat(stringify(
+                obj[key],
+                prefix + (allowDots ? '.' + key : '[' + key + ']'),
+                generateArrayPrefix,
+                strictNullHandling,
+                skipNulls,
+                encoder,
+                filter,
+                sort,
+                allowDots,
+                serializeDate,
+                formatter,
+                encodeValuesOnly
+            ));
+        }
+    }
+
+    return values;
+};
+
+module.exports = function (object, opts) {
+    var obj = object;
+    var options = opts ? utils.assign({}, opts) : {};
+
+    if (options.encoder !== null && options.encoder !== undefined && typeof options.encoder !== 'function') {
+        throw new TypeError('Encoder has to be a function.');
+    }
+
+    var delimiter = typeof options.delimiter === 'undefined' ? defaults.delimiter : options.delimiter;
+    var strictNullHandling = typeof options.strictNullHandling === 'boolean' ? options.strictNullHandling : defaults.strictNullHandling;
+    var skipNulls = typeof options.skipNulls === 'boolean' ? options.skipNulls : defaults.skipNulls;
+    var encode = typeof options.encode === 'boolean' ? options.encode : defaults.encode;
+    var encoder = typeof options.encoder === 'function' ? options.encoder : defaults.encoder;
+    var sort = typeof options.sort === 'function' ? options.sort : null;
+    var allowDots = typeof options.allowDots === 'undefined' ? false : options.allowDots;
+    var serializeDate = typeof options.serializeDate === 'function' ? options.serializeDate : defaults.serializeDate;
+    var encodeValuesOnly = typeof options.encodeValuesOnly === 'boolean' ? options.encodeValuesOnly : defaults.encodeValuesOnly;
+    if (typeof options.format === 'undefined') {
+        options.format = formats['default'];
+    } else if (!Object.prototype.hasOwnProperty.call(formats.formatters, options.format)) {
+        throw new TypeError('Unknown format option provided.');
+    }
+    var formatter = formats.formatters[options.format];
+    var objKeys;
+    var filter;
+
+    if (typeof options.filter === 'function') {
+        filter = options.filter;
+        obj = filter('', obj);
+    } else if (Array.isArray(options.filter)) {
+        filter = options.filter;
+        objKeys = filter;
+    }
+
+    var keys = [];
+
+    if (typeof obj !== 'object' || obj === null) {
+        return '';
+    }
+
+    var arrayFormat;
+    if (options.arrayFormat in arrayPrefixGenerators) {
+        arrayFormat = options.arrayFormat;
+    } else if ('indices' in options) {
+        arrayFormat = options.indices ? 'indices' : 'repeat';
+    } else {
+        arrayFormat = 'indices';
+    }
+
+    var generateArrayPrefix = arrayPrefixGenerators[arrayFormat];
+
+    if (!objKeys) {
+        objKeys = Object.keys(obj);
+    }
+
+    if (sort) {
+        objKeys.sort(sort);
+    }
+
+    for (var i = 0; i < objKeys.length; ++i) {
+        var key = objKeys[i];
+
+        if (skipNulls && obj[key] === null) {
+            continue;
+        }
+
+        keys = keys.concat(stringify(
+            obj[key],
+            key,
+            generateArrayPrefix,
+            strictNullHandling,
+            skipNulls,
+            encode ? encoder : null,
+            filter,
+            sort,
+            allowDots,
+            serializeDate,
+            formatter,
+            encodeValuesOnly
+        ));
+    }
+
+    var joined = keys.join(delimiter);
+    var prefix = options.addQueryPrefix === true ? '?' : '';
+
+    return joined.length > 0 ? prefix + joined : '';
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/body-parser/node_modules/qs/lib/utils.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/body-parser/node_modules/qs/lib/utils.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var has = Object.prototype.hasOwnProperty;
+
+var hexTable = (function () {
+    var array = [];
+    for (var i = 0; i < 256; ++i) {
+        array.push('%' + ((i < 16 ? '0' : '') + i.toString(16)).toUpperCase());
+    }
+
+    return array;
+}());
+
+var compactQueue = function compactQueue(queue) {
+    var obj;
+
+    while (queue.length) {
+        var item = queue.pop();
+        obj = item.obj[item.prop];
+
+        if (Array.isArray(obj)) {
+            var compacted = [];
+
+            for (var j = 0; j < obj.length; ++j) {
+                if (typeof obj[j] !== 'undefined') {
+                    compacted.push(obj[j]);
+                }
+            }
+
+            item.obj[item.prop] = compacted;
+        }
+    }
+
+    return obj;
+};
+
+exports.arrayToObject = function arrayToObject(source, options) {
+    var obj = options && options.plainObjects ? Object.create(null) : {};
+    for (var i = 0; i < source.length; ++i) {
+        if (typeof source[i] !== 'undefined') {
+            obj[i] = source[i];
+        }
+    }
+
+    return obj;
+};
+
+exports.merge = function merge(target, source, options) {
+    if (!source) {
+        return target;
+    }
+
+    if (typeof source !== 'object') {
+        if (Array.isArray(target)) {
+            target.push(source);
+        } else if (typeof target === 'object') {
+            if (options.plainObjects || options.allowPrototypes || !has.call(Object.prototype, source)) {
+                target[source] = true;
+            }
+        } else {
+            return [target, source];
+        }
+
+        return target;
+    }
+
+    if (typeof target !== 'object') {
+        return [target].concat(source);
+    }
+
+    var mergeTarget = target;
+    if (Array.isArray(target) && !Array.isArray(source)) {
+        mergeTarget = exports.arrayToObject(target, options);
+    }
+
+    if (Array.isArray(target) && Array.isArray(source)) {
+        source.forEach(function (item, i) {
+            if (has.call(target, i)) {
+                if (target[i] && typeof target[i] === 'object') {
+                    target[i] = exports.merge(target[i], item, options);
+                } else {
+                    target.push(item);
+                }
+            } else {
+                target[i] = item;
+            }
+        });
+        return target;
+    }
+
+    return Object.keys(source).reduce(function (acc, key) {
+        var value = source[key];
+
+        if (has.call(acc, key)) {
+            acc[key] = exports.merge(acc[key], value, options);
+        } else {
+            acc[key] = value;
+        }
+        return acc;
+    }, mergeTarget);
+};
+
+exports.assign = function assignSingleSource(target, source) {
+    return Object.keys(source).reduce(function (acc, key) {
+        acc[key] = source[key];
+        return acc;
+    }, target);
+};
+
+exports.decode = function (str) {
+    try {
+        return decodeURIComponent(str.replace(/\+/g, ' '));
+    } catch (e) {
+        return str;
+    }
+};
+
+exports.encode = function encode(str) {
+    // This code was originally written by Brian White (mscdex) for the io.js core querystring library.
+    // It has been adapted here for stricter adherence to RFC 3986
+    if (str.length === 0) {
+        return str;
+    }
+
+    var string = typeof str === 'string' ? str : String(str);
+
+    var out = '';
+    for (var i = 0; i < string.length; ++i) {
+        var c = string.charCodeAt(i);
+
+        if (
+            c === 0x2D // -
+            || c === 0x2E // .
+            || c === 0x5F // _
+            || c === 0x7E // ~
+            || (c >= 0x30 && c <= 0x39) // 0-9
+            || (c >= 0x41 && c <= 0x5A) // a-z
+            || (c >= 0x61 && c <= 0x7A) // A-Z
+        ) {
+            out += string.charAt(i);
+            continue;
+        }
+
+        if (c < 0x80) {
+            out = out + hexTable[c];
+            continue;
+        }
+
+        if (c < 0x800) {
+            out = out + (hexTable[0xC0 | (c >> 6)] + hexTable[0x80 | (c & 0x3F)]);
+            continue;
+        }
+
+        if (c < 0xD800 || c >= 0xE000) {
+            out = out + (hexTable[0xE0 | (c >> 12)] + hexTable[0x80 | ((c >> 6) & 0x3F)] + hexTable[0x80 | (c & 0x3F)]);
+            continue;
+        }
+
+        i += 1;
+        c = 0x10000 + (((c & 0x3FF) << 10) | (string.charCodeAt(i) & 0x3FF));
+        out += hexTable[0xF0 | (c >> 18)]
+            + hexTable[0x80 | ((c >> 12) & 0x3F)]
+            + hexTable[0x80 | ((c >> 6) & 0x3F)]
+            + hexTable[0x80 | (c & 0x3F)];
+    }
+
+    return out;
+};
+
+exports.compact = function compact(value) {
+    var queue = [{ obj: { o: value }, prop: 'o' }];
+    var refs = [];
+
+    for (var i = 0; i < queue.length; ++i) {
+        var item = queue[i];
+        var obj = item.obj[item.prop];
+
+        var keys = Object.keys(obj);
+        for (var j = 0; j < keys.length; ++j) {
+            var key = keys[j];
+            var val = obj[key];
+            if (typeof val === 'object' && val !== null && refs.indexOf(val) === -1) {
+                queue.push({ obj: obj, prop: key });
+                refs.push(val);
+            }
+        }
+    }
+
+    return compactQueue(queue);
+};
+
+exports.isRegExp = function isRegExp(obj) {
+    return Object.prototype.toString.call(obj) === '[object RegExp]';
+};
+
+exports.isBuffer = function isBuffer(obj) {
+    if (obj === null || typeof obj === 'undefined') {
+        return false;
+    }
+
+    return !!(obj.constructor && obj.constructor.isBuffer && obj.constructor.isBuffer(obj));
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/bytes/index.js":
 /*!*************************************!*\
   !*** ./node_modules/bytes/index.js ***!
@@ -9327,6 +10013,19 @@ function tryDecode(str, decode) {
     return str;
   }
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/library/fn/number/is-nan.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/core-js/library/fn/number/is-nan.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! ../../modules/es6.number.is-nan */ "./node_modules/core-js/library/modules/es6.number.is-nan.js");
+module.exports = __webpack_require__(/*! ../../modules/_core */ "./node_modules/core-js/library/modules/_core.js").Number.isNaN;
 
 
 /***/ }),
@@ -11361,6 +12060,26 @@ addToUnscopables('entries');
 
 /***/ }),
 
+/***/ "./node_modules/core-js/library/modules/es6.number.is-nan.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/es6.number.is-nan.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.1.2.4 Number.isNaN(number)
+var $export = __webpack_require__(/*! ./_export */ "./node_modules/core-js/library/modules/_export.js");
+
+$export($export.S, 'Number', {
+  isNaN: function isNaN(number) {
+    // eslint-disable-next-line no-self-compare
+    return number != number;
+  }
+});
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/library/modules/es6.object.assign.js":
 /*!*******************************************************************!*\
   !*** ./node_modules/core-js/library/modules/es6.object.assign.js ***!
@@ -12239,6 +12958,176 @@ function toComment(sourceMap) {
 
 /***/ }),
 
+/***/ "./node_modules/dace-plugin-redux/dist/App.js":
+/*!****************************************************!*\
+  !*** ./node_modules/dace-plugin-redux/dist/App.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "./node_modules/babel-runtime/regenerator/index.js");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _promise = __webpack_require__(/*! babel-runtime/core-js/promise */ "./node_modules/babel-runtime/core-js/promise.js");
+
+var _promise2 = _interopRequireDefault(_promise);
+
+var _asyncToGenerator2 = __webpack_require__(/*! babel-runtime/helpers/asyncToGenerator */ "./node_modules/babel-runtime/helpers/asyncToGenerator.js");
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ "./node_modules/babel-runtime/core-js/object/get-prototype-of.js");
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ "./node_modules/babel-runtime/helpers/classCallCheck.js");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ "./node_modules/babel-runtime/helpers/createClass.js");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ "./node_modules/babel-runtime/helpers/possibleConstructorReturn.js");
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ "./node_modules/babel-runtime/helpers/inherits.js");
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _dec, _class, _class2, _temp;
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _reactRouterConfig = __webpack_require__(/*! react-router-config */ "./node_modules/react-router-config/es/index.js");
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _require = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js"),
+    parse = _require.parse;
+
+/**
+ * 网站入口组件
+ * 服务器端和浏览器端渲染都会调用
+ */
+
+
+var App = (_dec = (0, _reactRedux.connect)(function (state) {
+  return state;
+}), _dec(_class = (_temp = _class2 = function (_Component) {
+  (0, _inherits3.default)(App, _Component);
+
+  function App() {
+    (0, _classCallCheck3.default)(this, App);
+    return (0, _possibleConstructorReturn3.default)(this, (App.__proto__ || (0, _getPrototypeOf2.default)(App)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(App, [{
+    key: 'componentWillReceiveProps',
+    value: function () {
+      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(nextProps /* , nextState */) {
+        var store, navigated, query, promises;
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                store = this.props.store;
+                navigated = nextProps.location !== this.props.location;
+
+                if (!navigated) {
+                  _context.next = 15;
+                  break;
+                }
+
+                window.scrollTo(0, 0);
+
+                // 浏览器端路由（首次渲染后）时解析 querystring -> object
+                query = parse(nextProps.location, { ignoreQueryPrefix: true });
+
+                nextProps.location.query = query;
+
+                promises = (0, _reactRouterConfig.matchRoutes)([this.props.route], nextProps.location.pathname).map(function (_ref2) {
+                  var route = _ref2.route,
+                      match = _ref2.match;
+                  var component = route.component;
+
+                  if (component && component.getInitialProps) {
+                    var ctx = { match: match, query: query, store: store };
+                    var getInitialProps = component.getInitialProps;
+
+                    return getInitialProps ? getInitialProps(ctx) : null;
+                  }
+                  return null;
+                }).filter(Boolean);
+                _context.prev = 7;
+                _context.next = 10;
+                return _promise2.default.all(promises);
+
+              case 10:
+                _context.next = 15;
+                break;
+
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context['catch'](7);
+
+                console.log('getInitialProps error: ', _context.t0);
+
+              case 15:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[7, 12]]);
+      }));
+
+      function componentWillReceiveProps(_x) {
+        return _ref.apply(this, arguments);
+      }
+
+      return componentWillReceiveProps;
+    }()
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          route = _props.route,
+          store = _props.store,
+          location = _props.location;
+      // 让 children 能通过 props.location.query 能取到 query string
+      // App 组件首次渲染时执行
+
+      location.query = parse(location.search, { ignoreQueryPrefix: true });
+      return (0, _reactRouterConfig.renderRoutes)(route.routes, store.getState());
+    }
+  }]);
+  return App;
+}(_react.Component), _class2.propTypes = {
+  store: _propTypes2.default.object.isRequired,
+  route: _propTypes2.default.object.isRequired,
+  location: _propTypes2.default.object.isRequired
+}, _temp)) || _class);
+exports.default = App;
+module.exports = exports['default'];
+
+/***/ }),
+
 /***/ "./node_modules/dace-plugin-redux/dist/createStore.js":
 /*!************************************************************!*\
   !*** ./node_modules/dace-plugin-redux/dist/createStore.js ***!
@@ -12346,7 +13235,7 @@ server.listen("3000", function (error) {
     console.log(error);
   }
 
-  console.log('\uD83D\uDC1F Your application is running at http://' + "localhost" + ':' + "3000");
+  console.log('\n\uD83D\uDC1F Your application is running at http://' + "localhost" + ':' + "3000");
 });
 
 if (true) {
@@ -12411,6 +13300,8 @@ var _serializeJavascript = __webpack_require__(/*! serialize-javascript */ "./no
 
 var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
 
+var _dace = __webpack_require__(/*! dace */ "./node_modules/dace/dist/index.js");
+
 var _RedBox = __webpack_require__(/*! dace/dist/core/components/RedBox */ "./node_modules/dace/dist/core/components/RedBox.js");
 
 var _RedBox2 = _interopRequireDefault(_RedBox);
@@ -12428,7 +13319,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var server = (0, _express2.default)();
 server.disable('x-powered-by').use(_express2.default.static("/Users/qitmac000359/Documents/test/dace-hotel/prd")).get('*', function () {
   var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, res) {
-    var store, query, pathname, promises, _require, publicPath, chunks, initialAssets, renderTags, jsTags, cssTags, helmet, context, Markup, markup, html;
+    var store, query, pathname, promises, _require, publicPath, chunks, initialAssets, renderTags, jsTags, cssTags, context, Markup, markup, head, state, html;
 
     return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
@@ -12490,7 +13381,6 @@ server.disable('x-powered-by').use(_express2.default.static("/Users/qitmac000359
 
             jsTags = renderTags('js', initialAssets);
             cssTags = renderTags('css', initialAssets);
-            helmet = _reactHelmet.Helmet.renderStatic();
             context = {};
             Markup = _react2.default.createElement(
               _reactRedux.Provider,
@@ -12511,15 +13401,20 @@ server.disable('x-powered-by').use(_express2.default.static("/Users/qitmac000359
               markup = (0, _server.renderToString)(_react2.default.createElement(_RedBox2.default, { error: e }));
             }
 
+            // renderStatic 需要在 root 元素 render 后执行
+            head = _reactHelmet.Helmet.renderStatic();
+            state = (0, _serializeJavascript2.default)(store.getState());
+
+
             if (context.url) {
               res.redirect(context.url);
             } else {
-              html = '<!doctype html>\n  <html>\n  <head>\n    <meta charset="utf-8" />\n    ' + helmet.title.toString() + '\n    ' + helmet.meta.toString() + '\n    ' + helmet.link.toString() + '\n    ' + cssTags + '\n  </head>\n  <body>\n    <div id="root">' + markup + '</div>\n    <script>\n      window.INITIAL_STATE=' + (0, _serializeJavascript2.default)(store.getState()) + ';\n    </script>\n    ' + jsTags + '\n  </body>\n</html>';
+              html = (0, _dace.document)({ head: head, cssTags: cssTags, jsTags: jsTags, markup: markup, state: state });
 
               res.status(200).send(html);
             }
 
-          case 18:
+          case 19:
           case 'end':
             return _context.stop();
         }
@@ -12537,10 +13432,10 @@ module.exports = exports['default'];
 
 /***/ }),
 
-/***/ "./node_modules/dace/dist/core/components/App.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/dace/dist/core/components/App.js ***!
-  \*******************************************************/
+/***/ "./node_modules/dace/dist/core/components/NotFound.js":
+/*!************************************************************!*\
+  !*** ./node_modules/dace/dist/core/components/NotFound.js ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12550,15 +13445,277 @@ module.exports = exports['default'];
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = undefined;
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * 路由无匹配结果时提示找不到页面的组件
+ *
+ * @param {object} [staticContext={}]
+ * @return {component}
+ */
+var NotFound = function NotFound(_ref) {
+  var _ref$staticContext = _ref.staticContext,
+      staticContext = _ref$staticContext === undefined ? {} : _ref$staticContext;
+
+  staticContext.notFound = true;
+  return _react2.default.createElement(
+    'h1',
+    null,
+    'Ooops, \u9875\u9762\u6CA1\u6709\u627E\u5230\uFF01'
+  );
+};
+
+NotFound.propTypes = {
+  staticContext: _propTypes2.default.object
+};
+
+NotFound.defaultProps = {
+  staticContext: {}
+};
+
+exports.default = NotFound;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/dace/dist/core/components/RedBox.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/dace/dist/core/components/RedBox.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * 显示错误信息的页面组件
+ * 只在服务器渲染时调用
+ *
+ * @param {object} props
+ * @return {component}
+ */
+var RedBox = function RedBox(props) {
+  var _props$error = props.error,
+      name = _props$error.name,
+      message = _props$error.message,
+      stack = _props$error.stack;
+
+  var bodyStyle = {
+    background: 'rgb(204, 0, 0)',
+    color: '#fff'
+  };
+  var preStyle = {
+    whiteSpace: 'pre-wrap',
+    wordWrap: 'break-word'
+  };
+
+  return _react2.default.createElement(
+    'html',
+    { lang: 'en' },
+    _react2.default.createElement(
+      'head',
+      null,
+      _react2.default.createElement('meta', { charSet: 'utf-8' }),
+      _react2.default.createElement(
+        'title',
+        null,
+        message
+      )
+    ),
+    _react2.default.createElement(
+      'body',
+      { style: bodyStyle },
+      _react2.default.createElement(
+        'h3',
+        null,
+        name,
+        ': ',
+        message
+      ),
+      _react2.default.createElement(
+        'pre',
+        { style: preStyle },
+        stack
+      )
+    )
+  );
+};
+
+RedBox.propTypes = {
+  error: _propTypes2.default.shape({
+    name: _propTypes2.default.string,
+    message: _propTypes2.default.string,
+    stack: _propTypes2.default.string
+  }).isRequired
+};
+
+exports.default = RedBox;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/dace/dist/core/decorators/asyncComponent.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/dace/dist/core/decorators/asyncComponent.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "./node_modules/babel-runtime/regenerator/index.js");
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _assign = __webpack_require__(/*! babel-runtime/core-js/object/assign */ "./node_modules/babel-runtime/core-js/object/assign.js");
+var _asyncToGenerator2 = __webpack_require__(/*! babel-runtime/helpers/asyncToGenerator */ "./node_modules/babel-runtime/helpers/asyncToGenerator.js");
 
-var _assign2 = _interopRequireDefault(_assign);
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ "./node_modules/babel-runtime/core-js/object/get-prototype-of.js");
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ "./node_modules/babel-runtime/helpers/classCallCheck.js");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ "./node_modules/babel-runtime/helpers/createClass.js");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ "./node_modules/babel-runtime/helpers/possibleConstructorReturn.js");
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ "./node_modules/babel-runtime/helpers/inherits.js");
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * 辅助 webpack 拆分打包的高阶组件
+ * 目的是为了动态加载其它页面组件
+ *
+ * @param {component} importComponent 欲动态加载的组件
+ * @return {component}
+ */
+exports.default = function (importComponent) {
+  var AsyncComponent = function (_Component) {
+    (0, _inherits3.default)(AsyncComponent, _Component);
+
+    function AsyncComponent(props) {
+      (0, _classCallCheck3.default)(this, AsyncComponent);
+
+      var _this = (0, _possibleConstructorReturn3.default)(this, (AsyncComponent.__proto__ || (0, _getPrototypeOf2.default)(AsyncComponent)).call(this, props));
+
+      _this.state = {
+        component: null
+      };
+      return _this;
+    }
+
+    (0, _createClass3.default)(AsyncComponent, [{
+      key: 'componentDidMount',
+      value: function () {
+        var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+          var _ref2, component;
+
+          return _regenerator2.default.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  _context.next = 2;
+                  return importComponent();
+
+                case 2:
+                  _ref2 = _context.sent;
+                  component = _ref2.default;
+
+                  this.setState({ component: component });
+
+                case 5:
+                case 'end':
+                  return _context.stop();
+              }
+            }
+          }, _callee, this);
+        }));
+
+        function componentDidMount() {
+          return _ref.apply(this, arguments);
+        }
+
+        return componentDidMount;
+      }()
+    }, {
+      key: 'render',
+      value: function render() {
+        var WrappedComponent = this.state.component;
+        return WrappedComponent ? _react2.default.createElement(WrappedComponent, this.props) : null;
+      }
+    }]);
+    return AsyncComponent;
+  }(_react.Component);
+
+  return AsyncComponent;
+}; /* eslint react/no-did-mount-set-state: 0 */
+
+
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/dace/dist/core/decorators/getInitialProps.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/dace/dist/core/decorators/getInitialProps.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "./node_modules/babel-runtime/regenerator/index.js");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
 
 var _promise = __webpack_require__(/*! babel-runtime/core-js/promise */ "./node_modules/babel-runtime/core-js/promise.js");
 
@@ -12588,263 +13745,170 @@ var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ "./no
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _class, _temp;
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _require = __webpack_require__(/*! react */ "./node_modules/react/index.js"),
-    Component = _require.Component;
-
-var _require2 = __webpack_require__(/*! react-router-config */ "./node_modules/react-router-config/es/index.js"),
-    renderRoutes = _require2.renderRoutes,
-    matchRoutes = _require2.matchRoutes;
-
-var PropTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-
-var _require3 = __webpack_require__(/*! qs */ "./node_modules/dace/node_modules/qs/lib/index.js"),
-    parse = _require3.parse;
+// import PropTypes from 'prop-types';
 
 /**
- * 网站入口组件
- * 服务器端和浏览器端渲染都会调用
+ * 页面组件渲染前获取数据的装饰器
+ * 装饰器会将数据获取的请求代码分别注入到组件的
+ * 静态方法 `getInitialProps()` 和生命周期方法 `componentDidMount()`
+ * 以简化开发编码
+ *
+ * @param {object} options
+ * @param {string} options.key
+ * @param {function} options.reducer
+ * @param {function|[function]} options.promise
+ * @param {component} options.loading
  */
+exports.default = function (options) {
+  return function (Target) {
+    return function (_Component) {
+      (0, _inherits3.default)(_class, _Component);
 
+      // static propTypes = {
+      //   store: PropTypes.object.isRequired,
+      //   match: PropTypes.object.isRequired
+      // };
 
-var App = (_temp = _class = function (_Component) {
-  (0, _inherits3.default)(App, _Component);
-
-  function App(props) {
-    (0, _classCallCheck3.default)(this, App);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (App.__proto__ || (0, _getPrototypeOf2.default)(App)).call(this, props));
-
-    _this.state = {
-      initialProps: props.initialProps
-    };
-    return _this;
-  }
-
-  (0, _createClass3.default)(App, [{
-    key: 'componentWillReceiveProps',
-    value: function () {
-      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(nextProps /* , nextState */) {
-        var navigated, query, promises, initialProps;
-        return _regenerator2.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                navigated = nextProps.location !== this.props.location;
-
-                if (!navigated) {
-                  _context.next = 18;
-                  break;
-                }
-
-                window.scrollTo(0, 0);
-
-                // 浏览器端路由（首次渲染后）时解析 querystring -> object
-                query = parse(nextProps.location, { ignoreQueryPrefix: true });
-
-                nextProps.location.query = query;
-
-                promises = matchRoutes(this.props.routes, nextProps.location.pathname).map(function (_ref2) {
-                  var route = _ref2.route,
-                      match = _ref2.match;
-                  var component = route.component;
-
-                  if (component && component.getInitialProps) {
-                    // 将解析后的 querystring 对象挂载到 location 对象上
-                    var ctx = { match: match, query: query };
-                    var getInitialProps = component.getInitialProps;
-
-                    return getInitialProps ? getInitialProps(ctx) : null;
-                  }
-                  return null;
-                }).filter(Boolean);
-                _context.prev = 6;
-                initialProps = {};
-                _context.next = 10;
-                return _promise2.default.all(promises);
-
-              case 10:
-                _context.t0 = function (item) {
-                  initialProps = (0, _assign2.default)({}, initialProps, item);
-                };
-
-                _context.sent.forEach(_context.t0);
-
-                this.setState({ initialProps: initialProps });
-                _context.next = 18;
-                break;
-
-              case 15:
-                _context.prev = 15;
-                _context.t1 = _context['catch'](6);
-
-                console.log('getInitialProps error: ', _context.t1);
-
-              case 18:
-              case 'end':
-                return _context.stop();
-            }
-          }
-        }, _callee, this, [[6, 15]]);
-      }));
-
-      function componentWillReceiveProps(_x) {
-        return _ref.apply(this, arguments);
+      function _class(props) {
+        (0, _classCallCheck3.default)(this, _class);
+        return (0, _possibleConstructorReturn3.default)(this, (_class.__proto__ || (0, _getPrototypeOf2.default)(_class)).call(this, props, Target));
       }
 
-      return componentWillReceiveProps;
-    }()
-  }, {
-    key: 'render',
-    value: function render() {
-      var initialProps = this.state.initialProps;
-      var _props = this.props,
-          route = _props.route,
-          location = _props.location;
-      // 让 children 能通过 props.location.query 能取到 query string
-      // App 组件首次渲染时执行
+      (0, _createClass3.default)(_class, [{
+        key: 'componentDidMount',
+        value: function () {
+          var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+            var _props, store, match, query, promises;
 
-      location.query = parse(location.search, { ignoreQueryPrefix: true });
-      return renderRoutes(route.routes, initialProps);
-    }
-  }]);
-  return App;
-}(Component), _class.propTypes = {
-  routes: PropTypes.any,
-  route: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  initialProps: PropTypes.any
-}, _class.defaultProps = {
-  initialProps: {},
-  routes: []
-}, _temp);
-exports.default = App;
+            return _regenerator2.default.wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    // 该方法在页面浏览器端渲染时会调用
+                    // 在浏览器端动态添加reducer
+                    if (!Array.isArray(options)) {
+                      options = [options];
+                    }
+
+                    _props = this.props, store = _props.store, match = _props.match, query = _props.location.query;
+                    promises = options.map(function (item) {
+                      var reducer = item.reducer,
+                          promise = item.promise;
+
+                      store.injectReducer(reducer);
+                      return promise({ store: store, match: match, query: query });
+                    });
+                    _context.next = 5;
+                    return _promise2.default.all(promises);
+
+                  case 5:
+                  case 'end':
+                    return _context.stop();
+                }
+              }
+            }, _callee, this);
+          }));
+
+          function componentDidMount() {
+            return _ref.apply(this, arguments);
+          }
+
+          return componentDidMount;
+        }()
+
+        /**
+         * 服务器端渲染时会先调用该方法获取数据
+         * 数据回来后通过 redux 更新 store
+         *
+         * @param {object} options
+         * @param {function} options.reducer 需要动态绑定的 reducer
+         * @param {function|[function]} options.promise 获取数据的 fetch 函数
+         * @param {string} [options.key] 数据绑定到 store 用的 key 值，默认为当前页面 URL
+         * @param {function} [options.defer=false] 是否延迟加载。只在浏览器端渲染时加载，服务
+         * 器端渲染时不加载，以达到加载页面显示的目的。`defer=true` 的请求只会在浏览器中以 ajax
+         * 的形式发起
+         *
+         * @return {Promise}
+         */
+
+      }, {
+        key: 'render',
+        value: function render() {
+          // 服务器端渲染时不需要显示 loading
+          return _react2.default.createElement(Target, this.props);
+        }
+      }], [{
+        key: 'getInitialProps',
+        value: function getInitialProps(ctx) {
+          // 该方法在页面服务器端渲染时会调用
+          // 在服务器端动态添加 reducer
+          if (!Array.isArray(options)) {
+            options = [options];
+          }
+          var promises = options.filter(function (item) {
+            return !item.defer;
+          }).map(function (item) {
+            var reducer = item.reducer,
+                promise = item.promise;
+
+            ctx.store.injectReducer(reducer);
+            return promise(ctx);
+          });
+          return _promise2.default.all(promises);
+        }
+      }]);
+      return _class;
+    }(_react.Component);
+  };
+}; /* eslint react/no-did-mount-set-state: 0 */
+
+
 module.exports = exports['default'];
 
 /***/ }),
 
-/***/ "./node_modules/dace/dist/core/components/NotFound.js":
-/*!************************************************************!*\
-  !*** ./node_modules/dace/dist/core/components/NotFound.js ***!
-  \************************************************************/
+/***/ "./node_modules/dace/dist/core/document.js":
+/*!*************************************************!*\
+  !*** ./node_modules/dace/dist/core/document.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var PropTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 /**
- * 路由无匹配结果时提示找不到页面的组件
- *
- * @param {object} [staticContext={}]
- * @return {component}
+ * 自定义服务器端渲染模版
+ * 可以通过该模版改写首屏的 DOM 结构
+ * @param {object} options 传入参数
+ * @param {object} options.head helmet 对象，里面包含 title, meta, link, style, script, noscript 等
+ * @param {string} options.cssTags webpack 编译输出的 css 标签字符串
+ * @param {string} options.jsTags webpack 编译输出的 css 标签字符串
+ * @param {string} options.markup 服务器端渲染生成的 DOM 字符串
+ * @param {string} options.state 服务器端渲染生成的 state 经 JSON.stringify() 后的字符串
+ * @return {string} 首屏 HTML
  */
-var NotFound = function NotFound(_ref) {
-  var _ref$staticContext = _ref.staticContext,
-      staticContext = _ref$staticContext === undefined ? {} : _ref$staticContext;
 
-  staticContext.notFound = true;
-  return React.createElement(
-    'h1',
-    null,
-    'Ooops, \u9875\u9762\u6CA1\u6709\u627E\u5230\uFF01'
-  );
+exports.default = function (_ref) {
+  var head = _ref.head,
+      cssTags = _ref.cssTags,
+      jsTags = _ref.jsTags,
+      markup = _ref.markup,
+      state = _ref.state;
+  return "<!doctype html>\n<html " + head.htmlAttributes.toString() + ">\n<head>\n  <meta charset=\"utf-8\" />\n  " + head.title.toString() + "\n  " + head.meta.toString() + "\n  " + head.link.toString() + "\n  " + head.style.toString() + "\n  " + head.script.toString() + "\n  " + head.noscript.toString() + "\n  " + cssTags + "\n</head>\n<body " + head.bodyAttributes.toString() + ">\n  <div id=\"root\">" + markup + "</div>\n  <script>\n  window.INITIAL_STATE=" + state + ";\n  </script>\n  " + jsTags + "\n</body>\n</html>";
 };
 
-NotFound.propTypes = {
-  staticContext: PropTypes.object
-};
-
-NotFound.defaultProps = {
-  staticContext: {}
-};
-
-module.exports = NotFound;
-
-/***/ }),
-
-/***/ "./node_modules/dace/dist/core/components/RedBox.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/dace/dist/core/components/RedBox.js ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var PropTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-
-/**
- * 显示错误信息的页面组件
- * 只在服务器渲染时调用
- *
- * @param {object} props
- * @return {component}
- */
-var RedBox = function RedBox(props) {
-  var _props$error = props.error,
-      name = _props$error.name,
-      message = _props$error.message,
-      stack = _props$error.stack;
-
-  var bodyStyle = {
-    background: 'rgb(204, 0, 0)',
-    color: '#fff'
-  };
-  var preStyle = {
-    whiteSpace: 'pre-wrap',
-    wordWrap: 'break-word'
-  };
-
-  return React.createElement(
-    'html',
-    { lang: 'en' },
-    React.createElement(
-      'head',
-      null,
-      React.createElement('meta', { charSet: 'utf-8' }),
-      React.createElement(
-        'title',
-        null,
-        message
-      )
-    ),
-    React.createElement(
-      'body',
-      { style: bodyStyle },
-      React.createElement(
-        'h3',
-        null,
-        name,
-        ': ',
-        message
-      ),
-      React.createElement(
-        'pre',
-        { style: preStyle },
-        stack
-      )
-    )
-  );
-};
-
-RedBox.propTypes = {
-  error: PropTypes.shape({
-    name: PropTypes.string,
-    message: PropTypes.string,
-    stack: PropTypes.string
-  }).isRequired
-};
-
-module.exports = RedBox;
+module.exports = exports["default"];
 
 /***/ }),
 
@@ -12860,12 +13924,16 @@ __webpack_require__.r(__webpack_exports__);
 
     /* harmony default export */ __webpack_exports__["default"] = ([
       {
-        component: __webpack_require__(/*! ./node_modules/dace/dist/core/components/App.js */ "./node_modules/dace/dist/core/components/App.js"),
+        component: __webpack_require__(/*! ./node_modules/dace/dist/core/components/App.js */ "./node_modules/dace-plugin-redux/dist/App.js"),
         routes: [
           {
         path: '/',
         exact: true,
         component: __webpack_require__(/*! ./src/pages/index/index */ "./src/pages/index/index.jsx")
+      },{
+        path: '/post/:id',
+        exact: true,
+        component: __webpack_require__(/*! ./src/pages/post/index */ "./src/pages/post/index.jsx")
       },{
     component: __webpack_require__(/*! ./node_modules/dace/dist/core/components/NotFound.js */ "./node_modules/dace/dist/core/components/NotFound.js")
   }
@@ -12876,689 +13944,66 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/dace/node_modules/qs/lib/formats.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/dace/node_modules/qs/lib/formats.js ***!
-  \**********************************************************/
+/***/ "./node_modules/dace/dist/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/dace/dist/index.js ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var replace = String.prototype.replace;
-var percentTwenties = /%20/g;
-
-module.exports = {
-    'default': 'RFC3986',
-    formatters: {
-        RFC1738: function (value) {
-            return replace.call(value, percentTwenties, '+');
-        },
-        RFC3986: function (value) {
-            return value;
-        }
-    },
-    RFC1738: 'RFC1738',
-    RFC3986: 'RFC3986'
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/dace/node_modules/qs/lib/index.js":
-/*!********************************************************!*\
-  !*** ./node_modules/dace/node_modules/qs/lib/index.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var stringify = __webpack_require__(/*! ./stringify */ "./node_modules/dace/node_modules/qs/lib/stringify.js");
-var parse = __webpack_require__(/*! ./parse */ "./node_modules/dace/node_modules/qs/lib/parse.js");
-var formats = __webpack_require__(/*! ./formats */ "./node_modules/dace/node_modules/qs/lib/formats.js");
-
-module.exports = {
-    formats: formats,
-    parse: parse,
-    stringify: stringify
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/dace/node_modules/qs/lib/parse.js":
-/*!********************************************************!*\
-  !*** ./node_modules/dace/node_modules/qs/lib/parse.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(/*! ./utils */ "./node_modules/dace/node_modules/qs/lib/utils.js");
-
-var has = Object.prototype.hasOwnProperty;
-
-var defaults = {
-    allowDots: false,
-    allowPrototypes: false,
-    arrayLimit: 20,
-    decoder: utils.decode,
-    delimiter: '&',
-    depth: 5,
-    parameterLimit: 1000,
-    plainObjects: false,
-    strictNullHandling: false
-};
-
-var parseValues = function parseQueryStringValues(str, options) {
-    var obj = {};
-    var cleanStr = options.ignoreQueryPrefix ? str.replace(/^\?/, '') : str;
-    var limit = options.parameterLimit === Infinity ? undefined : options.parameterLimit;
-    var parts = cleanStr.split(options.delimiter, limit);
-
-    for (var i = 0; i < parts.length; ++i) {
-        var part = parts[i];
-
-        var bracketEqualsPos = part.indexOf(']=');
-        var pos = bracketEqualsPos === -1 ? part.indexOf('=') : bracketEqualsPos + 1;
-
-        var key, val;
-        if (pos === -1) {
-            key = options.decoder(part, defaults.decoder);
-            val = options.strictNullHandling ? null : '';
-        } else {
-            key = options.decoder(part.slice(0, pos), defaults.decoder);
-            val = options.decoder(part.slice(pos + 1), defaults.decoder);
-        }
-        if (has.call(obj, key)) {
-            obj[key] = [].concat(obj[key]).concat(val);
-        } else {
-            obj[key] = val;
-        }
-    }
-
-    return obj;
-};
-
-var parseObject = function (chain, val, options) {
-    var leaf = val;
-
-    for (var i = chain.length - 1; i >= 0; --i) {
-        var obj;
-        var root = chain[i];
-
-        if (root === '[]') {
-            obj = [];
-            obj = obj.concat(leaf);
-        } else {
-            obj = options.plainObjects ? Object.create(null) : {};
-            var cleanRoot = root.charAt(0) === '[' && root.charAt(root.length - 1) === ']' ? root.slice(1, -1) : root;
-            var index = parseInt(cleanRoot, 10);
-            if (
-                !isNaN(index)
-                && root !== cleanRoot
-                && String(index) === cleanRoot
-                && index >= 0
-                && (options.parseArrays && index <= options.arrayLimit)
-            ) {
-                obj = [];
-                obj[index] = leaf;
-            } else {
-                obj[cleanRoot] = leaf;
-            }
-        }
-
-        leaf = obj;
-    }
-
-    return leaf;
-};
-
-var parseKeys = function parseQueryStringKeys(givenKey, val, options) {
-    if (!givenKey) {
-        return;
-    }
-
-    // Transform dot notation to bracket notation
-    var key = options.allowDots ? givenKey.replace(/\.([^.[]+)/g, '[$1]') : givenKey;
-
-    // The regex chunks
-
-    var brackets = /(\[[^[\]]*])/;
-    var child = /(\[[^[\]]*])/g;
-
-    // Get the parent
-
-    var segment = brackets.exec(key);
-    var parent = segment ? key.slice(0, segment.index) : key;
-
-    // Stash the parent if it exists
-
-    var keys = [];
-    if (parent) {
-        // If we aren't using plain objects, optionally prefix keys
-        // that would overwrite object prototype properties
-        if (!options.plainObjects && has.call(Object.prototype, parent)) {
-            if (!options.allowPrototypes) {
-                return;
-            }
-        }
-
-        keys.push(parent);
-    }
-
-    // Loop through children appending to the array until we hit depth
-
-    var i = 0;
-    while ((segment = child.exec(key)) !== null && i < options.depth) {
-        i += 1;
-        if (!options.plainObjects && has.call(Object.prototype, segment[1].slice(1, -1))) {
-            if (!options.allowPrototypes) {
-                return;
-            }
-        }
-        keys.push(segment[1]);
-    }
-
-    // If there's a remainder, just add whatever is left
-
-    if (segment) {
-        keys.push('[' + key.slice(segment.index) + ']');
-    }
-
-    return parseObject(keys, val, options);
-};
-
-module.exports = function (str, opts) {
-    var options = opts ? utils.assign({}, opts) : {};
-
-    if (options.decoder !== null && options.decoder !== undefined && typeof options.decoder !== 'function') {
-        throw new TypeError('Decoder has to be a function.');
-    }
-
-    options.ignoreQueryPrefix = options.ignoreQueryPrefix === true;
-    options.delimiter = typeof options.delimiter === 'string' || utils.isRegExp(options.delimiter) ? options.delimiter : defaults.delimiter;
-    options.depth = typeof options.depth === 'number' ? options.depth : defaults.depth;
-    options.arrayLimit = typeof options.arrayLimit === 'number' ? options.arrayLimit : defaults.arrayLimit;
-    options.parseArrays = options.parseArrays !== false;
-    options.decoder = typeof options.decoder === 'function' ? options.decoder : defaults.decoder;
-    options.allowDots = typeof options.allowDots === 'boolean' ? options.allowDots : defaults.allowDots;
-    options.plainObjects = typeof options.plainObjects === 'boolean' ? options.plainObjects : defaults.plainObjects;
-    options.allowPrototypes = typeof options.allowPrototypes === 'boolean' ? options.allowPrototypes : defaults.allowPrototypes;
-    options.parameterLimit = typeof options.parameterLimit === 'number' ? options.parameterLimit : defaults.parameterLimit;
-    options.strictNullHandling = typeof options.strictNullHandling === 'boolean' ? options.strictNullHandling : defaults.strictNullHandling;
-
-    if (str === '' || str === null || typeof str === 'undefined') {
-        return options.plainObjects ? Object.create(null) : {};
-    }
-
-    var tempObj = typeof str === 'string' ? parseValues(str, options) : str;
-    var obj = options.plainObjects ? Object.create(null) : {};
-
-    // Iterate over the keys and setup the new object
-
-    var keys = Object.keys(tempObj);
-    for (var i = 0; i < keys.length; ++i) {
-        var key = keys[i];
-        var newObj = parseKeys(key, tempObj[key], options);
-        obj = utils.merge(obj, newObj, options);
-    }
-
-    return utils.compact(obj);
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/dace/node_modules/qs/lib/stringify.js":
-/*!************************************************************!*\
-  !*** ./node_modules/dace/node_modules/qs/lib/stringify.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(/*! ./utils */ "./node_modules/dace/node_modules/qs/lib/utils.js");
-var formats = __webpack_require__(/*! ./formats */ "./node_modules/dace/node_modules/qs/lib/formats.js");
-
-var arrayPrefixGenerators = {
-    brackets: function brackets(prefix) { // eslint-disable-line func-name-matching
-        return prefix + '[]';
-    },
-    indices: function indices(prefix, key) { // eslint-disable-line func-name-matching
-        return prefix + '[' + key + ']';
-    },
-    repeat: function repeat(prefix) { // eslint-disable-line func-name-matching
-        return prefix;
-    }
-};
-
-var toISO = Date.prototype.toISOString;
-
-var defaults = {
-    delimiter: '&',
-    encode: true,
-    encoder: utils.encode,
-    encodeValuesOnly: false,
-    serializeDate: function serializeDate(date) { // eslint-disable-line func-name-matching
-        return toISO.call(date);
-    },
-    skipNulls: false,
-    strictNullHandling: false
-};
-
-var stringify = function stringify( // eslint-disable-line func-name-matching
-    object,
-    prefix,
-    generateArrayPrefix,
-    strictNullHandling,
-    skipNulls,
-    encoder,
-    filter,
-    sort,
-    allowDots,
-    serializeDate,
-    formatter,
-    encodeValuesOnly
-) {
-    var obj = object;
-    if (typeof filter === 'function') {
-        obj = filter(prefix, obj);
-    } else if (obj instanceof Date) {
-        obj = serializeDate(obj);
-    } else if (obj === null) {
-        if (strictNullHandling) {
-            return encoder && !encodeValuesOnly ? encoder(prefix, defaults.encoder) : prefix;
-        }
-
-        obj = '';
-    }
-
-    if (typeof obj === 'string' || typeof obj === 'number' || typeof obj === 'boolean' || utils.isBuffer(obj)) {
-        if (encoder) {
-            var keyValue = encodeValuesOnly ? prefix : encoder(prefix, defaults.encoder);
-            return [formatter(keyValue) + '=' + formatter(encoder(obj, defaults.encoder))];
-        }
-        return [formatter(prefix) + '=' + formatter(String(obj))];
-    }
-
-    var values = [];
-
-    if (typeof obj === 'undefined') {
-        return values;
-    }
-
-    var objKeys;
-    if (Array.isArray(filter)) {
-        objKeys = filter;
-    } else {
-        var keys = Object.keys(obj);
-        objKeys = sort ? keys.sort(sort) : keys;
-    }
-
-    for (var i = 0; i < objKeys.length; ++i) {
-        var key = objKeys[i];
-
-        if (skipNulls && obj[key] === null) {
-            continue;
-        }
-
-        if (Array.isArray(obj)) {
-            values = values.concat(stringify(
-                obj[key],
-                generateArrayPrefix(prefix, key),
-                generateArrayPrefix,
-                strictNullHandling,
-                skipNulls,
-                encoder,
-                filter,
-                sort,
-                allowDots,
-                serializeDate,
-                formatter,
-                encodeValuesOnly
-            ));
-        } else {
-            values = values.concat(stringify(
-                obj[key],
-                prefix + (allowDots ? '.' + key : '[' + key + ']'),
-                generateArrayPrefix,
-                strictNullHandling,
-                skipNulls,
-                encoder,
-                filter,
-                sort,
-                allowDots,
-                serializeDate,
-                formatter,
-                encodeValuesOnly
-            ));
-        }
-    }
-
-    return values;
-};
-
-module.exports = function (object, opts) {
-    var obj = object;
-    var options = opts ? utils.assign({}, opts) : {};
-
-    if (options.encoder !== null && options.encoder !== undefined && typeof options.encoder !== 'function') {
-        throw new TypeError('Encoder has to be a function.');
-    }
-
-    var delimiter = typeof options.delimiter === 'undefined' ? defaults.delimiter : options.delimiter;
-    var strictNullHandling = typeof options.strictNullHandling === 'boolean' ? options.strictNullHandling : defaults.strictNullHandling;
-    var skipNulls = typeof options.skipNulls === 'boolean' ? options.skipNulls : defaults.skipNulls;
-    var encode = typeof options.encode === 'boolean' ? options.encode : defaults.encode;
-    var encoder = typeof options.encoder === 'function' ? options.encoder : defaults.encoder;
-    var sort = typeof options.sort === 'function' ? options.sort : null;
-    var allowDots = typeof options.allowDots === 'undefined' ? false : options.allowDots;
-    var serializeDate = typeof options.serializeDate === 'function' ? options.serializeDate : defaults.serializeDate;
-    var encodeValuesOnly = typeof options.encodeValuesOnly === 'boolean' ? options.encodeValuesOnly : defaults.encodeValuesOnly;
-    if (typeof options.format === 'undefined') {
-        options.format = formats['default'];
-    } else if (!Object.prototype.hasOwnProperty.call(formats.formatters, options.format)) {
-        throw new TypeError('Unknown format option provided.');
-    }
-    var formatter = formats.formatters[options.format];
-    var objKeys;
-    var filter;
-
-    if (typeof options.filter === 'function') {
-        filter = options.filter;
-        obj = filter('', obj);
-    } else if (Array.isArray(options.filter)) {
-        filter = options.filter;
-        objKeys = filter;
-    }
-
-    var keys = [];
-
-    if (typeof obj !== 'object' || obj === null) {
-        return '';
-    }
-
-    var arrayFormat;
-    if (options.arrayFormat in arrayPrefixGenerators) {
-        arrayFormat = options.arrayFormat;
-    } else if ('indices' in options) {
-        arrayFormat = options.indices ? 'indices' : 'repeat';
-    } else {
-        arrayFormat = 'indices';
-    }
-
-    var generateArrayPrefix = arrayPrefixGenerators[arrayFormat];
-
-    if (!objKeys) {
-        objKeys = Object.keys(obj);
-    }
-
-    if (sort) {
-        objKeys.sort(sort);
-    }
-
-    for (var i = 0; i < objKeys.length; ++i) {
-        var key = objKeys[i];
-
-        if (skipNulls && obj[key] === null) {
-            continue;
-        }
-
-        keys = keys.concat(stringify(
-            obj[key],
-            key,
-            generateArrayPrefix,
-            strictNullHandling,
-            skipNulls,
-            encode ? encoder : null,
-            filter,
-            sort,
-            allowDots,
-            serializeDate,
-            formatter,
-            encodeValuesOnly
-        ));
-    }
-
-    var joined = keys.join(delimiter);
-    var prefix = options.addQueryPrefix === true ? '?' : '';
-
-    return joined.length > 0 ? prefix + joined : '';
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/dace/node_modules/qs/lib/utils.js":
-/*!********************************************************!*\
-  !*** ./node_modules/dace/node_modules/qs/lib/utils.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var has = Object.prototype.hasOwnProperty;
-
-var hexTable = (function () {
-    var array = [];
-    for (var i = 0; i < 256; ++i) {
-        array.push('%' + ((i < 16 ? '0' : '') + i.toString(16)).toUpperCase());
-    }
-
-    return array;
-}());
-
-var compactQueue = function compactQueue(queue) {
-    var obj;
-
-    while (queue.length) {
-        var item = queue.pop();
-        obj = item.obj[item.prop];
-
-        if (Array.isArray(obj)) {
-            var compacted = [];
-
-            for (var j = 0; j < obj.length; ++j) {
-                if (typeof obj[j] !== 'undefined') {
-                    compacted.push(obj[j]);
-                }
-            }
-
-            item.obj[item.prop] = compacted;
-        }
-    }
-
-    return obj;
-};
-
-var arrayToObject = function arrayToObject(source, options) {
-    var obj = options && options.plainObjects ? Object.create(null) : {};
-    for (var i = 0; i < source.length; ++i) {
-        if (typeof source[i] !== 'undefined') {
-            obj[i] = source[i];
-        }
-    }
-
-    return obj;
-};
-
-var merge = function merge(target, source, options) {
-    if (!source) {
-        return target;
-    }
-
-    if (typeof source !== 'object') {
-        if (Array.isArray(target)) {
-            target.push(source);
-        } else if (typeof target === 'object') {
-            if (options.plainObjects || options.allowPrototypes || !has.call(Object.prototype, source)) {
-                target[source] = true;
-            }
-        } else {
-            return [target, source];
-        }
-
-        return target;
-    }
-
-    if (typeof target !== 'object') {
-        return [target].concat(source);
-    }
-
-    var mergeTarget = target;
-    if (Array.isArray(target) && !Array.isArray(source)) {
-        mergeTarget = arrayToObject(target, options);
-    }
-
-    if (Array.isArray(target) && Array.isArray(source)) {
-        source.forEach(function (item, i) {
-            if (has.call(target, i)) {
-                if (target[i] && typeof target[i] === 'object') {
-                    target[i] = merge(target[i], item, options);
-                } else {
-                    target.push(item);
-                }
-            } else {
-                target[i] = item;
-            }
-        });
-        return target;
-    }
-
-    return Object.keys(source).reduce(function (acc, key) {
-        var value = source[key];
-
-        if (has.call(acc, key)) {
-            acc[key] = merge(acc[key], value, options);
-        } else {
-            acc[key] = value;
-        }
-        return acc;
-    }, mergeTarget);
-};
-
-var assign = function assignSingleSource(target, source) {
-    return Object.keys(source).reduce(function (acc, key) {
-        acc[key] = source[key];
-        return acc;
-    }, target);
-};
-
-var decode = function (str) {
-    try {
-        return decodeURIComponent(str.replace(/\+/g, ' '));
-    } catch (e) {
-        return str;
-    }
-};
-
-var encode = function encode(str) {
-    // This code was originally written by Brian White (mscdex) for the io.js core querystring library.
-    // It has been adapted here for stricter adherence to RFC 3986
-    if (str.length === 0) {
-        return str;
-    }
-
-    var string = typeof str === 'string' ? str : String(str);
-
-    var out = '';
-    for (var i = 0; i < string.length; ++i) {
-        var c = string.charCodeAt(i);
-
-        if (
-            c === 0x2D // -
-            || c === 0x2E // .
-            || c === 0x5F // _
-            || c === 0x7E // ~
-            || (c >= 0x30 && c <= 0x39) // 0-9
-            || (c >= 0x41 && c <= 0x5A) // a-z
-            || (c >= 0x61 && c <= 0x7A) // A-Z
-        ) {
-            out += string.charAt(i);
-            continue;
-        }
-
-        if (c < 0x80) {
-            out = out + hexTable[c];
-            continue;
-        }
-
-        if (c < 0x800) {
-            out = out + (hexTable[0xC0 | (c >> 6)] + hexTable[0x80 | (c & 0x3F)]);
-            continue;
-        }
-
-        if (c < 0xD800 || c >= 0xE000) {
-            out = out + (hexTable[0xE0 | (c >> 12)] + hexTable[0x80 | ((c >> 6) & 0x3F)] + hexTable[0x80 | (c & 0x3F)]);
-            continue;
-        }
-
-        i += 1;
-        c = 0x10000 + (((c & 0x3FF) << 10) | (string.charCodeAt(i) & 0x3FF));
-        out += hexTable[0xF0 | (c >> 18)]
-            + hexTable[0x80 | ((c >> 12) & 0x3F)]
-            + hexTable[0x80 | ((c >> 6) & 0x3F)]
-            + hexTable[0x80 | (c & 0x3F)];
-    }
-
-    return out;
-};
-
-var compact = function compact(value) {
-    var queue = [{ obj: { o: value }, prop: 'o' }];
-    var refs = [];
-
-    for (var i = 0; i < queue.length; ++i) {
-        var item = queue[i];
-        var obj = item.obj[item.prop];
-
-        var keys = Object.keys(obj);
-        for (var j = 0; j < keys.length; ++j) {
-            var key = keys[j];
-            var val = obj[key];
-            if (typeof val === 'object' && val !== null && refs.indexOf(val) === -1) {
-                queue.push({ obj: obj, prop: key });
-                refs.push(val);
-            }
-        }
-    }
-
-    return compactQueue(queue);
-};
-
-var isRegExp = function isRegExp(obj) {
-    return Object.prototype.toString.call(obj) === '[object RegExp]';
-};
-
-var isBuffer = function isBuffer(obj) {
-    if (obj === null || typeof obj === 'undefined') {
-        return false;
-    }
-
-    return !!(obj.constructor && obj.constructor.isBuffer && obj.constructor.isBuffer(obj));
-};
-
-module.exports = {
-    arrayToObject: arrayToObject,
-    assign: assign,
-    compact: compact,
-    decode: decode,
-    encode: encode,
-    isBuffer: isBuffer,
-    isRegExp: isRegExp,
-    merge: merge
-};
-
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _asyncComponent = __webpack_require__(/*! ./core/decorators/asyncComponent */ "./node_modules/dace/dist/core/decorators/asyncComponent.js");
+
+Object.defineProperty(exports, 'asyncComponent', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_asyncComponent).default;
+  }
+});
+
+var _getInitialProps = __webpack_require__(/*! ./core/decorators/getInitialProps */ "./node_modules/dace/dist/core/decorators/getInitialProps.js");
+
+Object.defineProperty(exports, 'getInitialProps', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_getInitialProps).default;
+  }
+});
+
+var _document = __webpack_require__(/*! ./core/document */ "./node_modules/dace/dist/core/document.js");
+
+Object.defineProperty(exports, 'document', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_document).default;
+  }
+});
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
+Object.defineProperty(exports, 'Link', {
+  enumerable: true,
+  get: function get() {
+    return _reactRouterDom.Link;
+  }
+});
+
+var _reactHelmet = __webpack_require__(/*! react-helmet */ "./node_modules/react-helmet/lib/Helmet.js");
+
+Object.defineProperty(exports, 'Head', {
+  enumerable: true,
+  get: function get() {
+    return _reactHelmet.Helmet;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
 
@@ -16628,7 +17073,7 @@ exports.init = function(app){
 
 var merge = __webpack_require__(/*! utils-merge */ "./node_modules/utils-merge/index.js")
 var parseUrl = __webpack_require__(/*! parseurl */ "./node_modules/parseurl/index.js");
-var qs = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
+var qs = __webpack_require__(/*! qs */ "./node_modules/express/node_modules/qs/lib/index.js");
 
 /**
  * @param {Object} options
@@ -19470,7 +19915,7 @@ var flatten = __webpack_require__(/*! array-flatten */ "./node_modules/array-fla
 var mime = __webpack_require__(/*! send */ "./node_modules/send/index.js").mime;
 var etag = __webpack_require__(/*! etag */ "./node_modules/etag/index.js");
 var proxyaddr = __webpack_require__(/*! proxy-addr */ "./node_modules/proxy-addr/index.js");
-var qs = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
+var qs = __webpack_require__(/*! qs */ "./node_modules/express/node_modules/qs/lib/index.js");
 var querystring = __webpack_require__(/*! querystring */ "querystring");
 
 /**
@@ -19948,6 +20393,681 @@ function tryStat(path) {
     return undefined;
   }
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/express/node_modules/qs/lib/formats.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/express/node_modules/qs/lib/formats.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var replace = String.prototype.replace;
+var percentTwenties = /%20/g;
+
+module.exports = {
+    'default': 'RFC3986',
+    formatters: {
+        RFC1738: function (value) {
+            return replace.call(value, percentTwenties, '+');
+        },
+        RFC3986: function (value) {
+            return value;
+        }
+    },
+    RFC1738: 'RFC1738',
+    RFC3986: 'RFC3986'
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/express/node_modules/qs/lib/index.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/express/node_modules/qs/lib/index.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var stringify = __webpack_require__(/*! ./stringify */ "./node_modules/express/node_modules/qs/lib/stringify.js");
+var parse = __webpack_require__(/*! ./parse */ "./node_modules/express/node_modules/qs/lib/parse.js");
+var formats = __webpack_require__(/*! ./formats */ "./node_modules/express/node_modules/qs/lib/formats.js");
+
+module.exports = {
+    formats: formats,
+    parse: parse,
+    stringify: stringify
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/express/node_modules/qs/lib/parse.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/express/node_modules/qs/lib/parse.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/express/node_modules/qs/lib/utils.js");
+
+var has = Object.prototype.hasOwnProperty;
+
+var defaults = {
+    allowDots: false,
+    allowPrototypes: false,
+    arrayLimit: 20,
+    decoder: utils.decode,
+    delimiter: '&',
+    depth: 5,
+    parameterLimit: 1000,
+    plainObjects: false,
+    strictNullHandling: false
+};
+
+var parseValues = function parseQueryStringValues(str, options) {
+    var obj = {};
+    var cleanStr = options.ignoreQueryPrefix ? str.replace(/^\?/, '') : str;
+    var limit = options.parameterLimit === Infinity ? undefined : options.parameterLimit;
+    var parts = cleanStr.split(options.delimiter, limit);
+
+    for (var i = 0; i < parts.length; ++i) {
+        var part = parts[i];
+
+        var bracketEqualsPos = part.indexOf(']=');
+        var pos = bracketEqualsPos === -1 ? part.indexOf('=') : bracketEqualsPos + 1;
+
+        var key, val;
+        if (pos === -1) {
+            key = options.decoder(part, defaults.decoder);
+            val = options.strictNullHandling ? null : '';
+        } else {
+            key = options.decoder(part.slice(0, pos), defaults.decoder);
+            val = options.decoder(part.slice(pos + 1), defaults.decoder);
+        }
+        if (has.call(obj, key)) {
+            obj[key] = [].concat(obj[key]).concat(val);
+        } else {
+            obj[key] = val;
+        }
+    }
+
+    return obj;
+};
+
+var parseObject = function (chain, val, options) {
+    var leaf = val;
+
+    for (var i = chain.length - 1; i >= 0; --i) {
+        var obj;
+        var root = chain[i];
+
+        if (root === '[]') {
+            obj = [];
+            obj = obj.concat(leaf);
+        } else {
+            obj = options.plainObjects ? Object.create(null) : {};
+            var cleanRoot = root.charAt(0) === '[' && root.charAt(root.length - 1) === ']' ? root.slice(1, -1) : root;
+            var index = parseInt(cleanRoot, 10);
+            if (
+                !isNaN(index)
+                && root !== cleanRoot
+                && String(index) === cleanRoot
+                && index >= 0
+                && (options.parseArrays && index <= options.arrayLimit)
+            ) {
+                obj = [];
+                obj[index] = leaf;
+            } else {
+                obj[cleanRoot] = leaf;
+            }
+        }
+
+        leaf = obj;
+    }
+
+    return leaf;
+};
+
+var parseKeys = function parseQueryStringKeys(givenKey, val, options) {
+    if (!givenKey) {
+        return;
+    }
+
+    // Transform dot notation to bracket notation
+    var key = options.allowDots ? givenKey.replace(/\.([^.[]+)/g, '[$1]') : givenKey;
+
+    // The regex chunks
+
+    var brackets = /(\[[^[\]]*])/;
+    var child = /(\[[^[\]]*])/g;
+
+    // Get the parent
+
+    var segment = brackets.exec(key);
+    var parent = segment ? key.slice(0, segment.index) : key;
+
+    // Stash the parent if it exists
+
+    var keys = [];
+    if (parent) {
+        // If we aren't using plain objects, optionally prefix keys
+        // that would overwrite object prototype properties
+        if (!options.plainObjects && has.call(Object.prototype, parent)) {
+            if (!options.allowPrototypes) {
+                return;
+            }
+        }
+
+        keys.push(parent);
+    }
+
+    // Loop through children appending to the array until we hit depth
+
+    var i = 0;
+    while ((segment = child.exec(key)) !== null && i < options.depth) {
+        i += 1;
+        if (!options.plainObjects && has.call(Object.prototype, segment[1].slice(1, -1))) {
+            if (!options.allowPrototypes) {
+                return;
+            }
+        }
+        keys.push(segment[1]);
+    }
+
+    // If there's a remainder, just add whatever is left
+
+    if (segment) {
+        keys.push('[' + key.slice(segment.index) + ']');
+    }
+
+    return parseObject(keys, val, options);
+};
+
+module.exports = function (str, opts) {
+    var options = opts ? utils.assign({}, opts) : {};
+
+    if (options.decoder !== null && options.decoder !== undefined && typeof options.decoder !== 'function') {
+        throw new TypeError('Decoder has to be a function.');
+    }
+
+    options.ignoreQueryPrefix = options.ignoreQueryPrefix === true;
+    options.delimiter = typeof options.delimiter === 'string' || utils.isRegExp(options.delimiter) ? options.delimiter : defaults.delimiter;
+    options.depth = typeof options.depth === 'number' ? options.depth : defaults.depth;
+    options.arrayLimit = typeof options.arrayLimit === 'number' ? options.arrayLimit : defaults.arrayLimit;
+    options.parseArrays = options.parseArrays !== false;
+    options.decoder = typeof options.decoder === 'function' ? options.decoder : defaults.decoder;
+    options.allowDots = typeof options.allowDots === 'boolean' ? options.allowDots : defaults.allowDots;
+    options.plainObjects = typeof options.plainObjects === 'boolean' ? options.plainObjects : defaults.plainObjects;
+    options.allowPrototypes = typeof options.allowPrototypes === 'boolean' ? options.allowPrototypes : defaults.allowPrototypes;
+    options.parameterLimit = typeof options.parameterLimit === 'number' ? options.parameterLimit : defaults.parameterLimit;
+    options.strictNullHandling = typeof options.strictNullHandling === 'boolean' ? options.strictNullHandling : defaults.strictNullHandling;
+
+    if (str === '' || str === null || typeof str === 'undefined') {
+        return options.plainObjects ? Object.create(null) : {};
+    }
+
+    var tempObj = typeof str === 'string' ? parseValues(str, options) : str;
+    var obj = options.plainObjects ? Object.create(null) : {};
+
+    // Iterate over the keys and setup the new object
+
+    var keys = Object.keys(tempObj);
+    for (var i = 0; i < keys.length; ++i) {
+        var key = keys[i];
+        var newObj = parseKeys(key, tempObj[key], options);
+        obj = utils.merge(obj, newObj, options);
+    }
+
+    return utils.compact(obj);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/express/node_modules/qs/lib/stringify.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/express/node_modules/qs/lib/stringify.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/express/node_modules/qs/lib/utils.js");
+var formats = __webpack_require__(/*! ./formats */ "./node_modules/express/node_modules/qs/lib/formats.js");
+
+var arrayPrefixGenerators = {
+    brackets: function brackets(prefix) { // eslint-disable-line func-name-matching
+        return prefix + '[]';
+    },
+    indices: function indices(prefix, key) { // eslint-disable-line func-name-matching
+        return prefix + '[' + key + ']';
+    },
+    repeat: function repeat(prefix) { // eslint-disable-line func-name-matching
+        return prefix;
+    }
+};
+
+var toISO = Date.prototype.toISOString;
+
+var defaults = {
+    delimiter: '&',
+    encode: true,
+    encoder: utils.encode,
+    encodeValuesOnly: false,
+    serializeDate: function serializeDate(date) { // eslint-disable-line func-name-matching
+        return toISO.call(date);
+    },
+    skipNulls: false,
+    strictNullHandling: false
+};
+
+var stringify = function stringify( // eslint-disable-line func-name-matching
+    object,
+    prefix,
+    generateArrayPrefix,
+    strictNullHandling,
+    skipNulls,
+    encoder,
+    filter,
+    sort,
+    allowDots,
+    serializeDate,
+    formatter,
+    encodeValuesOnly
+) {
+    var obj = object;
+    if (typeof filter === 'function') {
+        obj = filter(prefix, obj);
+    } else if (obj instanceof Date) {
+        obj = serializeDate(obj);
+    } else if (obj === null) {
+        if (strictNullHandling) {
+            return encoder && !encodeValuesOnly ? encoder(prefix, defaults.encoder) : prefix;
+        }
+
+        obj = '';
+    }
+
+    if (typeof obj === 'string' || typeof obj === 'number' || typeof obj === 'boolean' || utils.isBuffer(obj)) {
+        if (encoder) {
+            var keyValue = encodeValuesOnly ? prefix : encoder(prefix, defaults.encoder);
+            return [formatter(keyValue) + '=' + formatter(encoder(obj, defaults.encoder))];
+        }
+        return [formatter(prefix) + '=' + formatter(String(obj))];
+    }
+
+    var values = [];
+
+    if (typeof obj === 'undefined') {
+        return values;
+    }
+
+    var objKeys;
+    if (Array.isArray(filter)) {
+        objKeys = filter;
+    } else {
+        var keys = Object.keys(obj);
+        objKeys = sort ? keys.sort(sort) : keys;
+    }
+
+    for (var i = 0; i < objKeys.length; ++i) {
+        var key = objKeys[i];
+
+        if (skipNulls && obj[key] === null) {
+            continue;
+        }
+
+        if (Array.isArray(obj)) {
+            values = values.concat(stringify(
+                obj[key],
+                generateArrayPrefix(prefix, key),
+                generateArrayPrefix,
+                strictNullHandling,
+                skipNulls,
+                encoder,
+                filter,
+                sort,
+                allowDots,
+                serializeDate,
+                formatter,
+                encodeValuesOnly
+            ));
+        } else {
+            values = values.concat(stringify(
+                obj[key],
+                prefix + (allowDots ? '.' + key : '[' + key + ']'),
+                generateArrayPrefix,
+                strictNullHandling,
+                skipNulls,
+                encoder,
+                filter,
+                sort,
+                allowDots,
+                serializeDate,
+                formatter,
+                encodeValuesOnly
+            ));
+        }
+    }
+
+    return values;
+};
+
+module.exports = function (object, opts) {
+    var obj = object;
+    var options = opts ? utils.assign({}, opts) : {};
+
+    if (options.encoder !== null && options.encoder !== undefined && typeof options.encoder !== 'function') {
+        throw new TypeError('Encoder has to be a function.');
+    }
+
+    var delimiter = typeof options.delimiter === 'undefined' ? defaults.delimiter : options.delimiter;
+    var strictNullHandling = typeof options.strictNullHandling === 'boolean' ? options.strictNullHandling : defaults.strictNullHandling;
+    var skipNulls = typeof options.skipNulls === 'boolean' ? options.skipNulls : defaults.skipNulls;
+    var encode = typeof options.encode === 'boolean' ? options.encode : defaults.encode;
+    var encoder = typeof options.encoder === 'function' ? options.encoder : defaults.encoder;
+    var sort = typeof options.sort === 'function' ? options.sort : null;
+    var allowDots = typeof options.allowDots === 'undefined' ? false : options.allowDots;
+    var serializeDate = typeof options.serializeDate === 'function' ? options.serializeDate : defaults.serializeDate;
+    var encodeValuesOnly = typeof options.encodeValuesOnly === 'boolean' ? options.encodeValuesOnly : defaults.encodeValuesOnly;
+    if (typeof options.format === 'undefined') {
+        options.format = formats['default'];
+    } else if (!Object.prototype.hasOwnProperty.call(formats.formatters, options.format)) {
+        throw new TypeError('Unknown format option provided.');
+    }
+    var formatter = formats.formatters[options.format];
+    var objKeys;
+    var filter;
+
+    if (typeof options.filter === 'function') {
+        filter = options.filter;
+        obj = filter('', obj);
+    } else if (Array.isArray(options.filter)) {
+        filter = options.filter;
+        objKeys = filter;
+    }
+
+    var keys = [];
+
+    if (typeof obj !== 'object' || obj === null) {
+        return '';
+    }
+
+    var arrayFormat;
+    if (options.arrayFormat in arrayPrefixGenerators) {
+        arrayFormat = options.arrayFormat;
+    } else if ('indices' in options) {
+        arrayFormat = options.indices ? 'indices' : 'repeat';
+    } else {
+        arrayFormat = 'indices';
+    }
+
+    var generateArrayPrefix = arrayPrefixGenerators[arrayFormat];
+
+    if (!objKeys) {
+        objKeys = Object.keys(obj);
+    }
+
+    if (sort) {
+        objKeys.sort(sort);
+    }
+
+    for (var i = 0; i < objKeys.length; ++i) {
+        var key = objKeys[i];
+
+        if (skipNulls && obj[key] === null) {
+            continue;
+        }
+
+        keys = keys.concat(stringify(
+            obj[key],
+            key,
+            generateArrayPrefix,
+            strictNullHandling,
+            skipNulls,
+            encode ? encoder : null,
+            filter,
+            sort,
+            allowDots,
+            serializeDate,
+            formatter,
+            encodeValuesOnly
+        ));
+    }
+
+    var joined = keys.join(delimiter);
+    var prefix = options.addQueryPrefix === true ? '?' : '';
+
+    return joined.length > 0 ? prefix + joined : '';
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/express/node_modules/qs/lib/utils.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/express/node_modules/qs/lib/utils.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var has = Object.prototype.hasOwnProperty;
+
+var hexTable = (function () {
+    var array = [];
+    for (var i = 0; i < 256; ++i) {
+        array.push('%' + ((i < 16 ? '0' : '') + i.toString(16)).toUpperCase());
+    }
+
+    return array;
+}());
+
+var compactQueue = function compactQueue(queue) {
+    var obj;
+
+    while (queue.length) {
+        var item = queue.pop();
+        obj = item.obj[item.prop];
+
+        if (Array.isArray(obj)) {
+            var compacted = [];
+
+            for (var j = 0; j < obj.length; ++j) {
+                if (typeof obj[j] !== 'undefined') {
+                    compacted.push(obj[j]);
+                }
+            }
+
+            item.obj[item.prop] = compacted;
+        }
+    }
+
+    return obj;
+};
+
+exports.arrayToObject = function arrayToObject(source, options) {
+    var obj = options && options.plainObjects ? Object.create(null) : {};
+    for (var i = 0; i < source.length; ++i) {
+        if (typeof source[i] !== 'undefined') {
+            obj[i] = source[i];
+        }
+    }
+
+    return obj;
+};
+
+exports.merge = function merge(target, source, options) {
+    if (!source) {
+        return target;
+    }
+
+    if (typeof source !== 'object') {
+        if (Array.isArray(target)) {
+            target.push(source);
+        } else if (typeof target === 'object') {
+            if (options.plainObjects || options.allowPrototypes || !has.call(Object.prototype, source)) {
+                target[source] = true;
+            }
+        } else {
+            return [target, source];
+        }
+
+        return target;
+    }
+
+    if (typeof target !== 'object') {
+        return [target].concat(source);
+    }
+
+    var mergeTarget = target;
+    if (Array.isArray(target) && !Array.isArray(source)) {
+        mergeTarget = exports.arrayToObject(target, options);
+    }
+
+    if (Array.isArray(target) && Array.isArray(source)) {
+        source.forEach(function (item, i) {
+            if (has.call(target, i)) {
+                if (target[i] && typeof target[i] === 'object') {
+                    target[i] = exports.merge(target[i], item, options);
+                } else {
+                    target.push(item);
+                }
+            } else {
+                target[i] = item;
+            }
+        });
+        return target;
+    }
+
+    return Object.keys(source).reduce(function (acc, key) {
+        var value = source[key];
+
+        if (has.call(acc, key)) {
+            acc[key] = exports.merge(acc[key], value, options);
+        } else {
+            acc[key] = value;
+        }
+        return acc;
+    }, mergeTarget);
+};
+
+exports.assign = function assignSingleSource(target, source) {
+    return Object.keys(source).reduce(function (acc, key) {
+        acc[key] = source[key];
+        return acc;
+    }, target);
+};
+
+exports.decode = function (str) {
+    try {
+        return decodeURIComponent(str.replace(/\+/g, ' '));
+    } catch (e) {
+        return str;
+    }
+};
+
+exports.encode = function encode(str) {
+    // This code was originally written by Brian White (mscdex) for the io.js core querystring library.
+    // It has been adapted here for stricter adherence to RFC 3986
+    if (str.length === 0) {
+        return str;
+    }
+
+    var string = typeof str === 'string' ? str : String(str);
+
+    var out = '';
+    for (var i = 0; i < string.length; ++i) {
+        var c = string.charCodeAt(i);
+
+        if (
+            c === 0x2D // -
+            || c === 0x2E // .
+            || c === 0x5F // _
+            || c === 0x7E // ~
+            || (c >= 0x30 && c <= 0x39) // 0-9
+            || (c >= 0x41 && c <= 0x5A) // a-z
+            || (c >= 0x61 && c <= 0x7A) // A-Z
+        ) {
+            out += string.charAt(i);
+            continue;
+        }
+
+        if (c < 0x80) {
+            out = out + hexTable[c];
+            continue;
+        }
+
+        if (c < 0x800) {
+            out = out + (hexTable[0xC0 | (c >> 6)] + hexTable[0x80 | (c & 0x3F)]);
+            continue;
+        }
+
+        if (c < 0xD800 || c >= 0xE000) {
+            out = out + (hexTable[0xE0 | (c >> 12)] + hexTable[0x80 | ((c >> 6) & 0x3F)] + hexTable[0x80 | (c & 0x3F)]);
+            continue;
+        }
+
+        i += 1;
+        c = 0x10000 + (((c & 0x3FF) << 10) | (string.charCodeAt(i) & 0x3FF));
+        out += hexTable[0xF0 | (c >> 18)]
+            + hexTable[0x80 | ((c >> 12) & 0x3F)]
+            + hexTable[0x80 | ((c >> 6) & 0x3F)]
+            + hexTable[0x80 | (c & 0x3F)];
+    }
+
+    return out;
+};
+
+exports.compact = function compact(value) {
+    var queue = [{ obj: { o: value }, prop: 'o' }];
+    var refs = [];
+
+    for (var i = 0; i < queue.length; ++i) {
+        var item = queue[i];
+        var obj = item.obj[item.prop];
+
+        var keys = Object.keys(obj);
+        for (var j = 0; j < keys.length; ++j) {
+            var key = keys[j];
+            var val = obj[key];
+            if (typeof val === 'object' && val !== null && refs.indexOf(val) === -1) {
+                queue.push({ obj: obj, prop: key });
+                refs.push(val);
+            }
+        }
+    }
+
+    return compactQueue(queue);
+};
+
+exports.isRegExp = function isRegExp(obj) {
+    return Object.prototype.toString.call(obj) === '[object RegExp]';
+};
+
+exports.isBuffer = function isBuffer(obj) {
+    if (obj === null || typeof obj === 'undefined') {
+        return false;
+    }
+
+    return !!(obj.constructor && obj.constructor.isBuffer && obj.constructor.isBuffer(obj));
+};
 
 
 /***/ }),
@@ -21148,7 +22268,9 @@ RedirectableRequest.prototype.write = function (data, encoding, callback) {
   // Ignore empty buffers, since writing them doesn't invoke the callback
   // https://github.com/nodejs/node/issues/22066
   if (data.length === 0) {
-    callback();
+    if (callback) {
+      callback();
+    }
     return;
   }
   // Only write when we don't exceed the maximum body length
@@ -21237,10 +22359,11 @@ RedirectableRequest.prototype._performRequest = function () {
   // (The first request must be ended explicitly with RedirectableRequest#end)
   if (this._isRedirect) {
     // Write the request entity and end.
-    var requestBodyBuffers = this._requestBodyBuffers;
+    var i = 0;
+    var buffers = this._requestBodyBuffers;
     (function writeNext() {
-      if (requestBodyBuffers.length !== 0) {
-        var buffer = requestBodyBuffers.pop();
+      if (i < buffers.length) {
+        var buffer = buffers[i++];
         request.write(buffer.data, buffer.encoding, writeNext);
       }
       else {
@@ -29221,7 +30344,7 @@ var compactQueue = function compactQueue(queue) {
     return obj;
 };
 
-exports.arrayToObject = function arrayToObject(source, options) {
+var arrayToObject = function arrayToObject(source, options) {
     var obj = options && options.plainObjects ? Object.create(null) : {};
     for (var i = 0; i < source.length; ++i) {
         if (typeof source[i] !== 'undefined') {
@@ -29232,7 +30355,7 @@ exports.arrayToObject = function arrayToObject(source, options) {
     return obj;
 };
 
-exports.merge = function merge(target, source, options) {
+var merge = function merge(target, source, options) {
     if (!source) {
         return target;
     }
@@ -29257,14 +30380,14 @@ exports.merge = function merge(target, source, options) {
 
     var mergeTarget = target;
     if (Array.isArray(target) && !Array.isArray(source)) {
-        mergeTarget = exports.arrayToObject(target, options);
+        mergeTarget = arrayToObject(target, options);
     }
 
     if (Array.isArray(target) && Array.isArray(source)) {
         source.forEach(function (item, i) {
             if (has.call(target, i)) {
                 if (target[i] && typeof target[i] === 'object') {
-                    target[i] = exports.merge(target[i], item, options);
+                    target[i] = merge(target[i], item, options);
                 } else {
                     target.push(item);
                 }
@@ -29279,7 +30402,7 @@ exports.merge = function merge(target, source, options) {
         var value = source[key];
 
         if (has.call(acc, key)) {
-            acc[key] = exports.merge(acc[key], value, options);
+            acc[key] = merge(acc[key], value, options);
         } else {
             acc[key] = value;
         }
@@ -29287,14 +30410,14 @@ exports.merge = function merge(target, source, options) {
     }, mergeTarget);
 };
 
-exports.assign = function assignSingleSource(target, source) {
+var assign = function assignSingleSource(target, source) {
     return Object.keys(source).reduce(function (acc, key) {
         acc[key] = source[key];
         return acc;
     }, target);
 };
 
-exports.decode = function (str) {
+var decode = function (str) {
     try {
         return decodeURIComponent(str.replace(/\+/g, ' '));
     } catch (e) {
@@ -29302,7 +30425,7 @@ exports.decode = function (str) {
     }
 };
 
-exports.encode = function encode(str) {
+var encode = function encode(str) {
     // This code was originally written by Brian White (mscdex) for the io.js core querystring library.
     // It has been adapted here for stricter adherence to RFC 3986
     if (str.length === 0) {
@@ -29354,7 +30477,7 @@ exports.encode = function encode(str) {
     return out;
 };
 
-exports.compact = function compact(value) {
+var compact = function compact(value) {
     var queue = [{ obj: { o: value }, prop: 'o' }];
     var refs = [];
 
@@ -29376,16 +30499,27 @@ exports.compact = function compact(value) {
     return compactQueue(queue);
 };
 
-exports.isRegExp = function isRegExp(obj) {
+var isRegExp = function isRegExp(obj) {
     return Object.prototype.toString.call(obj) === '[object RegExp]';
 };
 
-exports.isBuffer = function isBuffer(obj) {
+var isBuffer = function isBuffer(obj) {
     if (obj === null || typeof obj === 'undefined') {
         return false;
     }
 
     return !!(obj.constructor && obj.constructor.isBuffer && obj.constructor.isBuffer(obj));
+};
+
+module.exports = {
+    arrayToObject: arrayToObject,
+    assign: assign,
+    compact: compact,
+    decode: decode,
+    encode: encode,
+    isBuffer: isBuffer,
+    isRegExp: isRegExp,
+    merge: merge
 };
 
 
@@ -33938,6 +35072,76 @@ function status (code) {
   if (!n) throw new Error('invalid status message: "' + code + '"')
   return n
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/react-addons-pure-render-mixin/index.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/react-addons-pure-render-mixin/index.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2015-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+var shallowEqual = __webpack_require__(/*! fbjs/lib/shallowEqual */ "./node_modules/fbjs/lib/shallowEqual.js");
+
+module.exports = {
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return (
+      !shallowEqual(this.props, nextProps) ||
+      !shallowEqual(this.state, nextState)
+    );
+  }
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/react-addons-shallow-compare/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/react-addons-shallow-compare/index.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @providesModule shallowCompare
+ */
+
+
+
+var shallowEqual = __webpack_require__(/*! fbjs/lib/shallowEqual */ "./node_modules/fbjs/lib/shallowEqual.js");
+
+/**
+ * Does a shallow comparison for props and state.
+ * See ReactComponentWithPureRenderMixin
+ * See also https://facebook.github.io/react/docs/shallow-compare.html
+ */
+function shallowCompare(instance, nextProps, nextState) {
+  return (
+    !shallowEqual(instance.props, nextProps) ||
+    !shallowEqual(instance.state, nextState)
+  );
+}
+
+module.exports = shallowCompare;
 
 
 /***/ }),
@@ -64308,7 +65512,7 @@ module.exports = function(module) {
 /*! exports provided: errors, warnings, publicPath, chunks, default */
 /***/ (function(module) {
 
-module.exports = {"errors":["./src/yo-component/modal/realmodal.js\nModule Error (from ./node_modules/dace/node_modules/eslint-loader/index.js):\n\n  \u001b[1mLine 15:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 16:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 16:\u001b[22m   defaultProp \"show\" defined for isRequired propType                                                                  \u001b[31m\u001b[4mreact/default-props-match-prop-types\u001b[24m\u001b[39m\n  \u001b[1mLine 17:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 18:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 19:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 20:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 21:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 22:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 23:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 24:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 24:\u001b[22m   defaultProp \"maskExtraClass\" has no corresponding propTypes declaration                                             \u001b[31m\u001b[4mreact/default-props-match-prop-types\u001b[24m\u001b[39m\n  \u001b[1mLine 25:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 26:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 27:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 28:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 29:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 30:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 31:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 32:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 36:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 44:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 45:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 51:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 52:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 58:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 59:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 65:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 66:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 72:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 73:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 79:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 80:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 86:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 87:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 95:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 96:\u001b[22m   Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 102:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 103:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 109:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 110:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 116:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 117:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 123:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 124:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 147:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 148:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 149:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 150:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 151:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 152:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 153:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 154:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 155:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 155:\u001b[22m  Line 155 exceeds the maximum line length of 100                                                                     \u001b[31m\u001b[4mmax-len\u001b[24m\u001b[39m\n  \u001b[1mLine 160:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 161:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 162:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 163:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 166:\u001b[22m  Block must not be padded by blank lines                                                                             \u001b[31m\u001b[4mpadded-blocks\u001b[24m\u001b[39m\n  \u001b[1mLine 168:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 169:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 170:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 171:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 172:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 173:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 174:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 176:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 177:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 178:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 179:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 180:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 182:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 183:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 184:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 186:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 187:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 188:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 189:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 191:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 197:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 198:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 198:\u001b[22m  Split 'let' declarations into multiple statements                                                                   \u001b[31m\u001b[4mone-var\u001b[24m\u001b[39m\n  \u001b[1mLine 199:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 200:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 201:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 202:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 203:\u001b[22m  Expected indentation of 8 spaces but found 16                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 204:\u001b[22m  Expected indentation of 8 spaces but found 16                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 204:\u001b[22m  Use object destructuring                                                                                            \u001b[31m\u001b[4mprefer-destructuring\u001b[24m\u001b[39m\n  \u001b[1mLine 205:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 206:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 207:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 208:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 210:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 214:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 215:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 216:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 217:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 218:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 219:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 220:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 221:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 222:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 223:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 224:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 225:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 226:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 227:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 228:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 229:\u001b[22m  Expected indentation of 8 spaces but found 16                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 230:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 231:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 232:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 233:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 234:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 235:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 236:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 238:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 239:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 240:\u001b[22m  Expected indentation of 8 spaces but found 16                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 241:\u001b[22m  Expected indentation of 8 spaces but found 16                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 242:\u001b[22m  Expected indentation of 8 spaces but found 16                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 243:\u001b[22m  Expected indentation of 8 spaces but found 16                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 244:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 245:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 246:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 248:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 249:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 250:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 251:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 252:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 253:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 254:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 255:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 256:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 257:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 258:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 259:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 260:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 261:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 262:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 263:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 265:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 266:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 266:\u001b[22m  Expected indentation of 10 space characters but found 12                                                            \u001b[31m\u001b[4mreact/jsx-indent\u001b[24m\u001b[39m\n  \u001b[1mLine 267:\u001b[22m  Expected indentation of 8 spaces but found 16                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 267:\u001b[22m  Expected indentation of 14 space characters but found 16                                                            \u001b[31m\u001b[4mreact/jsx-indent-props\u001b[24m\u001b[39m\n  \u001b[1mLine 268:\u001b[22m  Expected indentation of 8 spaces but found 16                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 268:\u001b[22m  Expected indentation of 14 space characters but found 16                                                            \u001b[31m\u001b[4mreact/jsx-indent-props\u001b[24m\u001b[39m\n  \u001b[1mLine 269:\u001b[22m  Expected indentation of 10 spaces but found 20                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 269:\u001b[22m  Using this.refs is deprecated                                                                                       \u001b[31m\u001b[4mreact/no-string-refs\u001b[24m\u001b[39m\n  \u001b[1mLine 270:\u001b[22m  Expected indentation of 12 spaces but found 24                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 271:\u001b[22m  Expected indentation of 10 spaces but found 20                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 272:\u001b[22m  Expected indentation of 8 spaces but found 16                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 272:\u001b[22m  The closing bracket must be aligned with the line containing the opening tag (expected column 13 on the next line)  \u001b[31m\u001b[4mreact/jsx-closing-bracket-location\u001b[24m\u001b[39m\n  \u001b[1mLine 273:\u001b[22m  Expected indentation of 8 spaces but found 16                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 273:\u001b[22m  Expected indentation of 14 space characters but found 16                                                            \u001b[31m\u001b[4mreact/jsx-indent\u001b[24m\u001b[39m\n  \u001b[1mLine 274:\u001b[22m  Expected indentation of 10 spaces but found 20                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 274:\u001b[22m  Using string literals in ref attributes is deprecated                                                               \u001b[31m\u001b[4mreact/no-string-refs\u001b[24m\u001b[39m\n  \u001b[1mLine 274:\u001b[22m  Expected indentation of 18 space characters but found 20                                                            \u001b[31m\u001b[4mreact/jsx-indent-props\u001b[24m\u001b[39m\n  \u001b[1mLine 275:\u001b[22m  Expected indentation of 10 spaces but found 20                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 275:\u001b[22m  Expected indentation of 18 space characters but found 20                                                            \u001b[31m\u001b[4mreact/jsx-indent-props\u001b[24m\u001b[39m\n  \u001b[1mLine 276:\u001b[22m  Expected indentation of 10 spaces but found 20                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 276:\u001b[22m  Expected indentation of 18 space characters but found 20                                                            \u001b[31m\u001b[4mreact/jsx-indent-props\u001b[24m\u001b[39m\n  \u001b[1mLine 277:\u001b[22m  Expected indentation of 12 spaces but found 24                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 278:\u001b[22m  Expected indentation of 14 spaces but found 28                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 279:\u001b[22m  Expected indentation of 14 spaces but found 28                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 280:\u001b[22m  Expected indentation of 14 spaces but found 28                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 281:\u001b[22m  Expected indentation of 14 spaces but found 28                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 282:\u001b[22m  Expected indentation of 12 spaces but found 24                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 283:\u001b[22m  Expected indentation of 12 spaces but found 24                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 283:\u001b[22m  Do not nest ternary expressions                                                                                     \u001b[31m\u001b[4mno-nested-ternary\u001b[24m\u001b[39m\n  \u001b[1mLine 284:\u001b[22m  Expected indentation of 10 spaces but found 20                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 285:\u001b[22m  Expected indentation of 8 spaces but found 16                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 286:\u001b[22m  Expected indentation of 10 spaces but found 20                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 286:\u001b[22m  Expected indentation of 18 space characters but found 20                                                            \u001b[31m\u001b[4mreact/jsx-indent\u001b[24m\u001b[39m\n  \u001b[1mLine 287:\u001b[22m  Expected indentation of 12 spaces but found 24                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 287:\u001b[22m  Expected indentation of 22 space characters but found 24                                                            \u001b[31m\u001b[4mreact/jsx-indent-props\u001b[24m\u001b[39m\n  \u001b[1mLine 288:\u001b[22m  Expected indentation of 12 spaces but found 24                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 288:\u001b[22m  Expected indentation of 22 space characters but found 24                                                            \u001b[31m\u001b[4mreact/jsx-indent-props\u001b[24m\u001b[39m\n  \u001b[1mLine 288:\u001b[22m  Expected parentheses around arrow function argument having a body with curly braces                                 \u001b[31m\u001b[4marrow-parens\u001b[24m\u001b[39m\n  \u001b[1mLine 289:\u001b[22m  Expected indentation of 14 spaces but found 28                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 290:\u001b[22m  Expected indentation of 12 spaces but found 24                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 291:\u001b[22m  Expected indentation of 12 spaces but found 24                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 291:\u001b[22m  Expected indentation of 22 space characters but found 24                                                            \u001b[31m\u001b[4mreact/jsx-indent-props\u001b[24m\u001b[39m\n  \u001b[1mLine 292:\u001b[22m  Expected indentation of 14 spaces but found 28                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 293:\u001b[22m  Expected indentation of 14 spaces but found 28                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 294:\u001b[22m  Expected indentation of 14 spaces but found 28                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 295:\u001b[22m  Expected indentation of 14 spaces but found 28                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 296:\u001b[22m  Expected indentation of 14 spaces but found 28                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 297:\u001b[22m  Expected indentation of 14 spaces but found 28                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 298:\u001b[22m  Expected indentation of 14 spaces but found 28                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 299:\u001b[22m  Expected indentation of 12 spaces but found 24                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 300:\u001b[22m  Expected indentation of 10 spaces but found 20                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 301:\u001b[22m  Expected indentation of 12 spaces but found 24                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 301:\u001b[22m  Expected indentation of 22 space characters but found 24                                                            \u001b[31m\u001b[4mreact/jsx-indent\u001b[24m\u001b[39m\n  \u001b[1mLine 302:\u001b[22m  Expected indentation of 10 spaces but found 20                                                                      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 303:\u001b[22m  Expected indentation of 8 spaces but found 16                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 304:\u001b[22m  Expected indentation of 6 spaces but found 12                                                                       \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 305:\u001b[22m  Expected indentation of 4 spaces but found 8                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 306:\u001b[22m  Expected indentation of 2 spaces but found 4                                                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n\nSearch for the \u001b[4m\u001b[31mkeywords\u001b[39m\u001b[24m to learn more about each error.","./src/yo-component/common/utils.js\nModule Error (from ./node_modules/dace/node_modules/eslint-loader/index.js):\n\n  \u001b[1mLine 2:\u001b[22m    Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 3:\u001b[22m    Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 4:\u001b[22m    Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 5:\u001b[22m    Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 6:\u001b[22m    Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 10:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 11:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 12:\u001b[22m   Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 13:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 14:\u001b[22m   Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 15:\u001b[22m   Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 15:\u001b[22m   Unexpected use of 'isNaN'                                                            \u001b[31m\u001b[4mno-restricted-globals\u001b[24m\u001b[39m\n  \u001b[1mLine 15:\u001b[22m   Unexpected use of 'isNaN'                                                            \u001b[31m\u001b[4mno-restricted-globals\u001b[24m\u001b[39m\n  \u001b[1mLine 16:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 18:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 23:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 27:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 28:\u001b[22m   Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 29:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 31:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 32:\u001b[22m   Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 33:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 35:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 36:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 38:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 39:\u001b[22m   Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 40:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 42:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 42:\u001b[22m   Use object destructuring                                                             \u001b[31m\u001b[4mprefer-destructuring\u001b[24m\u001b[39m\n  \u001b[1mLine 44:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 45:\u001b[22m   Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 46:\u001b[22m   Expected indentation of 6 spaces but found 12                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 47:\u001b[22m   Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 48:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 50:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 54:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 55:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 56:\u001b[22m   Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 57:\u001b[22m   Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 58:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 59:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 66:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 67:\u001b[22m   Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 68:\u001b[22m   Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 69:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 80:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 80:\u001b[22m   Use object destructuring                                                             \u001b[31m\u001b[4mprefer-destructuring\u001b[24m\u001b[39m\n  \u001b[1mLine 81:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 82:\u001b[22m   Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 83:\u001b[22m   Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 84:\u001b[22m   Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 85:\u001b[22m   Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 86:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 87:\u001b[22m   Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 104:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 104:\u001b[22m  Use object destructuring                                                             \u001b[31m\u001b[4mprefer-destructuring\u001b[24m\u001b[39m\n  \u001b[1mLine 105:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 105:\u001b[22m  Unexpected dangling '_' in '_isBadAndroid'                                           \u001b[31m\u001b[4mno-underscore-dangle\u001b[24m\u001b[39m\n  \u001b[1mLine 106:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 107:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 108:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 109:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 110:\u001b[22m  Expected indentation of 6 spaces but found 12                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 111:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 112:\u001b[22m  Expected indentation of 6 spaces but found 12                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 113:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 114:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 115:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 116:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 118:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 122:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 123:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 124:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 126:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 126:\u001b[22m  Unexpected mix of '&&' and '||'                                                      \u001b[31m\u001b[4mno-mixed-operators\u001b[24m\u001b[39m\n  \u001b[1mLine 126:\u001b[22m  Unexpected mix of '&&' and '||'                                                      \u001b[31m\u001b[4mno-mixed-operators\u001b[24m\u001b[39m\n  \u001b[1mLine 126:\u001b[22m  Unexpected mix of '||' and '&&'                                                      \u001b[31m\u001b[4mno-mixed-operators\u001b[24m\u001b[39m\n  \u001b[1mLine 127:\u001b[22m  Unexpected mix of '||' and '&&'                                                      \u001b[31m\u001b[4mno-mixed-operators\u001b[24m\u001b[39m\n  \u001b[1mLine 127:\u001b[22m  Unexpected mix of '||' and '&&'                                                      \u001b[31m\u001b[4mno-mixed-operators\u001b[24m\u001b[39m\n  \u001b[1mLine 128:\u001b[22m  Unexpected mix of '||' and '&&'                                                      \u001b[31m\u001b[4mno-mixed-operators\u001b[24m\u001b[39m\n  \u001b[1mLine 128:\u001b[22m  Unexpected mix of '||' and '&&'                                                      \u001b[31m\u001b[4mno-mixed-operators\u001b[24m\u001b[39m\n  \u001b[1mLine 129:\u001b[22m  Unexpected mix of '||' and '&&'                                                      \u001b[31m\u001b[4mno-mixed-operators\u001b[24m\u001b[39m\n  \u001b[1mLine 129:\u001b[22m  Unexpected mix of '||' and '&&'                                                      \u001b[31m\u001b[4mno-mixed-operators\u001b[24m\u001b[39m\n  \u001b[1mLine 130:\u001b[22m  Unexpected mix of '||' and '&&'                                                      \u001b[31m\u001b[4mno-mixed-operators\u001b[24m\u001b[39m\n  \u001b[1mLine 133:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 140:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 141:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 142:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 143:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 145:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 149:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 150:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 151:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 152:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 153:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 154:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 155:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 155:\u001b[22m  Expected parentheses around arrow function argument having a body with curly braces  \u001b[31m\u001b[4marrow-parens\u001b[24m\u001b[39m\n  \u001b[1mLine 156:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 157:\u001b[22m  Expected indentation of 6 spaces but found 12                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 158:\u001b[22m  Expected indentation of 6 spaces but found 12                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 159:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 160:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 161:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 162:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 166:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 167:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 168:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 172:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 173:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 174:\u001b[22m  Expected indentation of 6 spaces but found 12                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 175:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 176:\u001b[22m  Expected indentation of 6 spaces but found 12                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 177:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 178:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 182:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 183:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 184:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 184:\u001b[22m  Unexpected use of 'addEventListener'                                                 \u001b[31m\u001b[4mno-restricted-globals\u001b[24m\u001b[39m\n  \u001b[1mLine 185:\u001b[22m  Expected indentation of 6 spaces but found 12                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 185:\u001b[22m  Expected to return a value in method 'get'                                           \u001b[31m\u001b[4mgetter-return\u001b[24m\u001b[39m\n  \u001b[1mLine 186:\u001b[22m  Expected indentation of 8 spaces but found 16                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 187:\u001b[22m  Expected indentation of 6 spaces but found 12                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 188:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 189:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 189:\u001b[22m  Empty block statement                                                                \u001b[31m\u001b[4mno-empty\u001b[24m\u001b[39m\n  \u001b[1mLine 190:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 195:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 196:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 196:\u001b[22m  Unexpected dangling '_' in '__autoBlur'                                              \u001b[31m\u001b[4mno-underscore-dangle\u001b[24m\u001b[39m\n  \u001b[1mLine 197:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 197:\u001b[22m  Unexpected dangling '_' in '__autoBlur'                                              \u001b[31m\u001b[4mno-underscore-dangle\u001b[24m\u001b[39m\n  \u001b[1mLine 198:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 199:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 200:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 202:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 203:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 203:\u001b[22m  Unexpected dangling '_' in '_contains'                                               \u001b[31m\u001b[4mno-underscore-dangle\u001b[24m\u001b[39m\n  \u001b[1mLine 204:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 204:\u001b[22m  Unexpected use of '&'                                                                \u001b[31m\u001b[4mno-bitwise\u001b[24m\u001b[39m\n  \u001b[1mLine 205:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 207:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 207:\u001b[22m  Unexpected dangling '_' in '_blur'                                                   \u001b[31m\u001b[4mno-underscore-dangle\u001b[24m\u001b[39m\n  \u001b[1mLine 208:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 209:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 209:\u001b[22m  Unexpected dangling '_' in '_container'                                              \u001b[31m\u001b[4mno-underscore-dangle\u001b[24m\u001b[39m\n  \u001b[1mLine 211:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 212:\u001b[22m  Expected indentation of 6 spaces but found 12                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 213:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 214:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 216:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 217:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 218:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 220:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 220:\u001b[22m  Expected parentheses around arrow function argument having a body with curly braces  \u001b[31m\u001b[4marrow-parens\u001b[24m\u001b[39m\n  \u001b[1mLine 221:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 222:\u001b[22m  Expected indentation of 6 spaces but found 12                                        \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 223:\u001b[22m  Expected indentation of 4 spaces but found 8                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 224:\u001b[22m  Expected indentation of 2 spaces but found 4                                         \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n\nSearch for the \u001b[4m\u001b[31mkeywords\u001b[39m\u001b[24m to learn more about each error.","./src/yo-component/touchable/index.js\nModule Error (from ./node_modules/dace/node_modules/eslint-loader/index.js):\n\n  \u001b[1mLine 3:\u001b[22m  Newline required at end of file but not found  \u001b[31m\u001b[4meol-last\u001b[24m\u001b[39m\n\nSearch for the \u001b[4m\u001b[31mkeywords\u001b[39m\u001b[24m to learn more about each error.","./src/yo-component/touchable/touchable.js\nModule Error (from ./node_modules/dace/node_modules/eslint-loader/index.js):\n\n  \u001b[1mLine 5:\u001b[22m   Line 5 exceeds the maximum line length of 100     \u001b[31m\u001b[4mmax-len\u001b[24m\u001b[39m\n  \u001b[1mLine 15:\u001b[22m  Block must not be padded by blank lines           \u001b[31m\u001b[4mpadded-blocks\u001b[24m\u001b[39m\n  \u001b[1mLine 18:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 24:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 25:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 32:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 33:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 40:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 41:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 44:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 45:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 48:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 49:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 52:\u001b[22m  defaultProps should be placed after contextTypes  \u001b[31m\u001b[4mreact/sort-comp\u001b[24m\u001b[39m\n  \u001b[1mLine 53:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 54:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 55:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 56:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 57:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 58:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 59:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 63:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 64:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 68:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 69:\u001b[22m  Expected indentation of 8 spaces but found 12     \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 70:\u001b[22m  Expected indentation of 10 spaces but found 16    \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 71:\u001b[22m  Expected indentation of 8 spaces but found 12     \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 72:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 74:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 75:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 76:\u001b[22m  Expected indentation of 8 spaces but found 12     \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 77:\u001b[22m  Expected indentation of 8 spaces but found 12     \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 78:\u001b[22m  Expected indentation of 8 spaces but found 12     \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 79:\u001b[22m  Expected indentation of 8 spaces but found 12     \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 80:\u001b[22m  Expected indentation of 8 spaces but found 12     \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 81:\u001b[22m  Expected indentation of 8 spaces but found 12     \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 82:\u001b[22m  Expected indentation of 8 spaces but found 12     \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 83:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 84:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 86:\u001b[22m  Line 86 exceeds the maximum line length of 100    \u001b[31m\u001b[4mmax-len\u001b[24m\u001b[39m\n  \u001b[1mLine 86:\u001b[22m  Expected indentation of 6 spaces but found 8      \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 88:\u001b[22m  Newline required at end of file but not found     \u001b[31m\u001b[4meol-last\u001b[24m\u001b[39m\n\nSearch for the \u001b[4m\u001b[31mkeywords\u001b[39m\u001b[24m to learn more about each error.","./src/yo-component/touchable/gesture.js\nModule Error (from ./node_modules/dace/node_modules/eslint-loader/index.js):\n\n  \u001b[1mLine 6:\u001b[22m    Expected 1 empty line after import statement not followed by another import             \u001b[31m\u001b[4mimport/newline-after-import\u001b[24m\u001b[39m\n  \u001b[1mLine 16:\u001b[22m   Line 16 exceeds the maximum line length of 100                                          \u001b[31m\u001b[4mmax-len\u001b[24m\u001b[39m\n  \u001b[1mLine 16:\u001b[22m   Expected indentation of 2 spaces but found 4                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 16:\u001b[22m   'Math.pow' is restricted from being used. Use the exponentiation operator (**) instead  \u001b[31m\u001b[4mno-restricted-properties\u001b[24m\u001b[39m\n  \u001b[1mLine 16:\u001b[22m   'Math.pow' is restricted from being used. Use the exponentiation operator (**) instead  \u001b[31m\u001b[4mno-restricted-properties\u001b[24m\u001b[39m\n  \u001b[1mLine 26:\u001b[22m   Expected indentation of 2 spaces but found 4                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 35:\u001b[22m   Expected indentation of 2 spaces but found 4                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 44:\u001b[22m   Expected indentation of 2 spaces but found 4                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 45:\u001b[22m   Expected indentation of 4 spaces but found 8                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 46:\u001b[22m   Expected indentation of 2 spaces but found 4                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 55:\u001b[22m   Expected indentation of 2 spaces but found 4                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 59:\u001b[22m   Expected indentation of 2 spaces but found 4                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 63:\u001b[22m   Split 'let' declarations into multiple statements                                       \u001b[31m\u001b[4mone-var\u001b[24m\u001b[39m\n  \u001b[1mLine 64:\u001b[22m   Expected indentation of 2 spaces but found 4                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 68:\u001b[22m   Expected indentation of 2 spaces but found 4                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 69:\u001b[22m   Expected indentation of 2 spaces but found 4                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 70:\u001b[22m   Expected indentation of 2 spaces but found 4                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 71:\u001b[22m   Expected indentation of 2 spaces but found 4                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 72:\u001b[22m   Expected indentation of 2 spaces but found 4                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 73:\u001b[22m   Expected indentation of 2 spaces but found 4                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 74:\u001b[22m   Expected indentation of 2 spaces but found 4                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 76:\u001b[22m   Expected indentation of 2 spaces but found 4                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 77:\u001b[22m   Expected indentation of 4 spaces but found 8                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 78:\u001b[22m   Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 78:\u001b[22m   Do not use findDOMNode                                                                  \u001b[31m\u001b[4mreact/no-find-dom-node\u001b[24m\u001b[39m\n  \u001b[1mLine 79:\u001b[22m   Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 80:\u001b[22m   Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 81:\u001b[22m   Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 82:\u001b[22m   Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 83:\u001b[22m   Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 85:\u001b[22m   Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 86:\u001b[22m   Expected indentation of 8 spaces but found 16                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 87:\u001b[22m   Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 88:\u001b[22m   Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 89:\u001b[22m   Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 90:\u001b[22m   Expected indentation of 8 spaces but found 16                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 91:\u001b[22m   Expected indentation of 8 spaces but found 16                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 92:\u001b[22m   Expected indentation of 10 spaces but found 20                                          \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 93:\u001b[22m   Expected indentation of 8 spaces but found 16                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 94:\u001b[22m   Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 95:\u001b[22m   Expected indentation of 4 spaces but found 8                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 96:\u001b[22m   Expected indentation of 4 spaces but found 8                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 97:\u001b[22m   Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 97:\u001b[22m   Do not use findDOMNode                                                                  \u001b[31m\u001b[4mreact/no-find-dom-node\u001b[24m\u001b[39m\n  \u001b[1mLine 98:\u001b[22m   Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 99:\u001b[22m   Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 100:\u001b[22m  Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 101:\u001b[22m  Expected indentation of 8 spaces but found 16                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 102:\u001b[22m  Expected indentation of 8 spaces but found 16                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 103:\u001b[22m  Expected indentation of 8 spaces but found 16                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 104:\u001b[22m  Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 105:\u001b[22m  Expected indentation of 4 spaces but found 8                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 106:\u001b[22m  Expected indentation of 4 spaces but found 8                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 107:\u001b[22m  Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 107:\u001b[22m  Use object destructuring                                                                \u001b[31m\u001b[4mprefer-destructuring\u001b[24m\u001b[39m\n  \u001b[1mLine 108:\u001b[22m  Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 108:\u001b[22m  Do not use findDOMNode                                                                  \u001b[31m\u001b[4mreact/no-find-dom-node\u001b[24m\u001b[39m\n  \u001b[1mLine 109:\u001b[22m  Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 110:\u001b[22m  Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 111:\u001b[22m  Expected indentation of 8 spaces but found 16                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 112:\u001b[22m  Expected indentation of 10 spaces but found 20                                          \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 113:\u001b[22m  Expected indentation of 12 spaces but found 24                                          \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 114:\u001b[22m  Expected indentation of 10 spaces but found 20                                          \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 115:\u001b[22m  Expected indentation of 10 spaces but found 20                                          \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 116:\u001b[22m  Expected indentation of 10 spaces but found 20                                          \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 117:\u001b[22m  Expected indentation of 8 spaces but found 16                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 118:\u001b[22m  Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 119:\u001b[22m  Expected indentation of 8 spaces but found 16                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 120:\u001b[22m  Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 121:\u001b[22m  Expected indentation of 4 spaces but found 8                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 122:\u001b[22m  Expected indentation of 4 spaces but found 8                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 123:\u001b[22m  Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 123:\u001b[22m  Do not use findDOMNode                                                                  \u001b[31m\u001b[4mreact/no-find-dom-node\u001b[24m\u001b[39m\n  \u001b[1mLine 124:\u001b[22m  Expected indentation of 6 spaces but found 12                                           \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 125:\u001b[22m  Expected indentation of 4 spaces but found 8                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 126:\u001b[22m  Expected indentation of 2 spaces but found 4                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 128:\u001b[22m  Expected indentation of 2 spaces but found 4                                            \u001b[31m\u001b[4mindent\u001b[24m\u001b[39m\n  \u001b[1mLine 129:\u001b[22m  Newline required at end of file but not found                                           \u001b[31m\u001b[4meol-last\u001b[24m\u001b[39m\n\nSearch for the \u001b[4m\u001b[31mkeywords\u001b[39m\u001b[24m to learn more about each error."],"warnings":[],"publicPath":"http://localhost:3001/","chunks":[{"id":"main","rendered":true,"initial":true,"entry":true,"size":1097591,"names":["main"],"files":["static/js/bundle.js","static/js/bundle.js.map"],"hash":"9193ad32251063d55dce","siblings":[],"parents":[],"children":[],"childrenByOrder":{}}]};
+module.exports = {"errors":[],"warnings":[],"publicPath":"http://localhost:3001/","chunks":[{"id":"main","rendered":true,"initial":true,"entry":true,"size":1304701,"names":["main"],"files":["static/js/bundle.js","static/js/bundle.js.map"],"hash":"4f6fe541a2881bc3c85e","siblings":[],"parents":[],"children":[],"childrenByOrder":{}}]};
 
 /***/ }),
 
@@ -64334,19 +65538,43 @@ var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-type
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _dace = __webpack_require__(/*! dace */ "./node_modules/dace/dist/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// import './index.css';
 // import Header from '../../components/Header';
 
 var Layout = function Layout(props) {
   return _react2.default.createElement(
     'div',
     null,
+    _react2.default.createElement(
+      _dace.Head,
+      null,
+      _react2.default.createElement(
+        'title',
+        null,
+        '\u6D4B\u8BD5\u9152\u5E97'
+      ),
+      _react2.default.createElement('meta', { name: 'viewport', content: 'initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no' }),
+      _react2.default.createElement(
+        'script',
+        { type: 'text/javascript' },
+        '\n        (function(doc) {\n            var docEl = doc.documentElement;\n            docEl.style.fontSize = docEl.clientWidth / 3.75 + \'px\';\n        })(document);\n        '
+      )
+    ),
+    _react2.default.createElement(
+      _dace.Link,
+      { to: '/' },
+      '\u9996\u9875'
+    ),
     props.children
   );
 };
 
 Layout.propTypes = {
+  class: _propTypes2.default.string,
   children: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.array]).isRequired
 };
 
@@ -64368,14 +65596,60 @@ module.exports = exports['default'];
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var FETCH_USERS = exports.FETCH_USERS = 'fetch_users';
-var fetchUsers = exports.fetchUsers = function fetchUsers() {
-  return function (dispatch) {
-    return dispatch({
-      type: FETCH_USERS,
-      payload: 123
-    });
-  };
+exports.fetchPosts = exports.FETCH_POSTS = undefined;
+
+var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "./node_modules/babel-runtime/regenerator/index.js");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(/*! babel-runtime/helpers/asyncToGenerator */ "./node_modules/babel-runtime/helpers/asyncToGenerator.js");
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FETCH_POSTS = exports.FETCH_POSTS = 'fetch_posts';
+var fetchPosts = exports.fetchPosts = function fetchPosts() {
+  return function () {
+    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(dispatch, getState, api) {
+      var _getState, posts, res;
+
+      return _regenerator2.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _getState = getState(), posts = _getState.posts;
+
+              if (posts) {
+                _context.next = 6;
+                break;
+              }
+
+              _context.next = 4;
+              return api.get('http://jsonplaceholder.typicode.com/posts');
+
+            case 4:
+              res = _context.sent;
+              return _context.abrupt('return', dispatch({
+                type: FETCH_POSTS,
+                payload: res
+              }));
+
+            case 6:
+              return _context.abrupt('return', null);
+
+            case 7:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined);
+    }));
+
+    return function (_x, _x2, _x3) {
+      return _ref.apply(this, arguments);
+    };
+  }();
 };
 
 /***/ }),
@@ -64392,7 +65666,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "div {\n  font-size: 15px;\n}\n", ""]);
+exports.push([module.i, "div {\n  font-size: 15px;\n}\n.mh-index {\n  & .hd-banner {\n    & .banner-item {\n      & img {\n        height: 1.375rem;\n      }\n    }\n  }\n}\n", ""]);
 
 // exports
 
@@ -64446,7 +65720,13 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
-var _alert = __webpack_require__(/*! ../../yo-component/alert */ "./src/yo-component/alert/index.js");
+var _dace = __webpack_require__(/*! dace */ "./node_modules/dace/dist/index.js");
+
+var _carousel = __webpack_require__(/*! yo-component/carousel */ "./src/yo-component/carousel/index.js");
+
+var _carousel2 = _interopRequireDefault(_carousel);
+
+var _alert = __webpack_require__(/*! yo-component/alert */ "./src/yo-component/alert/index.js");
 
 var _alert2 = _interopRequireDefault(_alert);
 
@@ -64488,38 +65768,77 @@ var Index = (_dec = (0, _reactRedux.connect)(function (state) {
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.props.users, this.state.id);
+      console.log(this.props.posts, this.state.id);
       return _react2.default.createElement(
         _default2.default,
         null,
         _react2.default.createElement(
           'div',
-          { className: 'hd-banner' },
-          _react2.default.createElement('img', { src: 'http://simg1.qunarzz.com/site/images/wap/home/recommend/20160509_banner_750x376.jpg', alt: '' })
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'condition-search' },
-          '\u8FD9\u91CC\u662F\u641C\u7D22\u90E8\u5206'
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'other-link' },
-          '\u8FD9\u91CC\u5C55\u793A\u5176\u4ED6\u94FE\u63A5'
+          { className: 'mh-index' },
+          _react2.default.createElement(
+            'div',
+            { className: 'hd-banner' },
+            _react2.default.createElement(
+              _carousel2.default,
+              { autoplay: true },
+              _react2.default.createElement(
+                'li',
+                { className: 'item banner-item' },
+                _react2.default.createElement('img', { className: 'img', src: 'http://img1.qunarzz.com/qs/1610/a6/01d1ad00e4b9e102.jpg' })
+              ),
+              _react2.default.createElement(
+                'li',
+                { className: 'item banner-item' },
+                _react2.default.createElement('img', { className: 'img', src: 'http://img1.qunarzz.com/qs/1610/a6/01d1ad00e4b9e102.jpg' })
+              ),
+              _react2.default.createElement(
+                'li',
+                { className: 'item banner-item' },
+                _react2.default.createElement('img', { className: 'img', src: 'http://img1.qunarzz.com/qs/1610/a6/01d1ad00e4b9e102.jpg' })
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'condition-search' },
+            _react2.default.createElement(
+              'ol',
+              null,
+              this.props.posts.map(function (post) {
+                return _react2.default.createElement(
+                  'li',
+                  { key: post.id },
+                  _react2.default.createElement(
+                    _dace.Link,
+                    { to: '/post/' + post.id },
+                    post.title
+                  )
+                );
+              })
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'other-link' },
+            '\u8FD9\u91CC\u5C55\u793A\u5176\u4ED6\u94FE\u63A5'
+          )
         )
       );
     }
   }]);
   return Index;
 }(_react.Component), _class2.propTypes = {
-  users: _propTypes2.default.any
+  posts: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+    id: _propTypes2.default.number,
+    title: _propTypes2.default.string
+  }))
 }, _class2.defaultProps = {
-  users: ''
+  posts: []
 }, _class2.getInitialProps = function (_ref) {
   var store = _ref.store;
 
   store.injectReducer(_reducer2.default);
-  return store.dispatch((0, _action.fetchUsers)());
+  return store.dispatch((0, _action.fetchPosts)());
 }, _temp)) || _class);
 exports.default = Index;
 module.exports = exports['default'];
@@ -64553,10 +65872,219 @@ exports.default = function () {
   var action = arguments[1];
 
   switch (action.type) {
-    case _action.FETCH_USERS:
+    case _action.FETCH_POSTS:
       // 只能返回对象，不能返回数组
       return (0, _assign2.default)({}, state, {
-        users: action.payload
+        posts: action.payload.data.slice(0, 7).map(function (_ref) {
+          var id = _ref.id,
+              title = _ref.title;
+          return { id: id, title: title };
+        })
+      });
+    default:
+      return state;
+  }
+};
+
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/pages/post/action.js":
+/*!**********************************!*\
+  !*** ./src/pages/post/action.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchPost = exports.FETCH_POST = undefined;
+
+var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "./node_modules/babel-runtime/regenerator/index.js");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(/*! babel-runtime/helpers/asyncToGenerator */ "./node_modules/babel-runtime/helpers/asyncToGenerator.js");
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FETCH_POST = exports.FETCH_POST = 'fetch_post';
+var fetchPost = exports.fetchPost = function fetchPost(id) {
+  return function () {
+    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(dispatch, getState, api) {
+      var res;
+      return _regenerator2.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return api.get('http://jsonplaceholder.typicode.com/posts/' + id);
+
+            case 2:
+              res = _context.sent;
+              return _context.abrupt('return', dispatch({
+                type: FETCH_POST,
+                payload: res
+              }));
+
+            case 4:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined);
+    }));
+
+    return function (_x, _x2, _x3) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+/***/ }),
+
+/***/ "./src/pages/post/index.jsx":
+/*!**********************************!*\
+  !*** ./src/pages/post/index.jsx ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ "./node_modules/babel-runtime/core-js/object/get-prototype-of.js");
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ "./node_modules/babel-runtime/helpers/classCallCheck.js");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ "./node_modules/babel-runtime/helpers/createClass.js");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ "./node_modules/babel-runtime/helpers/possibleConstructorReturn.js");
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ "./node_modules/babel-runtime/helpers/inherits.js");
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _dec, _class, _class2, _temp;
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _action = __webpack_require__(/*! ./action */ "./src/pages/post/action.js");
+
+var _reducer = __webpack_require__(/*! ./reducer */ "./src/pages/post/reducer.js");
+
+var _reducer2 = _interopRequireDefault(_reducer);
+
+var _default = __webpack_require__(/*! ../../layouts/default */ "./src/layouts/default/index.js");
+
+var _default2 = _interopRequireDefault(_default);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Post = (_dec = (0, _reactRedux.connect)(function (state) {
+  return state;
+}), _dec(_class = (_temp = _class2 = function (_Component) {
+  (0, _inherits3.default)(Post, _Component);
+
+  function Post() {
+    (0, _classCallCheck3.default)(this, Post);
+    return (0, _possibleConstructorReturn3.default)(this, (Post.__proto__ || (0, _getPrototypeOf2.default)(Post)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(Post, [{
+    key: 'render',
+    value: function render() {
+      var post = this.props.post;
+
+      return _react2.default.createElement(
+        _default2.default,
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          post.title
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          post.body
+        )
+      );
+    }
+  }]);
+  return Post;
+}(_react.Component), _class2.propTypes = {
+  post: _propTypes2.default.object
+}, _class2.defaultProps = {
+  post: {}
+}, _class2.getInitialProps = function (ctx) {
+  ctx.store.injectReducer(_reducer2.default);
+  return ctx.store.dispatch((0, _action.fetchPost)(ctx.match.params.id));
+}, _temp)) || _class);
+exports.default = Post;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/pages/post/reducer.js":
+/*!***********************************!*\
+  !*** ./src/pages/post/reducer.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _assign = __webpack_require__(/*! babel-runtime/core-js/object/assign */ "./node_modules/babel-runtime/core-js/object/assign.js");
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _action = __webpack_require__(/*! ./action */ "./src/pages/post/action.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _action.FETCH_POST:
+      // 只能返回对象，不能返回数组
+      return (0, _assign2.default)({}, state, {
+        post: action.payload.data
       });
     default:
       return state;
@@ -64674,10 +66202,1245 @@ module.exports = exports['default'];
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
-exports.i(__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module '-!../../../node_modules/css-loader/index.js??ref--11-0!../../yo-config/component/alert'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())), "");
+
 
 // module
-exports.push([module.i, "@charset \"utf-8\";\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n/**\r\n * Yo框架全局base定义\r\n * 本文件与variables不同地方在于，这里所定义的map可以使用在variables和任何地方\r\n * lib中map使用“_”开头，本文件中不使用\"_\"\r\n * base ⇌ extra\r\n */\n/**\r\n * Yo框架全局base定义\r\n * 本文件与variables不同地方在于，这里所定义的map可以使用在variables和任何地方\r\n * 本文件中map使用\"_\"开头，extra中不使用\"_\"\r\n * base ⇌ extra\r\n */\n/**\r\n * 合并base和extra中的同类base map\r\n * 用以解决业务方升级Yo时需比base和extra的一致性\r\n * 当extra为空时，base map将以base文件里的定义作为默认值\r\n * 当extra不为空时，base map使用extra文件里的定义\r\n */\n/**\n * Yo框架全局Variables\n * Yo基础变量map，如果不想定义某属性，将其value设置为null；\n * Yo仅使用2种长度单位：px用于边框，rem用于除边框之外的所有地方\n * variables中map使用“_”开头，本文件中不使用\"_\"\n * variables ⇌ config\n */\n/**\r\n * Yo框架全局Variables\r\n * Yo基础变量map，如果不想定义某属性，将其value设置为null\r\n * Yo仅使用2种长度单位：px用于边框，rem用于除边框之外的所有地方\r\n * 本文件中map使用\"_\"开头，config中不使用\"_\"\r\n * variables ⇌ config\r\n */\n/**\r\n * 合并variables和config中的同类map\r\n * 用以解决业务方升级Yo时需比config和variables的一致性\r\n * 当config为空时，使用variables中的map作为默认值\r\n * 当config不为空时，使用config中的定义\r\n */\n/**\r\n * Yo框架自定义全局函数\r\n * 扩充Sass默认函数库，用以增强语法\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的第一项\r\n * @function first\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的最后一项\r\n * @function last\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的倒数第几项\r\n * @function nth-last\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $index 指定需要返回的值在list中的倒数位置 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 移除SassList中的某个项目并返回新的List\r\n * @function remove\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {String} $value 指定需要被删除的值 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 截取SassList中的某个部分并返回新的List\r\n * @function slice\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $start 指定需要截取的开始下标 <2.1.0>\r\n * @param {Integer} $end 指定需要截取的结束下标（不包括end），当该值缺省时默认为末尾下标 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 从SassList中添加/删除项目，然后返回新的List。\r\n * @function splice\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $index 指定需要移除的开始下标 <2.1.0>\r\n * @param {Integer} $count 指定需要移除的数量，不可以为负值，0表示不移除 <2.1.0>\r\n * @param {String} $values 指定需要添加的新值（可以是多个），如果该值缺省，则表示只移除不添加新值 <2.1.0>\r\n */\n/**\r\n * Yo框架全局基础方法\r\n * 包括响应式方案，CSS3兼容性方案，厂商前缀方案，iconfont方案，flex布局等全局方法\r\n */\n/**\r\n * @module 常用方法\r\n * @description 给需要的属性加厂家前缀\r\n * @method prefix\r\n * @version 1.0.0\r\n * @param {String} $property 指定属性 <1.0.0>\r\n * @param {String} $value 指定属性值 <1.0.0>\r\n * @skip\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义字体图标\r\n * @method _iconfont\r\n * @version 1.0.0\r\n * @skip\r\n */\n/**\r\n * @module 常用方法\r\n * @description 四则运算(系统要求：iOS6.0+,Android4.4+)\r\n * @method calc\r\n * @version 1.7.0\r\n * @param {String} $property 指定需要进行计算的CSS属性 <1.7.0>\r\n * @param {String} $value 与原生CSS语法一致，区别在于需要使用引号包裹表达式 <1.7.0>\r\n * @example\r\n * .calc {\r\n *     @include calc(width, \"100% - 100px\");\r\n * }\r\n *\r\n * <div class=\"calc\">四则运算</div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义响应式方案\r\n * @method responsive\r\n * @version 1.0.0\r\n * @param {String} $media 指定媒体查询条件，取值为`config`文件map `media-types`中的值 <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 清除浮动方案\r\n * @method clearfix\r\n * @version 1.0.0\r\n * @param {String} $type 指定清除浮动的方式，包括：pseudo-element | bfc，默认值：pseudo-element <1.8.5>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 清除行内级元素间间隙方案\r\n * @method clearspace\r\n * @version 3.0.3\r\n * @param {Length} $font-size 指定子元素字号，默认值：.14rem <3.0.3>\r\n * @example\r\n * .demo {\r\n *     @include clearspace;\r\n * }\r\n *\r\n * <div class=\"demo\">\r\n *      <span class=\"item\">1</span>\r\n *      <span class=\"item\">2</span>\r\n *      <span class=\"item\">3</span>\r\n * </div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 描述元素内容在横、纵方向上的对齐方式，默认为水平垂直居中对齐\r\n * @method align\r\n * @version 2.0.0\r\n * @param {String} $flexbox 元素布局方式，可选值：flex | inline-flex，默认值：flex <2.0.0>\r\n * @param {Keyword} $justify-content 元素内容的水平对齐方式，取值与`justify-content`属性一致，默认值：center <2.0.0>\r\n * @param {Keyword} $align-items 元素内容的垂直对齐方式，取值与`align-items`属性一致，默认值：center <2.0.0>\r\n * @example\r\n * .demo {\r\n *     @include align;\r\n * }\r\n *\r\n * <div class=\"demo\">\r\n *      <img alt=\"未知尺寸图片居中\" />\r\n * </div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义是否有滚动条\r\n * @method overflow\r\n * @version 1.0.0\r\n * @param {String} $overflow 取值与最新原生语法一致，默认值：auto <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 生成全屏方法\r\n * @method fullscreen\r\n * @version 1.7.0\r\n * @param {Integer} $z-index 指定层叠级别 <1.7.0>\r\n * @param {Keywords} $position 指定定位方式，取除`static | relative`之外的值，默认值：absolute <1.8.5>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义使用何种滤镜\r\n * @method filter\r\n * @version 1.7.0\r\n * @param {String} $filter 取值与`filter`属性一致 <1.7.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义UA默认外观\r\n * @method appearance\r\n * @version 1.0.0\r\n * @param {String} $appearance 取值与`appearance`属性一致，默认值：none <1.0.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义如何选中内容\r\n * @method user-select\r\n * @version 1.0.0\r\n * @param {String} $user-select 取值与`user-select`属性一致，默认值：none <1.0.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义盒模型\r\n * @method box-sizing\r\n * @version 1.0.0\r\n * @param {String} $box-sizing 指定盒模型类型，取值与`box-sizing`属性一致，默认值：border-box <1.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义渐变色值\r\n * @method gradient\r\n * @version 1.0.0\r\n * @param {String} $type 指定渐变的4种类型：linear, repeating-linear, radial, repeating-radial <1.0.0>\r\n * @param {String} $dir 指定渐变方向，可选值：[left | right] || [top | bottom] | angle <2.0.0>\r\n * @param {String} $gradient 指定渐变取值，与w3c最新原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景图像缩放（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-size\r\n * @version 1.4.0\r\n * @param {Keywords | Length} $background-size 指定背景图缩放值，取值与`background-size`属性一致 <1.4.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景裁减（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-clip\r\n * @version 1.6.0\r\n * @param {Keywords} $background-clip 指定背景图缩放值，取值与`background-clip`属性一致 <1.6.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景显示区域（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-origin\r\n * @version 1.6.0\r\n * @param {Keywords} $background-origin 指定背景图`background-position`属性计算相对的参考点，取值与`background-origin`属性一致 <1.6.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 为元素添加边框（包括1px边框）\r\n * @method border\r\n * @version 2.0.0\r\n * @param {String} $border-width 指定边框厚度（单位为px），默认值：1px，取值与`border-width`属性一致，不同方向代表边框位置 <2.0.0>\r\n * @param {String} $border-color 指定边框颜色 <2.0.0>\r\n * @param {String} $border-style 指定边框样式 <2.0.0>\r\n * @param {String} $radius 指定边框圆角半径，默认值：null <2.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义圆角，用于修复某些安卓机型上“圆角+边框+背景”，背景溢出的情况\r\n * @method border-radius\r\n * @version 1.6.0\r\n * @param {Length} $border-radius 指定元素的圆角半径，取值与`border-radius`属性一致 <1.6.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 定义简单变换\r\n * @method transform\r\n * @version 1.0.0\r\n * @param {String} $transform 取值范围与`transform`属性一致 <1.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 定义变换原点\r\n * @method transform-origin\r\n * @version 1.0.0\r\n * @param {Length | Percentage | Keywords} $transform-origin 取值范围与`transform-origin`属性一致 <1.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定某元素的子元素是（看起来）位于三维空间内，还是在该元素所在的平面内被扁平化\r\n * @method transform-style\r\n * @version 2.0.0\r\n * @param {String} $transform-style 取值范围与`transform-style`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定观察者与「z=0」平面的距离，使具有三维位置变换的元素产生透视效果。「z>0」的三维元素比正常大，而「z<0」时则比正常小，大小程度由该属性的值决定。\r\n * @method perspective\r\n * @version 2.0.0\r\n * @param {none | Length} $perspective 取值范围与`perspective`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定透视点的位置\r\n * @method perspective-origin\r\n * @version 2.0.0\r\n * @param {Length | Percentage | Keywords} $perspective-origin 取值范围与`perspective-origin`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定元素背面面向用户时是否可见\r\n * @method backface-visibility\r\n * @version 2.0.0\r\n * @param {Keywords} $backface-visibility 取值范围与`backface-visibility`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 定义动画\r\n * @method animation\r\n * @version 1.0.0\r\n * @param {String} $animation 取值与原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定需要引用的动画名称\r\n * @method animation-name\r\n * @version 3.0.0\r\n * @param {String} $animation-name 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画运行一次所持续的时长\r\n * @method animation-duration\r\n * @version 3.0.0\r\n * @param {String} $animation-duration 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画运行方式\r\n * @method animation-timing-function\r\n * @version 3.0.0\r\n * @param {String} $animation-timing-function 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画延迟多久之后再开始\r\n * @method animation-delay\r\n * @version 3.0.0\r\n * @param {String} $animation-delay 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画循环几次\r\n * @method animation-iteration-count\r\n * @version 3.0.0\r\n * @param {String} $animation-iteration-count 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画的运动方向\r\n * @method animation-direction\r\n * @version 3.0.0\r\n * @param {String} $animation-direction 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画的运动状态\r\n * @method animation-play-state\r\n * @version 3.0.0\r\n * @param {String} $animation-play-state 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画时间之外的状态\r\n * @method animation-fill-mode\r\n * @version 3.0.0\r\n * @param {String} $animation-fill-mode 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Transition\r\n * @description 定义补间\r\n * @method transition\r\n * @version 1.0.0\r\n * @param {String} $transition 取值与原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义显示类型为伸缩盒\r\n * @method flexbox\r\n * @version 1.0.0\r\n * @param {String} $flexbox 默认值：flex，可选值：flex | inline-flex <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素如何分配空间\r\n * @method flex\r\n * @version 1.0.0\r\n * @param {Number} $flex 取值与`flex`属性一致，默认值：1 <1.0.0>\r\n * @param {String} $direction 默认值: row，可选值：row | column <1.5.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素的排版顺序\r\n * @method order\r\n * @version 1.0.0\r\n * @param {Integer} $order 取值与`order`属性一致，默认值：1 <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性盒子元素流动方向及遇见边界时是否换行(要求系统：iOS7.0+, Android4.4+)\r\n * @method flex-flow\r\n * @version 2.0.0\r\n * @param {String} $flex-flow 取值与`flex-flow`属性一致，默认值：row nowrap <2.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素的流动方向\r\n * @method flex-direction\r\n * @version 1.0.0\r\n * @param {String} $flex-direction 取值与`flex-direction`属性一致，默认值：row <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性盒子元素溢出后排版(要求系统：iOS7.0+, Android4.4+)\r\n * @method flex-wrap\r\n * @version 1.0.0\r\n * @param {String} $flex-wrap 取值与`flex-wrap`属性一致，默认值：nowrap <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性容器主轴对齐方式(其中`space-around`值需要iOS7.0+,Android4.4+)\r\n * @method justify-content\r\n * @version 1.0.0\r\n * @param {String} $justify-content 取值与`justify-content`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义多行弹性容器侧轴对齐方式(要求系统：iOS7.0+,Android4.4+)\r\n * @method align-content\r\n * @version 1.8.5\r\n * @param {String} $align-content 取值与`align-content`属性一致，默认值：center <1.8.5>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义单行弹性容器侧轴对齐方式\r\n * @method align-items\r\n * @version 1.0.0\r\n * @param {String} $align-items 取值与`align-items`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性容器中子元素自身的在侧轴对齐方式(要求系统：iOS7.0+,Android4.4+)\r\n * @method align-self\r\n * @version 1.0.0\r\n * @param {String} $align-self 取值与`align-self`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成矩形方法\r\n * @method rect\r\n * @version 1.0.0\r\n * @param {Length} $width 定义矩形的长度 <1.0.0>\r\n * @param {Length} $height 定义矩形的高度 <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成正方形方法\r\n * @method square\r\n * @version 1.0.0\r\n * @param {Length} $size 定义正方形的边长 <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成圆形方法\r\n * @method circle\r\n * @version 1.0.0\r\n * @param {Length} $size 定义圆的半径长度 <1.0.0>\r\n * @param {Length} $radius 定义圆的圆角半径长度 <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 在自适应宽度情况下，确保内容元素的宽高比固定，比如：实现随屏幕大小而变化的正方形。\r\n * @method fixed-scale\r\n * @version 3.0.10\r\n * @param {Length} $width 默认值：100%。用以指定内容元素的初始宽度，由于尺寸需动态变化，不要使用固定单位 <3.0.10>\r\n * @param {Length} $scale 默认值：1/1，即正方形。用以指定内容元素的宽度高比 <3.0.10>\r\n */\n/**\r\n * @module 文本\r\n * @description 链接处理方法\r\n * @method link\r\n * @version 1.0.0\r\n * @param {Color} $color 定义链接颜色 <1.0.0>\r\n */\n/**\r\n * @module 文本\r\n * @description 文本碰到边界是否换行\r\n * @method wrap\r\n * @version 1.0.0\r\n * @param {Boolean} $is-wrap 定义文本是否换行，默认值：true <2.0.0>\r\n */\n/**\r\n * @module 文本\r\n * @description 单行文本溢出时显示省略号\r\n * @method ellipsis\r\n * @version 1.0.0\r\n * @param {Length} $width 定义容器的宽度，默认值：null <2.0.0>\r\n * @param {Integer} $line-clamp 定义需要显示的行数，默认值：1（即使用单行溢出的处理方案），需要注意的是本参数只支持webkit内核 <2.1.2>\r\n */\n/**\r\n * @module 文本\r\n * @description 文字隐藏方案\r\n * @method texthide\r\n * @version 1.0.0\r\n * @param {Length} $width 定义容器的宽度，默认值：null <2.0.0>\r\n */\n/**\r\n * Yo框架全局Reset\r\n * Yo重置Mobile及高级浏览器上常见的差异\r\n */\n*,\n::before,\n::after {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }\n\nhtml,\nbody {\n  overflow: hidden;\n  height: 100%; }\n\n::-webkit-scrollbar {\n  display: none; }\n\nhtml {\n  background-color: #eee;\n  color: #212121;\n  font-size: 100px;\n  -webkit-user-select: none;\n  user-select: none; }\n\nbody {\n  margin: 0;\n  font-size: 0.14em;\n  line-height: 1.5;\n  font-family: Helvetica Neue, Helvetica, STHeiTi, sans-serif; }\n\nul,\nol,\ndl,\ndd,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nfigure,\nform,\nfieldset,\nlegend,\ninput,\ntextarea,\nbutton,\np,\nblockquote,\nth,\ntd,\npre,\nxmp {\n  margin: 0;\n  padding: 0; }\n\ninput,\ntextarea,\nbutton,\nselect,\npre,\nxmp,\ntt,\ncode,\nkbd,\nsamp {\n  line-height: inherit;\n  font-family: inherit; }\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nsmall,\nbig,\ninput,\ntextarea,\nbutton,\nselect {\n  font-size: inherit; }\n\naddress,\ncite,\ndfn,\nem,\ni,\noptgroup,\nvar {\n  font-style: normal; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n  table-layout: fixed;\n  text-align: left; }\n\nul,\nol,\nmenu {\n  list-style: none; }\n\nfieldset,\nimg {\n  border: 0;\n  vertical-align: middle; }\n\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nmain,\nmenu,\nnav,\nsection,\nsummary {\n  display: block; }\n\naudio,\ncanvas,\nvideo {\n  display: inline-block; }\n\nblockquote:before,\nblockquote:after,\nq:before,\nq:after {\n  content: \" \"; }\n\ntextarea,\npre,\nxmp {\n  overflow: auto;\n  -webkit-overflow-scrolling: touch; }\n\ntextarea {\n  resize: vertical; }\n\ninput,\ntextarea,\nbutton,\nselect,\nsummary,\na {\n  outline: 0 none; }\n\ninput,\ntextarea,\nbutton,\nselect {\n  color: inherit; }\n  input:disabled,\n  textarea:disabled,\n  button:disabled,\n  select:disabled {\n    opacity: 1; }\n\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  padding: 0;\n  border: 0; }\n\ninput[type=\"button\"],\ninput[type=\"submit\"],\ninput[type=\"reset\"],\ninput[type=\"file\"]::-webkit-file-upload-button,\ninput[type=\"search\"]::-webkit-search-cancel-button {\n  -webkit-appearance: none;\n  appearance: none; }\n\n::-webkit-details-marker {\n  display: none; }\n\nmark {\n  background-color: rgba(0, 0, 0, 0); }\n\na,\nins,\ns,\nu,\ndel {\n  text-decoration: none; }\n\na,\nimg {\n  -webkit-touch-callout: none; }\n\na {\n  color: #00afc7; }\n\n.g-clear::after,\n.g-mod::after {\n  display: block;\n  overflow: hidden;\n  clear: both;\n  height: 0;\n  content: \" \"; }\n\n@font-face {\n  font-family: event_node;\n  src: url(//s.qunarzz.com/event_node/font/0.0.36/event_node.woff) format(\"woff\"), url(//s.qunarzz.com/event_node/font/0.0.36/event_node.ttf) format(\"truetype\"); }\n\n.yo-ico {\n  font-family: event_node !important;\n  font-style: normal;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  vertical-align: middle; }\n\n/**\n * @module fragment\n * @method yo-modal\n * @version 3.0.0\n * @description 构造yo-modal的自定义使用方法\n * @demo http://ued.qunar.com/hy2/yo/demo/src/html/fragment/yo-modal.html\n * @param {String} $name 定义扩展名称 <3.0.0>\n * @param {Color} $bgcolor 遮罩背景色 <3.0.0>\n * @param {Color} $cont-bgcolor 内容区背景色 <3.0.0>\n */\n.yo-modal {\n  overflow: hidden;\n  position: absolute;\n  z-index: 1000;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  align-items: center;\n  background-color: rgba(0, 0, 0, 0.2); }\n  .yo-modal-top {\n    -webkit-box-align: start;\n    -webkit-align-items: flex-start;\n    align-items: flex-start; }\n  .yo-modal-right {\n    -webkit-box-pack: end;\n    -webkit-justify-content: flex-end;\n    justify-content: flex-end; }\n  .yo-modal-bottom {\n    -webkit-box-align: end;\n    -webkit-align-items: flex-end;\n    align-items: flex-end; }\n  .yo-modal-left {\n    -webkit-box-pack: start;\n    -webkit-justify-content: flex-start;\n    justify-content: flex-start; }\n  .yo-modal-stretch-x > .cont {\n    -webkit-box-flex: 1;\n    -webkit-flex: 1;\n    flex: 1;\n    width: .1px; }\n  .yo-modal-stretch-y > .cont {\n    -webkit-align-self: stretch;\n    align-self: stretch; }\n  .yo-modal-stretch > .cont {\n    -webkit-box-flex: 1;\n    -webkit-flex: 1;\n    flex: 1;\n    width: .1px;\n    -webkit-align-self: stretch;\n    align-self: stretch; }\n  .yo-modal > .cont {\n    position: relative;\n    overflow: hidden; }\n\n/**\r\n * Yo框架动画解决方案\r\n * Yo内置了超过60种动画形态，不同的动画可以任意组合\r\n */\n.ani {\n  -webkit-animation-duration: 1s;\n  animation-duration: 1s;\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both; }\n\n.ani.infinite {\n  -webkit-animation-iteration-count: infinite;\n  animation-iteration-count: infinite; }\n\n/**\r\n * @module fade\r\n * @description 定义淡入动画\r\n * @method fade-in\r\n */\n@-webkit-keyframes fade-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n@keyframes fade-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n.ani.fade-in {\n  -webkit-animation-name: fade-in;\n  animation-name: fade-in; }\n\n/**\r\n * @module fade\r\n * @description 定义淡出动画\r\n * @method fade-out\r\n */\n@-webkit-keyframes fade-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@keyframes fade-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n.ani.fade-out {\n  -webkit-animation-name: fade-out;\n  animation-name: fade-out; }\n\n/**\r\n * @module zoom\r\n * @description 定义放大进入动画\r\n * @method zoom-in\r\n */\n@-webkit-keyframes zoom-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale3d(0.3, 0.3, 0.3); }\n  50% {\n    opacity: 1; } }\n\n@keyframes zoom-in {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.3, 0.3, 0.3); }\n  50% {\n    opacity: 1; } }\n\n.ani.zoom-in {\n  -webkit-animation-name: zoom-in;\n  animation-name: zoom-in; }\n\n/**\r\n * @module zoom\r\n * @description 定义缩小退出动画\r\n * @method zoom-out\r\n */\n@-webkit-keyframes zoom-out {\n  0% {\n    opacity: 1; }\n  50% {\n    opacity: 0;\n    -webkit-transform: scale3d(0.3, 0.3, 0.3); }\n  100% {\n    opacity: 0; } }\n\n@keyframes zoom-out {\n  0% {\n    opacity: 1; }\n  50% {\n    opacity: 0;\n    transform: scale3d(0.3, 0.3, 0.3); }\n  100% {\n    opacity: 0; } }\n\n.ani.zoom-out {\n  -webkit-animation-name: zoom-out;\n  animation-name: zoom-out; }\n\n/**\r\n * @module fade\r\n * @description 定义淡入升起动画\r\n * @method fade-in-up\r\n */\n@-webkit-keyframes fade-in-up {\n  0% {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 100%, 0); }\n  100% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 0, 0); } }\n\n@keyframes fade-in-up {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, 100%, 0); }\n  100% {\n    opacity: 1;\n    transform: translate3d(0, 0, 0); } }\n\n.ani.fade-in-up {\n  -webkit-animation-name: fade-in-up;\n  animation-name: fade-in-up; }\n\n/**\r\n * @module fade\r\n * @description 定义从下面淡出动画\r\n * @method fade-out-down\r\n */\n@-webkit-keyframes fade-out-down {\n  0% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 0, 0); }\n  100% {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 100%, 0); } }\n\n@keyframes fade-out-down {\n  0% {\n    opacity: 1;\n    transform: translate3d(0, 0, 0); }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, 100%, 0); } }\n\n.ani.fade-out-down {\n  -webkit-animation-name: fade-out-down;\n  animation-name: fade-out-down; }\n\n/**\r\n * @module fade\r\n * @description 定义淡入落下动画\r\n * @method fade-in-down\r\n */\n@-webkit-keyframes fade-in-down {\n  0% {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -100%, 0); }\n  100% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 0, 0); } }\n\n@keyframes fade-in-down {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0); }\n  100% {\n    opacity: 1;\n    transform: translate3d(0, 0, 0); } }\n\n.ani.fade-in-down {\n  -webkit-animation-name: fade-in-down;\n  animation-name: fade-in-down; }\n\n/**\r\n * @module fade\r\n * @description 定义从上面淡出动画\r\n * @method fade-out-up\r\n */\n@-webkit-keyframes fade-out-up {\n  0% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 0, 0); }\n  100% {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -100%, 0); } }\n\n@keyframes fade-out-up {\n  0% {\n    opacity: 1;\n    transform: translate3d(0, 0, 0); }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0); } }\n\n.ani.fade-out-up {\n  -webkit-animation-name: fade-out-up;\n  animation-name: fade-out-up; }\n\n/**\r\n * @module element\r\n * @method yo-btn\r\n * @version 3.0.0\r\n * @description 构造按钮的自定义使用方法，勿使用`input`标签，因为边框为`::after`实现\r\n * @demo http://ued.qunar.com/hy2/yo/demo/src/html/element/yo-btn.html\r\n * @param {String} $name 定义扩展名称 <3.0.0>\r\n * @param {Length} $border-width 边框厚度 <3.0.0>\r\n * @param {Color} $border-color 边框色 <3.0.0>\r\n * @param {Color} $bgcolor 背景色 <3.0.0>\r\n * @param {Color} $color 文本色 <3.0.0>\r\n * @param {Color} $touch-border-color 触点（鼠标，手指或其它）按下时边框色 <3.0.0>\r\n * @param {Color} $touch-bgcolor 触点（鼠标，手指或其它）按下时背景色 <3.0.0>\r\n * @param {Color} $touch-color 触点（鼠标，手指或其它）按下时文本色 <3.0.0>\r\n * @param {Length} $padding 内补白 <3.0.0>\r\n * @param {Length} $radius 圆角半径长度 <3.0.0>\r\n * @param {Length} $font-size 字号大小 <3.0.0>\r\n * @param {Length} $width 宽度 <3.0.0>\r\n * @param {Length} $height 高度 <3.0.0>\r\n */\n.yo-btn {\n  display: inline-block;\n  height: 0.36rem;\n  line-height: 0.36rem;\n  padding: 0 1.2em;\n  vertical-align: top;\n  position: relative;\n  border-radius: 0.05rem;\n  border: 0 none;\n  background-color: #ff801a;\n  color: #fff;\n  text-align: center;\n  cursor: pointer; }\n  .yo-btn::after {\n    pointer-events: none;\n    position: absolute;\n    z-index: 999;\n    top: 0;\n    left: 0;\n    content: \" \";\n    border-color: #d36105;\n    border-style: solid;\n    border-width: 1px;\n    -webkit-transform-origin: 0 0;\n    transform-origin: 0 0; }\n    @media (max--moz-device-pixel-ratio: 1.49), (-webkit-max-device-pixel-ratio: 1.49), (max-device-pixel-ratio: 1.49), (max-resolution: 143dpi), (max-resolution: 1.49dppx) {\n      .yo-btn::after {\n        width: 100%;\n        height: 100%;\n        border-radius: 0.05rem; } }\n    @media (min--moz-device-pixel-ratio: 1.5) and (max--moz-device-pixel-ratio: 2.49), (-webkit-min-device-pixel-ratio: 1.5) and (-webkit-max-device-pixel-ratio: 2.49), (min-device-pixel-ratio: 1.5) and (max-device-pixel-ratio: 2.49), (min-resolution: 144dpi) and (max-resolution: 239dpi), (min-resolution: 1.5dppx) and (max-resolution: 2.49dppx) {\n      .yo-btn::after {\n        width: 200%;\n        height: 200%;\n        -webkit-transform: scale(0.5);\n        transform: scale(0.5);\n        border-radius: 0.1rem; } }\n    @media (min--moz-device-pixel-ratio: 2.5), (-webkit-min-device-pixel-ratio: 2.5), (min-device-pixel-ratio: 2.5), (min-resolution: 240dpi), (min-resolution: 2.5dppx) {\n      .yo-btn::after {\n        width: 300%;\n        height: 300%;\n        -webkit-transform: scale(0.33333);\n        transform: scale(0.33333);\n        border-radius: 0.15rem; } }\n  .yo-btn-disabled {\n    opacity: 1;\n    cursor: not-allowed;\n    background-color: #ffaa67;\n    color: white; }\n    .yo-btn-disabled::after {\n      border-color: #fa7f1c; }\n  .yo-btn-stacked {\n    display: block;\n    width: 100%; }\n\n/**\r\n * @module fragment\r\n * @method yo-dialog\r\n * @version 3.0.0\r\n * @description 构造yo-dialog的自定义使用方法\r\n * @demo http://ued.qunar.com/hy2/yo/demo/src/html/fragment/yo-dialog.html\r\n * @param {String} $name 定义扩展名称 <3.0.0>\r\n * @param {Length} $width 宽度 <3.0.0>\r\n * @param {Length} $height 高度 <3.0.0>\r\n * @param {Length} $radius 圆角半径长度 <3.0.0>\r\n * @param {Color} $border-color 边框色 <3.0.0>\r\n * @param {Color} $title-color 标题文本色 <3.0.0>\r\n * @param {Length} $title-font-size 标题字号 <3.0.0>\r\n * @param {Length} $bd-padding 主体内补白 <3.0.0>\r\n * @param {Length} $bd-font-size 主体字号 <3.0.0>\r\n */\n.yo-dialog {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n  flex-direction: column;\n  overflow: hidden;\n  padding-top: .15rem;\n  min-width: 2.8rem;\n  max-width: 90%;\n  margin: auto;\n  border-radius: 0.1rem;\n  background-color: #fff;\n  text-align: center; }\n  .yo-dialog > .hd {\n    position: relative;\n    overflow: hidden; }\n    .yo-dialog > .hd .title {\n      overflow: hidden;\n      height: 100%;\n      margin: 0 .6rem;\n      color: #212121;\n      font-size: 0.16rem; }\n    .yo-dialog > .hd .regret,\n    .yo-dialog > .hd .affirm {\n      position: absolute;\n      top: 0; }\n    .yo-dialog > .hd .regret {\n      left: .1rem; }\n    .yo-dialog > .hd .affirm {\n      right: .1rem; }\n  .yo-dialog > .bd {\n    overflow: auto;\n    -webkit-overflow-scrolling: touch;\n    min-height: .4rem;\n    padding: 0.03rem 0.1rem 0.15rem;\n    font-size: 0.16rem; }\n  .yo-dialog > .ft {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    text-align: center; }\n    .yo-dialog > .ft .yo-btn-dialog {\n      height: 0.44rem;\n      line-height: 0.44rem;\n      border-radius: 0;\n      background-color: #fff;\n      color: #00afc7;\n      font-size: 0.16rem;\n      display: block;\n      -webkit-box-flex: 1;\n      -webkit-flex: 1;\n      flex: 1;\n      width: .1px; }\n      .yo-dialog > .ft .yo-btn-dialog::after {\n        border-width: 1px 1px 0 0;\n        border-color: #ccc; }\n        @media (max--moz-device-pixel-ratio: 1.49), (-webkit-max-device-pixel-ratio: 1.49), (max-device-pixel-ratio: 1.49), (max-resolution: 143dpi), (max-resolution: 1.49dppx) {\n          .yo-dialog > .ft .yo-btn-dialog::after {\n            border-radius: 0; } }\n        @media (min--moz-device-pixel-ratio: 1.5) and (max--moz-device-pixel-ratio: 2.49), (-webkit-min-device-pixel-ratio: 1.5) and (-webkit-max-device-pixel-ratio: 2.49), (min-device-pixel-ratio: 1.5) and (max-device-pixel-ratio: 2.49), (min-resolution: 144dpi) and (max-resolution: 239dpi), (min-resolution: 1.5dppx) and (max-resolution: 2.49dppx) {\n          .yo-dialog > .ft .yo-btn-dialog::after {\n            border-radius: 0; } }\n        @media (min--moz-device-pixel-ratio: 2.5), (-webkit-min-device-pixel-ratio: 2.5), (min-device-pixel-ratio: 2.5), (min-resolution: 240dpi), (min-resolution: 2.5dppx) {\n          .yo-dialog > .ft .yo-btn-dialog::after {\n            border-radius: 0; } }\n      .yo-dialog > .ft .yo-btn-dialog.yo-btn-touch {\n        background-color: #f9f9f9; }\n      .yo-dialog > .ft .yo-btn-dialog.yo-btn-disabled {\n        background-color: white;\n        color: #94f2ff; }\n        .yo-dialog > .ft .yo-btn-dialog.yo-btn-disabled::after {\n          border-color: #ebebeb; }\n      .yo-dialog > .ft .yo-btn-dialog:last-child {\n        font-weight: bold;\n        border-bottom-right-radius: 0.1rem; }\n        .yo-dialog > .ft .yo-btn-dialog:last-child::after {\n          border-right-width: 0; }\n      .yo-dialog > .ft .yo-btn-dialog:first-child {\n        border-bottom-left-radius: 0.1rem; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./src/yo-component/carousel/aniScrollx.js":
+/*!*************************************************!*\
+  !*** ./src/yo-component/carousel/aniScrollx.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _carouselItem = __webpack_require__(/*! ./carouselItem.js */ "./src/yo-component/carousel/carouselItem.js");
+
+var _carouselItem2 = _interopRequireDefault(_carouselItem);
+
+var _utils = __webpack_require__(/*! ../common/utils */ "./src/yo-component/common/utils.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+    var ALLOWANCEAngle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0.57;
+    var ALLOWANCEDistance = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 30;
+    var movePercentage = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+    var K = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0.2;
+
+    var _ref = !_utils.isEnvNode ? (0, _utils.getRAF)() : {},
+        rAF = _ref.rAF,
+        cancelrAF = _ref.cancelrAF;
+
+    var transitionendEndName = !_utils.isEnvNode ? (0, _utils.whichTransitionEventPrefix)() + 'end' : '';
+    var ani = {
+        aniQue: [],
+        handleData: function handleData(_ref2, children) {
+            var loop = _ref2.loop,
+                pageNow = _ref2.pageNow;
+
+            var newChildren = _react2.default.Children.toArray(children);
+            if (loop) {
+                var len = children.length;
+                var lastfakeDomStyle = {
+                    key: 0
+                };
+                var firstFakeDomStyle = {
+                    key: -1
+                };
+                if (children[0].type === _carouselItem2.default) {
+                    lastfakeDomStyle.index = len;
+                    lastfakeDomStyle.extraClass = children[len - 1].props.extraClass ? children[len - 1].props.extraClass + ' extra-item' : 'extra-item';
+                    firstFakeDomStyle.index = 1;
+                } else {
+                    lastfakeDomStyle.className = children[len - 1].props.className ? children[len - 1].props.className + ' extra-item' : 'extra-item';
+                }
+                var header = _react2.default.cloneElement(children[len - 1], lastfakeDomStyle);
+                var footer = _react2.default.cloneElement(children[0], firstFakeDomStyle);
+                newChildren.unshift(header);
+                newChildren.push(footer);
+            }
+            return newChildren;
+        },
+        _checkTouchAngle: function _checkTouchAngle(prev, next) {
+            var changeX = prev[0] - next[0];
+            var changeY = next[1] - prev[1];
+            var tan = Math.abs(changeX) / Math.abs(changeY);
+            return tan > ALLOWANCEAngle;
+        },
+        touchstart: function touchstart() {},
+        touchmove: function touchmove(_ref3) {
+            var touchstartLocation = _ref3.touchstartLocation,
+                touchmoveLocation = _ref3.touchmoveLocation,
+                pageNow = _ref3.pageNow,
+                containerDOM = _ref3.containerDOM,
+                width = _ref3.width,
+                pagesNum = _ref3.pagesNum,
+                loop = _ref3.loop;
+
+            if (!this._checkTouchAngle(touchstartLocation, touchmoveLocation)) {
+                return;
+            }
+            var k = this._caculateTranslate({
+                pageNow: pageNow,
+                pagesNum: pagesNum,
+                loop: loop
+            }, touchstartLocation[0] - touchmoveLocation[0]);
+            var translateX = (pageNow - 1) * width * movePercentage + k;
+            this._addCss({
+                dom: containerDOM,
+                speed: 0,
+                translateX: -translateX,
+                reset: true,
+                width: width
+            });
+        },
+        _caculateTranslate: function _caculateTranslate(_ref4, x) {
+            var loop = _ref4.loop,
+                pageNow = _ref4.pageNow,
+                pagesNum = _ref4.pagesNum;
+
+            if (!loop & (pageNow === 1 && x < 0 || pageNow === pagesNum && x > 0)) return K * x;
+            return x;
+        },
+        touchend: function touchend(aniObj) {
+            var touchstartLocation = aniObj.touchstartLocation,
+                touchendLocation = aniObj.touchendLocation,
+                pageNow = aniObj.pageNow;
+
+            var distanceX = touchendLocation[0] - touchstartLocation[0];
+            var newpageNow = pageNow;
+            if (Math.abs(distanceX) > ALLOWANCEDistance && this._checkTouchAngle(touchstartLocation, touchendLocation)) {
+                newpageNow = distanceX > 0 ? pageNow - 1 : pageNow + 1;
+            } else {
+                newpageNow = pageNow;
+            }
+            return this.checkAni(aniObj, newpageNow);
+        },
+        checkAni: function checkAni(aniObj, pageNow) {
+            var pagesNum = aniObj.pagesNum,
+                speed = aniObj.speed,
+                containerDOM = aniObj.containerDOM,
+                loop = aniObj.loop,
+                width = aniObj.width;
+
+            var self = this;
+            var translateX = width * (1 - pageNow) * movePercentage;
+            var newpageNow = pageNow;
+            if (pageNow < 1 || pageNow > pagesNum) {
+                if (loop) {
+                    containerDOM.addEventListener(transitionendEndName, function test() {
+                        var translate = pageNow === 0 ? width * (1 - pagesNum) * movePercentage : 0;
+                        self._addCss({
+                            dom: containerDOM,
+                            reset: true,
+                            translateX: translate,
+                            width: width
+                        });
+                        containerDOM.removeEventListener(transitionendEndName, test);
+                    }, false);
+                    newpageNow = pageNow === 0 ? pagesNum : 1;
+                } else {
+                    newpageNow = pageNow < 1 ? 1 : pagesNum;
+                    translateX = width * (1 - newpageNow) * movePercentage;
+                }
+            }
+            this._addCss({
+                dom: containerDOM,
+                reset: false,
+                speed: speed,
+                translateX: translateX,
+                width: width
+            });
+            return newpageNow;
+        },
+        next: function next(aniObj) {
+            var pageNow = aniObj.pageNow;
+
+            var pageNext = pageNow + 1;
+            return this.checkAni(aniObj, pageNext);
+        },
+        prev: function prev(aniObj) {
+            var pageNow = aniObj.pageNow,
+                containerDOM = aniObj.containerDOM,
+                speed = aniObj.speed,
+                width = aniObj.width;
+
+            var pageNext = pageNow - 1;
+            var translateX = width * (1 - pageNext);
+            this._addCss({
+                dom: containerDOM,
+                speed: speed,
+                translateX: translateX
+            });
+            return this.checkAni(aniObj, pageNext);
+        },
+        arrive: function arrive(aniObj, num, isAni) {
+            if (num >= 1 && num <= aniObj.pagesNum) {
+                var translateX = (1 - num) * aniObj.width * movePercentage;
+                this._addCss({
+                    dom: aniObj.containerDOM,
+                    speed: 0.1,
+                    translateX: translateX,
+                    reset: !isAni,
+                    width: aniObj.width
+                });
+            } else {
+                console.warn('\u4F20\u5165carousel\u7EC4\u5EFA\u7684arrive\u65B9\u6CD5\u7684\u9875\u9762\u4E3A' + num + ',\u8BE5\u503C\u4E0D\u5408\u6CD5');
+            }
+            return num;
+        },
+        _addCss: function _addCss(_ref5) {
+            var dom = _ref5.dom,
+                _ref5$translateX = _ref5.translateX,
+                translateX = _ref5$translateX === undefined ? 0 : _ref5$translateX,
+                reset = _ref5.reset;
+
+            var that = this;
+            // 此处为Dom操作
+            this.aniQue.push({ translateX: translateX, reset: reset });
+            if (this.reqAni) {
+                cancelrAF(this.reqAni);
+            }
+            this.reqAni = rAF(function () {
+                if (!that.aniQue.length) return;
+                var last = that.aniQue.pop();
+                that.aniQue.length = 0;
+                if (last.reset) {
+                    dom.style.webkitTransition = 'none';
+                    dom.style.transition = 'none';
+                } else {
+                    dom.style.webkitTransition = '';
+                    dom.style.transition = '';
+                }
+                dom.style.webkitTransform = 'translate(' + last.translateX + 'px, 0) translateZ(0)';
+                dom.style.transform = 'translate(' + last.translateX + 'px, 0) translateZ(0)';
+                that.reqAni = null;
+            });
+        }
+    };
+    return ani;
+}; /**
+    * @function aniScrollX
+    * @description 水平滚动动画，适用于有限数量的滚动展示
+    * @param [ALLOWANCEAngle, ALLOWANCEDistance, movePercentage, K] 触发事件处理的手势角度tan绝对值； 触发翻页的水平位移默认为1； 位移系数；触底拖动系数默认为0.2；
+    */
+
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/yo-component/carousel/carousel.js":
+/*!***********************************************!*\
+  !*** ./src/yo-component/carousel/carousel.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _assign = __webpack_require__(/*! babel-runtime/core-js/object/assign */ "./node_modules/babel-runtime/core-js/object/assign.js");
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ "./node_modules/babel-runtime/core-js/object/get-prototype-of.js");
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ "./node_modules/babel-runtime/helpers/classCallCheck.js");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ "./node_modules/babel-runtime/helpers/createClass.js");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ "./node_modules/babel-runtime/helpers/possibleConstructorReturn.js");
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ "./node_modules/babel-runtime/helpers/inherits.js");
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _class, _temp; /**
+                    * @component Carousel
+                    * @version 3.0.8
+                    * @description 走马灯组件
+                    * 支持用户自定义动画对象，支持用户自定义css动画
+                    * 支持用户自定义子节点
+                    *
+                    * 默认动画：
+                    * + 横向滚动动画
+                    * + 为当前页加上on的类名，因此可以附加css动画效果。
+                    *
+                    * 默认走马灯子节点：
+                    * + 支持图片懒加载
+                    * + 图片加载失败的替换图模板
+                    *
+                    * 查看Demo获得实例：
+                    * 使用自定义动画实现图片查看器
+                    * 内置动画配合css动画效果
+                    *
+                    * 使用注意：
+                    * - `Carousel`组件的父节点需要有宽度，`Carousel`组件默认宽度为‘100%’，如果父节点没有宽度会导致默认滚动动画失效。
+                    * - `Carousel`组件不能直接嵌套在`Touchable`组件中，请使用`CarouselItem`的`onTap`来给它的Item绑定tap事件回调，
+                    * 或者用`Touchable`组件包裹Item。
+                    * @author eva.li
+                    * @instructions {instruInfo: ./carousel.md}{instruUrl: carousel/index.html?hideIcon}
+                    */
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _aniScrollx = __webpack_require__(/*! ./aniScrollx.js */ "./src/yo-component/carousel/aniScrollx.js");
+
+var _aniScrollx2 = _interopRequireDefault(_aniScrollx);
+
+var _reactAddonsPureRenderMixin = __webpack_require__(/*! react-addons-pure-render-mixin */ "./node_modules/react-addons-pure-render-mixin/index.js");
+
+var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+
+var _carouselItem = __webpack_require__(/*! ./carouselItem */ "./src/yo-component/carousel/carouselItem.js");
+
+var _carouselItem2 = _interopRequireDefault(_carouselItem);
+
+var _carouselLocat = __webpack_require__(/*! ./carouselLocat */ "./src/yo-component/carousel/carouselLocat.js");
+
+var _carouselLocat2 = _interopRequireDefault(_carouselLocat);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Carousel = (_temp = _class = function (_Component) {
+    (0, _inherits3.default)(Carousel, _Component);
+
+    function Carousel(props) {
+        (0, _classCallCheck3.default)(this, Carousel);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (Carousel.__proto__ || (0, _getPrototypeOf2.default)(Carousel)).call(this, props));
+
+        _this.state = {
+            page: 1
+        };
+        _this.shouldComponentUpdate = _reactAddonsPureRenderMixin2.default.shouldComponentUpdate.bind(_this);
+        _this.dragDom = null;
+        _this.dragEvt = null;
+        return _this;
+    }
+
+    (0, _createClass3.default)(Carousel, [{
+        key: 'getChildContext',
+        value: function getChildContext() {
+            return {
+                currentPage: this.state.page,
+                pagesNum: this.props.children.length
+            };
+        }
+    }, {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.ani = (0, _assign2.default)({}, this.props.aniObj || (0, _aniScrollx2.default)());
+            this.aniObj = {
+                delay: this.props.delay,
+                speed: this.props.speed,
+                pageNow: 1,
+                pagesNum: this.props.children.length,
+                aniSpeed: this.props.aniSpeed,
+                loop: this.props.loop,
+                operationTimer: 0,
+                touchstartLocation: {},
+                touchendLocation: {}
+            };
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.aniObj.stageDOM = this.widgetDOM.parentNode;
+            this.aniObj.width = this.widgetDOM.clientWidth;
+            this.aniObj.containerDOM = this.widgetDOM.querySelector('.cont');
+            this.arrive(this.props.defaultPage, false);
+            this.launchAuto();
+            this.handleResize = this.handleResize.bind(this);
+            window.addEventListener('resize', this.handleResize);
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(props) {
+            this.aniObj.delay = props.delay;
+            this.aniObj.speed = props.speed;
+            this.aniObj.pagesNum = props.children.length;
+            this.aniObj.aniSpeed = props.aniSpeed;
+            this.aniObj.loop = props.loop;
+        }
+    }, {
+        key: 'componentWillUpdate',
+        value: function componentWillUpdate(nextProps, nextState) {
+            if (nextState.page !== this.state.page) {
+                this.props.beforeChange(nextState.page);
+            }
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            if (prevState.page !== this.state.page) {
+                this.props.afterChange(this.state.page);
+            }
+            if (prevProps.autoplay !== this.props.autoplay || prevProps.loop !== this.props.loop) {
+                this.pause();
+                this.play();
+            }
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            this.pause();
+            window.removeEventListener('resize', this.handleResize);
+        }
+        /**
+         * @description 当元素容器宽度发生变化时调用，用于重设组件内容器 `translate` 的值
+         * @method handleResize
+         * @version 3.0.8
+         */
+
+    }, {
+        key: 'handleResize',
+        value: function handleResize() {
+            this.aniObj.width = this.widgetDOM.clientWidth;
+            this.arrive(this.state.page, false);
+            this.forceUpdate();
+        }
+        /**
+         * @description 到达方法
+         * @method arrive
+         * @param  {number} num 到达的页数
+         * @param {isAni} boolean 是否需要动画
+         */
+
+    }, {
+        key: 'arrive',
+        value: function arrive(num) {
+            var isAni = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+            this.aniObj.operationTimer = num - 1;
+            this.pause();
+            if (num > 0 && num <= _react2.default.Children.count(this.props.children)) {
+                var page = this.ani.arrive(this.aniObj, num, isAni);
+                this.setState({
+                    page: page
+                });
+                this.aniObj.pageNow = page;
+            }
+            this.play();
+        }
+    }, {
+        key: 'launchAuto',
+        value: function launchAuto() {
+            var _this2 = this;
+
+            if (this.autoplay) {
+                window.clearInterval(this.autoplay);
+            }
+            if (this.props.autoplay && (this.props.loop || this.aniObj.pageNow < this.aniObj.pagesNum)) {
+                this.autoplay = window.setInterval(function () {
+                    _this2.next();
+                }, this.props.delay * 1000);
+            }
+        }
+    }, {
+        key: 'format',
+        value: function format(children) {
+            var childrenList = children;
+            if (children[0].type === _carouselItem2.default) {
+                childrenList = _react2.default.Children.map(children, function (childElement, index) {
+                    return _react2.default.cloneElement(childElement, {
+                        index: index + 1
+                    });
+                });
+            }
+            return this.ani.handleData(this.aniObj, childrenList);
+        }
+
+        // getEndX(distanceX) {
+        //     let pageNow = this.aniObj.pageNow;
+        //     if (Math.abs(distanceX) < 40) {
+        //         return -(pageNow - 1);
+        //     }
+        //     if (distanceX > 0) {
+        //         pageNow = pageNow - 2;
+        //         this.aniObj.operationTimer --;
+        //     } else {
+        //         this.aniObj.operationTimer ++;
+        //     }
+        //     return -pageNow;
+        // }
+        /**
+         * @method play
+         * @description 播放动画
+         */
+
+    }, {
+        key: 'play',
+        value: function play() {
+            this.launchAuto();
+        }
+
+        /**
+         * @method pause
+         * @description 暂停动画
+         */
+
+    }, {
+        key: 'pause',
+        value: function pause() {
+            if (this.autoplay) {
+                window.clearInterval(this.autoplay);
+            }
+        }
+
+        /**
+         * @method prev
+         * @description 播放上一页
+         */
+
+    }, {
+        key: 'prev',
+        value: function prev() {
+            this.aniObj.operationTimer--;
+            var page = this.ani.prev(this.aniObj);
+            this.setState({ page: page });
+            this.aniObj.pageNow = page;
+        }
+
+        /**
+         * @method next
+         * @description 播放下一页
+         */
+
+    }, {
+        key: 'next',
+        value: function next() {
+            this.aniObj.operationTimer++;
+            var page = this.ani.next(this.aniObj);
+            this.setState({ page: page });
+            this.aniObj.pageNow = page;
+            if (page >= this.aniObj.pagesNum && !this.props.loop) {
+                this.pause();
+            }
+        }
+    }, {
+        key: 'handleTouchStart',
+        value: function handleTouchStart(e) {
+            e.preventDefault();
+            this.pause();
+            this.aniObj.touchstartList = e.touches[0];
+            this.aniObj.touchstartLocation = [e.touches[0].clientX, e.touches[0].clientY];
+            this.ani.touchstart(this.aniObj);
+        }
+    }, {
+        key: 'handleTouchMove',
+        value: function handleTouchMove(e) {
+            e.preventDefault();
+            this.aniObj.touchmoveList = e.touches[0];
+            this.aniObj.touchmoveLocation = [e.touches[0].clientX, e.touches[0].clientY];
+
+            this.ani.touchmove(this.aniObj);
+        }
+    }, {
+        key: 'handleTouchEnd',
+        value: function handleTouchEnd(e) {
+            e.preventDefault();
+            this.aniObj.touchendList = e.touches.length > 0 ? e.touches[0] : this.aniObj.touchmoveList;
+            if (!this.aniObj.touchendList) {
+                this.play();
+                return;
+            }
+            this.aniObj.touchendLocation = [this.aniObj.touchendList.clientX, this.aniObj.touchendList.clientY];
+            this.aniObj.pageNow = this.ani.touchend(this.aniObj);
+            this.setState({
+                page: this.aniObj.pageNow
+            });
+            this.play();
+            this.clearTouchList();
+        }
+    }, {
+        key: 'handleTouchCancle',
+        value: function handleTouchCancle(e) {
+            e.preventDefault();
+            if (this.ani.touchcancel) {
+                this.ani.touchcancel(this.aniObj);
+                this.play();
+                return;
+            }
+            this.aniObj.touchendList = this.aniObj.touchmoveList || this.aniObj.touchstartList;
+            this.aniObj.touchendLocation = [this.aniObj.touchendList.clientX, this.aniObj.touchendList.clientY];
+            this.aniObj.pageNow = this.ani.touchend(this.aniObj);
+            this.setState({
+                page: this.aniObj.pageNow
+            });
+            this.clearTouchList();
+        }
+    }, {
+        key: 'clearTouchList',
+        value: function clearTouchList() {
+            (0, _assign2.default)(this.aniObj, {
+                touchstartList: [],
+                touchmoveList: [],
+                touchstartLocation: [],
+                touchmoveLocation: [],
+                touchendLocation: []
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this3 = this;
+
+            var classList = ['yo-carousel'];
+            if (this.props.extraClass != null) {
+                classList.push(this.props.extraClass);
+            }
+            var children = this.format(this.props.children);
+            return _react2.default.createElement(
+                'div',
+                {
+                    className: classList.join(' '),
+                    ref: function ref(node) {
+                        if (node) {
+                            _this3.widgetDOM = node;
+                        }
+                    },
+                    onTouchStart: function onTouchStart(evt) {
+                        _this3.props.disable || _this3.handleTouchStart(evt);
+                    },
+                    onTouchMove: function onTouchMove(evt) {
+                        _this3.props.disable || _this3.handleTouchMove(evt);
+                    },
+                    onTouchEnd: function onTouchEnd(evt) {
+                        _this3.props.disable || _this3.handleTouchEnd(evt);
+                    },
+                    onTouchCancel: function onTouchCancel(evt) {
+                        // this.dragEvt.dragCancel(evt)
+                        _this3.props.disable || _this3.handleTouchCancle(evt);
+                    }
+                },
+                _react2.default.createElement(
+                    'ul',
+                    { className: 'cont' },
+                    children
+                ),
+                this.props.dots ? _react2.default.createElement(_carouselLocat2.default, { num: this.aniObj.pagesNum, page: this.state.page, onItemTap: function onItemTap(num) {
+                        _this3.arrive(num);
+                    } }) : null
+            );
+        }
+    }]);
+    return Carousel;
+}(_react.Component), _class.propTypes = {
+    /**
+     * @property dots
+     * @type Bool
+     * @default true
+     * @description 是否使用默认坐标展示，详细可以查看demo基础用法展示。
+     */
+    dots: _propTypes2.default.bool,
+    /**
+     * @property autoplay
+     * @type Bool
+     * @default true
+     * @description 是否自动换页。
+     */
+    autoplay: _propTypes2.default.bool,
+    /**
+     * @property loop
+     * @type Bool
+     * @default true
+     * @description 是否循环 循环防范受动画影响，因此循环的具体方案由动画对象提供。
+     */
+    loop: _propTypes2.default.bool,
+    /**
+     * @property beforeChange
+     * @type Function
+     * @param {num} 变化后页面索引
+     * @description 页面切换前提供的回调函数，索引值在carousel.children中设置从1开始。
+     */
+    beforeChange: _propTypes2.default.func,
+    /**
+     * @property afterChange
+     * @type Function
+     * @param {num} 变化后页面索引
+     * @description 页面切换后提供的回调函数，索引值在carousel.children中设置从1开始。
+     */
+    afterChange: _propTypes2.default.func,
+    /**
+     * @property extraClass
+     * @type String
+     * @description 为组件根节点提供额外的class。
+     */
+    extraClass: _propTypes2.default.string,
+    /**
+     * @property delay
+     * @type Number
+     * @description 自动播放时动画间隔，单位为s，因动画的实现方式而不同。
+     */
+    delay: _propTypes2.default.number,
+    /**
+     * @property speed
+     * @type Number
+     * @description 动画播放速度，单位为s,因动画的实现方式而不同。
+     */
+    speed: _propTypes2.default.number,
+    /**
+     * @property defaultPage
+     * @type Number
+     * @description 组件渲染时起始页面。
+     */
+    defaultPage: _propTypes2.default.number,
+    /**
+     * @property aniSpeed
+     * @type Number
+     * @description 如果使用css动画，该值为动画播放时间，用于在滚动循环时计算动画时机。
+     */
+    aniSpeed: _propTypes2.default.number,
+    /**
+     * @property aniObj
+     * @type Object
+     * @description 自定义动画对象，自定义动画需要提供以下方法。
+     *
+     * - handleData（aniObj, children）用于组件渲染前对于子节点的处理；
+     * - touchstart(aniObj) 动画处理的touchstart事件；
+     * - touchmove(aniObj) 动画处理的touchmove事件；
+     * - touchend(aniObj) 动画处理的touchend事件；
+     * - touchcancel(aniObj)动画处理的touchcancel事件；
+     * - next(aniObj) 下一帧 需返回动画结束后的当前索引；
+     * - arrive（aniObj,num) 跳转；
+     * - prev(aniObj) 上一帧 动画结束后的当前索引；
+     *
+     * carousel组件提供了两种自定义动画，使用者可以按需引用：
+     * + aniCss动画使用改变Index层级的方式来展示当前页面。
+     * + aniInfinate动画用有限的节点数（3个）渲染无限数量节点，其实现类似于list组件infinte模式，相较于默认动画实现减少了dom节点的数量，增加了dom操作的次数，适用于实现图片查看器等dom节点多的场景。
+     *
+     * **aniObj格式**
+     *
+     * ```
+     * {
+     *    aniSpeed:0,
+     *    containerDOM: ul.cont, //节点
+     *    delay: 1,
+     *    loop: true,
+     *    operationTimer: 5, //操作数动画运动的绝对值，交由动画控制
+     *    pageNow: 5,
+     *    speed: .5,
+     *    stageDOM: div,
+     *    width: 375 //这里需注意宽度在组件mount后才有
+     *    touchstartLocation:e
+     *    touchendLocation:e
+     *    touchmoveLocation:e
+     * }
+     * ```
+     */
+    aniObj: _propTypes2.default.object,
+    /**
+     * @property children
+     * @type Element
+     * @description carousel的展示内容。
+     */
+    children: _propTypes2.default.array.isRequired,
+    /**
+     * @property disable
+     * @type Boolean
+     * @description 禁止动画响应手势操作
+     * @version 3.0.10
+     */
+    disable: _propTypes2.default.bool
+}, _class.defaultProps = {
+    dots: true,
+    autoplay: true,
+    loop: true,
+    effect: 'scrollX',
+    delay: 1.5,
+    speed: 0.5,
+    defaultPage: 1,
+    aniSpeed: 0,
+    disable: false,
+    beforeChange: function beforeChange() {},
+    afterChange: function afterChange() {}
+}, _class.childContextTypes = {
+    /**
+     * @property currentPage
+     * @type PropTypes.number
+     * @description 子组件通过context获取到currentPage，currentPage表示当前展示的page索引。
+     */
+    currentPage: _propTypes2.default.number,
+    /**
+     * @property pagesNum
+     * @type PropTypes.number
+     * @description 子组件通过context获取到pagesNum，pagesNum表示carousel组件children的数量。
+     */
+    pagesNum: _propTypes2.default.number
+}, _temp);
+
+Carousel.CarouselItem = _carouselItem2.default;
+Carousel.Item = _carouselItem2.default;
+
+exports.default = Carousel;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/yo-component/carousel/carouselItem.js":
+/*!***************************************************!*\
+  !*** ./src/yo-component/carousel/carouselItem.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ "./node_modules/babel-runtime/core-js/object/get-prototype-of.js");
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ "./node_modules/babel-runtime/helpers/classCallCheck.js");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ "./node_modules/babel-runtime/helpers/createClass.js");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ "./node_modules/babel-runtime/helpers/possibleConstructorReturn.js");
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ "./node_modules/babel-runtime/helpers/inherits.js");
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _class, _temp; /**
+                    * @component Carousel.CarouselItem
+                    * @version 3.0.8
+                    * @description Carousel组件内部的Item组件，和普通的dom节点相比增加了懒加载图片功能。也可以使用`onTap`给Item绑定tap事件回调。
+                    *
+                    * 你可以通过Carousel.CarouselItem来使用这个组件，或者引用`yo3/component/carousel/src/carouselItem`的js模块来使用。
+                    *
+                    * ** 注意：`CarouselItem`不能和`Touchable`一起使用，请使用它的`onTap`属性来绑定事件回调。 **
+                    */
+
+
+var _touchable = __webpack_require__(/*! ../touchable/touchable */ "./src/yo-component/touchable/touchable.js");
+
+var _touchable2 = _interopRequireDefault(_touchable);
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _reactAddonsShallowCompare = __webpack_require__(/*! react-addons-shallow-compare */ "./node_modules/react-addons-shallow-compare/index.js");
+
+var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
+
+var _utils = __webpack_require__(/*! ../common/utils */ "./src/yo-component/common/utils.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ALLOWANCE = 1;
+var LOADED = 1;
+var UNLOAD = 0;
+var FAIL = 2;
+
+var CarouselItem = (_temp = _class = function (_Component) {
+    (0, _inherits3.default)(CarouselItem, _Component);
+
+    function CarouselItem(props) {
+        (0, _classCallCheck3.default)(this, CarouselItem);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (CarouselItem.__proto__ || (0, _getPrototypeOf2.default)(CarouselItem)).call(this, props));
+
+        if (props.img) {
+            _this.state = {
+                img: 0
+            };
+        }
+        _this.handleTap = _this.handleTap.bind(_this);
+        _this.hasUnmount = false;
+        return _this;
+    }
+
+    (0, _createClass3.default)(CarouselItem, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            !_utils.isEnvNode && this.lazyload(this.context.currentPage);
+        }
+    }, {
+        key: 'shouldComponentUpdate',
+        value: function shouldComponentUpdate(nextProps, nextState, nextContext) {
+            var propsChange = (0, _reactAddonsShallowCompare2.default)(this, nextProps, nextState);
+            var contextChange = this.context.currentPage !== nextContext.currentPage || this.context.pagesNum !== nextContext.pagesNum;
+            return propsChange || contextChange;
+        }
+    }, {
+        key: 'componentWillUpdate',
+        value: function componentWillUpdate(nextProps, nextState, nextContext) {
+            this.lazyload(nextContext.currentPage);
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            this.hasUnmount = true;
+        }
+    }, {
+        key: 'handleTap',
+        value: function handleTap(e) {
+            this.props.onTap(e);
+        }
+    }, {
+        key: 'loadImg',
+        value: function loadImg() {
+            var _this2 = this;
+
+            if (!this.props.img) {
+                return;
+            }
+            this.imgNode = new Image();
+            this.imgNode.onload = function () {
+                var imgState = void 0;
+                imgState = 1;
+                if (_this2.props.checkImgFun && !_this2.props.checkImgFun(_this2.imgNode)) {
+                    imgState = 2;
+                }
+                if (!_this2.hasUnmount) {
+                    _this2.setState({
+                        img: imgState
+                    });
+                }
+            };
+            this.imgNode.onerror = function () {
+                if (!_this2.hasUnmount) {
+                    _this2.setState({
+                        img: 2
+                    });
+                }
+            };
+            this.imgNode.src = this.props.img;
+        }
+    }, {
+        key: 'lazyload',
+        value: function lazyload(currentPage) {
+            if (this.state.img) {
+                return;
+            }
+            if (!this.props.lazyload) {
+                this.loadImg();
+            } else {
+                if (Math.abs(currentPage - this.props.index) <= ALLOWANCE || this.props.index === 1 || this.props.index === this.context.pagesNum) {
+                    this.loadImg();
+                }
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var img = null;
+            var classList = void 0;
+            var activeClass = {};
+            if (this.props.img) {
+                switch (this.state.img) {
+                    case LOADED:
+                        img = _react2.default.createElement('img', { alt: '', src: this.props.img, className: 'img', draggable: 'false' });
+                        break;
+                    case FAIL:
+                        img = _react2.default.createElement('img', { alt: '', src: this.props.errorImg, className: 'img', draggable: 'false' });
+                        break;
+                    case UNLOAD:
+                    default:
+                        img = this.props.loadingEle;
+                        break;
+                }
+            }
+            activeClass[this.props.activeClass] = this.context.currentPage === this.props.index;
+            if (this.props.extraClass) {
+                activeClass[this.props.extraClass] = true;
+            }
+            classList = (0, _classnames2.default)('item', activeClass);
+            return _react2.default.createElement(
+                _touchable2.default,
+                { onTap: this.handleTap, internalUse: true },
+                _react2.default.createElement(
+                    'li',
+                    { className: classList, style: this.props.style },
+                    this.props.renderContent ? this.props.renderContent(img) : img
+                )
+            );
+        }
+    }]);
+    return CarouselItem;
+}(_react.Component), _class.propTypes = {
+    /**
+     * @type String
+     * @property img
+     * @description 图片地址。
+     */
+    img: _propTypes2.default.string,
+    /**
+     * @type String
+     * @property errorImg
+     * @description 图片加载失败时的替换图片。
+     */
+    errorImg: _propTypes2.default.string,
+    /**
+     * @type Function
+     * @property checkImgFun
+     * @description 目标图片onload时触发进行判断的函数。
+     * @param 图片实例
+     */
+    checkImgFun: _propTypes2.default.func,
+    /**
+     * @type Function
+     * @property onTap
+     * @param {e} 事件对象，传入组件数据
+     * @description item点击事件处理函数。
+     */
+    onTap: _propTypes2.default.func,
+    /**
+     * @property renderContent
+     * @type Function
+     * @param 图片实例
+     * @version 3.0.7
+     * @description 当所需要的渲染内容不仅仅是一张图片的时候，通过此方法渲染内容，该方法的参数是经过懒加载判断的图片节点。
+     * ** 示例 **
+     * ```
+     *  dataList.map((item, index)=>{
+     *     return (<CarouselItem
+     *         key={index + 1}
+     *         {...item}
+     *         renderContent={(img) => (
+     *             <div className="unit">
+     *                 {img}
+     *                 <span>这是第{index}张图片</span>
+     *             </div>
+     *         )}
+     *     ></CarouselItem>);
+     * };
+     * ```
+     */
+    renderContent: _propTypes2.default.func,
+    /**
+     * @property extraClass
+     * @type String
+     * @description 为组件根节点提供额外的class。
+     */
+    extraClass: _propTypes2.default.string,
+    /**
+     * @type Element
+     * @property loadingEle
+     * @description 图片加载时的loading Element。
+     */
+    loadingEle: _propTypes2.default.element,
+    /**
+     * @type Bool
+     * @property lazyload
+     * @description 是否需要图片懒加载。默认值为true,当前图片的前后两个节点图片被加载。
+     */
+    lazyload: _propTypes2.default.bool,
+    /**
+     * item是当前展示item的样式名
+     * @type String
+     * @property activeClass
+     * @description item是当前展示item的样式名，默认值为'on'。
+     */
+    activeClass: _propTypes2.default.string,
+    index: _propTypes2.default.number,
+    style: _propTypes2.default.object
+}, _class.defaultProps = {
+    errorImg: '//s.qunarzz.com/mobile_search_touch/intention-search-h5/loading.gif',
+    loadingEle: null,
+    lazyload: true,
+    activeClass: 'on',
+    onTap: function onTap() {}
+}, _class.contextTypes = {
+    currentPage: _propTypes2.default.number.isRequired,
+    pagesNum: _propTypes2.default.number.isRequired
+}, _temp);
+exports.default = CarouselItem;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/yo-component/carousel/carouselLocat.js":
+/*!****************************************************!*\
+  !*** ./src/yo-component/carousel/carouselLocat.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ "./node_modules/babel-runtime/core-js/object/get-prototype-of.js");
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ "./node_modules/babel-runtime/helpers/classCallCheck.js");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ "./node_modules/babel-runtime/helpers/createClass.js");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ "./node_modules/babel-runtime/helpers/possibleConstructorReturn.js");
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ "./node_modules/babel-runtime/helpers/inherits.js");
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _class, _temp;
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _touchable = __webpack_require__(/*! ../touchable/touchable */ "./src/yo-component/touchable/touchable.js");
+
+var _touchable2 = _interopRequireDefault(_touchable);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var CarouselLocat = (_temp = _class = function (_Component) {
+    (0, _inherits3.default)(CarouselLocat, _Component);
+
+    function CarouselLocat() {
+        (0, _classCallCheck3.default)(this, CarouselLocat);
+        return (0, _possibleConstructorReturn3.default)(this, (CarouselLocat.__proto__ || (0, _getPrototypeOf2.default)(CarouselLocat)).apply(this, arguments));
+    }
+
+    (0, _createClass3.default)(CarouselLocat, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var liNodes = [];
+
+            var _loop = function _loop(i) {
+                liNodes.push(_react2.default.createElement(
+                    _touchable2.default,
+                    { onTap: function onTap() {
+                            _this2.props.onItemTap(i);
+                        }, key: i, internalUse: true },
+                    _react2.default.createElement('li', { className: _this2.props.page === i ? 'on' : '' })
+                ));
+            };
+
+            for (var i = 1; i <= this.props.num; i++) {
+                _loop(i);
+            }
+            return _react2.default.createElement(
+                'ul',
+                { className: 'index' },
+                liNodes
+            );
+        }
+    }]);
+    return CarouselLocat;
+}(_react.Component), _class.propTypes = {
+    num: _propTypes2.default.number.isRequired,
+    page: _propTypes2.default.number.isRequired,
+    onItemTap: _propTypes2.default.func.isRequired
+}, _temp);
+exports.default = CarouselLocat;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/yo-component/carousel/index.js":
+/*!********************************************!*\
+  !*** ./src/yo-component/carousel/index.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+__webpack_require__(/*! ./style.scss */ "./src/yo-component/carousel/style.scss");
+
+var _carousel = __webpack_require__(/*! ./carousel.js */ "./src/yo-component/carousel/carousel.js");
+
+var _carousel2 = _interopRequireDefault(_carousel);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _carousel2.default;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/yo-component/carousel/style.scss":
+/*!**********************************************!*\
+  !*** ./src/yo-component/carousel/style.scss ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "@charset \"UTF-8\";\n/**\r\n * Yo框架全局base定义\r\n * 本文件与variables不同地方在于，这里所定义的map可以使用在variables和任何地方\r\n * lib中map使用“_”开头，本文件中不使用\"_\"\r\n * base ⇌ extra\r\n */\n/**\r\n * Yo框架全局base定义\r\n * 本文件与variables不同地方在于，这里所定义的map可以使用在variables和任何地方\r\n * 本文件中map使用\"_\"开头，extra中不使用\"_\"\r\n * base ⇌ extra\r\n */\n/**\r\n * 合并base和extra中的同类base map\r\n * 用以解决业务方升级Yo时需比base和extra的一致性\r\n * 当extra为空时，base map将以base文件里的定义作为默认值\r\n * 当extra不为空时，base map使用extra文件里的定义\r\n */\n/**\n * Yo框架全局Variables\n * Yo基础变量map，如果不想定义某属性，将其value设置为null；\n * Yo仅使用2种长度单位：px用于边框，rem用于除边框之外的所有地方\n * variables中map使用“_”开头，本文件中不使用\"_\"\n * variables ⇌ config\n */\n/**\r\n * Yo框架全局Variables\r\n * Yo基础变量map，如果不想定义某属性，将其value设置为null\r\n * Yo仅使用2种长度单位：px用于边框，rem用于除边框之外的所有地方\r\n * 本文件中map使用\"_\"开头，config中不使用\"_\"\r\n * variables ⇌ config\r\n */\n/**\r\n * 合并variables和config中的同类map\r\n * 用以解决业务方升级Yo时需比config和variables的一致性\r\n * 当config为空时，使用variables中的map作为默认值\r\n * 当config不为空时，使用config中的定义\r\n */\n/**\r\n * Yo框架自定义全局函数\r\n * 扩充Sass默认函数库，用以增强语法\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的第一项\r\n * @function first\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的最后一项\r\n * @function last\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的倒数第几项\r\n * @function nth-last\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $index 指定需要返回的值在list中的倒数位置 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 移除SassList中的某个项目并返回新的List\r\n * @function remove\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {String} $value 指定需要被删除的值 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 截取SassList中的某个部分并返回新的List\r\n * @function slice\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $start 指定需要截取的开始下标 <2.1.0>\r\n * @param {Integer} $end 指定需要截取的结束下标（不包括end），当该值缺省时默认为末尾下标 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 从SassList中添加/删除项目，然后返回新的List。\r\n * @function splice\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $index 指定需要移除的开始下标 <2.1.0>\r\n * @param {Integer} $count 指定需要移除的数量，不可以为负值，0表示不移除 <2.1.0>\r\n * @param {String} $values 指定需要添加的新值（可以是多个），如果该值缺省，则表示只移除不添加新值 <2.1.0>\r\n */\n/**\r\n * Yo框架全局基础方法\r\n * 包括响应式方案，CSS3兼容性方案，厂商前缀方案，iconfont方案，flex布局等全局方法\r\n */\n/**\r\n * @module 常用方法\r\n * @description 给需要的属性加厂家前缀\r\n * @method prefix\r\n * @version 1.0.0\r\n * @param {String} $property 指定属性 <1.0.0>\r\n * @param {String} $value 指定属性值 <1.0.0>\r\n * @skip\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义字体图标\r\n * @method _iconfont\r\n * @version 1.0.0\r\n * @skip\r\n */\n/**\r\n * @module 常用方法\r\n * @description 四则运算(系统要求：iOS6.0+,Android4.4+)\r\n * @method calc\r\n * @version 1.7.0\r\n * @param {String} $property 指定需要进行计算的CSS属性 <1.7.0>\r\n * @param {String} $value 与原生CSS语法一致，区别在于需要使用引号包裹表达式 <1.7.0>\r\n * @example\r\n * .calc {\r\n *     @include calc(width, \"100% - 100px\");\r\n * }\r\n *\r\n * <div class=\"calc\">四则运算</div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义响应式方案\r\n * @method responsive\r\n * @version 1.0.0\r\n * @param {String} $media 指定媒体查询条件，取值为`config`文件map `media-types`中的值 <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 清除浮动方案\r\n * @method clearfix\r\n * @version 1.0.0\r\n * @param {String} $type 指定清除浮动的方式，包括：pseudo-element | bfc，默认值：pseudo-element <1.8.5>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 清除行内级元素间间隙方案\r\n * @method clearspace\r\n * @version 3.0.3\r\n * @param {Length} $font-size 指定子元素字号，默认值：.14rem <3.0.3>\r\n * @example\r\n * .demo {\r\n *     @include clearspace;\r\n * }\r\n *\r\n * <div class=\"demo\">\r\n *      <span class=\"item\">1</span>\r\n *      <span class=\"item\">2</span>\r\n *      <span class=\"item\">3</span>\r\n * </div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 描述元素内容在横、纵方向上的对齐方式，默认为水平垂直居中对齐\r\n * @method align\r\n * @version 2.0.0\r\n * @param {String} $flexbox 元素布局方式，可选值：flex | inline-flex，默认值：flex <2.0.0>\r\n * @param {Keyword} $justify-content 元素内容的水平对齐方式，取值与`justify-content`属性一致，默认值：center <2.0.0>\r\n * @param {Keyword} $align-items 元素内容的垂直对齐方式，取值与`align-items`属性一致，默认值：center <2.0.0>\r\n * @example\r\n * .demo {\r\n *     @include align;\r\n * }\r\n *\r\n * <div class=\"demo\">\r\n *      <img alt=\"未知尺寸图片居中\" />\r\n * </div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义是否有滚动条\r\n * @method overflow\r\n * @version 1.0.0\r\n * @param {String} $overflow 取值与最新原生语法一致，默认值：auto <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 生成全屏方法\r\n * @method fullscreen\r\n * @version 1.7.0\r\n * @param {Integer} $z-index 指定层叠级别 <1.7.0>\r\n * @param {Keywords} $position 指定定位方式，取除`static | relative`之外的值，默认值：absolute <1.8.5>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义使用何种滤镜\r\n * @method filter\r\n * @version 1.7.0\r\n * @param {String} $filter 取值与`filter`属性一致 <1.7.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义UA默认外观\r\n * @method appearance\r\n * @version 1.0.0\r\n * @param {String} $appearance 取值与`appearance`属性一致，默认值：none <1.0.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义如何选中内容\r\n * @method user-select\r\n * @version 1.0.0\r\n * @param {String} $user-select 取值与`user-select`属性一致，默认值：none <1.0.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义盒模型\r\n * @method box-sizing\r\n * @version 1.0.0\r\n * @param {String} $box-sizing 指定盒模型类型，取值与`box-sizing`属性一致，默认值：border-box <1.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义渐变色值\r\n * @method gradient\r\n * @version 1.0.0\r\n * @param {String} $type 指定渐变的4种类型：linear, repeating-linear, radial, repeating-radial <1.0.0>\r\n * @param {String} $dir 指定渐变方向，可选值：[left | right] || [top | bottom] | angle <2.0.0>\r\n * @param {String} $gradient 指定渐变取值，与w3c最新原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景图像缩放（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-size\r\n * @version 1.4.0\r\n * @param {Keywords | Length} $background-size 指定背景图缩放值，取值与`background-size`属性一致 <1.4.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景裁减（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-clip\r\n * @version 1.6.0\r\n * @param {Keywords} $background-clip 指定背景图缩放值，取值与`background-clip`属性一致 <1.6.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景显示区域（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-origin\r\n * @version 1.6.0\r\n * @param {Keywords} $background-origin 指定背景图`background-position`属性计算相对的参考点，取值与`background-origin`属性一致 <1.6.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 为元素添加边框（包括1px边框）\r\n * @method border\r\n * @version 2.0.0\r\n * @param {String} $border-width 指定边框厚度（单位为px），默认值：1px，取值与`border-width`属性一致，不同方向代表边框位置 <2.0.0>\r\n * @param {String} $border-color 指定边框颜色 <2.0.0>\r\n * @param {String} $border-style 指定边框样式 <2.0.0>\r\n * @param {String} $radius 指定边框圆角半径，默认值：null <2.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义圆角，用于修复某些安卓机型上“圆角+边框+背景”，背景溢出的情况\r\n * @method border-radius\r\n * @version 1.6.0\r\n * @param {Length} $border-radius 指定元素的圆角半径，取值与`border-radius`属性一致 <1.6.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 定义简单变换\r\n * @method transform\r\n * @version 1.0.0\r\n * @param {String} $transform 取值范围与`transform`属性一致 <1.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 定义变换原点\r\n * @method transform-origin\r\n * @version 1.0.0\r\n * @param {Length | Percentage | Keywords} $transform-origin 取值范围与`transform-origin`属性一致 <1.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定某元素的子元素是（看起来）位于三维空间内，还是在该元素所在的平面内被扁平化\r\n * @method transform-style\r\n * @version 2.0.0\r\n * @param {String} $transform-style 取值范围与`transform-style`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定观察者与「z=0」平面的距离，使具有三维位置变换的元素产生透视效果。「z>0」的三维元素比正常大，而「z<0」时则比正常小，大小程度由该属性的值决定。\r\n * @method perspective\r\n * @version 2.0.0\r\n * @param {none | Length} $perspective 取值范围与`perspective`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定透视点的位置\r\n * @method perspective-origin\r\n * @version 2.0.0\r\n * @param {Length | Percentage | Keywords} $perspective-origin 取值范围与`perspective-origin`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定元素背面面向用户时是否可见\r\n * @method backface-visibility\r\n * @version 2.0.0\r\n * @param {Keywords} $backface-visibility 取值范围与`backface-visibility`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 定义动画\r\n * @method animation\r\n * @version 1.0.0\r\n * @param {String} $animation 取值与原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定需要引用的动画名称\r\n * @method animation-name\r\n * @version 3.0.0\r\n * @param {String} $animation-name 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画运行一次所持续的时长\r\n * @method animation-duration\r\n * @version 3.0.0\r\n * @param {String} $animation-duration 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画运行方式\r\n * @method animation-timing-function\r\n * @version 3.0.0\r\n * @param {String} $animation-timing-function 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画延迟多久之后再开始\r\n * @method animation-delay\r\n * @version 3.0.0\r\n * @param {String} $animation-delay 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画循环几次\r\n * @method animation-iteration-count\r\n * @version 3.0.0\r\n * @param {String} $animation-iteration-count 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画的运动方向\r\n * @method animation-direction\r\n * @version 3.0.0\r\n * @param {String} $animation-direction 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画的运动状态\r\n * @method animation-play-state\r\n * @version 3.0.0\r\n * @param {String} $animation-play-state 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画时间之外的状态\r\n * @method animation-fill-mode\r\n * @version 3.0.0\r\n * @param {String} $animation-fill-mode 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Transition\r\n * @description 定义补间\r\n * @method transition\r\n * @version 1.0.0\r\n * @param {String} $transition 取值与原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义显示类型为伸缩盒\r\n * @method flexbox\r\n * @version 1.0.0\r\n * @param {String} $flexbox 默认值：flex，可选值：flex | inline-flex <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素如何分配空间\r\n * @method flex\r\n * @version 1.0.0\r\n * @param {Number} $flex 取值与`flex`属性一致，默认值：1 <1.0.0>\r\n * @param {String} $direction 默认值: row，可选值：row | column <1.5.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素的排版顺序\r\n * @method order\r\n * @version 1.0.0\r\n * @param {Integer} $order 取值与`order`属性一致，默认值：1 <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性盒子元素流动方向及遇见边界时是否换行(要求系统：iOS7.0+, Android4.4+)\r\n * @method flex-flow\r\n * @version 2.0.0\r\n * @param {String} $flex-flow 取值与`flex-flow`属性一致，默认值：row nowrap <2.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素的流动方向\r\n * @method flex-direction\r\n * @version 1.0.0\r\n * @param {String} $flex-direction 取值与`flex-direction`属性一致，默认值：row <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性盒子元素溢出后排版(要求系统：iOS7.0+, Android4.4+)\r\n * @method flex-wrap\r\n * @version 1.0.0\r\n * @param {String} $flex-wrap 取值与`flex-wrap`属性一致，默认值：nowrap <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性容器主轴对齐方式(其中`space-around`值需要iOS7.0+,Android4.4+)\r\n * @method justify-content\r\n * @version 1.0.0\r\n * @param {String} $justify-content 取值与`justify-content`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义多行弹性容器侧轴对齐方式(要求系统：iOS7.0+,Android4.4+)\r\n * @method align-content\r\n * @version 1.8.5\r\n * @param {String} $align-content 取值与`align-content`属性一致，默认值：center <1.8.5>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义单行弹性容器侧轴对齐方式\r\n * @method align-items\r\n * @version 1.0.0\r\n * @param {String} $align-items 取值与`align-items`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性容器中子元素自身的在侧轴对齐方式(要求系统：iOS7.0+,Android4.4+)\r\n * @method align-self\r\n * @version 1.0.0\r\n * @param {String} $align-self 取值与`align-self`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成矩形方法\r\n * @method rect\r\n * @version 1.0.0\r\n * @param {Length} $width 定义矩形的长度 <1.0.0>\r\n * @param {Length} $height 定义矩形的高度 <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成正方形方法\r\n * @method square\r\n * @version 1.0.0\r\n * @param {Length} $size 定义正方形的边长 <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成圆形方法\r\n * @method circle\r\n * @version 1.0.0\r\n * @param {Length} $size 定义圆的半径长度 <1.0.0>\r\n * @param {Length} $radius 定义圆的圆角半径长度 <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 在自适应宽度情况下，确保内容元素的宽高比固定，比如：实现随屏幕大小而变化的正方形。\r\n * @method fixed-scale\r\n * @version 3.0.10\r\n * @param {Length} $width 默认值：100%。用以指定内容元素的初始宽度，由于尺寸需动态变化，不要使用固定单位 <3.0.10>\r\n * @param {Length} $scale 默认值：1/1，即正方形。用以指定内容元素的宽度高比 <3.0.10>\r\n */\n/**\r\n * @module 文本\r\n * @description 链接处理方法\r\n * @method link\r\n * @version 1.0.0\r\n * @param {Color} $color 定义链接颜色 <1.0.0>\r\n */\n/**\r\n * @module 文本\r\n * @description 文本碰到边界是否换行\r\n * @method wrap\r\n * @version 1.0.0\r\n * @param {Boolean} $is-wrap 定义文本是否换行，默认值：true <2.0.0>\r\n */\n/**\r\n * @module 文本\r\n * @description 单行文本溢出时显示省略号\r\n * @method ellipsis\r\n * @version 1.0.0\r\n * @param {Length} $width 定义容器的宽度，默认值：null <2.0.0>\r\n * @param {Integer} $line-clamp 定义需要显示的行数，默认值：1（即使用单行溢出的处理方案），需要注意的是本参数只支持webkit内核 <2.1.2>\r\n */\n/**\r\n * @module 文本\r\n * @description 文字隐藏方案\r\n * @method texthide\r\n * @version 1.0.0\r\n * @param {Length} $width 定义容器的宽度，默认值：null <2.0.0>\r\n */\n/**\r\n * Yo框架全局Reset\r\n * Yo重置Mobile及高级浏览器上常见的差异\r\n */\n*,\n::before,\n::after {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }\n\nhtml,\nbody {\n  overflow: hidden;\n  height: 100%; }\n\n::-webkit-scrollbar {\n  display: none; }\n\nhtml {\n  background-color: #eee;\n  color: #212121;\n  font-size: 100px;\n  -webkit-user-select: none;\n  user-select: none; }\n\nbody {\n  margin: 0;\n  font-size: 0.14em;\n  line-height: 1.5;\n  font-family: Helvetica Neue, Helvetica, STHeiTi, sans-serif; }\n\nul,\nol,\ndl,\ndd,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nfigure,\nform,\nfieldset,\nlegend,\ninput,\ntextarea,\nbutton,\np,\nblockquote,\nth,\ntd,\npre,\nxmp {\n  margin: 0;\n  padding: 0; }\n\ninput,\ntextarea,\nbutton,\nselect,\npre,\nxmp,\ntt,\ncode,\nkbd,\nsamp {\n  line-height: inherit;\n  font-family: inherit; }\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nsmall,\nbig,\ninput,\ntextarea,\nbutton,\nselect {\n  font-size: inherit; }\n\naddress,\ncite,\ndfn,\nem,\ni,\noptgroup,\nvar {\n  font-style: normal; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n  table-layout: fixed;\n  text-align: left; }\n\nul,\nol,\nmenu {\n  list-style: none; }\n\nfieldset,\nimg {\n  border: 0;\n  vertical-align: middle; }\n\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nmain,\nmenu,\nnav,\nsection,\nsummary {\n  display: block; }\n\naudio,\ncanvas,\nvideo {\n  display: inline-block; }\n\nblockquote:before,\nblockquote:after,\nq:before,\nq:after {\n  content: \" \"; }\n\ntextarea,\npre,\nxmp {\n  overflow: auto;\n  -webkit-overflow-scrolling: touch; }\n\ntextarea {\n  resize: vertical; }\n\ninput,\ntextarea,\nbutton,\nselect,\nsummary,\na {\n  outline: 0 none; }\n\ninput,\ntextarea,\nbutton,\nselect {\n  color: inherit; }\n  input:disabled,\n  textarea:disabled,\n  button:disabled,\n  select:disabled {\n    opacity: 1; }\n\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  padding: 0;\n  border: 0; }\n\ninput[type=\"button\"],\ninput[type=\"submit\"],\ninput[type=\"reset\"],\ninput[type=\"file\"]::-webkit-file-upload-button,\ninput[type=\"search\"]::-webkit-search-cancel-button {\n  -webkit-appearance: none;\n  appearance: none; }\n\n::-webkit-details-marker {\n  display: none; }\n\nmark {\n  background-color: rgba(0, 0, 0, 0); }\n\na,\nins,\ns,\nu,\ndel {\n  text-decoration: none; }\n\na,\nimg {\n  -webkit-touch-callout: none; }\n\na {\n  color: #00afc7; }\n\n.g-clear::after,\n.g-mod::after {\n  display: block;\n  overflow: hidden;\n  clear: both;\n  height: 0;\n  content: \" \"; }\n\n@font-face {\n  font-family: event_node;\n  src: url(//s.qunarzz.com/event_node/font/0.0.36/event_node.woff) format(\"woff\"), url(//s.qunarzz.com/event_node/font/0.0.36/event_node.ttf) format(\"truetype\"); }\n\n.yo-ico {\n  font-family: event_node !important;\n  font-style: normal;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  vertical-align: middle; }\n\n/**\n * @module fragment\n * @method yo-carousel\n * @version 3.0.0\n * @description 构造yo-carousel的自定义使用方法\n * @demo http://ued.qunar.com/hy2/yo/demo/src/html/fragment/yo-carousel.html\n * @param {String} $name 定义扩展名称 <3.0.0>\n * @param {Length} $btn-size 按钮大小 <3.0.0>\n * @param {Color} $btn-bgcolor 按钮背景色 <3.0.0>\n * @param {Color} $btn-color 按钮文本色 <3.0.0>\n * @param {Color} $touch-btn-bgcolor 按钮按下背景色 <3.0.0>\n * @param {Color} $touch-btn-color 按钮按下文本色 <3.0.0>\n * @param {Length} $index-size 索引大小 <3.0.0>\n * @param {Color} $index-bgcolor 索引背景色 <3.0.0>\n * @param {Color} $on-index-bgcolor 索引当前项背景色 <3.0.0>\n */\n.yo-carousel {\n  position: relative;\n  overflow: hidden;\n  width: 100%;\n  text-align: center; }\n  .yo-carousel > .cont {\n    position: relative;\n    white-space: nowrap;\n    font-size: 0;\n    font-family: arial; }\n    .yo-carousel > .cont > .item {\n      display: inline-block;\n      font-size: 0.14rem;\n      font-family: Helvetica Neue, Helvetica, STHeiTi, sans-serif; }\n    .yo-carousel > .cont > .item {\n      width: 100%;\n      background-color: #eee; }\n    .yo-carousel > .cont .img {\n      max-width: 100%;\n      max-height: 100%;\n      height: auto; }\n  .yo-carousel > .index {\n    position: absolute;\n    bottom: .05rem;\n    left: 50%;\n    -webkit-transform: translate(-50%, 0) translateZ(0);\n    transform: translate(-50%, 0) translateZ(0); }\n    .yo-carousel > .index > li {\n      float: left;\n      margin: 0 .05rem;\n      width: 0.1rem;\n      height: 0.1rem;\n      border-radius: 50%;\n      background-color: #85c8d1; }\n      .yo-carousel > .index > li.on {\n        background-color: #09a5c4; }\n  .yo-carousel > .yo-ico {\n    position: absolute;\n    top: 50%;\n    -webkit-transform: translate(0, -50%);\n    transform: translate(0, -50%);\n    width: 0.44rem;\n    height: 0.44rem;\n    border-radius: 50%;\n    background-color: rgba(9, 165, 196, 0.8);\n    color: #fff;\n    line-height: 0.44rem;\n    cursor: pointer; }\n    .yo-carousel > .yo-ico:active, .yo-carousel > .yo-ico-touch {\n      background-color: rgba(9, 165, 196, 0.5); }\n  .yo-carousel > .yo-ico-prev {\n    left: 0; }\n  .yo-carousel > .yo-ico-next {\n    right: 0; }\n\n/**\r\n * Yo框架动画解决方案\r\n * Yo内置了超过60种动画形态，不同的动画可以任意组合\r\n */\n.ani {\n  -webkit-animation-duration: 1s;\n  animation-duration: 1s;\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both; }\n\n.ani.infinite {\n  -webkit-animation-iteration-count: infinite;\n  animation-iteration-count: infinite; }\n\n/**\r\n * @module fade\r\n * @description 定义淡入动画\r\n * @method fade-in\r\n */\n@-webkit-keyframes fade-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n@keyframes fade-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n.ani.fade-in {\n  -webkit-animation-name: fade-in;\n  animation-name: fade-in; }\n\n/**\r\n * @module fade\r\n * @description 定义淡出动画\r\n * @method fade-out\r\n */\n@-webkit-keyframes fade-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@keyframes fade-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n.ani.fade-out {\n  -webkit-animation-name: fade-out;\n  animation-name: fade-out; }\n\n.yo-carousel-fade > .cont > .item {\n  position: absolute;\n  right: 0; }\n  .yo-carousel-fade > .cont > .item:first-child {\n    position: relative; }\n  .yo-carousel-fade > .cont > .item img {\n    opacity: 0;\n    -webkit-transition: opacity 0.2s ease-in;\n    transition: opacity 0.2s ease-in; }\n\n.yo-carousel-fade > .cont .top {\n  z-index: 99; }\n  .yo-carousel-fade > .cont .top img {\n    opacity: 1; }\n\n.yo-carousel-scale > .cont > .item {\n  -webkit-transition: -webkit-transform 0.4s ease-in-out 0.2s;\n  transition: transform 0.4s ease-in-out 0.2s;\n  -webkit-transform: scale(0.7);\n  transform: scale(0.7); }\n\n.yo-carousel-scale > .cont > .on {\n  -webkit-transform: scale(1);\n  transform: scale(1); }\n\n.yo-carousel > .cont {\n  -webkit-transition: -webkit-transform 0.5s ease-in;\n  transition: transform 0.5s ease-in;\n  width: 100%; }\n  .yo-carousel > .cont .item {\n    z-index: 2; }\n    .yo-carousel > .cont .item > img {\n      max-height: none; }\n  .yo-carousel > .cont .top {\n    z-index: 5; }\n\n.yo-carousel .extra-item {\n  margin-left: -100%; }\n\n.yo-carousel .transition {\n  -webkit-transition: -webkit-transform 0.5s ease-in;\n  transition: transform 0.5s ease-in; }\n\n.yo-carousel .index {\n  z-index: 5;\n  -webkit-transform: translate(-50%, 0) translateZ(0);\n  transform: translate(-50%, 0) translateZ(0); }\n", ""]);
 
 // exports
 
@@ -64695,7 +67458,7 @@ exports.push([module.i, "@charset \"utf-8\";\n", ""]);
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.isEnvNode = exports.DELAY_TIME_FOR_INFINITE_WITHOUT_HEIGHT = undefined;
 
@@ -64706,6 +67469,10 @@ var _keys2 = _interopRequireDefault(_keys);
 var _typeof2 = __webpack_require__(/*! babel-runtime/helpers/typeof */ "./node_modules/babel-runtime/helpers/typeof.js");
 
 var _typeof3 = _interopRequireDefault(_typeof2);
+
+var _isNan = __webpack_require__(/*! babel-runtime/core-js/number/is-nan */ "./node_modules/babel-runtime/core-js/number/is-nan.js");
+
+var _isNan2 = _interopRequireDefault(_isNan);
 
 exports.getArrayByLength = getArrayByLength;
 exports.isFunction = isFunction;
@@ -64724,74 +67491,75 @@ exports.autoBlur = autoBlur;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function getArrayByLength(length) {
-    var ret = [];
-    for (var i = 0; i < length; i++) {
-        ret[i] = null;
-    }
-    return ret;
+  var ret = [];
+  for (var i = 0; i < length; i++) {
+    ret[i] = null;
+  }
+  return ret;
 }
 
 function is(x, y) {
-    var ret = void 0;
-    if (x === y) {
-        ret = x !== 0 || y !== 0 || 1 / x === 1 / y;
-    } else {
-        // return x !== x && y !== y;
-        ret = isNaN(x) && isNaN(y);
-    }
+  var ret = void 0;
+  if (x === y) {
+    ret = x !== 0 || y !== 0 || 1 / x === 1 / y;
+  } else {
+    // return x !== x && y !== y;
+    ret = (0, _isNan2.default)(x) && (0, _isNan2.default)(y);
+  }
 
-    return ret;
+  return ret;
 }
 
 // 判断是否为 Function
 function isFunction(it) {
-    return Object.prototype.toString.call(it) === '[object Function]';
+  return Object.prototype.toString.call(it) === '[object Function]';
 }
 
 function shallowEqual(objA, objB) {
-    if (is(objA, objB)) {
-        return true;
-    }
-
-    if ((typeof objA === 'undefined' ? 'undefined' : (0, _typeof3.default)(objA)) !== 'object' || objA === null || (typeof objB === 'undefined' ? 'undefined' : (0, _typeof3.default)(objB)) !== 'object' || objB === null) {
-        return false;
-    }
-
-    var keysA = (0, _keys2.default)(objA);
-    var keysB = (0, _keys2.default)(objB);
-
-    if (keysA.length !== keysB.length) {
-        return false;
-    }
-
-    var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-    for (var i = 0; i < keysA.length; i++) {
-        if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
-            return false;
-        }
-    }
-
+  if (is(objA, objB)) {
     return true;
+  }
+
+  if ((typeof objA === 'undefined' ? 'undefined' : (0, _typeof3.default)(objA)) !== 'object' || objA === null || (typeof objB === 'undefined' ? 'undefined' : (0, _typeof3.default)(objB)) !== 'object' || objB === null) {
+    return false;
+  }
+
+  var keysA = (0, _keys2.default)(objA);
+  var keysB = (0, _keys2.default)(objB);
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+
+  for (var i = 0; i < keysA.length; i++) {
+    if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 function getElementOffsetY(ele, parent) {
-    var y = 0;
-    while (ele !== parent && ele !== null) {
-        y += ele.offsetTop;
-        ele = ele.offsetParent;
-    }
-    return y;
+  var y = 0;
+  while (ele !== parent && ele !== null) {
+    y += ele.offsetTop;
+    ele = ele.offsetParent;
+  }
+  return y;
 }
 
 var DELAY_TIME_FOR_INFINITE_WITHOUT_HEIGHT = exports.DELAY_TIME_FOR_INFINITE_WITHOUT_HEIGHT = 250;
 var isEnvNode = exports.isEnvNode = Object.prototype.toString.call(typeof process !== 'undefined' ? process : 0) === '[object process]';
 
 function inheritProps(props, attrs) {
-    return attrs.reduce(function (ret, attr) {
-        ret[attr] = props[attr];
-        return ret;
-    }, {});
+  return attrs.reduce(function (ret, attr) {
+    ret[attr] = props[attr];
+    return ret;
+  }, {});
 }
 
 /**
@@ -64802,14 +67570,15 @@ function inheritProps(props, attrs) {
  * In Qreact: vnode.children = [{xxx}]
  */
 function getOnlyChild(props) {
-    var children = props.children;
-    if (children) {
-        // for React
-        if (!children.length) return children;
-        // for Qreact
-        if (children.length === 1) return children[0];
-    }
-    return false;
+  var children = props.children;
+
+  if (children) {
+    // for React
+    if (!children.length) return children;
+    // for Qreact
+    if (children.length === 1) return children[0];
+  }
+  return false;
 }
 /*
     This should find all Android browsers lower than build 535.19 (both stock browser and webview)
@@ -64826,119 +67595,120 @@ function getOnlyChild(props) {
     `AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Mobile Safari/537.36 (Chrome/)`
     */
 function isBadAndroid() {
-    var appVersion = window.navigator.appVersion;
-    var _isBadAndroid = false;
-    // Android browser is not a chrome browser.
-    if (/Android/.test(appVersion) && !/Chrome\/\d/.test(appVersion)) {
-        var safariVersion = appVersion.match(/Safari\/(\d+.\d)/);
-        if (safariVersion && (typeof safariVersion === 'undefined' ? 'undefined' : (0, _typeof3.default)(safariVersion)) === 'object' && safariVersion.length >= 2) {
-            _isBadAndroid = parseFloat(safariVersion[1]) < 535.19;
-        } else {
-            _isBadAndroid = true;
-        }
-    } else {
-        _isBadAndroid = false;
-    }
+  var appVersion = window.navigator.appVersion;
 
-    return _isBadAndroid;
+  var _isBadAndroid = false;
+  // Android browser is not a chrome browser.
+  if (/Android/.test(appVersion) && !/Chrome\/\d/.test(appVersion)) {
+    var safariVersion = appVersion.match(/Safari\/(\d+.\d)/);
+    if (safariVersion && (typeof safariVersion === 'undefined' ? 'undefined' : (0, _typeof3.default)(safariVersion)) === 'object' && safariVersion.length >= 2) {
+      _isBadAndroid = parseFloat(safariVersion[1]) < 535.19;
+    } else {
+      _isBadAndroid = true;
+    }
+  } else {
+    _isBadAndroid = false;
+  }
+
+  return _isBadAndroid;
 }
 
 function getRAF() {
-    function basicRAF(callback) {
-        return window.setTimeout(callback, 1000 / 60);
-    }
+  function basicRAF(callback) {
+    return window.setTimeout(callback, 1000 / 60);
+  }
 
-    var rAF = window.cancelAnimationFrame && window.requestAnimationFrame || window.webkitCancelAnimationFrame && window.webkitRequestAnimationFrame || window.mozCancelAnimationFrame && window.mozRequestAnimationFrame || window.oCancelAnimationFrame && window.oRequestAnimationFrame || window.msCancelAnimationFrame && window.msRequestAnimationFrame || basicRAF;
+  var rAF = window.cancelAnimationFrame && window.requestAnimationFrame || window.webkitCancelAnimationFrame && window.webkitRequestAnimationFrame || window.mozCancelAnimationFrame && window.mozRequestAnimationFrame || window.oCancelAnimationFrame && window.oRequestAnimationFrame || window.msCancelAnimationFrame && window.msRequestAnimationFrame || basicRAF;
 
-    var cancelrAF = window.cancelAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame || window.oCancelAnimationFrame || window.msCancelAnimationFrame || window.clearTimeout;
+  var cancelrAF = window.cancelAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame || window.oCancelAnimationFrame || window.msCancelAnimationFrame || window.clearTimeout;
 
-    if (isBadAndroid()) {
-        rAF = basicRAF;
-        cancelrAF = window.clearTimeout;
-    }
+  if (isBadAndroid()) {
+    rAF = basicRAF;
+    cancelrAF = window.clearTimeout;
+  }
 
-    return { rAF: rAF, cancelrAF: cancelrAF };
+  return { rAF: rAF, cancelrAF: cancelrAF };
 }
 
 function whichTransitionEventPrefix() {
-    var result = void 0;
-    var el = document.createElement('fakeelement');
-    var transitions = {
-        transition: 'transition',
-        WebkitTransition: 'webkitTransition'
-    };
-    (0, _keys2.default)(transitions).some(function (t) {
-        if (el.style[t] !== undefined) {
-            result = transitions[t];
-            return true;
-        }
-        return false;
-    });
-    return result;
+  var result = void 0;
+  var el = document.createElement('fakeelement');
+  var transitions = {
+    transition: 'transition',
+    WebkitTransition: 'webkitTransition'
+  };
+  (0, _keys2.default)(transitions).some(function (t) {
+    if (el.style[t] !== undefined) {
+      result = transitions[t];
+      return true;
+    }
+    return false;
+  });
+  return result;
 }
 
 function focus(dom) {
-    if (dom.focus) {
-        dom.focus();
-    }
+  if (dom.focus) {
+    dom.focus();
+  }
 }
 
 function blur(dom) {
-    if (document.activeElement === dom) {
-        if (dom.blur) {
-            dom.blur();
-        } else {
-            focus(document.body);
-        }
+  if (document.activeElement === dom) {
+    if (dom.blur) {
+      dom.blur();
+    } else {
+      focus(document.body);
     }
+  }
 }
 
 function isPassive() {
-    var supportsPassiveOption = false;
-    try {
-        addEventListener('test', null, Object.defineProperty({}, 'passive', {
-            get: function get() {
-                supportsPassiveOption = true;
-            }
-        }));
-    } catch (e) {}
-    return supportsPassiveOption;
+  var supportsPassiveOption = false;
+  try {
+    addEventListener('test', null, Object.defineProperty({}, 'passive', {
+      get: function get() {
+        supportsPassiveOption = true;
+      }
+    }));
+  } catch (e) {}
+  return supportsPassiveOption;
 }
 
 // 修复一些手机上 blur 行为的 bug，在 touchstart 的时候自动 blur
 function autoBlur() {
-    // 防止多次调用
-    if (!window.__autoBlur) {
-        window.__autoBlur = true;
-    } else {
-        return;
+  // 防止多次调用
+  if (!window.__autoBlur) {
+    window.__autoBlur = true;
+  } else {
+    return;
+  }
+
+  var focusTags = ['INPUT', 'TEXTAREA'];
+  var _contains = document.compareDocumentPosition ? function (a, b) {
+    return !!(a.compareDocumentPosition(b) & 16);
+  } : function (a, b) {
+    return a !== b && (a.contains ? a.contains(b) : true);
+  };
+
+  function _blur(container) {
+    var el = document.activeElement;
+    var _container = container || document.body;
+
+    if (el && _contains(_container, el) && typeof el.blur === 'function') {
+      el.blur();
     }
+  }
 
-    var focusTags = ['INPUT', 'TEXTAREA'];
-    var _contains = document.compareDocumentPosition ? function (a, b) {
-        return !!(a.compareDocumentPosition(b) & 16);
-    } : function (a, b) {
-        return a !== b && (a.contains ? a.contains(b) : true);
-    };
+  var passive = isPassive() ? {
+    passive: true
+  } : false;
 
-    function _blur(container) {
-        var el = document.activeElement;
-        var _container = container || document.body;
-
-        if (el && _contains(_container, el) && typeof el.blur === 'function') {
-            el.blur();
-        }
+  document.body.addEventListener('touchstart', function (e) {
+    if (focusTags.indexOf(e.target.tagName.toUpperCase()) === -1) {
+      _blur();
     }
-
-    var passive = isPassive() ? {
-        passive: true
-    } : false;
-
-    document.body.addEventListener('touchstart', function (e) {
-        if (focusTags.indexOf(e.target.tagName.toUpperCase()) === -1) {
-            _blur();
-        }
-    }, passive);
+  }, passive);
 }
 
 /***/ }),
@@ -65526,7 +68296,7 @@ module.exports = exports['default'];
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.default = undefined;
 
@@ -65585,25 +68355,25 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @version 3.0.2
  */
 var defaultProps = {
-    useVisibleMode: false,
-    show: false,
-    extraClass: '',
-    contentExtraClass: '',
-    align: 'center',
-    onMaskTap: function onMaskTap() {},
-    contentOffset: [0, 0],
-    maskOffset: [0, 0],
-    maskExtraClass: '',
-    animation: '',
-    onShow: function onShow() {},
-    onHide: function onHide() {},
-    width: null,
-    height: null,
-    delayBeforeAnimationStart: 100
+  useVisibleMode: false,
+  show: false,
+  extraClass: '',
+  contentExtraClass: '',
+  align: 'center',
+  onMaskTap: function onMaskTap() {},
+  contentOffset: [0, 0],
+  maskOffset: [0, 0],
+  maskExtraClass: '',
+  animation: '',
+  onShow: function onShow() {},
+  onHide: function onHide() {},
+  width: null,
+  height: null,
+  delayBeforeAnimationStart: 100
 };
 
 var propTypes = {
-    /**
+  /**
      * @property useVisibleMode
      * @type Bool
      * @default false
@@ -65611,50 +68381,50 @@ var propTypes = {
      *              这样如果内部存在GroupList组件，就算在隐藏
      *              的情况下组件也可以正确计算高度，避免出现问题。
      */
-    useVisibleMode: _propTypes2.default.bool,
-    /**
+  useVisibleMode: _propTypes2.default.bool,
+  /**
      * @property show
      * @type Bool
      * @default false
      * @description 是否显示模态框
      */
-    show: _propTypes2.default.bool.isRequired,
-    /**
+  show: _propTypes2.default.bool.isRequired,
+  /**
      * @property extraClass
      * @type String
      * @default null
      * @description 附加给模态框容器(包含了内容区和蒙层)的额外class
      */
-    extraClass: _propTypes2.default.string,
-    /**
+  extraClass: _propTypes2.default.string,
+  /**
      * @property contentExtraClass
      * @type String
      * @default null
      * @description 附加给模态框内容区的额外class
      */
-    contentExtraClass: _propTypes2.default.string,
-    /**
+  contentExtraClass: _propTypes2.default.string,
+  /**
      * @property align
      * @type String
      * @default center
      * @description 模态框的位置,默认为center。可选值为cetner/top/bottom
      */
-    align: _propTypes2.default.oneOf(['center', 'top', 'bottom', 'left', 'right']),
-    /**
+  align: _propTypes2.default.oneOf(['center', 'top', 'bottom', 'left', 'right']),
+  /**
      * @property onMaskTap
      * @type Function
      * @default ()=>{}
      * @description 点击蒙层时的回调
      */
-    onMaskTap: _propTypes2.default.func,
-    /**
+  onMaskTap: _propTypes2.default.func,
+  /**
      * @property contentOffset
      * @type Array
      * @default [0,0]
      * @description 内容区在水平/垂直方向上的偏移,例如[0,-100]可以使模态框内容区向上偏移100个像素
      */
-    contentOffset: _propTypes2.default.arrayOf(_propTypes2.default.number),
-    /**
+  contentOffset: _propTypes2.default.arrayOf(_propTypes2.default.number),
+  /**
      * @property maskOffset
      * @type Array
      * @default [0,0]
@@ -65662,36 +68432,36 @@ var propTypes = {
      *
      * 数组的第一个元素代表蒙层上边缘距离屏幕顶部的距离,第二个元素代表下边缘距离底部的距离。
      */
-    maskOffset: _propTypes2.default.arrayOf(_propTypes2.default.number),
-    /**
+  maskOffset: _propTypes2.default.arrayOf(_propTypes2.default.number),
+  /**
      * @property onShow
      * @type Function
      * @default ()=>{}
      * @description 打开模态框时，动画触发之前的事件回调
      */
-    onShow: _propTypes2.default.func,
-    /**
+  onShow: _propTypes2.default.func,
+  /**
      * @property onHide
      * @type Function
      * @default ()=>{}
      * @description 关闭模态框时，动画触发之前的事件回调
      */
-    onHide: _propTypes2.default.func,
-    /**
+  onHide: _propTypes2.default.func,
+  /**
      * @property width
      * @type Number/String
      * @default 'auto'
      * @description 内容区宽度,默认为auto,可以传入数字或者百分比
      */
-    width: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
-    /**
+  width: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  /**
      * @property height
      * @type Number/String
      * @default 'auto'
      * @description 内容区高度,默认为auto,可以传入数字或者百分比
      */
-    height: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
-    /**
+  height: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  /**
      * @property animation
      * @type String/Object
      * @default "none"
@@ -65714,192 +68484,195 @@ var propTypes = {
      * ```
      *
      */
-    animation: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.shape({
-        animation: _propTypes2.default.arrayOf(_propTypes2.default.string).isRequired,
-        duration: _propTypes2.default.number
-    })]),
-    delayBeforeAnimationStart: _propTypes2.default.number,
-    children: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.object, _propTypes2.default.string, _propTypes2.default.number])
+  animation: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.shape({
+    animation: _propTypes2.default.arrayOf(_propTypes2.default.string).isRequired,
+    duration: _propTypes2.default.number
+  })]),
+  delayBeforeAnimationStart: _propTypes2.default.number,
+  children: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.object, _propTypes2.default.string, _propTypes2.default.number])
 };
 
 // 默认提供的动画效果
 var ANIMATION_MAP = {
-    fade: { animation: ['fade-in', 'fade-out'], duration: 200 },
-    zoom: { animation: ['zoom-in', 'zoom-out'], duration: 300 },
-    'fade-in-up': { animation: ['fade-in-up', 'fade-out-down'], duration: 200 },
-    'fade-in-down': { animation: ['fade-in-down', 'fade-out-up'], duration: 200 }
+  fade: { animation: ['fade-in', 'fade-out'], duration: 200 },
+  zoom: { animation: ['zoom-in', 'zoom-out'], duration: 300 },
+  'fade-in-up': { animation: ['fade-in-up', 'fade-out-down'], duration: 200 },
+  'fade-in-down': { animation: ['fade-in-down', 'fade-out-up'], duration: 200 }
 };
 
 var RealModal = function (_Component) {
-    (0, _inherits3.default)(RealModal, _Component);
+  (0, _inherits3.default)(RealModal, _Component);
 
-    function RealModal(props) {
-        (0, _classCallCheck3.default)(this, RealModal);
+  function RealModal(props) {
+    (0, _classCallCheck3.default)(this, RealModal);
 
-        var _this = (0, _possibleConstructorReturn3.default)(this, (RealModal.__proto__ || (0, _getPrototypeOf2.default)(RealModal)).call(this, props));
+    var _this = (0, _possibleConstructorReturn3.default)(this, (RealModal.__proto__ || (0, _getPrototypeOf2.default)(RealModal)).call(this, props));
 
-        _this.state = {
-            show: props.show,
-            animation: _this.getAnimationClass(props.animation, props.show)
-        };
-        return _this;
+    _this.state = {
+      show: props.show,
+      animation: _this.getAnimationClass(props.animation, props.show)
+    };
+    return _this;
+  }
+
+  (0, _createClass3.default)(RealModal, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      if (this.props.show) {
+        this.props.onShow();
+      }
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      this.toggleShowStatus(nextProps);
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      clearTimeout(this.hideTimeout);
+      clearTimeout(this.showTimeout);
     }
 
-    (0, _createClass3.default)(RealModal, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            if (this.props.show) {
-                this.props.onShow();
+    /**
+       * 根据动画名字和打开/关闭状态获取对应的animation属性配置
+       * @param name
+       * @param isShow
+       * @returns {{name: string, duration: number}}
+       */
+
+  }, {
+    key: 'getAnimationClass',
+    value: function getAnimationClass(name, isShow) {
+      var contentAnimation = '',
+          duration = 0;
+      if (name) {
+        var targetMap = (0, _typeof3.default)(this.props.animation) === 'object' ? this.props.animation : ANIMATION_MAP[name];
+        if (targetMap) {
+          contentAnimation = [targetMap.animation[isShow ? 0 : 1], 'ani'].join(' ');
+          duration = targetMap.duration;
+        }
+      }
+      return { name: contentAnimation, duration: duration };
+    }
+
+    /**
+       * 根据nextProps中的show属性更新内部state
+       * @param nextProps
+       */
+
+  }, {
+    key: 'toggleShowStatus',
+    value: function toggleShowStatus(nextProps) {
+      var _this2 = this;
+
+      var current = this.state.show;
+      var next = nextProps.show;
+      var _props = this.props,
+          onShow = _props.onShow,
+          onHide = _props.onHide;
+      // 如果新属性的show是true并且模态框处于打开状态
+
+      if (!next && current) {
+        // 提取需要指定的动画
+        var animationData = this.getAnimationClass(nextProps.animation, next);
+        clearTimeout(this.showTimeout);
+        // show动画开始前执行onHide回调
+        onHide();
+        // 先走关闭动画
+        this.setState({ animation: animationData });
+        // 等到动画结束后处理整个modal的show状态,并且保存timeout引用
+        this.hideTimeout = setTimeout(function () {
+          _this2.setState({ show: false });
+        }, animationData.duration);
+      } else if (next && !current) {
+        // 清理关闭timeout
+        // 写这一行的目的是用户可能在关闭的同时打开modal
+        clearTimeout(this.hideTimeout);
+        this.setState({ show: next });
+        this.contentDom.style.visibility = 'hidden';
+
+        // 如果直接运行动画会出现闪烁,这里先将contentDom隐藏然后再运行动画
+        this.showTimeout = setTimeout(function () {
+          // hide动画开始前执行onShow回调
+          onShow();
+          _this2.setState({ animation: _this2.getAnimationClass(nextProps.animation, next) });
+          _this2.contentDom.style.visibility = 'visible';
+        }, this.props.delayBeforeAnimationStart);
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this3 = this;
+
+      var _state = this.state,
+          show = _state.show,
+          animation = _state.animation;
+      var duration = animation.duration,
+          name = animation.name;
+      var _props2 = this.props,
+          useVisibleMode = _props2.useVisibleMode,
+          extraClass = _props2.extraClass,
+          onMaskTap = _props2.onMaskTap,
+          maskOffset = _props2.maskOffset,
+          contentOffset = _props2.contentOffset,
+          align = _props2.align,
+          contentExtraClass = _props2.contentExtraClass,
+          width = _props2.width,
+          height = _props2.height;
+
+      var containerClass = (0, _classnames2.default)('yo-modal', extraClass, 'yo-modal-' + align);
+      var contentClass = (0, _classnames2.default)('cont', contentExtraClass, name);
+
+      return _react2.default.createElement(
+        _touchable2.default,
+        {
+          touchClass: '',
+          onTap: function onTap(target) {
+            if (target === _this3.container) {
+              onMaskTap(target);
             }
-        }
-    }, {
-        key: 'componentWillReceiveProps',
-        value: function componentWillReceiveProps(nextProps) {
-            this.toggleShowStatus(nextProps);
-        }
-    }, {
-        key: 'componentWillUnmount',
-        value: function componentWillUnmount() {
-            clearTimeout(this.hideTimeout);
-            clearTimeout(this.showTimeout);
-        }
-
-        /**
-         * 根据动画名字和打开/关闭状态获取对应的animation属性配置
-         * @param name
-         * @param isShow
-         * @returns {{name: string, duration: number}}
-         */
-
-    }, {
-        key: 'getAnimationClass',
-        value: function getAnimationClass(name, isShow) {
-            var contentAnimation = '',
-                duration = 0;
-            if (name) {
-                var targetMap = (0, _typeof3.default)(this.props.animation) === 'object' ? this.props.animation : ANIMATION_MAP[name];
-                if (targetMap) {
-                    contentAnimation = [targetMap.animation[isShow ? 0 : 1], 'ani'].join(' ');
-                    duration = targetMap.duration;
-                }
-            }
-            return { name: contentAnimation, duration: duration };
-        }
-
-        /**
-         * 根据nextProps中的show属性更新内部state
-         * @param nextProps
-         */
-
-    }, {
-        key: 'toggleShowStatus',
-        value: function toggleShowStatus(nextProps) {
-            var _this2 = this;
-
-            var current = this.state.show;
-            var next = nextProps.show;
-            var _props = this.props,
-                onShow = _props.onShow,
-                onHide = _props.onHide;
-            // 如果新属性的show是true并且模态框处于打开状态
-
-            if (!next && current) {
-                // 提取需要指定的动画
-                var animationData = this.getAnimationClass(nextProps.animation, next);
-                clearTimeout(this.showTimeout);
-                // show动画开始前执行onHide回调
-                onHide();
-                // 先走关闭动画
-                this.setState({ animation: animationData });
-                // 等到动画结束后处理整个modal的show状态,并且保存timeout引用
-                this.hideTimeout = setTimeout(function () {
-                    _this2.setState({ show: false });
-                }, animationData.duration);
-            } else if (next && !current) {
-                // 清理关闭timeout
-                // 写这一行的目的是用户可能在关闭的同时打开modal
-                clearTimeout(this.hideTimeout);
-                this.setState({ show: next });
-                this.contentDom.style.visibility = 'hidden';
-
-                // 如果直接运行动画会出现闪烁,这里先将contentDom隐藏然后再运行动画
-                this.showTimeout = setTimeout(function () {
-                    // hide动画开始前执行onShow回调
-                    onShow();
-                    _this2.setState({ animation: _this2.getAnimationClass(nextProps.animation, next) });
-                    _this2.contentDom.style.visibility = 'visible';
-                }, this.props.delayBeforeAnimationStart);
-            }
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this3 = this;
-
-            var _state = this.state,
-                show = _state.show,
-                animation = _state.animation;
-            var duration = animation.duration,
-                name = animation.name;
-            var _props2 = this.props,
-                useVisibleMode = _props2.useVisibleMode,
-                extraClass = _props2.extraClass,
-                onMaskTap = _props2.onMaskTap,
-                maskOffset = _props2.maskOffset,
-                contentOffset = _props2.contentOffset,
-                align = _props2.align,
-                contentExtraClass = _props2.contentExtraClass,
-                width = _props2.width,
-                height = _props2.height;
-
-            var containerClass = (0, _classnames2.default)('yo-modal', extraClass, 'yo-modal-' + align);
-            var contentClass = (0, _classnames2.default)('cont', contentExtraClass, name);
-
-            return _react2.default.createElement(
-                _touchable2.default,
-                {
-                    touchClass: '',
-                    onTap: function onTap(target) {
-                        if (target === _this3.refs.container) {
-                            onMaskTap(target);
-                        }
-                    } },
-                _react2.default.createElement(
-                    'div',
-                    {
-                        ref: 'container',
-                        className: containerClass,
-                        style: (0, _assign2.default)({
-                            top: parseInt(maskOffset[0], 10),
-                            bottom: parseInt(maskOffset[1], 10),
-                            transform: 'translate3d(0,0,0)',
-                            WebkitTransform: 'translate3d(0,0,0)'
-                        }, show ? null : useVisibleMode ? { visibility: 'hidden' } : { display: 'none' })
-                    },
-                    _react2.default.createElement(
-                        'div',
-                        {
-                            className: contentClass,
-                            ref: function ref(component) {
-                                _this3.contentDom = component;
-                            },
-                            style: {
-                                position: 'relative',
-                                top: parseInt(contentOffset[1], 10) || 0,
-                                left: parseInt(contentOffset[0], 10) || 0,
-                                WebkitAnimationDuration: duration + 'ms',
-                                animationDuration: duration + 'ms',
-                                width: width,
-                                height: height
-                            }
-                        },
-                        this.props.children
-                    )
-                )
-            );
-        }
-    }]);
-    return RealModal;
+          }
+        },
+        _react2.default.createElement(
+          'div',
+          {
+            ref: function ref(dom) {
+              _this3.container = dom;
+            },
+            className: containerClass,
+            style: (0, _assign2.default)({
+              top: parseInt(maskOffset[0], 10),
+              bottom: parseInt(maskOffset[1], 10),
+              transform: 'translate3d(0,0,0)',
+              WebkitTransform: 'translate3d(0,0,0)'
+            }, show ? null : useVisibleMode ? { visibility: 'hidden' } : { display: 'none' })
+          },
+          _react2.default.createElement(
+            'div',
+            {
+              className: contentClass,
+              ref: function ref(component) {
+                _this3.contentDom = component;
+              },
+              style: {
+                position: 'relative',
+                top: parseInt(contentOffset[1], 10) || 0,
+                left: parseInt(contentOffset[0], 10) || 0,
+                WebkitAnimationDuration: duration + 'ms',
+                animationDuration: duration + 'ms',
+                width: width,
+                height: height
+              }
+            },
+            this.props.children
+          )
+        )
+      );
+    }
+  }]);
+  return RealModal;
 }(_react.Component);
 
 exports.default = RealModal;
@@ -65922,7 +68695,7 @@ module.exports = exports['default'];
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.default = exports.TAP_DELAY = undefined;
 
@@ -65945,7 +68718,7 @@ var TAP_DELAY = exports.TAP_DELAY = 50;
  * 根据个点的坐标计算出位移
  */
 function getDistance(endPoint, startPoint) {
-    return Math.sqrt(Math.pow(endPoint.pageX - startPoint.pageX, 2) + Math.pow(endPoint.pageY - startPoint.pageY, 2));
+  return Math.sqrt(Math.pow(endPoint.pageX - startPoint.pageX, 2) + Math.pow(endPoint.pageY - startPoint.pageY, 2));
 }
 
 /**
@@ -65955,7 +68728,7 @@ function getDistance(endPoint, startPoint) {
  * 根据两个点的位移判断是否应该取消Tap事件的触发
  */
 function onTouchMoveShouldCancelTap(endPoint, startPoint) {
-    return getDistance(endPoint, startPoint) > TAP_SLOP;
+  return getDistance(endPoint, startPoint) > TAP_SLOP;
 }
 
 /**
@@ -65964,7 +68737,7 @@ function onTouchMoveShouldCancelTap(endPoint, startPoint) {
  * 获取触点
  */
 function getTouchPoint(evt) {
-    return evt.touches.length ? { pageX: evt.touches[0].pageX, pageY: evt.touches[0].pageY } : null;
+  return evt.touches.length ? { pageX: evt.touches[0].pageX, pageY: evt.touches[0].pageY } : null;
 }
 
 /**
@@ -65973,9 +68746,9 @@ function getTouchPoint(evt) {
  * 移除item的activeClass
  */
 function removeActiveClass(domNode, activeClass) {
-    if (domNode && activeClass) {
-        domNode.className = domNode.className.replace(' ' + activeClass, '');
-    }
+  if (domNode && activeClass) {
+    domNode.className = domNode.className.replace(' ' + activeClass, '');
+  }
 }
 
 /**
@@ -65984,11 +68757,11 @@ function removeActiveClass(domNode, activeClass) {
  * 判断组件是否在滚动
  */
 function isScrolling(scroller) {
-    return scroller ? scroller.isScrolling : false;
+  return scroller ? scroller.isScrolling : false;
 }
 
 function isAnySwipeMenuOpen(swipeMenuList) {
-    return swipeMenuList ? swipeMenuList.openIndex !== -1 : false;
+  return swipeMenuList ? swipeMenuList.openIndex !== -1 : false;
 }
 
 // touchStart的位置,是否需要放弃Tap触发,Tap周期(start,move,end)是否已经结束
@@ -65997,67 +68770,67 @@ var startPoint = void 0,
 var captured = null;
 
 function _default(_ref) {
-    var component = _ref.component,
-        scroller = _ref.scroller,
-        swipeMenuList = _ref.swipeMenuList,
-        activeClass = _ref.activeClass,
-        onTap = _ref.onTap,
-        _onTouchStart = _ref.onTouchStart,
-        disabled = _ref.disabled;
+  var component = _ref.component,
+      scroller = _ref.scroller,
+      swipeMenuList = _ref.swipeMenuList,
+      activeClass = _ref.activeClass,
+      onTap = _ref.onTap,
+      _onTouchStart = _ref.onTouchStart,
+      disabled = _ref.disabled;
 
-    var gestureObj = {
-        onTouchStart: function onTouchStart(evt) {
-            var domNode = _reactDom2.default.findDOMNode(component);
-            removeActiveClass(domNode, activeClass);
-            // 如果组件正在滚动,直接放弃Tap触发
-            shouldAbortTap = isScrolling(scroller) || isAnySwipeMenuOpen(swipeMenuList);
-            startPoint = getTouchPoint(evt);
-            _onTouchStart(evt);
+  var gestureObj = {
+    onTouchStart: function onTouchStart(evt) {
+      var domNode = _reactDom2.default.findDOMNode(component);
+      removeActiveClass(domNode, activeClass);
+      // 如果组件正在滚动,直接放弃Tap触发
+      shouldAbortTap = isScrolling(scroller) || isAnySwipeMenuOpen(swipeMenuList);
+      startPoint = getTouchPoint(evt);
+      _onTouchStart(evt);
 
-            if (!captured) {
-                captured = domNode;
-            }
-            // TAP_DELAY之后再次判断是否要触发Tap,如果这段时间内出现了大的位移,if后面的逻辑就不会执行
-            setTimeout(function () {
-                var className = activeClass;
-                if (!shouldAbortTap && className && captured === domNode && !disabled) {
-                    domNode.className += ' ' + className;
-                }
-            }, TAP_DELAY);
-        },
-        onTouchMove: function onTouchMove(evt) {
-            var domNode = _reactDom2.default.findDOMNode(component);
-            var currentPoint = getTouchPoint(evt);
-            // 根据touchmove的距离判断是否要放弃tap
-            if (!startPoint || onTouchMoveShouldCancelTap(currentPoint, startPoint)) {
-                shouldAbortTap = true;
-                captured = null;
-                removeActiveClass(domNode, activeClass);
-            }
-        },
-        onTouchEnd: function onTouchEnd(evt) {
-            var target = evt.target;
-            var domNode = _reactDom2.default.findDOMNode(component);
-            // 如果需要触发tap,在TAP_DELAY之后触发onTap回调
-            if (!shouldAbortTap && captured === domNode) {
-                setTimeout(function () {
-                    if (!disabled) {
-                        onTap(target);
-                    }
-                    removeActiveClass(domNode, activeClass);
-                    captured = null;
-                }, TAP_DELAY + 10);
-            } else if (shouldAbortTap) {
-                captured = null;
-            }
-        },
-        onTouchCancel: function onTouchCancel() {
-            var domNode = _reactDom2.default.findDOMNode(component);
-            removeActiveClass(domNode, activeClass);
+      if (!captured) {
+        captured = domNode;
+      }
+      // TAP_DELAY之后再次判断是否要触发Tap,如果这段时间内出现了大的位移,if后面的逻辑就不会执行
+      setTimeout(function () {
+        var className = activeClass;
+        if (!shouldAbortTap && className && captured === domNode && !disabled) {
+          domNode.className += ' ' + className;
         }
-    };
+      }, TAP_DELAY);
+    },
+    onTouchMove: function onTouchMove(evt) {
+      var domNode = _reactDom2.default.findDOMNode(component);
+      var currentPoint = getTouchPoint(evt);
+      // 根据touchmove的距离判断是否要放弃tap
+      if (!startPoint || onTouchMoveShouldCancelTap(currentPoint, startPoint)) {
+        shouldAbortTap = true;
+        captured = null;
+        removeActiveClass(domNode, activeClass);
+      }
+    },
+    onTouchEnd: function onTouchEnd(evt) {
+      var target = evt.target;
+      var domNode = _reactDom2.default.findDOMNode(component);
+      // 如果需要触发tap,在TAP_DELAY之后触发onTap回调
+      if (!shouldAbortTap && captured === domNode) {
+        setTimeout(function () {
+          if (!disabled) {
+            onTap(target);
+          }
+          removeActiveClass(domNode, activeClass);
+          captured = null;
+        }, TAP_DELAY + 10);
+      } else if (shouldAbortTap) {
+        captured = null;
+      }
+    },
+    onTouchCancel: function onTouchCancel() {
+      var domNode = _reactDom2.default.findDOMNode(component);
+      removeActiveClass(domNode, activeClass);
+    }
+  };
 
-    return gestureObj;
+  return gestureObj;
 }
 exports.default = _default;
 
@@ -66099,7 +68872,7 @@ module.exports = exports['default'];
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.default = undefined;
 
@@ -66150,84 +68923,84 @@ var _gesture2 = _interopRequireDefault(_gesture);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Touchable = (_temp = _class = function (_Component) {
-    (0, _inherits3.default)(Touchable, _Component);
+  (0, _inherits3.default)(Touchable, _Component);
 
-    function Touchable() {
-        (0, _classCallCheck3.default)(this, Touchable);
-        return (0, _possibleConstructorReturn3.default)(this, (Touchable.__proto__ || (0, _getPrototypeOf2.default)(Touchable)).apply(this, arguments));
-    }
+  function Touchable() {
+    (0, _classCallCheck3.default)(this, Touchable);
+    return (0, _possibleConstructorReturn3.default)(this, (Touchable.__proto__ || (0, _getPrototypeOf2.default)(Touchable)).apply(this, arguments));
+  }
 
-    (0, _createClass3.default)(Touchable, [{
-        key: 'render',
-        value: function render() {
-            if (true) {
-                if (this.props.touchClass == null && !this.props.internalUse) {
-                    console.error('yo-touchable: Touchable组件没有设置touchClass, 出于用户体验考虑, 应该尽量给触摸区域添加触摸反馈。');
-                }
-            }
-
-            var onlyChild = _react2.default.Children.only(this.props.children);
-            var gestureObj = (0, _gesture2.default)({
-                component: this,
-                scroller: this.context.scroller,
-                swipeMenuList: this.context.swipeMenuList,
-                activeClass: this.props.touchClass,
-                onTap: this.props.onTap,
-                onTouchStart: this.props.onTouchStart,
-                disabled: this.props.disabled
-            });
-            var onTouchStart = gestureObj.onTouchStart,
-                onTouchMove = gestureObj.onTouchMove,
-                onTouchEnd = gestureObj.onTouchEnd,
-                onTouchCancel = gestureObj.onTouchCancel;
-
-
-            return _react2.default.cloneElement(onlyChild, { onTouchStart: onTouchStart, onTouchMove: onTouchMove, onTouchEnd: onTouchEnd, onTouchCancel: onTouchCancel });
+  (0, _createClass3.default)(Touchable, [{
+    key: 'render',
+    value: function render() {
+      if (true) {
+        if (this.props.touchClass == null && !this.props.internalUse) {
+          console.error('yo-touchable: Touchable组件没有设置touchClass, 出于用户体验考虑, 应该尽量给触摸区域添加触摸反馈。');
         }
-    }]);
-    return Touchable;
+      }
+
+      var onlyChild = _react2.default.Children.only(this.props.children);
+      var gestureObj = (0, _gesture2.default)({
+        component: this,
+        scroller: this.context.scroller,
+        swipeMenuList: this.context.swipeMenuList,
+        activeClass: this.props.touchClass,
+        onTap: this.props.onTap,
+        onTouchStart: this.props.onTouchStart,
+        disabled: this.props.disabled
+      });
+      var onTouchStart = gestureObj.onTouchStart,
+          onTouchMove = gestureObj.onTouchMove,
+          onTouchEnd = gestureObj.onTouchEnd,
+          onTouchCancel = gestureObj.onTouchCancel;
+
+
+      return _react2.default.cloneElement(onlyChild, { onTouchStart: onTouchStart, onTouchMove: onTouchMove, onTouchEnd: onTouchEnd, onTouchCancel: onTouchCancel });
+    }
+  }]);
+  return Touchable;
 }(_react.Component), _class.propTypes = {
-    /**
+  /**
      * @property touchClass
      * @type String
      * @default null
      * @description 触摸Touchable时附加的className，可以用来实现Native常见的触摸反馈功能(例如给触摸区域添加深色背景或者改变透明度等等)。
      */
-    touchClass: _propTypes2.default.string,
-    /**
+  touchClass: _propTypes2.default.string,
+  /**
      * @property onTap
      * @type Function
      * @default null
      * @param {DOMElement} target tap事件的target
      * @description 给Touchable绑定的onTap事件。
      */
-    onTap: _propTypes2.default.func,
-    /**
+  onTap: _propTypes2.default.func,
+  /**
      * @property disabled
      * @type Bool
      * @default false
      * @description Touchable是否处于可点击状态，如果设为true，那么onTap事件回调和触摸反馈效果都不可用。
      * @version 3.0.7
      */
-    disabled: _propTypes2.default.bool,
-    /**
+  disabled: _propTypes2.default.bool,
+  /**
      * @skip 给List定制的属性
      */
-    onTouchStart: _propTypes2.default.func,
-    /**
+  onTouchStart: _propTypes2.default.func,
+  /**
      * @skip 内部使用标志
      */
-    internalUse: _propTypes2.default.bool,
-    children: _propTypes2.default.object
-}, _class.defaultProps = {
-    onTouchStart: function onTouchStart() {},
-    touchClass: null,
-    onTap: function onTap() {},
-    internalUse: false,
-    disabled: false
+  internalUse: _propTypes2.default.bool,
+  children: _propTypes2.default.object
 }, _class.contextTypes = {
-    scroller: _propTypes2.default.object,
-    swipeMenuList: _propTypes2.default.object
+  scroller: _propTypes2.default.object,
+  swipeMenuList: _propTypes2.default.object
+}, _class.defaultProps = {
+  onTouchStart: function onTouchStart() {},
+  touchClass: null,
+  onTap: function onTap() {},
+  internalUse: false,
+  disabled: false
 }, _temp);
 exports.default = Touchable;
 module.exports = exports['default'];

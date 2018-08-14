@@ -13,76 +13,75 @@ import PropTypes from 'prop-types';
 import gesture from './gesture';
 
 export default class Touchable extends Component {
-
     static propTypes = {
-        /**
+      /**
          * @property touchClass
          * @type String
          * @default null
          * @description 触摸Touchable时附加的className，可以用来实现Native常见的触摸反馈功能(例如给触摸区域添加深色背景或者改变透明度等等)。
          */
-        touchClass: PropTypes.string,
-        /**
+      touchClass: PropTypes.string,
+      /**
          * @property onTap
          * @type Function
          * @default null
          * @param {DOMElement} target tap事件的target
          * @description 给Touchable绑定的onTap事件。
          */
-        onTap: PropTypes.func,
-        /**
+      onTap: PropTypes.func,
+      /**
          * @property disabled
          * @type Bool
          * @default false
          * @description Touchable是否处于可点击状态，如果设为true，那么onTap事件回调和触摸反馈效果都不可用。
          * @version 3.0.7
          */
-        disabled: PropTypes.bool,
-        /**
+      disabled: PropTypes.bool,
+      /**
          * @skip 给List定制的属性
          */
-        onTouchStart: PropTypes.func,
-        /**
+      onTouchStart: PropTypes.func,
+      /**
          * @skip 内部使用标志
          */
-        internalUse: PropTypes.bool,
-        children: PropTypes.object
-    };
-
-    static defaultProps = {
-        onTouchStart: () => {
-        },
-        touchClass: null,
-        onTap: () => {
-        },
-        internalUse: false,
-        disabled: false
+      internalUse: PropTypes.bool,
+      children: PropTypes.object
     };
 
     static contextTypes = {
-        scroller: PropTypes.object,
-        swipeMenuList: PropTypes.object
+      scroller: PropTypes.object,
+      swipeMenuList: PropTypes.object
+    };
+
+    static defaultProps = {
+      onTouchStart: () => {
+      },
+      touchClass: null,
+      onTap: () => {
+      },
+      internalUse: false,
+      disabled: false
     };
 
     render() {
-        if (process.env.NODE_ENV !== 'production') {
-            if (this.props.touchClass == null && !this.props.internalUse) {
-                console.error('yo-touchable: Touchable组件没有设置touchClass, 出于用户体验考虑, 应该尽量给触摸区域添加触摸反馈。');
-            }
+      if (process.env.NODE_ENV !== 'production') {
+        if (this.props.touchClass == null && !this.props.internalUse) {
+          console.error('yo-touchable: Touchable组件没有设置touchClass, 出于用户体验考虑, 应该尽量给触摸区域添加触摸反馈。');
         }
+      }
 
-        const onlyChild = React.Children.only(this.props.children);
-        const gestureObj = gesture({
-            component: this,
-            scroller: this.context.scroller,
-            swipeMenuList: this.context.swipeMenuList,
-            activeClass: this.props.touchClass,
-            onTap: this.props.onTap,
-            onTouchStart: this.props.onTouchStart,
-            disabled: this.props.disabled
-        });
-        const { onTouchStart, onTouchMove, onTouchEnd, onTouchCancel } = gestureObj;
+      const onlyChild = React.Children.only(this.props.children);
+      const gestureObj = gesture({
+        component: this,
+        scroller: this.context.scroller,
+        swipeMenuList: this.context.swipeMenuList,
+        activeClass: this.props.touchClass,
+        onTap: this.props.onTap,
+        onTouchStart: this.props.onTouchStart,
+        disabled: this.props.disabled
+      });
+      const { onTouchStart, onTouchMove, onTouchEnd, onTouchCancel } = gestureObj;
 
-        return React.cloneElement(onlyChild, { onTouchStart, onTouchMove, onTouchEnd, onTouchCancel });
+      return React.cloneElement(onlyChild, { onTouchStart, onTouchMove, onTouchEnd, onTouchCancel });
     }
 }

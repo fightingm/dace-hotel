@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Alert from '../../yo-component/alert';
+import { Link } from 'dace';
+
+import Carousel from 'yo-component/carousel'
+import Alert from 'yo-component/alert';
 
 import Layout from '../../layouts/default';
-import { fetchUsers } from './action';
+import { fetchPosts } from './action';
 import reducer from './reducer';
 import './index.css';
 
 @connect(state => state)
 export default class Index extends Component {
   static propTypes = {
-    users: PropTypes.any
+    posts: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number,
+      title: PropTypes.string
+    }))
   };
 
   static defaultProps = {
-    users: ''
+    posts: []
   }
   constructor() {
     super();
@@ -28,20 +34,34 @@ export default class Index extends Component {
   }
   static getInitialProps = ({ store }) => {
     store.injectReducer(reducer);
-    return store.dispatch(fetchUsers());
+    return store.dispatch(fetchPosts());
   }
   render() {
-    console.log(this.props.users, this.state.id);
+    console.log(this.props.posts, this.state.id);
     return (
       <Layout>
-        <div className="hd-banner">
-          <img src="http://simg1.qunarzz.com/site/images/wap/home/recommend/20160509_banner_750x376.jpg" alt="" />
-        </div>
-        <div className="condition-search">
-          这里是搜索部分
-        </div>
-        <div className="other-link">
-          这里展示其他链接
+        <div className="mh-index">
+          <div className="hd-banner">
+            <Carousel autoplay={true}>
+              <li className="item banner-item"><img className="img" src="http://img1.qunarzz.com/qs/1610/a6/01d1ad00e4b9e102.jpg" /></li>
+              <li className="item banner-item"><img className="img" src="http://img1.qunarzz.com/qs/1610/a6/01d1ad00e4b9e102.jpg" /></li>
+              <li className="item banner-item"><img className="img" src="http://img1.qunarzz.com/qs/1610/a6/01d1ad00e4b9e102.jpg" /></li>
+            </Carousel>
+          </div>
+          <div className="condition-search">
+            <ol>
+              {
+                this.props.posts.map(post => (
+                  <li key={post.id}>
+                    <Link to={`/post/${post.id}`}>{post.title}</Link>
+                  </li>
+                ))
+              }
+            </ol>
+          </div>
+          <div className="other-link">
+            这里展示其他链接
+          </div>
         </div>
       </Layout>
     );
