@@ -23,7 +23,7 @@ module.exports =
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "a1b7cd98f92551908b03";
+/******/ 	var hotCurrentHash = "5383182052a936fc28de";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -3094,6 +3094,17 @@ module.exports = { "default": __webpack_require__(/*! core-js/library/fn/promise
 
 /***/ }),
 
+/***/ "./node_modules/babel-runtime/core-js/set.js":
+/*!***************************************************!*\
+  !*** ./node_modules/babel-runtime/core-js/set.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(/*! core-js/library/fn/set */ "./node_modules/core-js/library/fn/set.js"), __esModule: true };
+
+/***/ }),
+
 /***/ "./node_modules/babel-runtime/core-js/symbol.js":
 /*!******************************************************!*\
   !*** ./node_modules/babel-runtime/core-js/symbol.js ***!
@@ -3113,6 +3124,17 @@ module.exports = { "default": __webpack_require__(/*! core-js/library/fn/symbol 
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = { "default": __webpack_require__(/*! core-js/library/fn/symbol/iterator */ "./node_modules/core-js/library/fn/symbol/iterator.js"), __esModule: true };
+
+/***/ }),
+
+/***/ "./node_modules/babel-runtime/core-js/weak-map.js":
+/*!********************************************************!*\
+  !*** ./node_modules/babel-runtime/core-js/weak-map.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(/*! core-js/library/fn/weak-map */ "./node_modules/core-js/library/fn/weak-map.js"), __esModule: true };
 
 /***/ }),
 
@@ -3223,6 +3245,75 @@ exports.default = function () {
 
 /***/ }),
 
+/***/ "./node_modules/babel-runtime/helpers/defineProperty.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/babel-runtime/helpers/defineProperty.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _defineProperty = __webpack_require__(/*! ../core-js/object/define-property */ "./node_modules/babel-runtime/core-js/object/define-property.js");
+
+var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (obj, key, value) {
+  if (key in obj) {
+    (0, _defineProperty2.default)(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
+
+/***/ }),
+
+/***/ "./node_modules/babel-runtime/helpers/extends.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/babel-runtime/helpers/extends.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _assign = __webpack_require__(/*! ../core-js/object/assign */ "./node_modules/babel-runtime/core-js/object/assign.js");
+
+var _assign2 = _interopRequireDefault(_assign);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _assign2.default || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+/***/ }),
+
 /***/ "./node_modules/babel-runtime/helpers/inherits.js":
 /*!********************************************************!*\
   !*** ./node_modules/babel-runtime/helpers/inherits.js ***!
@@ -3327,790 +3418,6 @@ exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.d
 
 /***/ }),
 
-/***/ "./node_modules/babel-runtime/node_modules/regenerator-runtime/runtime-module.js":
-/*!***************************************************************************************!*\
-  !*** ./node_modules/babel-runtime/node_modules/regenerator-runtime/runtime-module.js ***!
-  \***************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-// This method of obtaining a reference to the global object needs to be
-// kept identical to the way it is obtained in runtime.js
-var g = (function() { return this })() || Function("return this")();
-
-// Use `getOwnPropertyNames` because not all browsers support calling
-// `hasOwnProperty` on the global `self` object in a worker. See #183.
-var hadRuntime = g.regeneratorRuntime &&
-  Object.getOwnPropertyNames(g).indexOf("regeneratorRuntime") >= 0;
-
-// Save the old regeneratorRuntime in case it needs to be restored later.
-var oldRuntime = hadRuntime && g.regeneratorRuntime;
-
-// Force reevalutation of runtime.js.
-g.regeneratorRuntime = undefined;
-
-module.exports = __webpack_require__(/*! ./runtime */ "./node_modules/babel-runtime/node_modules/regenerator-runtime/runtime.js");
-
-if (hadRuntime) {
-  // Restore the original runtime.
-  g.regeneratorRuntime = oldRuntime;
-} else {
-  // Remove the global property added by runtime.js.
-  try {
-    delete g.regeneratorRuntime;
-  } catch(e) {
-    g.regeneratorRuntime = undefined;
-  }
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/babel-runtime/node_modules/regenerator-runtime/runtime.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/babel-runtime/node_modules/regenerator-runtime/runtime.js ***!
-  \********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-!(function(global) {
-  "use strict";
-
-  var Op = Object.prototype;
-  var hasOwn = Op.hasOwnProperty;
-  var undefined; // More compressible than void 0.
-  var $Symbol = typeof Symbol === "function" ? Symbol : {};
-  var iteratorSymbol = $Symbol.iterator || "@@iterator";
-  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
-  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
-
-  var inModule = typeof module === "object";
-  var runtime = global.regeneratorRuntime;
-  if (runtime) {
-    if (inModule) {
-      // If regeneratorRuntime is defined globally and we're in a module,
-      // make the exports object identical to regeneratorRuntime.
-      module.exports = runtime;
-    }
-    // Don't bother evaluating the rest of this file if the runtime was
-    // already defined globally.
-    return;
-  }
-
-  // Define the runtime globally (as expected by generated code) as either
-  // module.exports (if we're in a module) or a new, empty object.
-  runtime = global.regeneratorRuntime = inModule ? module.exports : {};
-
-  function wrap(innerFn, outerFn, self, tryLocsList) {
-    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
-    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
-    var generator = Object.create(protoGenerator.prototype);
-    var context = new Context(tryLocsList || []);
-
-    // The ._invoke method unifies the implementations of the .next,
-    // .throw, and .return methods.
-    generator._invoke = makeInvokeMethod(innerFn, self, context);
-
-    return generator;
-  }
-  runtime.wrap = wrap;
-
-  // Try/catch helper to minimize deoptimizations. Returns a completion
-  // record like context.tryEntries[i].completion. This interface could
-  // have been (and was previously) designed to take a closure to be
-  // invoked without arguments, but in all the cases we care about we
-  // already have an existing method we want to call, so there's no need
-  // to create a new function object. We can even get away with assuming
-  // the method takes exactly one argument, since that happens to be true
-  // in every case, so we don't have to touch the arguments object. The
-  // only additional allocation required is the completion record, which
-  // has a stable shape and so hopefully should be cheap to allocate.
-  function tryCatch(fn, obj, arg) {
-    try {
-      return { type: "normal", arg: fn.call(obj, arg) };
-    } catch (err) {
-      return { type: "throw", arg: err };
-    }
-  }
-
-  var GenStateSuspendedStart = "suspendedStart";
-  var GenStateSuspendedYield = "suspendedYield";
-  var GenStateExecuting = "executing";
-  var GenStateCompleted = "completed";
-
-  // Returning this object from the innerFn has the same effect as
-  // breaking out of the dispatch switch statement.
-  var ContinueSentinel = {};
-
-  // Dummy constructor functions that we use as the .constructor and
-  // .constructor.prototype properties for functions that return Generator
-  // objects. For full spec compliance, you may wish to configure your
-  // minifier not to mangle the names of these two functions.
-  function Generator() {}
-  function GeneratorFunction() {}
-  function GeneratorFunctionPrototype() {}
-
-  // This is a polyfill for %IteratorPrototype% for environments that
-  // don't natively support it.
-  var IteratorPrototype = {};
-  IteratorPrototype[iteratorSymbol] = function () {
-    return this;
-  };
-
-  var getProto = Object.getPrototypeOf;
-  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
-  if (NativeIteratorPrototype &&
-      NativeIteratorPrototype !== Op &&
-      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
-    // This environment has a native %IteratorPrototype%; use it instead
-    // of the polyfill.
-    IteratorPrototype = NativeIteratorPrototype;
-  }
-
-  var Gp = GeneratorFunctionPrototype.prototype =
-    Generator.prototype = Object.create(IteratorPrototype);
-  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
-  GeneratorFunctionPrototype.constructor = GeneratorFunction;
-  GeneratorFunctionPrototype[toStringTagSymbol] =
-    GeneratorFunction.displayName = "GeneratorFunction";
-
-  // Helper for defining the .next, .throw, and .return methods of the
-  // Iterator interface in terms of a single ._invoke method.
-  function defineIteratorMethods(prototype) {
-    ["next", "throw", "return"].forEach(function(method) {
-      prototype[method] = function(arg) {
-        return this._invoke(method, arg);
-      };
-    });
-  }
-
-  runtime.isGeneratorFunction = function(genFun) {
-    var ctor = typeof genFun === "function" && genFun.constructor;
-    return ctor
-      ? ctor === GeneratorFunction ||
-        // For the native GeneratorFunction constructor, the best we can
-        // do is to check its .name property.
-        (ctor.displayName || ctor.name) === "GeneratorFunction"
-      : false;
-  };
-
-  runtime.mark = function(genFun) {
-    if (Object.setPrototypeOf) {
-      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
-    } else {
-      genFun.__proto__ = GeneratorFunctionPrototype;
-      if (!(toStringTagSymbol in genFun)) {
-        genFun[toStringTagSymbol] = "GeneratorFunction";
-      }
-    }
-    genFun.prototype = Object.create(Gp);
-    return genFun;
-  };
-
-  // Within the body of any async function, `await x` is transformed to
-  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
-  // `hasOwn.call(value, "__await")` to determine if the yielded value is
-  // meant to be awaited.
-  runtime.awrap = function(arg) {
-    return { __await: arg };
-  };
-
-  function AsyncIterator(generator) {
-    function invoke(method, arg, resolve, reject) {
-      var record = tryCatch(generator[method], generator, arg);
-      if (record.type === "throw") {
-        reject(record.arg);
-      } else {
-        var result = record.arg;
-        var value = result.value;
-        if (value &&
-            typeof value === "object" &&
-            hasOwn.call(value, "__await")) {
-          return Promise.resolve(value.__await).then(function(value) {
-            invoke("next", value, resolve, reject);
-          }, function(err) {
-            invoke("throw", err, resolve, reject);
-          });
-        }
-
-        return Promise.resolve(value).then(function(unwrapped) {
-          // When a yielded Promise is resolved, its final value becomes
-          // the .value of the Promise<{value,done}> result for the
-          // current iteration. If the Promise is rejected, however, the
-          // result for this iteration will be rejected with the same
-          // reason. Note that rejections of yielded Promises are not
-          // thrown back into the generator function, as is the case
-          // when an awaited Promise is rejected. This difference in
-          // behavior between yield and await is important, because it
-          // allows the consumer to decide what to do with the yielded
-          // rejection (swallow it and continue, manually .throw it back
-          // into the generator, abandon iteration, whatever). With
-          // await, by contrast, there is no opportunity to examine the
-          // rejection reason outside the generator function, so the
-          // only option is to throw it from the await expression, and
-          // let the generator function handle the exception.
-          result.value = unwrapped;
-          resolve(result);
-        }, reject);
-      }
-    }
-
-    var previousPromise;
-
-    function enqueue(method, arg) {
-      function callInvokeWithMethodAndArg() {
-        return new Promise(function(resolve, reject) {
-          invoke(method, arg, resolve, reject);
-        });
-      }
-
-      return previousPromise =
-        // If enqueue has been called before, then we want to wait until
-        // all previous Promises have been resolved before calling invoke,
-        // so that results are always delivered in the correct order. If
-        // enqueue has not been called before, then it is important to
-        // call invoke immediately, without waiting on a callback to fire,
-        // so that the async generator function has the opportunity to do
-        // any necessary setup in a predictable way. This predictability
-        // is why the Promise constructor synchronously invokes its
-        // executor callback, and why async functions synchronously
-        // execute code before the first await. Since we implement simple
-        // async functions in terms of async generators, it is especially
-        // important to get this right, even though it requires care.
-        previousPromise ? previousPromise.then(
-          callInvokeWithMethodAndArg,
-          // Avoid propagating failures to Promises returned by later
-          // invocations of the iterator.
-          callInvokeWithMethodAndArg
-        ) : callInvokeWithMethodAndArg();
-    }
-
-    // Define the unified helper method that is used to implement .next,
-    // .throw, and .return (see defineIteratorMethods).
-    this._invoke = enqueue;
-  }
-
-  defineIteratorMethods(AsyncIterator.prototype);
-  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
-    return this;
-  };
-  runtime.AsyncIterator = AsyncIterator;
-
-  // Note that simple async functions are implemented on top of
-  // AsyncIterator objects; they just return a Promise for the value of
-  // the final result produced by the iterator.
-  runtime.async = function(innerFn, outerFn, self, tryLocsList) {
-    var iter = new AsyncIterator(
-      wrap(innerFn, outerFn, self, tryLocsList)
-    );
-
-    return runtime.isGeneratorFunction(outerFn)
-      ? iter // If outerFn is a generator, return the full iterator.
-      : iter.next().then(function(result) {
-          return result.done ? result.value : iter.next();
-        });
-  };
-
-  function makeInvokeMethod(innerFn, self, context) {
-    var state = GenStateSuspendedStart;
-
-    return function invoke(method, arg) {
-      if (state === GenStateExecuting) {
-        throw new Error("Generator is already running");
-      }
-
-      if (state === GenStateCompleted) {
-        if (method === "throw") {
-          throw arg;
-        }
-
-        // Be forgiving, per 25.3.3.3.3 of the spec:
-        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
-        return doneResult();
-      }
-
-      context.method = method;
-      context.arg = arg;
-
-      while (true) {
-        var delegate = context.delegate;
-        if (delegate) {
-          var delegateResult = maybeInvokeDelegate(delegate, context);
-          if (delegateResult) {
-            if (delegateResult === ContinueSentinel) continue;
-            return delegateResult;
-          }
-        }
-
-        if (context.method === "next") {
-          // Setting context._sent for legacy support of Babel's
-          // function.sent implementation.
-          context.sent = context._sent = context.arg;
-
-        } else if (context.method === "throw") {
-          if (state === GenStateSuspendedStart) {
-            state = GenStateCompleted;
-            throw context.arg;
-          }
-
-          context.dispatchException(context.arg);
-
-        } else if (context.method === "return") {
-          context.abrupt("return", context.arg);
-        }
-
-        state = GenStateExecuting;
-
-        var record = tryCatch(innerFn, self, context);
-        if (record.type === "normal") {
-          // If an exception is thrown from innerFn, we leave state ===
-          // GenStateExecuting and loop back for another invocation.
-          state = context.done
-            ? GenStateCompleted
-            : GenStateSuspendedYield;
-
-          if (record.arg === ContinueSentinel) {
-            continue;
-          }
-
-          return {
-            value: record.arg,
-            done: context.done
-          };
-
-        } else if (record.type === "throw") {
-          state = GenStateCompleted;
-          // Dispatch the exception by looping back around to the
-          // context.dispatchException(context.arg) call above.
-          context.method = "throw";
-          context.arg = record.arg;
-        }
-      }
-    };
-  }
-
-  // Call delegate.iterator[context.method](context.arg) and handle the
-  // result, either by returning a { value, done } result from the
-  // delegate iterator, or by modifying context.method and context.arg,
-  // setting context.delegate to null, and returning the ContinueSentinel.
-  function maybeInvokeDelegate(delegate, context) {
-    var method = delegate.iterator[context.method];
-    if (method === undefined) {
-      // A .throw or .return when the delegate iterator has no .throw
-      // method always terminates the yield* loop.
-      context.delegate = null;
-
-      if (context.method === "throw") {
-        if (delegate.iterator.return) {
-          // If the delegate iterator has a return method, give it a
-          // chance to clean up.
-          context.method = "return";
-          context.arg = undefined;
-          maybeInvokeDelegate(delegate, context);
-
-          if (context.method === "throw") {
-            // If maybeInvokeDelegate(context) changed context.method from
-            // "return" to "throw", let that override the TypeError below.
-            return ContinueSentinel;
-          }
-        }
-
-        context.method = "throw";
-        context.arg = new TypeError(
-          "The iterator does not provide a 'throw' method");
-      }
-
-      return ContinueSentinel;
-    }
-
-    var record = tryCatch(method, delegate.iterator, context.arg);
-
-    if (record.type === "throw") {
-      context.method = "throw";
-      context.arg = record.arg;
-      context.delegate = null;
-      return ContinueSentinel;
-    }
-
-    var info = record.arg;
-
-    if (! info) {
-      context.method = "throw";
-      context.arg = new TypeError("iterator result is not an object");
-      context.delegate = null;
-      return ContinueSentinel;
-    }
-
-    if (info.done) {
-      // Assign the result of the finished delegate to the temporary
-      // variable specified by delegate.resultName (see delegateYield).
-      context[delegate.resultName] = info.value;
-
-      // Resume execution at the desired location (see delegateYield).
-      context.next = delegate.nextLoc;
-
-      // If context.method was "throw" but the delegate handled the
-      // exception, let the outer generator proceed normally. If
-      // context.method was "next", forget context.arg since it has been
-      // "consumed" by the delegate iterator. If context.method was
-      // "return", allow the original .return call to continue in the
-      // outer generator.
-      if (context.method !== "return") {
-        context.method = "next";
-        context.arg = undefined;
-      }
-
-    } else {
-      // Re-yield the result returned by the delegate method.
-      return info;
-    }
-
-    // The delegate iterator is finished, so forget it and continue with
-    // the outer generator.
-    context.delegate = null;
-    return ContinueSentinel;
-  }
-
-  // Define Generator.prototype.{next,throw,return} in terms of the
-  // unified ._invoke helper method.
-  defineIteratorMethods(Gp);
-
-  Gp[toStringTagSymbol] = "Generator";
-
-  // A Generator should always return itself as the iterator object when the
-  // @@iterator function is called on it. Some browsers' implementations of the
-  // iterator prototype chain incorrectly implement this, causing the Generator
-  // object to not be returned from this call. This ensures that doesn't happen.
-  // See https://github.com/facebook/regenerator/issues/274 for more details.
-  Gp[iteratorSymbol] = function() {
-    return this;
-  };
-
-  Gp.toString = function() {
-    return "[object Generator]";
-  };
-
-  function pushTryEntry(locs) {
-    var entry = { tryLoc: locs[0] };
-
-    if (1 in locs) {
-      entry.catchLoc = locs[1];
-    }
-
-    if (2 in locs) {
-      entry.finallyLoc = locs[2];
-      entry.afterLoc = locs[3];
-    }
-
-    this.tryEntries.push(entry);
-  }
-
-  function resetTryEntry(entry) {
-    var record = entry.completion || {};
-    record.type = "normal";
-    delete record.arg;
-    entry.completion = record;
-  }
-
-  function Context(tryLocsList) {
-    // The root entry object (effectively a try statement without a catch
-    // or a finally block) gives us a place to store values thrown from
-    // locations where there is no enclosing try statement.
-    this.tryEntries = [{ tryLoc: "root" }];
-    tryLocsList.forEach(pushTryEntry, this);
-    this.reset(true);
-  }
-
-  runtime.keys = function(object) {
-    var keys = [];
-    for (var key in object) {
-      keys.push(key);
-    }
-    keys.reverse();
-
-    // Rather than returning an object with a next method, we keep
-    // things simple and return the next function itself.
-    return function next() {
-      while (keys.length) {
-        var key = keys.pop();
-        if (key in object) {
-          next.value = key;
-          next.done = false;
-          return next;
-        }
-      }
-
-      // To avoid creating an additional object, we just hang the .value
-      // and .done properties off the next function object itself. This
-      // also ensures that the minifier will not anonymize the function.
-      next.done = true;
-      return next;
-    };
-  };
-
-  function values(iterable) {
-    if (iterable) {
-      var iteratorMethod = iterable[iteratorSymbol];
-      if (iteratorMethod) {
-        return iteratorMethod.call(iterable);
-      }
-
-      if (typeof iterable.next === "function") {
-        return iterable;
-      }
-
-      if (!isNaN(iterable.length)) {
-        var i = -1, next = function next() {
-          while (++i < iterable.length) {
-            if (hasOwn.call(iterable, i)) {
-              next.value = iterable[i];
-              next.done = false;
-              return next;
-            }
-          }
-
-          next.value = undefined;
-          next.done = true;
-
-          return next;
-        };
-
-        return next.next = next;
-      }
-    }
-
-    // Return an iterator with no values.
-    return { next: doneResult };
-  }
-  runtime.values = values;
-
-  function doneResult() {
-    return { value: undefined, done: true };
-  }
-
-  Context.prototype = {
-    constructor: Context,
-
-    reset: function(skipTempReset) {
-      this.prev = 0;
-      this.next = 0;
-      // Resetting context._sent for legacy support of Babel's
-      // function.sent implementation.
-      this.sent = this._sent = undefined;
-      this.done = false;
-      this.delegate = null;
-
-      this.method = "next";
-      this.arg = undefined;
-
-      this.tryEntries.forEach(resetTryEntry);
-
-      if (!skipTempReset) {
-        for (var name in this) {
-          // Not sure about the optimal order of these conditions:
-          if (name.charAt(0) === "t" &&
-              hasOwn.call(this, name) &&
-              !isNaN(+name.slice(1))) {
-            this[name] = undefined;
-          }
-        }
-      }
-    },
-
-    stop: function() {
-      this.done = true;
-
-      var rootEntry = this.tryEntries[0];
-      var rootRecord = rootEntry.completion;
-      if (rootRecord.type === "throw") {
-        throw rootRecord.arg;
-      }
-
-      return this.rval;
-    },
-
-    dispatchException: function(exception) {
-      if (this.done) {
-        throw exception;
-      }
-
-      var context = this;
-      function handle(loc, caught) {
-        record.type = "throw";
-        record.arg = exception;
-        context.next = loc;
-
-        if (caught) {
-          // If the dispatched exception was caught by a catch block,
-          // then let that catch block handle the exception normally.
-          context.method = "next";
-          context.arg = undefined;
-        }
-
-        return !! caught;
-      }
-
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        var record = entry.completion;
-
-        if (entry.tryLoc === "root") {
-          // Exception thrown outside of any try block that could handle
-          // it, so set the completion value of the entire function to
-          // throw the exception.
-          return handle("end");
-        }
-
-        if (entry.tryLoc <= this.prev) {
-          var hasCatch = hasOwn.call(entry, "catchLoc");
-          var hasFinally = hasOwn.call(entry, "finallyLoc");
-
-          if (hasCatch && hasFinally) {
-            if (this.prev < entry.catchLoc) {
-              return handle(entry.catchLoc, true);
-            } else if (this.prev < entry.finallyLoc) {
-              return handle(entry.finallyLoc);
-            }
-
-          } else if (hasCatch) {
-            if (this.prev < entry.catchLoc) {
-              return handle(entry.catchLoc, true);
-            }
-
-          } else if (hasFinally) {
-            if (this.prev < entry.finallyLoc) {
-              return handle(entry.finallyLoc);
-            }
-
-          } else {
-            throw new Error("try statement without catch or finally");
-          }
-        }
-      }
-    },
-
-    abrupt: function(type, arg) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.tryLoc <= this.prev &&
-            hasOwn.call(entry, "finallyLoc") &&
-            this.prev < entry.finallyLoc) {
-          var finallyEntry = entry;
-          break;
-        }
-      }
-
-      if (finallyEntry &&
-          (type === "break" ||
-           type === "continue") &&
-          finallyEntry.tryLoc <= arg &&
-          arg <= finallyEntry.finallyLoc) {
-        // Ignore the finally entry if control is not jumping to a
-        // location outside the try/catch block.
-        finallyEntry = null;
-      }
-
-      var record = finallyEntry ? finallyEntry.completion : {};
-      record.type = type;
-      record.arg = arg;
-
-      if (finallyEntry) {
-        this.method = "next";
-        this.next = finallyEntry.finallyLoc;
-        return ContinueSentinel;
-      }
-
-      return this.complete(record);
-    },
-
-    complete: function(record, afterLoc) {
-      if (record.type === "throw") {
-        throw record.arg;
-      }
-
-      if (record.type === "break" ||
-          record.type === "continue") {
-        this.next = record.arg;
-      } else if (record.type === "return") {
-        this.rval = this.arg = record.arg;
-        this.method = "return";
-        this.next = "end";
-      } else if (record.type === "normal" && afterLoc) {
-        this.next = afterLoc;
-      }
-
-      return ContinueSentinel;
-    },
-
-    finish: function(finallyLoc) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.finallyLoc === finallyLoc) {
-          this.complete(entry.completion, entry.afterLoc);
-          resetTryEntry(entry);
-          return ContinueSentinel;
-        }
-      }
-    },
-
-    "catch": function(tryLoc) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.tryLoc === tryLoc) {
-          var record = entry.completion;
-          if (record.type === "throw") {
-            var thrown = record.arg;
-            resetTryEntry(entry);
-          }
-          return thrown;
-        }
-      }
-
-      // The context.catch method must only be called with a location
-      // argument that corresponds to a known catch block.
-      throw new Error("illegal catch attempt");
-    },
-
-    delegateYield: function(iterable, resultName, nextLoc) {
-      this.delegate = {
-        iterator: values(iterable),
-        resultName: resultName,
-        nextLoc: nextLoc
-      };
-
-      if (this.method === "next") {
-        // Deliberately forget the last sent value so that we don't
-        // accidentally pass it on to the delegate.
-        this.arg = undefined;
-      }
-
-      return ContinueSentinel;
-    }
-  };
-})(
-  // In sloppy mode, unbound `this` refers to the global object, fallback to
-  // Function constructor if we're in global strict mode. That is sadly a form
-  // of indirect eval which violates Content Security Policy.
-  (function() { return this })() || Function("return this")()
-);
-
-
-/***/ }),
-
 /***/ "./node_modules/babel-runtime/regenerator/index.js":
 /*!*********************************************************!*\
   !*** ./node_modules/babel-runtime/regenerator/index.js ***!
@@ -4118,7 +3425,7 @@ if (hadRuntime) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/babel-runtime/node_modules/regenerator-runtime/runtime-module.js");
+module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime-module.js");
 
 
 /***/ }),
@@ -10132,6 +9439,25 @@ module.exports = __webpack_require__(/*! ../modules/_core */ "./node_modules/cor
 
 /***/ }),
 
+/***/ "./node_modules/core-js/library/fn/set.js":
+/*!************************************************!*\
+  !*** ./node_modules/core-js/library/fn/set.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! ../modules/es6.object.to-string */ "./node_modules/core-js/library/modules/es6.object.to-string.js");
+__webpack_require__(/*! ../modules/es6.string.iterator */ "./node_modules/core-js/library/modules/es6.string.iterator.js");
+__webpack_require__(/*! ../modules/web.dom.iterable */ "./node_modules/core-js/library/modules/web.dom.iterable.js");
+__webpack_require__(/*! ../modules/es6.set */ "./node_modules/core-js/library/modules/es6.set.js");
+__webpack_require__(/*! ../modules/es7.set.to-json */ "./node_modules/core-js/library/modules/es7.set.to-json.js");
+__webpack_require__(/*! ../modules/es7.set.of */ "./node_modules/core-js/library/modules/es7.set.of.js");
+__webpack_require__(/*! ../modules/es7.set.from */ "./node_modules/core-js/library/modules/es7.set.from.js");
+module.exports = __webpack_require__(/*! ../modules/_core */ "./node_modules/core-js/library/modules/_core.js").Set;
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/library/fn/symbol/index.js":
 /*!*********************************************************!*\
   !*** ./node_modules/core-js/library/fn/symbol/index.js ***!
@@ -10158,6 +9484,23 @@ module.exports = __webpack_require__(/*! ../../modules/_core */ "./node_modules/
 __webpack_require__(/*! ../../modules/es6.string.iterator */ "./node_modules/core-js/library/modules/es6.string.iterator.js");
 __webpack_require__(/*! ../../modules/web.dom.iterable */ "./node_modules/core-js/library/modules/web.dom.iterable.js");
 module.exports = __webpack_require__(/*! ../../modules/_wks-ext */ "./node_modules/core-js/library/modules/_wks-ext.js").f('iterator');
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/library/fn/weak-map.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/core-js/library/fn/weak-map.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! ../modules/es6.object.to-string */ "./node_modules/core-js/library/modules/es6.object.to-string.js");
+__webpack_require__(/*! ../modules/web.dom.iterable */ "./node_modules/core-js/library/modules/web.dom.iterable.js");
+__webpack_require__(/*! ../modules/es6.weak-map */ "./node_modules/core-js/library/modules/es6.weak-map.js");
+__webpack_require__(/*! ../modules/es7.weak-map.of */ "./node_modules/core-js/library/modules/es7.weak-map.of.js");
+__webpack_require__(/*! ../modules/es7.weak-map.from */ "./node_modules/core-js/library/modules/es7.weak-map.from.js");
+module.exports = __webpack_require__(/*! ../modules/_core */ "./node_modules/core-js/library/modules/_core.js").WeakMap;
 
 
 /***/ }),
@@ -10221,6 +9564,24 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/library/modules/_array-from-iterable.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/_array-from-iterable.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var forOf = __webpack_require__(/*! ./_for-of */ "./node_modules/core-js/library/modules/_for-of.js");
+
+module.exports = function (iter, ITERATOR) {
+  var result = [];
+  forOf(iter, false, result.push, result, ITERATOR);
+  return result;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/library/modules/_array-includes.js":
 /*!*****************************************************************!*\
   !*** ./node_modules/core-js/library/modules/_array-includes.js ***!
@@ -10250,6 +9611,105 @@ module.exports = function (IS_INCLUDES) {
       if (O[index] === el) return IS_INCLUDES || index || 0;
     } return !IS_INCLUDES && -1;
   };
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/library/modules/_array-methods.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/_array-methods.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 0 -> Array#forEach
+// 1 -> Array#map
+// 2 -> Array#filter
+// 3 -> Array#some
+// 4 -> Array#every
+// 5 -> Array#find
+// 6 -> Array#findIndex
+var ctx = __webpack_require__(/*! ./_ctx */ "./node_modules/core-js/library/modules/_ctx.js");
+var IObject = __webpack_require__(/*! ./_iobject */ "./node_modules/core-js/library/modules/_iobject.js");
+var toObject = __webpack_require__(/*! ./_to-object */ "./node_modules/core-js/library/modules/_to-object.js");
+var toLength = __webpack_require__(/*! ./_to-length */ "./node_modules/core-js/library/modules/_to-length.js");
+var asc = __webpack_require__(/*! ./_array-species-create */ "./node_modules/core-js/library/modules/_array-species-create.js");
+module.exports = function (TYPE, $create) {
+  var IS_MAP = TYPE == 1;
+  var IS_FILTER = TYPE == 2;
+  var IS_SOME = TYPE == 3;
+  var IS_EVERY = TYPE == 4;
+  var IS_FIND_INDEX = TYPE == 6;
+  var NO_HOLES = TYPE == 5 || IS_FIND_INDEX;
+  var create = $create || asc;
+  return function ($this, callbackfn, that) {
+    var O = toObject($this);
+    var self = IObject(O);
+    var f = ctx(callbackfn, that, 3);
+    var length = toLength(self.length);
+    var index = 0;
+    var result = IS_MAP ? create($this, length) : IS_FILTER ? create($this, 0) : undefined;
+    var val, res;
+    for (;length > index; index++) if (NO_HOLES || index in self) {
+      val = self[index];
+      res = f(val, index, O);
+      if (TYPE) {
+        if (IS_MAP) result[index] = res;   // map
+        else if (res) switch (TYPE) {
+          case 3: return true;             // some
+          case 5: return val;              // find
+          case 6: return index;            // findIndex
+          case 2: result.push(val);        // filter
+        } else if (IS_EVERY) return false; // every
+      }
+    }
+    return IS_FIND_INDEX ? -1 : IS_SOME || IS_EVERY ? IS_EVERY : result;
+  };
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/library/modules/_array-species-constructor.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/_array-species-constructor.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./_is-object */ "./node_modules/core-js/library/modules/_is-object.js");
+var isArray = __webpack_require__(/*! ./_is-array */ "./node_modules/core-js/library/modules/_is-array.js");
+var SPECIES = __webpack_require__(/*! ./_wks */ "./node_modules/core-js/library/modules/_wks.js")('species');
+
+module.exports = function (original) {
+  var C;
+  if (isArray(original)) {
+    C = original.constructor;
+    // cross-realm fallback
+    if (typeof C == 'function' && (C === Array || isArray(C.prototype))) C = undefined;
+    if (isObject(C)) {
+      C = C[SPECIES];
+      if (C === null) C = undefined;
+    }
+  } return C === undefined ? Array : C;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/library/modules/_array-species-create.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/_array-species-create.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 9.4.2.3 ArraySpeciesCreate(originalArray, length)
+var speciesConstructor = __webpack_require__(/*! ./_array-species-constructor */ "./node_modules/core-js/library/modules/_array-species-constructor.js");
+
+module.exports = function (original, length) {
+  return new (speciesConstructor(original))(length);
 };
 
 
@@ -10300,6 +9760,350 @@ var toString = {}.toString;
 
 module.exports = function (it) {
   return toString.call(it).slice(8, -1);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/library/modules/_collection-strong.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/_collection-strong.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var dP = __webpack_require__(/*! ./_object-dp */ "./node_modules/core-js/library/modules/_object-dp.js").f;
+var create = __webpack_require__(/*! ./_object-create */ "./node_modules/core-js/library/modules/_object-create.js");
+var redefineAll = __webpack_require__(/*! ./_redefine-all */ "./node_modules/core-js/library/modules/_redefine-all.js");
+var ctx = __webpack_require__(/*! ./_ctx */ "./node_modules/core-js/library/modules/_ctx.js");
+var anInstance = __webpack_require__(/*! ./_an-instance */ "./node_modules/core-js/library/modules/_an-instance.js");
+var forOf = __webpack_require__(/*! ./_for-of */ "./node_modules/core-js/library/modules/_for-of.js");
+var $iterDefine = __webpack_require__(/*! ./_iter-define */ "./node_modules/core-js/library/modules/_iter-define.js");
+var step = __webpack_require__(/*! ./_iter-step */ "./node_modules/core-js/library/modules/_iter-step.js");
+var setSpecies = __webpack_require__(/*! ./_set-species */ "./node_modules/core-js/library/modules/_set-species.js");
+var DESCRIPTORS = __webpack_require__(/*! ./_descriptors */ "./node_modules/core-js/library/modules/_descriptors.js");
+var fastKey = __webpack_require__(/*! ./_meta */ "./node_modules/core-js/library/modules/_meta.js").fastKey;
+var validate = __webpack_require__(/*! ./_validate-collection */ "./node_modules/core-js/library/modules/_validate-collection.js");
+var SIZE = DESCRIPTORS ? '_s' : 'size';
+
+var getEntry = function (that, key) {
+  // fast case
+  var index = fastKey(key);
+  var entry;
+  if (index !== 'F') return that._i[index];
+  // frozen object case
+  for (entry = that._f; entry; entry = entry.n) {
+    if (entry.k == key) return entry;
+  }
+};
+
+module.exports = {
+  getConstructor: function (wrapper, NAME, IS_MAP, ADDER) {
+    var C = wrapper(function (that, iterable) {
+      anInstance(that, C, NAME, '_i');
+      that._t = NAME;         // collection type
+      that._i = create(null); // index
+      that._f = undefined;    // first entry
+      that._l = undefined;    // last entry
+      that[SIZE] = 0;         // size
+      if (iterable != undefined) forOf(iterable, IS_MAP, that[ADDER], that);
+    });
+    redefineAll(C.prototype, {
+      // 23.1.3.1 Map.prototype.clear()
+      // 23.2.3.2 Set.prototype.clear()
+      clear: function clear() {
+        for (var that = validate(this, NAME), data = that._i, entry = that._f; entry; entry = entry.n) {
+          entry.r = true;
+          if (entry.p) entry.p = entry.p.n = undefined;
+          delete data[entry.i];
+        }
+        that._f = that._l = undefined;
+        that[SIZE] = 0;
+      },
+      // 23.1.3.3 Map.prototype.delete(key)
+      // 23.2.3.4 Set.prototype.delete(value)
+      'delete': function (key) {
+        var that = validate(this, NAME);
+        var entry = getEntry(that, key);
+        if (entry) {
+          var next = entry.n;
+          var prev = entry.p;
+          delete that._i[entry.i];
+          entry.r = true;
+          if (prev) prev.n = next;
+          if (next) next.p = prev;
+          if (that._f == entry) that._f = next;
+          if (that._l == entry) that._l = prev;
+          that[SIZE]--;
+        } return !!entry;
+      },
+      // 23.2.3.6 Set.prototype.forEach(callbackfn, thisArg = undefined)
+      // 23.1.3.5 Map.prototype.forEach(callbackfn, thisArg = undefined)
+      forEach: function forEach(callbackfn /* , that = undefined */) {
+        validate(this, NAME);
+        var f = ctx(callbackfn, arguments.length > 1 ? arguments[1] : undefined, 3);
+        var entry;
+        while (entry = entry ? entry.n : this._f) {
+          f(entry.v, entry.k, this);
+          // revert to the last existing entry
+          while (entry && entry.r) entry = entry.p;
+        }
+      },
+      // 23.1.3.7 Map.prototype.has(key)
+      // 23.2.3.7 Set.prototype.has(value)
+      has: function has(key) {
+        return !!getEntry(validate(this, NAME), key);
+      }
+    });
+    if (DESCRIPTORS) dP(C.prototype, 'size', {
+      get: function () {
+        return validate(this, NAME)[SIZE];
+      }
+    });
+    return C;
+  },
+  def: function (that, key, value) {
+    var entry = getEntry(that, key);
+    var prev, index;
+    // change existing entry
+    if (entry) {
+      entry.v = value;
+    // create new entry
+    } else {
+      that._l = entry = {
+        i: index = fastKey(key, true), // <- index
+        k: key,                        // <- key
+        v: value,                      // <- value
+        p: prev = that._l,             // <- previous entry
+        n: undefined,                  // <- next entry
+        r: false                       // <- removed
+      };
+      if (!that._f) that._f = entry;
+      if (prev) prev.n = entry;
+      that[SIZE]++;
+      // add to index
+      if (index !== 'F') that._i[index] = entry;
+    } return that;
+  },
+  getEntry: getEntry,
+  setStrong: function (C, NAME, IS_MAP) {
+    // add .keys, .values, .entries, [@@iterator]
+    // 23.1.3.4, 23.1.3.8, 23.1.3.11, 23.1.3.12, 23.2.3.5, 23.2.3.8, 23.2.3.10, 23.2.3.11
+    $iterDefine(C, NAME, function (iterated, kind) {
+      this._t = validate(iterated, NAME); // target
+      this._k = kind;                     // kind
+      this._l = undefined;                // previous
+    }, function () {
+      var that = this;
+      var kind = that._k;
+      var entry = that._l;
+      // revert to the last existing entry
+      while (entry && entry.r) entry = entry.p;
+      // get next entry
+      if (!that._t || !(that._l = entry = entry ? entry.n : that._t._f)) {
+        // or finish the iteration
+        that._t = undefined;
+        return step(1);
+      }
+      // return step by kind
+      if (kind == 'keys') return step(0, entry.k);
+      if (kind == 'values') return step(0, entry.v);
+      return step(0, [entry.k, entry.v]);
+    }, IS_MAP ? 'entries' : 'values', !IS_MAP, true);
+
+    // add [@@species], 23.1.2.2, 23.2.2.2
+    setSpecies(NAME);
+  }
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/library/modules/_collection-to-json.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/_collection-to-json.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://github.com/DavidBruant/Map-Set.prototype.toJSON
+var classof = __webpack_require__(/*! ./_classof */ "./node_modules/core-js/library/modules/_classof.js");
+var from = __webpack_require__(/*! ./_array-from-iterable */ "./node_modules/core-js/library/modules/_array-from-iterable.js");
+module.exports = function (NAME) {
+  return function toJSON() {
+    if (classof(this) != NAME) throw TypeError(NAME + "#toJSON isn't generic");
+    return from(this);
+  };
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/library/modules/_collection-weak.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/_collection-weak.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var redefineAll = __webpack_require__(/*! ./_redefine-all */ "./node_modules/core-js/library/modules/_redefine-all.js");
+var getWeak = __webpack_require__(/*! ./_meta */ "./node_modules/core-js/library/modules/_meta.js").getWeak;
+var anObject = __webpack_require__(/*! ./_an-object */ "./node_modules/core-js/library/modules/_an-object.js");
+var isObject = __webpack_require__(/*! ./_is-object */ "./node_modules/core-js/library/modules/_is-object.js");
+var anInstance = __webpack_require__(/*! ./_an-instance */ "./node_modules/core-js/library/modules/_an-instance.js");
+var forOf = __webpack_require__(/*! ./_for-of */ "./node_modules/core-js/library/modules/_for-of.js");
+var createArrayMethod = __webpack_require__(/*! ./_array-methods */ "./node_modules/core-js/library/modules/_array-methods.js");
+var $has = __webpack_require__(/*! ./_has */ "./node_modules/core-js/library/modules/_has.js");
+var validate = __webpack_require__(/*! ./_validate-collection */ "./node_modules/core-js/library/modules/_validate-collection.js");
+var arrayFind = createArrayMethod(5);
+var arrayFindIndex = createArrayMethod(6);
+var id = 0;
+
+// fallback for uncaught frozen keys
+var uncaughtFrozenStore = function (that) {
+  return that._l || (that._l = new UncaughtFrozenStore());
+};
+var UncaughtFrozenStore = function () {
+  this.a = [];
+};
+var findUncaughtFrozen = function (store, key) {
+  return arrayFind(store.a, function (it) {
+    return it[0] === key;
+  });
+};
+UncaughtFrozenStore.prototype = {
+  get: function (key) {
+    var entry = findUncaughtFrozen(this, key);
+    if (entry) return entry[1];
+  },
+  has: function (key) {
+    return !!findUncaughtFrozen(this, key);
+  },
+  set: function (key, value) {
+    var entry = findUncaughtFrozen(this, key);
+    if (entry) entry[1] = value;
+    else this.a.push([key, value]);
+  },
+  'delete': function (key) {
+    var index = arrayFindIndex(this.a, function (it) {
+      return it[0] === key;
+    });
+    if (~index) this.a.splice(index, 1);
+    return !!~index;
+  }
+};
+
+module.exports = {
+  getConstructor: function (wrapper, NAME, IS_MAP, ADDER) {
+    var C = wrapper(function (that, iterable) {
+      anInstance(that, C, NAME, '_i');
+      that._t = NAME;      // collection type
+      that._i = id++;      // collection id
+      that._l = undefined; // leak store for uncaught frozen objects
+      if (iterable != undefined) forOf(iterable, IS_MAP, that[ADDER], that);
+    });
+    redefineAll(C.prototype, {
+      // 23.3.3.2 WeakMap.prototype.delete(key)
+      // 23.4.3.3 WeakSet.prototype.delete(value)
+      'delete': function (key) {
+        if (!isObject(key)) return false;
+        var data = getWeak(key);
+        if (data === true) return uncaughtFrozenStore(validate(this, NAME))['delete'](key);
+        return data && $has(data, this._i) && delete data[this._i];
+      },
+      // 23.3.3.4 WeakMap.prototype.has(key)
+      // 23.4.3.4 WeakSet.prototype.has(value)
+      has: function has(key) {
+        if (!isObject(key)) return false;
+        var data = getWeak(key);
+        if (data === true) return uncaughtFrozenStore(validate(this, NAME)).has(key);
+        return data && $has(data, this._i);
+      }
+    });
+    return C;
+  },
+  def: function (that, key, value) {
+    var data = getWeak(anObject(key), true);
+    if (data === true) uncaughtFrozenStore(that).set(key, value);
+    else data[that._i] = value;
+    return that;
+  },
+  ufstore: uncaughtFrozenStore
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/library/modules/_collection.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/_collection.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var global = __webpack_require__(/*! ./_global */ "./node_modules/core-js/library/modules/_global.js");
+var $export = __webpack_require__(/*! ./_export */ "./node_modules/core-js/library/modules/_export.js");
+var meta = __webpack_require__(/*! ./_meta */ "./node_modules/core-js/library/modules/_meta.js");
+var fails = __webpack_require__(/*! ./_fails */ "./node_modules/core-js/library/modules/_fails.js");
+var hide = __webpack_require__(/*! ./_hide */ "./node_modules/core-js/library/modules/_hide.js");
+var redefineAll = __webpack_require__(/*! ./_redefine-all */ "./node_modules/core-js/library/modules/_redefine-all.js");
+var forOf = __webpack_require__(/*! ./_for-of */ "./node_modules/core-js/library/modules/_for-of.js");
+var anInstance = __webpack_require__(/*! ./_an-instance */ "./node_modules/core-js/library/modules/_an-instance.js");
+var isObject = __webpack_require__(/*! ./_is-object */ "./node_modules/core-js/library/modules/_is-object.js");
+var setToStringTag = __webpack_require__(/*! ./_set-to-string-tag */ "./node_modules/core-js/library/modules/_set-to-string-tag.js");
+var dP = __webpack_require__(/*! ./_object-dp */ "./node_modules/core-js/library/modules/_object-dp.js").f;
+var each = __webpack_require__(/*! ./_array-methods */ "./node_modules/core-js/library/modules/_array-methods.js")(0);
+var DESCRIPTORS = __webpack_require__(/*! ./_descriptors */ "./node_modules/core-js/library/modules/_descriptors.js");
+
+module.exports = function (NAME, wrapper, methods, common, IS_MAP, IS_WEAK) {
+  var Base = global[NAME];
+  var C = Base;
+  var ADDER = IS_MAP ? 'set' : 'add';
+  var proto = C && C.prototype;
+  var O = {};
+  if (!DESCRIPTORS || typeof C != 'function' || !(IS_WEAK || proto.forEach && !fails(function () {
+    new C().entries().next();
+  }))) {
+    // create collection constructor
+    C = common.getConstructor(wrapper, NAME, IS_MAP, ADDER);
+    redefineAll(C.prototype, methods);
+    meta.NEED = true;
+  } else {
+    C = wrapper(function (target, iterable) {
+      anInstance(target, C, NAME, '_c');
+      target._c = new Base();
+      if (iterable != undefined) forOf(iterable, IS_MAP, target[ADDER], target);
+    });
+    each('add,clear,delete,forEach,get,has,set,keys,values,entries,toJSON'.split(','), function (KEY) {
+      var IS_ADDER = KEY == 'add' || KEY == 'set';
+      if (KEY in proto && !(IS_WEAK && KEY == 'clear')) hide(C.prototype, KEY, function (a, b) {
+        anInstance(this, C, KEY);
+        if (!IS_ADDER && IS_WEAK && !isObject(a)) return KEY == 'get' ? undefined : false;
+        var result = this._c[KEY](a === 0 ? 0 : a, b);
+        return IS_ADDER ? this : result;
+      });
+    });
+    IS_WEAK || dP(C.prototype, 'size', {
+      get: function () {
+        return this._c.size;
+      }
+    });
+  }
+
+  setToStringTag(C, NAME);
+
+  O[NAME] = C;
+  $export($export.G + $export.W + $export.F, O);
+
+  if (!IS_WEAK) common.setStrong(C, NAME, IS_MAP);
+
+  return C;
 };
 
 
@@ -11540,6 +11344,70 @@ module.exports = __webpack_require__(/*! ./_hide */ "./node_modules/core-js/libr
 
 /***/ }),
 
+/***/ "./node_modules/core-js/library/modules/_set-collection-from.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/_set-collection-from.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// https://tc39.github.io/proposal-setmap-offrom/
+var $export = __webpack_require__(/*! ./_export */ "./node_modules/core-js/library/modules/_export.js");
+var aFunction = __webpack_require__(/*! ./_a-function */ "./node_modules/core-js/library/modules/_a-function.js");
+var ctx = __webpack_require__(/*! ./_ctx */ "./node_modules/core-js/library/modules/_ctx.js");
+var forOf = __webpack_require__(/*! ./_for-of */ "./node_modules/core-js/library/modules/_for-of.js");
+
+module.exports = function (COLLECTION) {
+  $export($export.S, COLLECTION, { from: function from(source /* , mapFn, thisArg */) {
+    var mapFn = arguments[1];
+    var mapping, A, n, cb;
+    aFunction(this);
+    mapping = mapFn !== undefined;
+    if (mapping) aFunction(mapFn);
+    if (source == undefined) return new this();
+    A = [];
+    if (mapping) {
+      n = 0;
+      cb = ctx(mapFn, arguments[2], 2);
+      forOf(source, false, function (nextItem) {
+        A.push(cb(nextItem, n++));
+      });
+    } else {
+      forOf(source, false, A.push, A);
+    }
+    return new this(A);
+  } });
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/library/modules/_set-collection-of.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/_set-collection-of.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// https://tc39.github.io/proposal-setmap-offrom/
+var $export = __webpack_require__(/*! ./_export */ "./node_modules/core-js/library/modules/_export.js");
+
+module.exports = function (COLLECTION) {
+  $export($export.S, COLLECTION, { of: function of() {
+    var length = arguments.length;
+    var A = new Array(length);
+    while (length--) A[length] = arguments[length];
+    return new this(A);
+  } });
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/library/modules/_set-proto.js":
 /*!************************************************************!*\
   !*** ./node_modules/core-js/library/modules/_set-proto.js ***!
@@ -11937,6 +11805,22 @@ var global = __webpack_require__(/*! ./_global */ "./node_modules/core-js/librar
 var navigator = global.navigator;
 
 module.exports = navigator && navigator.userAgent || '';
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/library/modules/_validate-collection.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/_validate-collection.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./_is-object */ "./node_modules/core-js/library/modules/_is-object.js");
+module.exports = function (it, TYPE) {
+  if (!isObject(it) || it._t !== TYPE) throw TypeError('Incompatible receiver, ' + TYPE + ' required!');
+  return it;
+};
 
 
 /***/ }),
@@ -12486,6 +12370,32 @@ $export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(/*! ./_iter-
 
 /***/ }),
 
+/***/ "./node_modules/core-js/library/modules/es6.set.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/core-js/library/modules/es6.set.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var strong = __webpack_require__(/*! ./_collection-strong */ "./node_modules/core-js/library/modules/_collection-strong.js");
+var validate = __webpack_require__(/*! ./_validate-collection */ "./node_modules/core-js/library/modules/_validate-collection.js");
+var SET = 'Set';
+
+// 23.2 Set Objects
+module.exports = __webpack_require__(/*! ./_collection */ "./node_modules/core-js/library/modules/_collection.js")(SET, function (get) {
+  return function Set() { return get(this, arguments.length > 0 ? arguments[0] : undefined); };
+}, {
+  // 23.2.3.1 Set.prototype.add(value)
+  add: function add(value) {
+    return strong.def(validate(this, SET), value = value === 0 ? 0 : value, value);
+  }
+}, strong);
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/library/modules/es6.string.iterator.js":
 /*!*********************************************************************!*\
   !*** ./node_modules/core-js/library/modules/es6.string.iterator.js ***!
@@ -12761,6 +12671,77 @@ setToStringTag(global.JSON, 'JSON', true);
 
 /***/ }),
 
+/***/ "./node_modules/core-js/library/modules/es6.weak-map.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/es6.weak-map.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var each = __webpack_require__(/*! ./_array-methods */ "./node_modules/core-js/library/modules/_array-methods.js")(0);
+var redefine = __webpack_require__(/*! ./_redefine */ "./node_modules/core-js/library/modules/_redefine.js");
+var meta = __webpack_require__(/*! ./_meta */ "./node_modules/core-js/library/modules/_meta.js");
+var assign = __webpack_require__(/*! ./_object-assign */ "./node_modules/core-js/library/modules/_object-assign.js");
+var weak = __webpack_require__(/*! ./_collection-weak */ "./node_modules/core-js/library/modules/_collection-weak.js");
+var isObject = __webpack_require__(/*! ./_is-object */ "./node_modules/core-js/library/modules/_is-object.js");
+var fails = __webpack_require__(/*! ./_fails */ "./node_modules/core-js/library/modules/_fails.js");
+var validate = __webpack_require__(/*! ./_validate-collection */ "./node_modules/core-js/library/modules/_validate-collection.js");
+var WEAK_MAP = 'WeakMap';
+var getWeak = meta.getWeak;
+var isExtensible = Object.isExtensible;
+var uncaughtFrozenStore = weak.ufstore;
+var tmp = {};
+var InternalMap;
+
+var wrapper = function (get) {
+  return function WeakMap() {
+    return get(this, arguments.length > 0 ? arguments[0] : undefined);
+  };
+};
+
+var methods = {
+  // 23.3.3.3 WeakMap.prototype.get(key)
+  get: function get(key) {
+    if (isObject(key)) {
+      var data = getWeak(key);
+      if (data === true) return uncaughtFrozenStore(validate(this, WEAK_MAP)).get(key);
+      return data ? data[this._i] : undefined;
+    }
+  },
+  // 23.3.3.5 WeakMap.prototype.set(key, value)
+  set: function set(key, value) {
+    return weak.def(validate(this, WEAK_MAP), key, value);
+  }
+};
+
+// 23.3 WeakMap Objects
+var $WeakMap = module.exports = __webpack_require__(/*! ./_collection */ "./node_modules/core-js/library/modules/_collection.js")(WEAK_MAP, wrapper, methods, weak, true, true);
+
+// IE11 WeakMap frozen keys fix
+if (fails(function () { return new $WeakMap().set((Object.freeze || Object)(tmp), 7).get(tmp) != 7; })) {
+  InternalMap = weak.getConstructor(wrapper, WEAK_MAP);
+  assign(InternalMap.prototype, methods);
+  meta.NEED = true;
+  each(['delete', 'has', 'get', 'set'], function (key) {
+    var proto = $WeakMap.prototype;
+    var method = proto[key];
+    redefine(proto, key, function (a, b) {
+      // store frozen objects on internal weakmap shim
+      if (isObject(a) && !isExtensible(a)) {
+        if (!this._f) this._f = new InternalMap();
+        var result = this._f[key](a, b);
+        return key == 'set' ? this : result;
+      // store all the rest on native weakmap
+      } return method.call(this, a, b);
+    });
+  });
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/library/modules/es7.promise.finally.js":
 /*!*********************************************************************!*\
   !*** ./node_modules/core-js/library/modules/es7.promise.finally.js ***!
@@ -12817,6 +12798,47 @@ $export($export.S, 'Promise', { 'try': function (callbackfn) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/library/modules/es7.set.from.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/es7.set.from.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://tc39.github.io/proposal-setmap-offrom/#sec-set.from
+__webpack_require__(/*! ./_set-collection-from */ "./node_modules/core-js/library/modules/_set-collection-from.js")('Set');
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/library/modules/es7.set.of.js":
+/*!************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/es7.set.of.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://tc39.github.io/proposal-setmap-offrom/#sec-set.of
+__webpack_require__(/*! ./_set-collection-of */ "./node_modules/core-js/library/modules/_set-collection-of.js")('Set');
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/library/modules/es7.set.to-json.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/es7.set.to-json.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://github.com/DavidBruant/Map-Set.prototype.toJSON
+var $export = __webpack_require__(/*! ./_export */ "./node_modules/core-js/library/modules/_export.js");
+
+$export($export.P + $export.R, 'Set', { toJSON: __webpack_require__(/*! ./_collection-to-json */ "./node_modules/core-js/library/modules/_collection-to-json.js")('Set') });
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/library/modules/es7.symbol.async-iterator.js":
 /*!***************************************************************************!*\
   !*** ./node_modules/core-js/library/modules/es7.symbol.async-iterator.js ***!
@@ -12837,6 +12859,32 @@ __webpack_require__(/*! ./_wks-define */ "./node_modules/core-js/library/modules
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! ./_wks-define */ "./node_modules/core-js/library/modules/_wks-define.js")('observable');
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/library/modules/es7.weak-map.from.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/es7.weak-map.from.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://tc39.github.io/proposal-setmap-offrom/#sec-weakmap.from
+__webpack_require__(/*! ./_set-collection-from */ "./node_modules/core-js/library/modules/_set-collection-from.js")('WeakMap');
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/library/modules/es7.weak-map.of.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/core-js/library/modules/es7.weak-map.of.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://tc39.github.io/proposal-setmap-offrom/#sec-weakmap.of
+__webpack_require__(/*! ./_set-collection-of */ "./node_modules/core-js/library/modules/_set-collection-of.js")('WeakMap');
 
 
 /***/ }),
@@ -13931,9 +13979,9 @@ __webpack_require__.r(__webpack_exports__);
         exact: true,
         component: __webpack_require__(/*! ./src/pages/index/index */ "./src/pages/index/index.jsx")
       },{
-        path: '/post/:id',
+        path: '/list',
         exact: true,
-        component: __webpack_require__(/*! ./src/pages/post/index */ "./src/pages/post/index.jsx")
+        component: __webpack_require__(/*! ./src/pages/list/index */ "./src/pages/list/index.jsx")
       },{
     component: __webpack_require__(/*! ./node_modules/dace/dist/core/components/NotFound.js */ "./node_modules/dace/dist/core/components/NotFound.js")
   }
@@ -26311,6 +26359,701 @@ function isPlainObject(value) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (isPlainObject);
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Symbol.js":
+/*!****************************************!*\
+  !*** ./node_modules/lodash/_Symbol.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+
+/** Built-in value references. */
+var Symbol = root.Symbol;
+
+module.exports = Symbol;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseGetTag.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_baseGetTag.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js"),
+    getRawTag = __webpack_require__(/*! ./_getRawTag */ "./node_modules/lodash/_getRawTag.js"),
+    objectToString = __webpack_require__(/*! ./_objectToString */ "./node_modules/lodash/_objectToString.js");
+
+/** `Object#toString` result references. */
+var nullTag = '[object Null]',
+    undefinedTag = '[object Undefined]';
+
+/** Built-in value references. */
+var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+/**
+ * The base implementation of `getTag` without fallbacks for buggy environments.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+function baseGetTag(value) {
+  if (value == null) {
+    return value === undefined ? undefinedTag : nullTag;
+  }
+  return (symToStringTag && symToStringTag in Object(value))
+    ? getRawTag(value)
+    : objectToString(value);
+}
+
+module.exports = baseGetTag;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_freeGlobal.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_freeGlobal.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Detect free variable `global` from Node.js. */
+var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+
+module.exports = freeGlobal;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getRawTag.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_getRawTag.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var nativeObjectToString = objectProto.toString;
+
+/** Built-in value references. */
+var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+/**
+ * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the raw `toStringTag`.
+ */
+function getRawTag(value) {
+  var isOwn = hasOwnProperty.call(value, symToStringTag),
+      tag = value[symToStringTag];
+
+  try {
+    value[symToStringTag] = undefined;
+    var unmasked = true;
+  } catch (e) {}
+
+  var result = nativeObjectToString.call(value);
+  if (unmasked) {
+    if (isOwn) {
+      value[symToStringTag] = tag;
+    } else {
+      delete value[symToStringTag];
+    }
+  }
+  return result;
+}
+
+module.exports = getRawTag;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_objectToString.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_objectToString.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var nativeObjectToString = objectProto.toString;
+
+/**
+ * Converts `value` to a string using `Object.prototype.toString`.
+ *
+ * @private
+ * @param {*} value The value to convert.
+ * @returns {string} Returns the converted string.
+ */
+function objectToString(value) {
+  return nativeObjectToString.call(value);
+}
+
+module.exports = objectToString;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_root.js":
+/*!**************************************!*\
+  !*** ./node_modules/lodash/_root.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ "./node_modules/lodash/_freeGlobal.js");
+
+/** Detect free variable `self`. */
+var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+/** Used as a reference to the global object. */
+var root = freeGlobal || freeSelf || Function('return this')();
+
+module.exports = root;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/debounce.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/debounce.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+    now = __webpack_require__(/*! ./now */ "./node_modules/lodash/now.js"),
+    toNumber = __webpack_require__(/*! ./toNumber */ "./node_modules/lodash/toNumber.js");
+
+/** Error message constants. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeMax = Math.max,
+    nativeMin = Math.min;
+
+/**
+ * Creates a debounced function that delays invoking `func` until after `wait`
+ * milliseconds have elapsed since the last time the debounced function was
+ * invoked. The debounced function comes with a `cancel` method to cancel
+ * delayed `func` invocations and a `flush` method to immediately invoke them.
+ * Provide `options` to indicate whether `func` should be invoked on the
+ * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
+ * with the last arguments provided to the debounced function. Subsequent
+ * calls to the debounced function return the result of the last `func`
+ * invocation.
+ *
+ * **Note:** If `leading` and `trailing` options are `true`, `func` is
+ * invoked on the trailing edge of the timeout only if the debounced function
+ * is invoked more than once during the `wait` timeout.
+ *
+ * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+ * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+ *
+ * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+ * for details over the differences between `_.debounce` and `_.throttle`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to debounce.
+ * @param {number} [wait=0] The number of milliseconds to delay.
+ * @param {Object} [options={}] The options object.
+ * @param {boolean} [options.leading=false]
+ *  Specify invoking on the leading edge of the timeout.
+ * @param {number} [options.maxWait]
+ *  The maximum time `func` is allowed to be delayed before it's invoked.
+ * @param {boolean} [options.trailing=true]
+ *  Specify invoking on the trailing edge of the timeout.
+ * @returns {Function} Returns the new debounced function.
+ * @example
+ *
+ * // Avoid costly calculations while the window size is in flux.
+ * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
+ *
+ * // Invoke `sendMail` when clicked, debouncing subsequent calls.
+ * jQuery(element).on('click', _.debounce(sendMail, 300, {
+ *   'leading': true,
+ *   'trailing': false
+ * }));
+ *
+ * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
+ * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
+ * var source = new EventSource('/stream');
+ * jQuery(source).on('message', debounced);
+ *
+ * // Cancel the trailing debounced invocation.
+ * jQuery(window).on('popstate', debounced.cancel);
+ */
+function debounce(func, wait, options) {
+  var lastArgs,
+      lastThis,
+      maxWait,
+      result,
+      timerId,
+      lastCallTime,
+      lastInvokeTime = 0,
+      leading = false,
+      maxing = false,
+      trailing = true;
+
+  if (typeof func != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  wait = toNumber(wait) || 0;
+  if (isObject(options)) {
+    leading = !!options.leading;
+    maxing = 'maxWait' in options;
+    maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
+  }
+
+  function invokeFunc(time) {
+    var args = lastArgs,
+        thisArg = lastThis;
+
+    lastArgs = lastThis = undefined;
+    lastInvokeTime = time;
+    result = func.apply(thisArg, args);
+    return result;
+  }
+
+  function leadingEdge(time) {
+    // Reset any `maxWait` timer.
+    lastInvokeTime = time;
+    // Start the timer for the trailing edge.
+    timerId = setTimeout(timerExpired, wait);
+    // Invoke the leading edge.
+    return leading ? invokeFunc(time) : result;
+  }
+
+  function remainingWait(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime,
+        timeWaiting = wait - timeSinceLastCall;
+
+    return maxing
+      ? nativeMin(timeWaiting, maxWait - timeSinceLastInvoke)
+      : timeWaiting;
+  }
+
+  function shouldInvoke(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime;
+
+    // Either this is the first call, activity has stopped and we're at the
+    // trailing edge, the system time has gone backwards and we're treating
+    // it as the trailing edge, or we've hit the `maxWait` limit.
+    return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||
+      (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));
+  }
+
+  function timerExpired() {
+    var time = now();
+    if (shouldInvoke(time)) {
+      return trailingEdge(time);
+    }
+    // Restart the timer.
+    timerId = setTimeout(timerExpired, remainingWait(time));
+  }
+
+  function trailingEdge(time) {
+    timerId = undefined;
+
+    // Only invoke if we have `lastArgs` which means `func` has been
+    // debounced at least once.
+    if (trailing && lastArgs) {
+      return invokeFunc(time);
+    }
+    lastArgs = lastThis = undefined;
+    return result;
+  }
+
+  function cancel() {
+    if (timerId !== undefined) {
+      clearTimeout(timerId);
+    }
+    lastInvokeTime = 0;
+    lastArgs = lastCallTime = lastThis = timerId = undefined;
+  }
+
+  function flush() {
+    return timerId === undefined ? result : trailingEdge(now());
+  }
+
+  function debounced() {
+    var time = now(),
+        isInvoking = shouldInvoke(time);
+
+    lastArgs = arguments;
+    lastThis = this;
+    lastCallTime = time;
+
+    if (isInvoking) {
+      if (timerId === undefined) {
+        return leadingEdge(lastCallTime);
+      }
+      if (maxing) {
+        // Handle invocations in a tight loop.
+        timerId = setTimeout(timerExpired, wait);
+        return invokeFunc(lastCallTime);
+      }
+    }
+    if (timerId === undefined) {
+      timerId = setTimeout(timerExpired, wait);
+    }
+    return result;
+  }
+  debounced.cancel = cancel;
+  debounced.flush = flush;
+  return debounced;
+}
+
+module.exports = debounce;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isObject.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isObject.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+function isObject(value) {
+  var type = typeof value;
+  return value != null && (type == 'object' || type == 'function');
+}
+
+module.exports = isObject;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isObjectLike.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/isObjectLike.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return value != null && typeof value == 'object';
+}
+
+module.exports = isObjectLike;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isSymbol.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isSymbol.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+
+/** `Object#toString` result references. */
+var symbolTag = '[object Symbol]';
+
+/**
+ * Checks if `value` is classified as a `Symbol` primitive or object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+ * @example
+ *
+ * _.isSymbol(Symbol.iterator);
+ * // => true
+ *
+ * _.isSymbol('abc');
+ * // => false
+ */
+function isSymbol(value) {
+  return typeof value == 'symbol' ||
+    (isObjectLike(value) && baseGetTag(value) == symbolTag);
+}
+
+module.exports = isSymbol;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/now.js":
+/*!************************************!*\
+  !*** ./node_modules/lodash/now.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+
+/**
+ * Gets the timestamp of the number of milliseconds that have elapsed since
+ * the Unix epoch (1 January 1970 00:00:00 UTC).
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Date
+ * @returns {number} Returns the timestamp.
+ * @example
+ *
+ * _.defer(function(stamp) {
+ *   console.log(_.now() - stamp);
+ * }, _.now());
+ * // => Logs the number of milliseconds it took for the deferred invocation.
+ */
+var now = function() {
+  return root.Date.now();
+};
+
+module.exports = now;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/throttle.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/throttle.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var debounce = __webpack_require__(/*! ./debounce */ "./node_modules/lodash/debounce.js"),
+    isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js");
+
+/** Error message constants. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+
+/**
+ * Creates a throttled function that only invokes `func` at most once per
+ * every `wait` milliseconds. The throttled function comes with a `cancel`
+ * method to cancel delayed `func` invocations and a `flush` method to
+ * immediately invoke them. Provide `options` to indicate whether `func`
+ * should be invoked on the leading and/or trailing edge of the `wait`
+ * timeout. The `func` is invoked with the last arguments provided to the
+ * throttled function. Subsequent calls to the throttled function return the
+ * result of the last `func` invocation.
+ *
+ * **Note:** If `leading` and `trailing` options are `true`, `func` is
+ * invoked on the trailing edge of the timeout only if the throttled function
+ * is invoked more than once during the `wait` timeout.
+ *
+ * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+ * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+ *
+ * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+ * for details over the differences between `_.throttle` and `_.debounce`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to throttle.
+ * @param {number} [wait=0] The number of milliseconds to throttle invocations to.
+ * @param {Object} [options={}] The options object.
+ * @param {boolean} [options.leading=true]
+ *  Specify invoking on the leading edge of the timeout.
+ * @param {boolean} [options.trailing=true]
+ *  Specify invoking on the trailing edge of the timeout.
+ * @returns {Function} Returns the new throttled function.
+ * @example
+ *
+ * // Avoid excessively updating the position while scrolling.
+ * jQuery(window).on('scroll', _.throttle(updatePosition, 100));
+ *
+ * // Invoke `renewToken` when the click event is fired, but not more than once every 5 minutes.
+ * var throttled = _.throttle(renewToken, 300000, { 'trailing': false });
+ * jQuery(element).on('click', throttled);
+ *
+ * // Cancel the trailing throttled invocation.
+ * jQuery(window).on('popstate', throttled.cancel);
+ */
+function throttle(func, wait, options) {
+  var leading = true,
+      trailing = true;
+
+  if (typeof func != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  if (isObject(options)) {
+    leading = 'leading' in options ? !!options.leading : leading;
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
+  }
+  return debounce(func, wait, {
+    'leading': leading,
+    'maxWait': wait,
+    'trailing': trailing
+  });
+}
+
+module.exports = throttle;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/toNumber.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/toNumber.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+    isSymbol = __webpack_require__(/*! ./isSymbol */ "./node_modules/lodash/isSymbol.js");
+
+/** Used as references for various `Number` constants. */
+var NAN = 0 / 0;
+
+/** Used to match leading and trailing whitespace. */
+var reTrim = /^\s+|\s+$/g;
+
+/** Used to detect bad signed hexadecimal string values. */
+var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+
+/** Used to detect binary string values. */
+var reIsBinary = /^0b[01]+$/i;
+
+/** Used to detect octal string values. */
+var reIsOctal = /^0o[0-7]+$/i;
+
+/** Built-in method references without a dependency on `root`. */
+var freeParseInt = parseInt;
+
+/**
+ * Converts `value` to a number.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to process.
+ * @returns {number} Returns the number.
+ * @example
+ *
+ * _.toNumber(3.2);
+ * // => 3.2
+ *
+ * _.toNumber(Number.MIN_VALUE);
+ * // => 5e-324
+ *
+ * _.toNumber(Infinity);
+ * // => Infinity
+ *
+ * _.toNumber('3.2');
+ * // => 3.2
+ */
+function toNumber(value) {
+  if (typeof value == 'number') {
+    return value;
+  }
+  if (isSymbol(value)) {
+    return NAN;
+  }
+  if (isObject(value)) {
+    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
+    value = isObject(other) ? (other + '') : other;
+  }
+  if (typeof value != 'string') {
+    return value === 0 ? value : +value;
+  }
+  value = value.replace(reTrim, '');
+  var isBinary = reIsBinary.test(value);
+  return (isBinary || reIsOctal.test(value))
+    ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
+    : (reIsBadHex.test(value) ? NAN : +value);
+}
+
+module.exports = toNumber;
 
 
 /***/ }),
@@ -62629,6 +63372,790 @@ if ("development" !== 'production' && typeof isCrushed.name === 'string' && isCr
 
 /***/ }),
 
+/***/ "./node_modules/regenerator-runtime/runtime-module.js":
+/*!************************************************************!*\
+  !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+// This method of obtaining a reference to the global object needs to be
+// kept identical to the way it is obtained in runtime.js
+var g = (function() { return this })() || Function("return this")();
+
+// Use `getOwnPropertyNames` because not all browsers support calling
+// `hasOwnProperty` on the global `self` object in a worker. See #183.
+var hadRuntime = g.regeneratorRuntime &&
+  Object.getOwnPropertyNames(g).indexOf("regeneratorRuntime") >= 0;
+
+// Save the old regeneratorRuntime in case it needs to be restored later.
+var oldRuntime = hadRuntime && g.regeneratorRuntime;
+
+// Force reevalutation of runtime.js.
+g.regeneratorRuntime = undefined;
+
+module.exports = __webpack_require__(/*! ./runtime */ "./node_modules/regenerator-runtime/runtime.js");
+
+if (hadRuntime) {
+  // Restore the original runtime.
+  g.regeneratorRuntime = oldRuntime;
+} else {
+  // Remove the global property added by runtime.js.
+  try {
+    delete g.regeneratorRuntime;
+  } catch(e) {
+    g.regeneratorRuntime = undefined;
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/regenerator-runtime/runtime.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/regenerator-runtime/runtime.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+!(function(global) {
+  "use strict";
+
+  var Op = Object.prototype;
+  var hasOwn = Op.hasOwnProperty;
+  var undefined; // More compressible than void 0.
+  var $Symbol = typeof Symbol === "function" ? Symbol : {};
+  var iteratorSymbol = $Symbol.iterator || "@@iterator";
+  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
+  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+
+  var inModule = typeof module === "object";
+  var runtime = global.regeneratorRuntime;
+  if (runtime) {
+    if (inModule) {
+      // If regeneratorRuntime is defined globally and we're in a module,
+      // make the exports object identical to regeneratorRuntime.
+      module.exports = runtime;
+    }
+    // Don't bother evaluating the rest of this file if the runtime was
+    // already defined globally.
+    return;
+  }
+
+  // Define the runtime globally (as expected by generated code) as either
+  // module.exports (if we're in a module) or a new, empty object.
+  runtime = global.regeneratorRuntime = inModule ? module.exports : {};
+
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
+    var context = new Context(tryLocsList || []);
+
+    // The ._invoke method unifies the implementations of the .next,
+    // .throw, and .return methods.
+    generator._invoke = makeInvokeMethod(innerFn, self, context);
+
+    return generator;
+  }
+  runtime.wrap = wrap;
+
+  // Try/catch helper to minimize deoptimizations. Returns a completion
+  // record like context.tryEntries[i].completion. This interface could
+  // have been (and was previously) designed to take a closure to be
+  // invoked without arguments, but in all the cases we care about we
+  // already have an existing method we want to call, so there's no need
+  // to create a new function object. We can even get away with assuming
+  // the method takes exactly one argument, since that happens to be true
+  // in every case, so we don't have to touch the arguments object. The
+  // only additional allocation required is the completion record, which
+  // has a stable shape and so hopefully should be cheap to allocate.
+  function tryCatch(fn, obj, arg) {
+    try {
+      return { type: "normal", arg: fn.call(obj, arg) };
+    } catch (err) {
+      return { type: "throw", arg: err };
+    }
+  }
+
+  var GenStateSuspendedStart = "suspendedStart";
+  var GenStateSuspendedYield = "suspendedYield";
+  var GenStateExecuting = "executing";
+  var GenStateCompleted = "completed";
+
+  // Returning this object from the innerFn has the same effect as
+  // breaking out of the dispatch switch statement.
+  var ContinueSentinel = {};
+
+  // Dummy constructor functions that we use as the .constructor and
+  // .constructor.prototype properties for functions that return Generator
+  // objects. For full spec compliance, you may wish to configure your
+  // minifier not to mangle the names of these two functions.
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+
+  // This is a polyfill for %IteratorPrototype% for environments that
+  // don't natively support it.
+  var IteratorPrototype = {};
+  IteratorPrototype[iteratorSymbol] = function () {
+    return this;
+  };
+
+  var getProto = Object.getPrototypeOf;
+  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  if (NativeIteratorPrototype &&
+      NativeIteratorPrototype !== Op &&
+      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+    // This environment has a native %IteratorPrototype%; use it instead
+    // of the polyfill.
+    IteratorPrototype = NativeIteratorPrototype;
+  }
+
+  var Gp = GeneratorFunctionPrototype.prototype =
+    Generator.prototype = Object.create(IteratorPrototype);
+  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
+  GeneratorFunctionPrototype.constructor = GeneratorFunction;
+  GeneratorFunctionPrototype[toStringTagSymbol] =
+    GeneratorFunction.displayName = "GeneratorFunction";
+
+  // Helper for defining the .next, .throw, and .return methods of the
+  // Iterator interface in terms of a single ._invoke method.
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function(method) {
+      prototype[method] = function(arg) {
+        return this._invoke(method, arg);
+      };
+    });
+  }
+
+  runtime.isGeneratorFunction = function(genFun) {
+    var ctor = typeof genFun === "function" && genFun.constructor;
+    return ctor
+      ? ctor === GeneratorFunction ||
+        // For the native GeneratorFunction constructor, the best we can
+        // do is to check its .name property.
+        (ctor.displayName || ctor.name) === "GeneratorFunction"
+      : false;
+  };
+
+  runtime.mark = function(genFun) {
+    if (Object.setPrototypeOf) {
+      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
+    } else {
+      genFun.__proto__ = GeneratorFunctionPrototype;
+      if (!(toStringTagSymbol in genFun)) {
+        genFun[toStringTagSymbol] = "GeneratorFunction";
+      }
+    }
+    genFun.prototype = Object.create(Gp);
+    return genFun;
+  };
+
+  // Within the body of any async function, `await x` is transformed to
+  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
+  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+  // meant to be awaited.
+  runtime.awrap = function(arg) {
+    return { __await: arg };
+  };
+
+  function AsyncIterator(generator) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if (record.type === "throw") {
+        reject(record.arg);
+      } else {
+        var result = record.arg;
+        var value = result.value;
+        if (value &&
+            typeof value === "object" &&
+            hasOwn.call(value, "__await")) {
+          return Promise.resolve(value.__await).then(function(value) {
+            invoke("next", value, resolve, reject);
+          }, function(err) {
+            invoke("throw", err, resolve, reject);
+          });
+        }
+
+        return Promise.resolve(value).then(function(unwrapped) {
+          // When a yielded Promise is resolved, its final value becomes
+          // the .value of the Promise<{value,done}> result for the
+          // current iteration. If the Promise is rejected, however, the
+          // result for this iteration will be rejected with the same
+          // reason. Note that rejections of yielded Promises are not
+          // thrown back into the generator function, as is the case
+          // when an awaited Promise is rejected. This difference in
+          // behavior between yield and await is important, because it
+          // allows the consumer to decide what to do with the yielded
+          // rejection (swallow it and continue, manually .throw it back
+          // into the generator, abandon iteration, whatever). With
+          // await, by contrast, there is no opportunity to examine the
+          // rejection reason outside the generator function, so the
+          // only option is to throw it from the await expression, and
+          // let the generator function handle the exception.
+          result.value = unwrapped;
+          resolve(result);
+        }, reject);
+      }
+    }
+
+    var previousPromise;
+
+    function enqueue(method, arg) {
+      function callInvokeWithMethodAndArg() {
+        return new Promise(function(resolve, reject) {
+          invoke(method, arg, resolve, reject);
+        });
+      }
+
+      return previousPromise =
+        // If enqueue has been called before, then we want to wait until
+        // all previous Promises have been resolved before calling invoke,
+        // so that results are always delivered in the correct order. If
+        // enqueue has not been called before, then it is important to
+        // call invoke immediately, without waiting on a callback to fire,
+        // so that the async generator function has the opportunity to do
+        // any necessary setup in a predictable way. This predictability
+        // is why the Promise constructor synchronously invokes its
+        // executor callback, and why async functions synchronously
+        // execute code before the first await. Since we implement simple
+        // async functions in terms of async generators, it is especially
+        // important to get this right, even though it requires care.
+        previousPromise ? previousPromise.then(
+          callInvokeWithMethodAndArg,
+          // Avoid propagating failures to Promises returned by later
+          // invocations of the iterator.
+          callInvokeWithMethodAndArg
+        ) : callInvokeWithMethodAndArg();
+    }
+
+    // Define the unified helper method that is used to implement .next,
+    // .throw, and .return (see defineIteratorMethods).
+    this._invoke = enqueue;
+  }
+
+  defineIteratorMethods(AsyncIterator.prototype);
+  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
+    return this;
+  };
+  runtime.AsyncIterator = AsyncIterator;
+
+  // Note that simple async functions are implemented on top of
+  // AsyncIterator objects; they just return a Promise for the value of
+  // the final result produced by the iterator.
+  runtime.async = function(innerFn, outerFn, self, tryLocsList) {
+    var iter = new AsyncIterator(
+      wrap(innerFn, outerFn, self, tryLocsList)
+    );
+
+    return runtime.isGeneratorFunction(outerFn)
+      ? iter // If outerFn is a generator, return the full iterator.
+      : iter.next().then(function(result) {
+          return result.done ? result.value : iter.next();
+        });
+  };
+
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = GenStateSuspendedStart;
+
+    return function invoke(method, arg) {
+      if (state === GenStateExecuting) {
+        throw new Error("Generator is already running");
+      }
+
+      if (state === GenStateCompleted) {
+        if (method === "throw") {
+          throw arg;
+        }
+
+        // Be forgiving, per 25.3.3.3.3 of the spec:
+        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
+        return doneResult();
+      }
+
+      context.method = method;
+      context.arg = arg;
+
+      while (true) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+
+        if (context.method === "next") {
+          // Setting context._sent for legacy support of Babel's
+          // function.sent implementation.
+          context.sent = context._sent = context.arg;
+
+        } else if (context.method === "throw") {
+          if (state === GenStateSuspendedStart) {
+            state = GenStateCompleted;
+            throw context.arg;
+          }
+
+          context.dispatchException(context.arg);
+
+        } else if (context.method === "return") {
+          context.abrupt("return", context.arg);
+        }
+
+        state = GenStateExecuting;
+
+        var record = tryCatch(innerFn, self, context);
+        if (record.type === "normal") {
+          // If an exception is thrown from innerFn, we leave state ===
+          // GenStateExecuting and loop back for another invocation.
+          state = context.done
+            ? GenStateCompleted
+            : GenStateSuspendedYield;
+
+          if (record.arg === ContinueSentinel) {
+            continue;
+          }
+
+          return {
+            value: record.arg,
+            done: context.done
+          };
+
+        } else if (record.type === "throw") {
+          state = GenStateCompleted;
+          // Dispatch the exception by looping back around to the
+          // context.dispatchException(context.arg) call above.
+          context.method = "throw";
+          context.arg = record.arg;
+        }
+      }
+    };
+  }
+
+  // Call delegate.iterator[context.method](context.arg) and handle the
+  // result, either by returning a { value, done } result from the
+  // delegate iterator, or by modifying context.method and context.arg,
+  // setting context.delegate to null, and returning the ContinueSentinel.
+  function maybeInvokeDelegate(delegate, context) {
+    var method = delegate.iterator[context.method];
+    if (method === undefined) {
+      // A .throw or .return when the delegate iterator has no .throw
+      // method always terminates the yield* loop.
+      context.delegate = null;
+
+      if (context.method === "throw") {
+        if (delegate.iterator.return) {
+          // If the delegate iterator has a return method, give it a
+          // chance to clean up.
+          context.method = "return";
+          context.arg = undefined;
+          maybeInvokeDelegate(delegate, context);
+
+          if (context.method === "throw") {
+            // If maybeInvokeDelegate(context) changed context.method from
+            // "return" to "throw", let that override the TypeError below.
+            return ContinueSentinel;
+          }
+        }
+
+        context.method = "throw";
+        context.arg = new TypeError(
+          "The iterator does not provide a 'throw' method");
+      }
+
+      return ContinueSentinel;
+    }
+
+    var record = tryCatch(method, delegate.iterator, context.arg);
+
+    if (record.type === "throw") {
+      context.method = "throw";
+      context.arg = record.arg;
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    var info = record.arg;
+
+    if (! info) {
+      context.method = "throw";
+      context.arg = new TypeError("iterator result is not an object");
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    if (info.done) {
+      // Assign the result of the finished delegate to the temporary
+      // variable specified by delegate.resultName (see delegateYield).
+      context[delegate.resultName] = info.value;
+
+      // Resume execution at the desired location (see delegateYield).
+      context.next = delegate.nextLoc;
+
+      // If context.method was "throw" but the delegate handled the
+      // exception, let the outer generator proceed normally. If
+      // context.method was "next", forget context.arg since it has been
+      // "consumed" by the delegate iterator. If context.method was
+      // "return", allow the original .return call to continue in the
+      // outer generator.
+      if (context.method !== "return") {
+        context.method = "next";
+        context.arg = undefined;
+      }
+
+    } else {
+      // Re-yield the result returned by the delegate method.
+      return info;
+    }
+
+    // The delegate iterator is finished, so forget it and continue with
+    // the outer generator.
+    context.delegate = null;
+    return ContinueSentinel;
+  }
+
+  // Define Generator.prototype.{next,throw,return} in terms of the
+  // unified ._invoke helper method.
+  defineIteratorMethods(Gp);
+
+  Gp[toStringTagSymbol] = "Generator";
+
+  // A Generator should always return itself as the iterator object when the
+  // @@iterator function is called on it. Some browsers' implementations of the
+  // iterator prototype chain incorrectly implement this, causing the Generator
+  // object to not be returned from this call. This ensures that doesn't happen.
+  // See https://github.com/facebook/regenerator/issues/274 for more details.
+  Gp[iteratorSymbol] = function() {
+    return this;
+  };
+
+  Gp.toString = function() {
+    return "[object Generator]";
+  };
+
+  function pushTryEntry(locs) {
+    var entry = { tryLoc: locs[0] };
+
+    if (1 in locs) {
+      entry.catchLoc = locs[1];
+    }
+
+    if (2 in locs) {
+      entry.finallyLoc = locs[2];
+      entry.afterLoc = locs[3];
+    }
+
+    this.tryEntries.push(entry);
+  }
+
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal";
+    delete record.arg;
+    entry.completion = record;
+  }
+
+  function Context(tryLocsList) {
+    // The root entry object (effectively a try statement without a catch
+    // or a finally block) gives us a place to store values thrown from
+    // locations where there is no enclosing try statement.
+    this.tryEntries = [{ tryLoc: "root" }];
+    tryLocsList.forEach(pushTryEntry, this);
+    this.reset(true);
+  }
+
+  runtime.keys = function(object) {
+    var keys = [];
+    for (var key in object) {
+      keys.push(key);
+    }
+    keys.reverse();
+
+    // Rather than returning an object with a next method, we keep
+    // things simple and return the next function itself.
+    return function next() {
+      while (keys.length) {
+        var key = keys.pop();
+        if (key in object) {
+          next.value = key;
+          next.done = false;
+          return next;
+        }
+      }
+
+      // To avoid creating an additional object, we just hang the .value
+      // and .done properties off the next function object itself. This
+      // also ensures that the minifier will not anonymize the function.
+      next.done = true;
+      return next;
+    };
+  };
+
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) {
+        return iteratorMethod.call(iterable);
+      }
+
+      if (typeof iterable.next === "function") {
+        return iterable;
+      }
+
+      if (!isNaN(iterable.length)) {
+        var i = -1, next = function next() {
+          while (++i < iterable.length) {
+            if (hasOwn.call(iterable, i)) {
+              next.value = iterable[i];
+              next.done = false;
+              return next;
+            }
+          }
+
+          next.value = undefined;
+          next.done = true;
+
+          return next;
+        };
+
+        return next.next = next;
+      }
+    }
+
+    // Return an iterator with no values.
+    return { next: doneResult };
+  }
+  runtime.values = values;
+
+  function doneResult() {
+    return { value: undefined, done: true };
+  }
+
+  Context.prototype = {
+    constructor: Context,
+
+    reset: function(skipTempReset) {
+      this.prev = 0;
+      this.next = 0;
+      // Resetting context._sent for legacy support of Babel's
+      // function.sent implementation.
+      this.sent = this._sent = undefined;
+      this.done = false;
+      this.delegate = null;
+
+      this.method = "next";
+      this.arg = undefined;
+
+      this.tryEntries.forEach(resetTryEntry);
+
+      if (!skipTempReset) {
+        for (var name in this) {
+          // Not sure about the optimal order of these conditions:
+          if (name.charAt(0) === "t" &&
+              hasOwn.call(this, name) &&
+              !isNaN(+name.slice(1))) {
+            this[name] = undefined;
+          }
+        }
+      }
+    },
+
+    stop: function() {
+      this.done = true;
+
+      var rootEntry = this.tryEntries[0];
+      var rootRecord = rootEntry.completion;
+      if (rootRecord.type === "throw") {
+        throw rootRecord.arg;
+      }
+
+      return this.rval;
+    },
+
+    dispatchException: function(exception) {
+      if (this.done) {
+        throw exception;
+      }
+
+      var context = this;
+      function handle(loc, caught) {
+        record.type = "throw";
+        record.arg = exception;
+        context.next = loc;
+
+        if (caught) {
+          // If the dispatched exception was caught by a catch block,
+          // then let that catch block handle the exception normally.
+          context.method = "next";
+          context.arg = undefined;
+        }
+
+        return !! caught;
+      }
+
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        var record = entry.completion;
+
+        if (entry.tryLoc === "root") {
+          // Exception thrown outside of any try block that could handle
+          // it, so set the completion value of the entire function to
+          // throw the exception.
+          return handle("end");
+        }
+
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc");
+          var hasFinally = hasOwn.call(entry, "finallyLoc");
+
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            } else if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            }
+
+          } else if (hasFinally) {
+            if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else {
+            throw new Error("try statement without catch or finally");
+          }
+        }
+      }
+    },
+
+    abrupt: function(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev &&
+            hasOwn.call(entry, "finallyLoc") &&
+            this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+
+      if (finallyEntry &&
+          (type === "break" ||
+           type === "continue") &&
+          finallyEntry.tryLoc <= arg &&
+          arg <= finallyEntry.finallyLoc) {
+        // Ignore the finally entry if control is not jumping to a
+        // location outside the try/catch block.
+        finallyEntry = null;
+      }
+
+      var record = finallyEntry ? finallyEntry.completion : {};
+      record.type = type;
+      record.arg = arg;
+
+      if (finallyEntry) {
+        this.method = "next";
+        this.next = finallyEntry.finallyLoc;
+        return ContinueSentinel;
+      }
+
+      return this.complete(record);
+    },
+
+    complete: function(record, afterLoc) {
+      if (record.type === "throw") {
+        throw record.arg;
+      }
+
+      if (record.type === "break" ||
+          record.type === "continue") {
+        this.next = record.arg;
+      } else if (record.type === "return") {
+        this.rval = this.arg = record.arg;
+        this.method = "return";
+        this.next = "end";
+      } else if (record.type === "normal" && afterLoc) {
+        this.next = afterLoc;
+      }
+
+      return ContinueSentinel;
+    },
+
+    finish: function(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) {
+          this.complete(entry.completion, entry.afterLoc);
+          resetTryEntry(entry);
+          return ContinueSentinel;
+        }
+      }
+    },
+
+    "catch": function(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if (record.type === "throw") {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+
+      // The context.catch method must only be called with a location
+      // argument that corresponds to a known catch block.
+      throw new Error("illegal catch attempt");
+    },
+
+    delegateYield: function(iterable, resultName, nextLoc) {
+      this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      };
+
+      if (this.method === "next") {
+        // Deliberately forget the last sent value so that we don't
+        // accidentally pass it on to the delegate.
+        this.arg = undefined;
+      }
+
+      return ContinueSentinel;
+    }
+  };
+})(
+  // In sloppy mode, unbound `this` refers to the global object, fallback to
+  // Function constructor if we're in global strict mode. That is sadly a form
+  // of indirect eval which violates Content Security Policy.
+  (function() { return this })() || Function("return this")()
+);
+
+
+/***/ }),
+
 /***/ "./node_modules/resolve-pathname/index.js":
 /*!************************************************!*\
   !*** ./node_modules/resolve-pathname/index.js ***!
@@ -65512,7 +67039,7 @@ module.exports = function(module) {
 /*! exports provided: errors, warnings, publicPath, chunks, default */
 /***/ (function(module) {
 
-module.exports = {"errors":[],"warnings":[],"publicPath":"http://localhost:3001/","chunks":[{"id":"main","rendered":true,"initial":true,"entry":true,"size":1304701,"names":["main"],"files":["static/js/bundle.js","static/js/bundle.js.map"],"hash":"4f6fe541a2881bc3c85e","siblings":[],"parents":[],"children":[],"childrenByOrder":{}}]};
+module.exports = {"errors":["./src/pages/index/index.scss (./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js!./src/pages/index/index.scss)\nModule build failed (from ./node_modules/sass-loader/lib/loader.js):\n\n@import \"~yo3/style/lib/layout/yo-root\";\n^\n      File to import not found or unreadable: ~yo3/style/lib/layout/yo-root.\n      in /Users/qitmac000359/Documents/test/dace-hotel/src/yo-config/layout/yo-root.scss (line 2, column 1)"],"warnings":[],"publicPath":"http://localhost:3001/","chunks":[{"id":"main","rendered":true,"initial":true,"entry":true,"size":1541743,"names":["main"],"files":["static/js/bundle.js","static/js/bundle.js.map"],"hash":"248af586855a313a7d13","siblings":[],"parents":[],"children":[],"childrenByOrder":{}}]};
 
 /***/ }),
 
@@ -65542,7 +67069,6 @@ var _dace = __webpack_require__(/*! dace */ "./node_modules/dace/dist/index.js")
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import './index.css';
 // import Header from '../../components/Header';
 
 var Layout = function Layout(props) {
@@ -65564,17 +67090,11 @@ var Layout = function Layout(props) {
         '\n        (function(doc) {\n            var docEl = doc.documentElement;\n            docEl.style.fontSize = docEl.clientWidth / 3.75 + \'px\';\n        })(document);\n        '
       )
     ),
-    _react2.default.createElement(
-      _dace.Link,
-      { to: '/' },
-      '\u9996\u9875'
-    ),
     props.children
   );
 };
 
 Layout.propTypes = {
-  class: _propTypes2.default.string,
   children: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.array]).isRequired
 };
 
@@ -65596,7 +67116,7 @@ module.exports = exports['default'];
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchPosts = exports.FETCH_POSTS = undefined;
+exports.fetchBanner = exports.FETCH_BANNER = undefined;
 
 var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "./node_modules/babel-runtime/regenerator/index.js");
 
@@ -65608,31 +67128,31 @@ var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var FETCH_POSTS = exports.FETCH_POSTS = 'fetch_posts';
-var fetchPosts = exports.fetchPosts = function fetchPosts() {
+var FETCH_BANNER = exports.FETCH_BANNER = 'fetch_banner';
+var fetchBanner = exports.fetchBanner = function fetchBanner() {
   return function () {
     var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(dispatch, getState, api) {
-      var _getState, posts, res;
+      var _getState, banner, res;
 
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _getState = getState(), posts = _getState.posts;
+              _getState = getState(), banner = _getState.banner;
 
-              if (posts) {
+              if (banner) {
                 _context.next = 6;
                 break;
               }
 
               _context.next = 4;
-              return api.get('http://jsonplaceholder.typicode.com/posts');
+              return api.get('http://yapi.demo.qunar.com/mock/16428/banner');
 
             case 4:
               res = _context.sent;
               return _context.abrupt('return', dispatch({
-                type: FETCH_POSTS,
-                payload: res
+                type: FETCH_BANNER,
+                payload: res.data.data
               }));
 
             case 6:
@@ -65651,25 +67171,6 @@ var fetchPosts = exports.fetchPosts = function fetchPosts() {
     };
   }();
 };
-
-/***/ }),
-
-/***/ "./src/pages/index/index.css":
-/*!***********************************!*\
-  !*** ./src/pages/index/index.css ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "div {\n  font-size: 15px;\n}\n.mh-index {\n  & .hd-banner {\n    & .banner-item {\n      & img {\n        height: 1.375rem;\n      }\n    }\n  }\n}\n", ""]);
-
-// exports
-
 
 /***/ }),
 
@@ -65709,6 +67210,7 @@ var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ "./no
 var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _dec, _class, _class2, _temp;
+// import { Link } from 'dace';
 
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
@@ -65719,8 +67221,6 @@ var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-type
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-
-var _dace = __webpack_require__(/*! dace */ "./node_modules/dace/dist/index.js");
 
 var _carousel = __webpack_require__(/*! yo-component/carousel */ "./src/yo-component/carousel/index.js");
 
@@ -65740,7 +67240,7 @@ var _reducer = __webpack_require__(/*! ./reducer */ "./src/pages/index/reducer.j
 
 var _reducer2 = _interopRequireDefault(_reducer);
 
-__webpack_require__(/*! ./index.css */ "./src/pages/index/index.css");
+__webpack_require__(/*! ./index.scss */ "./src/pages/index/index.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -65754,9 +67254,7 @@ var Index = (_dec = (0, _reactRedux.connect)(function (state) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (Index.__proto__ || (0, _getPrototypeOf2.default)(Index)).call(this));
 
-    _this.state = {
-      id: 0
-    };
+    _this.goList = _this.goList.bind(_this);
     return _this;
   }
 
@@ -65766,9 +67264,37 @@ var Index = (_dec = (0, _reactRedux.connect)(function (state) {
       (0, _alert2.default)('hhhhhh');
     }
   }, {
+    key: 'goList',
+
+    // 跳转到列表页
+    value: function goList() {
+      this.props.history.push({
+        pathname: '/list'
+      });
+    }
+  }, {
+    key: 'renderCarousel',
+    value: function renderCarousel() {
+      var banner = this.props.banner;
+
+      if (!(banner && banner.length)) {
+        return null;
+      }
+      return _react2.default.createElement(
+        _carousel2.default,
+        { autoplay: true },
+        banner.map(function (item, index) {
+          return _react2.default.createElement(
+            'li',
+            { key: index, className: 'item banner-item' },
+            _react2.default.createElement('img', { className: 'img', src: item, alt: '' })
+          );
+        })
+      );
+    }
+  }, {
     key: 'render',
     value: function render() {
-      console.log(this.props.posts, this.state.id);
       return _react2.default.createElement(
         _default2.default,
         null,
@@ -65778,49 +67304,36 @@ var Index = (_dec = (0, _reactRedux.connect)(function (state) {
           _react2.default.createElement(
             'div',
             { className: 'hd-banner' },
+            this.renderCarousel()
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'qt-wrap' },
             _react2.default.createElement(
-              _carousel2.default,
-              { autoplay: true },
+              'div',
+              { className: 'condition-search' },
               _react2.default.createElement(
-                'li',
-                { className: 'item banner-item' },
-                _react2.default.createElement('img', { className: 'img', src: 'http://img1.qunarzz.com/qs/1610/a6/01d1ad00e4b9e102.jpg' })
+                'div',
+                { className: 'domestic' },
+                _react2.default.createElement('div', { className: 'hotel-type' }),
+                _react2.default.createElement('div', { className: 'address-line' }),
+                _react2.default.createElement('div', { className: 'time-line' }),
+                _react2.default.createElement('div', { className: 'keyword-line' })
               ),
               _react2.default.createElement(
-                'li',
-                { className: 'item banner-item' },
-                _react2.default.createElement('img', { className: 'img', src: 'http://img1.qunarzz.com/qs/1610/a6/01d1ad00e4b9e102.jpg' })
-              ),
-              _react2.default.createElement(
-                'li',
-                { className: 'item banner-item' },
-                _react2.default.createElement('img', { className: 'img', src: 'http://img1.qunarzz.com/qs/1610/a6/01d1ad00e4b9e102.jpg' })
+                'div',
+                { className: 'submit-box', onClick: this.goList },
+                '\u641C\u7D22\u9152\u5E97'
               )
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'condition-search' },
+            ),
             _react2.default.createElement(
-              'ol',
-              null,
-              this.props.posts.map(function (post) {
-                return _react2.default.createElement(
-                  'li',
-                  { key: post.id },
-                  _react2.default.createElement(
-                    _dace.Link,
-                    { to: '/post/' + post.id },
-                    post.title
-                  )
-                );
-              })
+              'div',
+              { className: 'other-link' },
+              _react2.default.createElement('div', { className: 'per-sale link-item' }),
+              _react2.default.createElement('div', { className: 'time-room link-item' }),
+              _react2.default.createElement('div', { className: 'yx-hotel link-item' }),
+              _react2.default.createElement('div', { className: 'jtqj-hotel link-item' })
             )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'other-link' },
-            '\u8FD9\u91CC\u5C55\u793A\u5176\u4ED6\u94FE\u63A5'
           )
         )
       );
@@ -65828,20 +67341,38 @@ var Index = (_dec = (0, _reactRedux.connect)(function (state) {
   }]);
   return Index;
 }(_react.Component), _class2.propTypes = {
-  posts: _propTypes2.default.arrayOf(_propTypes2.default.shape({
-    id: _propTypes2.default.number,
-    title: _propTypes2.default.string
-  }))
+  banner: _propTypes2.default.array,
+  history: _propTypes2.default.object
 }, _class2.defaultProps = {
-  posts: []
+  banner: [],
+  history: {}
 }, _class2.getInitialProps = function (_ref) {
   var store = _ref.store;
 
   store.injectReducer(_reducer2.default);
-  return store.dispatch((0, _action.fetchPosts)());
+  return store.dispatch((0, _action.fetchBanner)());
 }, _temp)) || _class);
 exports.default = Index;
 module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/pages/index/index.scss":
+/*!************************************!*\
+  !*** ./src/pages/index/index.scss ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".mh-index .hd-banner {\n  background: #f7f7f7;\n  height: 1.375rem; }\n  .mh-index .hd-banner .banner-item img {\n    height: 1.375rem; }\n\n.mh-index .qt-wrap {\n  margin: 0 0.12rem; }\n\n.mh-index .condition-search .domestic {\n  margin-top: 0.12rem; }\n  .mh-index .condition-search .domestic .hotel-type {\n    width: 60%;\n    height: 0.35rem;\n    background: #f7f7f7;\n    margin-bottom: 0.12rem; }\n  .mh-index .condition-search .domestic .address-line, .mh-index .condition-search .domestic .keyword-line {\n    margin: 0.06rem 0;\n    height: 0.35rem;\n    background: #f7f7f7; }\n  .mh-index .condition-search .domestic .time-line {\n    margin: 0.12rem 0;\n    height: 0.7rem;\n    background: #f7f7f7; }\n\n.mh-index .condition-search .submit-box {\n  margin: 0.12rem 0.06rem 0;\n  height: 0.38rem;\n  line-height: 0.38rem;\n  border-radius: 0.24rem;\n  background: #f7704a;\n  color: #fff;\n  text-align: center; }\n\n.mh-index .other-link {\n  display: flex;\n  justify-content: space-between;\n  padding: 0 0.06rem;\n  margin-top: 0.12rem; }\n  .mh-index .other-link .link-item {\n    width: 0.4rem;\n    height: 0.4rem;\n    border-radius: 50%; }\n    .mh-index .other-link .link-item:nth-child(1) {\n      background-color: #f66829; }\n    .mh-index .other-link .link-item:nth-child(2) {\n      background-color: #3fc6d2; }\n    .mh-index .other-link .link-item:nth-child(3) {\n      background-color: #f9ad21; }\n    .mh-index .other-link .link-item:nth-child(4) {\n      background-color: #8b6bff; }\n", ""]);
+
+// exports
+
 
 /***/ }),
 
@@ -65872,14 +67403,10 @@ exports.default = function () {
   var action = arguments[1];
 
   switch (action.type) {
-    case _action.FETCH_POSTS:
+    case _action.FETCH_BANNER:
       // 只能返回对象，不能返回数组
       return (0, _assign2.default)({}, state, {
-        posts: action.payload.data.slice(0, 7).map(function (_ref) {
-          var id = _ref.id,
-              title = _ref.title;
-          return { id: id, title: title };
-        })
+        banner: action.payload
       });
     default:
       return state;
@@ -65890,9 +67417,9 @@ module.exports = exports['default'];
 
 /***/ }),
 
-/***/ "./src/pages/post/action.js":
+/***/ "./src/pages/list/action.js":
 /*!**********************************!*\
-  !*** ./src/pages/post/action.js ***!
+  !*** ./src/pages/list/action.js ***!
   \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -65903,7 +67430,7 @@ module.exports = exports['default'];
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchPost = exports.FETCH_POST = undefined;
+exports.fetchList = exports.FETCH_LIST = undefined;
 
 var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "./node_modules/babel-runtime/regenerator/index.js");
 
@@ -65915,26 +67442,39 @@ var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var FETCH_POST = exports.FETCH_POST = 'fetch_post';
-var fetchPost = exports.fetchPost = function fetchPost(id) {
+var FETCH_LIST = exports.FETCH_LIST = 'fetch_post';
+var fetchList = exports.fetchList = function fetchList() {
   return function () {
     var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(dispatch, getState, api) {
-      var res;
+      var _getState, list, res;
+
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return api.get('http://jsonplaceholder.typicode.com/posts/' + id);
+              _getState = getState(), list = _getState.list;
 
-            case 2:
+              console.log('?????', list, !list);
+
+              if (list) {
+                _context.next = 7;
+                break;
+              }
+
+              _context.next = 5;
+              return api.get('http://yapi.demo.qunar.com/mock/16428/list');
+
+            case 5:
               res = _context.sent;
               return _context.abrupt('return', dispatch({
-                type: FETCH_POST,
-                payload: res
+                type: FETCH_LIST,
+                payload: res.data.data
               }));
 
-            case 4:
+            case 7:
+              return _context.abrupt('return', null);
+
+            case 8:
             case 'end':
               return _context.stop();
           }
@@ -65950,9 +67490,9 @@ var fetchPost = exports.fetchPost = function fetchPost(id) {
 
 /***/ }),
 
-/***/ "./src/pages/post/index.jsx":
+/***/ "./src/pages/list/index.jsx":
 /*!**********************************!*\
-  !*** ./src/pages/post/index.jsx ***!
+  !*** ./src/pages/list/index.jsx ***!
   \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -65997,9 +67537,13 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
-var _action = __webpack_require__(/*! ./action */ "./src/pages/post/action.js");
+var _list = __webpack_require__(/*! yo-component/list */ "./src/yo-component/list/index.js");
 
-var _reducer = __webpack_require__(/*! ./reducer */ "./src/pages/post/reducer.js");
+var _list2 = _interopRequireDefault(_list);
+
+var _action = __webpack_require__(/*! ./action */ "./src/pages/list/action.js");
+
+var _reducer = __webpack_require__(/*! ./reducer */ "./src/pages/list/reducer.js");
 
 var _reducer2 = _interopRequireDefault(_reducer);
 
@@ -66007,56 +67551,162 @@ var _default = __webpack_require__(/*! ../../layouts/default */ "./src/layouts/d
 
 var _default2 = _interopRequireDefault(_default);
 
+__webpack_require__(/*! ./index.scss */ "./src/pages/list/index.scss");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Post = (_dec = (0, _reactRedux.connect)(function (state) {
+var HotelList = (_dec = (0, _reactRedux.connect)(function (state) {
   return state;
 }), _dec(_class = (_temp = _class2 = function (_Component) {
-  (0, _inherits3.default)(Post, _Component);
+  (0, _inherits3.default)(HotelList, _Component);
 
-  function Post() {
-    (0, _classCallCheck3.default)(this, Post);
-    return (0, _possibleConstructorReturn3.default)(this, (Post.__proto__ || (0, _getPrototypeOf2.default)(Post)).apply(this, arguments));
+  function HotelList() {
+    (0, _classCallCheck3.default)(this, HotelList);
+
+    var _this = (0, _possibleConstructorReturn3.default)(this, (HotelList.__proto__ || (0, _getPrototypeOf2.default)(HotelList)).call(this));
+
+    _this.renderList = _this.renderList.bind(_this);
+    _this.onRefresh = _this.onRefresh.bind(_this);
+    _this.onLoad = _this.onLoad.bind(_this);
+    return _this;
   }
 
-  (0, _createClass3.default)(Post, [{
+  (0, _createClass3.default)(HotelList, [{
+    key: 'onRefresh',
+    value: function onRefresh() {
+      var _this2 = this;
+
+      setTimeout(function () {
+        _this2.list.stopRefreshing();
+      }, 500);
+    }
+  }, {
+    key: 'onLoad',
+    value: function onLoad() {
+      var _this3 = this;
+
+      setTimeout(function () {
+        _this3.list.stopLoading();
+      }, 500);
+    }
+
+    // 渲染酒店列表
+
+  }, {
+    key: 'renderList',
+    value: function renderList() {
+      var _this4 = this;
+
+      var list = this.props.list;
+
+      if (!(list && list.length)) {
+        return null;
+      }
+      return _react2.default.createElement(_list2.default, {
+        ref: function ref(dom) {
+          _this4.list = dom;
+        },
+        extraClass: 'hotel-list',
+        dataSource: this.props.list,
+        usePullRefresh: true,
+        useLoadMore: true,
+        onRefresh: this.onRefresh,
+        onLoad: this.onLoad,
+        renderItem: function renderItem(item) {
+          var id = item.id,
+              price = item.price,
+              attrs = item.attrs;
+          var imageID = attrs.imageID,
+              hotelName = attrs.hotelName,
+              hotelAddress = attrs.hotelAddress;
+
+          return _react2.default.createElement(
+            'div',
+            { key: id, className: 'list-item' },
+            _react2.default.createElement(
+              'div',
+              { className: 'list-img' },
+              _react2.default.createElement('img', { src: imageID, alt: '' })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'list-info' },
+              _react2.default.createElement(
+                'div',
+                { className: 'hotel-title' },
+                hotelName
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'location' },
+                hotelAddress
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'price' },
+                price
+              )
+            )
+          );
+        }
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var post = this.props.post;
-
+      console.log('?????????render');
       return _react2.default.createElement(
         _default2.default,
         null,
         _react2.default.createElement(
-          'h1',
-          null,
-          post.title
-        ),
-        _react2.default.createElement(
-          'p',
-          null,
-          post.body
+          'div',
+          { className: 'mh-list' },
+          _react2.default.createElement('div', { className: 'search-head' }),
+          _react2.default.createElement('div', { className: 'condition-select' }),
+          _react2.default.createElement('div', { className: 'sale-tips' }),
+          this.renderList()
         )
       );
     }
   }]);
-  return Post;
+  return HotelList;
 }(_react.Component), _class2.propTypes = {
-  post: _propTypes2.default.object
+  list: _propTypes2.default.array
 }, _class2.defaultProps = {
-  post: {}
-}, _class2.getInitialProps = function (ctx) {
-  ctx.store.injectReducer(_reducer2.default);
-  return ctx.store.dispatch((0, _action.fetchPost)(ctx.match.params.id));
+  list: [{ attrs: {}, id: '000', price: 123 }]
+}, _class2.getInitialProps = function (_ref) {
+  var store = _ref.store;
+
+  store.injectReducer(_reducer2.default);
+  return store.dispatch((0, _action.fetchList)());
 }, _temp)) || _class);
-exports.default = Post;
+exports.default = HotelList;
 module.exports = exports['default'];
 
 /***/ }),
 
-/***/ "./src/pages/post/reducer.js":
+/***/ "./src/pages/list/index.scss":
 /*!***********************************!*\
-  !*** ./src/pages/post/reducer.js ***!
+  !*** ./src/pages/list/index.scss ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".mh-list {\n  font-size: 12px; }\n  .mh-list .search-head {\n    height: 0.44rem;\n    background: #f7f7f7; }\n  .mh-list .condition-select {\n    height: .35rem;\n    background: #f7f7f7;\n    margin-top: .12rem; }\n  .mh-list .sale-tips {\n    height: .4rem;\n    background: #f7f7f7;\n    margin: .08rem 0; }\n  .mh-list .hotel-list {\n    top: 1.47rem;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    position: absolute; }\n    .mh-list .hotel-list .list-item {\n      display: flex;\n      min-height: 1rem;\n      width: 100%; }\n      .mh-list .hotel-list .list-item .list-img {\n        width: 1.05rem;\n        margin-right: 0.08rem;\n        position: relative; }\n        .mh-list .hotel-list .list-item .list-img img {\n          width: 100%;\n          height: 100%;\n          border-radius: 0.04rem;\n          position: absolute; }\n      .mh-list .hotel-list .list-item .list-info {\n        flex: 1;\n        display: flex;\n        flex-direction: column; }\n        .mh-list .hotel-list .list-item .list-info .hotel-title {\n          font-size: 16px;\n          font-weight: 500;\n          color: #222; }\n        .mh-list .hotel-list .list-item .list-info .location {\n          flex: 1; }\n        .mh-list .hotel-list .list-item .list-info .price {\n          align-self: flex-end; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./src/pages/list/reducer.js":
+/*!***********************************!*\
+  !*** ./src/pages/list/reducer.js ***!
   \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -66072,7 +67722,7 @@ var _assign = __webpack_require__(/*! babel-runtime/core-js/object/assign */ "./
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _action = __webpack_require__(/*! ./action */ "./src/pages/post/action.js");
+var _action = __webpack_require__(/*! ./action */ "./src/pages/list/action.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -66081,10 +67731,10 @@ exports.default = function () {
   var action = arguments[1];
 
   switch (action.type) {
-    case _action.FETCH_POST:
+    case _action.FETCH_LIST:
       // 只能返回对象，不能返回数组
       return (0, _assign2.default)({}, state, {
-        post: action.payload.data
+        list: action.payload
       });
     default:
       return state;
@@ -66205,7 +67855,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\n/**\r\n * Yo框架全局base定义\r\n * 本文件与variables不同地方在于，这里所定义的map可以使用在variables和任何地方\r\n * lib中map使用“_”开头，本文件中不使用\"_\"\r\n * base ⇌ extra\r\n */\n/**\r\n * Yo框架全局base定义\r\n * 本文件与variables不同地方在于，这里所定义的map可以使用在variables和任何地方\r\n * 本文件中map使用\"_\"开头，extra中不使用\"_\"\r\n * base ⇌ extra\r\n */\n/**\r\n * 合并base和extra中的同类base map\r\n * 用以解决业务方升级Yo时需比base和extra的一致性\r\n * 当extra为空时，base map将以base文件里的定义作为默认值\r\n * 当extra不为空时，base map使用extra文件里的定义\r\n */\n/**\n * Yo框架全局Variables\n * Yo基础变量map，如果不想定义某属性，将其value设置为null；\n * Yo仅使用2种长度单位：px用于边框，rem用于除边框之外的所有地方\n * variables中map使用“_”开头，本文件中不使用\"_\"\n * variables ⇌ config\n */\n/**\r\n * Yo框架全局Variables\r\n * Yo基础变量map，如果不想定义某属性，将其value设置为null\r\n * Yo仅使用2种长度单位：px用于边框，rem用于除边框之外的所有地方\r\n * 本文件中map使用\"_\"开头，config中不使用\"_\"\r\n * variables ⇌ config\r\n */\n/**\r\n * 合并variables和config中的同类map\r\n * 用以解决业务方升级Yo时需比config和variables的一致性\r\n * 当config为空时，使用variables中的map作为默认值\r\n * 当config不为空时，使用config中的定义\r\n */\n/**\r\n * Yo框架自定义全局函数\r\n * 扩充Sass默认函数库，用以增强语法\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的第一项\r\n * @function first\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的最后一项\r\n * @function last\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的倒数第几项\r\n * @function nth-last\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $index 指定需要返回的值在list中的倒数位置 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 移除SassList中的某个项目并返回新的List\r\n * @function remove\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {String} $value 指定需要被删除的值 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 截取SassList中的某个部分并返回新的List\r\n * @function slice\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $start 指定需要截取的开始下标 <2.1.0>\r\n * @param {Integer} $end 指定需要截取的结束下标（不包括end），当该值缺省时默认为末尾下标 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 从SassList中添加/删除项目，然后返回新的List。\r\n * @function splice\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $index 指定需要移除的开始下标 <2.1.0>\r\n * @param {Integer} $count 指定需要移除的数量，不可以为负值，0表示不移除 <2.1.0>\r\n * @param {String} $values 指定需要添加的新值（可以是多个），如果该值缺省，则表示只移除不添加新值 <2.1.0>\r\n */\n/**\r\n * Yo框架全局基础方法\r\n * 包括响应式方案，CSS3兼容性方案，厂商前缀方案，iconfont方案，flex布局等全局方法\r\n */\n/**\r\n * @module 常用方法\r\n * @description 给需要的属性加厂家前缀\r\n * @method prefix\r\n * @version 1.0.0\r\n * @param {String} $property 指定属性 <1.0.0>\r\n * @param {String} $value 指定属性值 <1.0.0>\r\n * @skip\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义字体图标\r\n * @method _iconfont\r\n * @version 1.0.0\r\n * @skip\r\n */\n/**\r\n * @module 常用方法\r\n * @description 四则运算(系统要求：iOS6.0+,Android4.4+)\r\n * @method calc\r\n * @version 1.7.0\r\n * @param {String} $property 指定需要进行计算的CSS属性 <1.7.0>\r\n * @param {String} $value 与原生CSS语法一致，区别在于需要使用引号包裹表达式 <1.7.0>\r\n * @example\r\n * .calc {\r\n *     @include calc(width, \"100% - 100px\");\r\n * }\r\n *\r\n * <div class=\"calc\">四则运算</div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义响应式方案\r\n * @method responsive\r\n * @version 1.0.0\r\n * @param {String} $media 指定媒体查询条件，取值为`config`文件map `media-types`中的值 <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 清除浮动方案\r\n * @method clearfix\r\n * @version 1.0.0\r\n * @param {String} $type 指定清除浮动的方式，包括：pseudo-element | bfc，默认值：pseudo-element <1.8.5>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 清除行内级元素间间隙方案\r\n * @method clearspace\r\n * @version 3.0.3\r\n * @param {Length} $font-size 指定子元素字号，默认值：.14rem <3.0.3>\r\n * @example\r\n * .demo {\r\n *     @include clearspace;\r\n * }\r\n *\r\n * <div class=\"demo\">\r\n *      <span class=\"item\">1</span>\r\n *      <span class=\"item\">2</span>\r\n *      <span class=\"item\">3</span>\r\n * </div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 描述元素内容在横、纵方向上的对齐方式，默认为水平垂直居中对齐\r\n * @method align\r\n * @version 2.0.0\r\n * @param {String} $flexbox 元素布局方式，可选值：flex | inline-flex，默认值：flex <2.0.0>\r\n * @param {Keyword} $justify-content 元素内容的水平对齐方式，取值与`justify-content`属性一致，默认值：center <2.0.0>\r\n * @param {Keyword} $align-items 元素内容的垂直对齐方式，取值与`align-items`属性一致，默认值：center <2.0.0>\r\n * @example\r\n * .demo {\r\n *     @include align;\r\n * }\r\n *\r\n * <div class=\"demo\">\r\n *      <img alt=\"未知尺寸图片居中\" />\r\n * </div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义是否有滚动条\r\n * @method overflow\r\n * @version 1.0.0\r\n * @param {String} $overflow 取值与最新原生语法一致，默认值：auto <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 生成全屏方法\r\n * @method fullscreen\r\n * @version 1.7.0\r\n * @param {Integer} $z-index 指定层叠级别 <1.7.0>\r\n * @param {Keywords} $position 指定定位方式，取除`static | relative`之外的值，默认值：absolute <1.8.5>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义使用何种滤镜\r\n * @method filter\r\n * @version 1.7.0\r\n * @param {String} $filter 取值与`filter`属性一致 <1.7.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义UA默认外观\r\n * @method appearance\r\n * @version 1.0.0\r\n * @param {String} $appearance 取值与`appearance`属性一致，默认值：none <1.0.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义如何选中内容\r\n * @method user-select\r\n * @version 1.0.0\r\n * @param {String} $user-select 取值与`user-select`属性一致，默认值：none <1.0.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义盒模型\r\n * @method box-sizing\r\n * @version 1.0.0\r\n * @param {String} $box-sizing 指定盒模型类型，取值与`box-sizing`属性一致，默认值：border-box <1.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义渐变色值\r\n * @method gradient\r\n * @version 1.0.0\r\n * @param {String} $type 指定渐变的4种类型：linear, repeating-linear, radial, repeating-radial <1.0.0>\r\n * @param {String} $dir 指定渐变方向，可选值：[left | right] || [top | bottom] | angle <2.0.0>\r\n * @param {String} $gradient 指定渐变取值，与w3c最新原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景图像缩放（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-size\r\n * @version 1.4.0\r\n * @param {Keywords | Length} $background-size 指定背景图缩放值，取值与`background-size`属性一致 <1.4.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景裁减（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-clip\r\n * @version 1.6.0\r\n * @param {Keywords} $background-clip 指定背景图缩放值，取值与`background-clip`属性一致 <1.6.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景显示区域（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-origin\r\n * @version 1.6.0\r\n * @param {Keywords} $background-origin 指定背景图`background-position`属性计算相对的参考点，取值与`background-origin`属性一致 <1.6.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 为元素添加边框（包括1px边框）\r\n * @method border\r\n * @version 2.0.0\r\n * @param {String} $border-width 指定边框厚度（单位为px），默认值：1px，取值与`border-width`属性一致，不同方向代表边框位置 <2.0.0>\r\n * @param {String} $border-color 指定边框颜色 <2.0.0>\r\n * @param {String} $border-style 指定边框样式 <2.0.0>\r\n * @param {String} $radius 指定边框圆角半径，默认值：null <2.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义圆角，用于修复某些安卓机型上“圆角+边框+背景”，背景溢出的情况\r\n * @method border-radius\r\n * @version 1.6.0\r\n * @param {Length} $border-radius 指定元素的圆角半径，取值与`border-radius`属性一致 <1.6.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 定义简单变换\r\n * @method transform\r\n * @version 1.0.0\r\n * @param {String} $transform 取值范围与`transform`属性一致 <1.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 定义变换原点\r\n * @method transform-origin\r\n * @version 1.0.0\r\n * @param {Length | Percentage | Keywords} $transform-origin 取值范围与`transform-origin`属性一致 <1.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定某元素的子元素是（看起来）位于三维空间内，还是在该元素所在的平面内被扁平化\r\n * @method transform-style\r\n * @version 2.0.0\r\n * @param {String} $transform-style 取值范围与`transform-style`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定观察者与「z=0」平面的距离，使具有三维位置变换的元素产生透视效果。「z>0」的三维元素比正常大，而「z<0」时则比正常小，大小程度由该属性的值决定。\r\n * @method perspective\r\n * @version 2.0.0\r\n * @param {none | Length} $perspective 取值范围与`perspective`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定透视点的位置\r\n * @method perspective-origin\r\n * @version 2.0.0\r\n * @param {Length | Percentage | Keywords} $perspective-origin 取值范围与`perspective-origin`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定元素背面面向用户时是否可见\r\n * @method backface-visibility\r\n * @version 2.0.0\r\n * @param {Keywords} $backface-visibility 取值范围与`backface-visibility`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 定义动画\r\n * @method animation\r\n * @version 1.0.0\r\n * @param {String} $animation 取值与原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定需要引用的动画名称\r\n * @method animation-name\r\n * @version 3.0.0\r\n * @param {String} $animation-name 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画运行一次所持续的时长\r\n * @method animation-duration\r\n * @version 3.0.0\r\n * @param {String} $animation-duration 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画运行方式\r\n * @method animation-timing-function\r\n * @version 3.0.0\r\n * @param {String} $animation-timing-function 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画延迟多久之后再开始\r\n * @method animation-delay\r\n * @version 3.0.0\r\n * @param {String} $animation-delay 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画循环几次\r\n * @method animation-iteration-count\r\n * @version 3.0.0\r\n * @param {String} $animation-iteration-count 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画的运动方向\r\n * @method animation-direction\r\n * @version 3.0.0\r\n * @param {String} $animation-direction 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画的运动状态\r\n * @method animation-play-state\r\n * @version 3.0.0\r\n * @param {String} $animation-play-state 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画时间之外的状态\r\n * @method animation-fill-mode\r\n * @version 3.0.0\r\n * @param {String} $animation-fill-mode 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Transition\r\n * @description 定义补间\r\n * @method transition\r\n * @version 1.0.0\r\n * @param {String} $transition 取值与原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义显示类型为伸缩盒\r\n * @method flexbox\r\n * @version 1.0.0\r\n * @param {String} $flexbox 默认值：flex，可选值：flex | inline-flex <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素如何分配空间\r\n * @method flex\r\n * @version 1.0.0\r\n * @param {Number} $flex 取值与`flex`属性一致，默认值：1 <1.0.0>\r\n * @param {String} $direction 默认值: row，可选值：row | column <1.5.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素的排版顺序\r\n * @method order\r\n * @version 1.0.0\r\n * @param {Integer} $order 取值与`order`属性一致，默认值：1 <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性盒子元素流动方向及遇见边界时是否换行(要求系统：iOS7.0+, Android4.4+)\r\n * @method flex-flow\r\n * @version 2.0.0\r\n * @param {String} $flex-flow 取值与`flex-flow`属性一致，默认值：row nowrap <2.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素的流动方向\r\n * @method flex-direction\r\n * @version 1.0.0\r\n * @param {String} $flex-direction 取值与`flex-direction`属性一致，默认值：row <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性盒子元素溢出后排版(要求系统：iOS7.0+, Android4.4+)\r\n * @method flex-wrap\r\n * @version 1.0.0\r\n * @param {String} $flex-wrap 取值与`flex-wrap`属性一致，默认值：nowrap <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性容器主轴对齐方式(其中`space-around`值需要iOS7.0+,Android4.4+)\r\n * @method justify-content\r\n * @version 1.0.0\r\n * @param {String} $justify-content 取值与`justify-content`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义多行弹性容器侧轴对齐方式(要求系统：iOS7.0+,Android4.4+)\r\n * @method align-content\r\n * @version 1.8.5\r\n * @param {String} $align-content 取值与`align-content`属性一致，默认值：center <1.8.5>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义单行弹性容器侧轴对齐方式\r\n * @method align-items\r\n * @version 1.0.0\r\n * @param {String} $align-items 取值与`align-items`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性容器中子元素自身的在侧轴对齐方式(要求系统：iOS7.0+,Android4.4+)\r\n * @method align-self\r\n * @version 1.0.0\r\n * @param {String} $align-self 取值与`align-self`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成矩形方法\r\n * @method rect\r\n * @version 1.0.0\r\n * @param {Length} $width 定义矩形的长度 <1.0.0>\r\n * @param {Length} $height 定义矩形的高度 <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成正方形方法\r\n * @method square\r\n * @version 1.0.0\r\n * @param {Length} $size 定义正方形的边长 <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成圆形方法\r\n * @method circle\r\n * @version 1.0.0\r\n * @param {Length} $size 定义圆的半径长度 <1.0.0>\r\n * @param {Length} $radius 定义圆的圆角半径长度 <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 在自适应宽度情况下，确保内容元素的宽高比固定，比如：实现随屏幕大小而变化的正方形。\r\n * @method fixed-scale\r\n * @version 3.0.10\r\n * @param {Length} $width 默认值：100%。用以指定内容元素的初始宽度，由于尺寸需动态变化，不要使用固定单位 <3.0.10>\r\n * @param {Length} $scale 默认值：1/1，即正方形。用以指定内容元素的宽度高比 <3.0.10>\r\n */\n/**\r\n * @module 文本\r\n * @description 链接处理方法\r\n * @method link\r\n * @version 1.0.0\r\n * @param {Color} $color 定义链接颜色 <1.0.0>\r\n */\n/**\r\n * @module 文本\r\n * @description 文本碰到边界是否换行\r\n * @method wrap\r\n * @version 1.0.0\r\n * @param {Boolean} $is-wrap 定义文本是否换行，默认值：true <2.0.0>\r\n */\n/**\r\n * @module 文本\r\n * @description 单行文本溢出时显示省略号\r\n * @method ellipsis\r\n * @version 1.0.0\r\n * @param {Length} $width 定义容器的宽度，默认值：null <2.0.0>\r\n * @param {Integer} $line-clamp 定义需要显示的行数，默认值：1（即使用单行溢出的处理方案），需要注意的是本参数只支持webkit内核 <2.1.2>\r\n */\n/**\r\n * @module 文本\r\n * @description 文字隐藏方案\r\n * @method texthide\r\n * @version 1.0.0\r\n * @param {Length} $width 定义容器的宽度，默认值：null <2.0.0>\r\n */\n/**\r\n * Yo框架全局Reset\r\n * Yo重置Mobile及高级浏览器上常见的差异\r\n */\n*,\n::before,\n::after {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }\n\nhtml,\nbody {\n  overflow: hidden;\n  height: 100%; }\n\n::-webkit-scrollbar {\n  display: none; }\n\nhtml {\n  background-color: #eee;\n  color: #212121;\n  font-size: 100px;\n  -webkit-user-select: none;\n  user-select: none; }\n\nbody {\n  margin: 0;\n  font-size: 0.14em;\n  line-height: 1.5;\n  font-family: Helvetica Neue, Helvetica, STHeiTi, sans-serif; }\n\nul,\nol,\ndl,\ndd,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nfigure,\nform,\nfieldset,\nlegend,\ninput,\ntextarea,\nbutton,\np,\nblockquote,\nth,\ntd,\npre,\nxmp {\n  margin: 0;\n  padding: 0; }\n\ninput,\ntextarea,\nbutton,\nselect,\npre,\nxmp,\ntt,\ncode,\nkbd,\nsamp {\n  line-height: inherit;\n  font-family: inherit; }\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nsmall,\nbig,\ninput,\ntextarea,\nbutton,\nselect {\n  font-size: inherit; }\n\naddress,\ncite,\ndfn,\nem,\ni,\noptgroup,\nvar {\n  font-style: normal; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n  table-layout: fixed;\n  text-align: left; }\n\nul,\nol,\nmenu {\n  list-style: none; }\n\nfieldset,\nimg {\n  border: 0;\n  vertical-align: middle; }\n\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nmain,\nmenu,\nnav,\nsection,\nsummary {\n  display: block; }\n\naudio,\ncanvas,\nvideo {\n  display: inline-block; }\n\nblockquote:before,\nblockquote:after,\nq:before,\nq:after {\n  content: \" \"; }\n\ntextarea,\npre,\nxmp {\n  overflow: auto;\n  -webkit-overflow-scrolling: touch; }\n\ntextarea {\n  resize: vertical; }\n\ninput,\ntextarea,\nbutton,\nselect,\nsummary,\na {\n  outline: 0 none; }\n\ninput,\ntextarea,\nbutton,\nselect {\n  color: inherit; }\n  input:disabled,\n  textarea:disabled,\n  button:disabled,\n  select:disabled {\n    opacity: 1; }\n\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  padding: 0;\n  border: 0; }\n\ninput[type=\"button\"],\ninput[type=\"submit\"],\ninput[type=\"reset\"],\ninput[type=\"file\"]::-webkit-file-upload-button,\ninput[type=\"search\"]::-webkit-search-cancel-button {\n  -webkit-appearance: none;\n  appearance: none; }\n\n::-webkit-details-marker {\n  display: none; }\n\nmark {\n  background-color: rgba(0, 0, 0, 0); }\n\na,\nins,\ns,\nu,\ndel {\n  text-decoration: none; }\n\na,\nimg {\n  -webkit-touch-callout: none; }\n\na {\n  color: #00afc7; }\n\n.g-clear::after,\n.g-mod::after {\n  display: block;\n  overflow: hidden;\n  clear: both;\n  height: 0;\n  content: \" \"; }\n\n@font-face {\n  font-family: event_node;\n  src: url(//s.qunarzz.com/event_node/font/0.0.36/event_node.woff) format(\"woff\"), url(//s.qunarzz.com/event_node/font/0.0.36/event_node.ttf) format(\"truetype\"); }\n\n.yo-ico {\n  font-family: event_node !important;\n  font-style: normal;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  vertical-align: middle; }\n\n/**\n * @module fragment\n * @method yo-modal\n * @version 3.0.0\n * @description 构造yo-modal的自定义使用方法\n * @demo http://ued.qunar.com/hy2/yo/demo/src/html/fragment/yo-modal.html\n * @param {String} $name 定义扩展名称 <3.0.0>\n * @param {Color} $bgcolor 遮罩背景色 <3.0.0>\n * @param {Color} $cont-bgcolor 内容区背景色 <3.0.0>\n */\n.yo-modal {\n  overflow: hidden;\n  position: absolute;\n  z-index: 1000;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  align-items: center;\n  background-color: rgba(0, 0, 0, 0.2); }\n  .yo-modal-top {\n    -webkit-box-align: start;\n    -webkit-align-items: flex-start;\n    align-items: flex-start; }\n  .yo-modal-right {\n    -webkit-box-pack: end;\n    -webkit-justify-content: flex-end;\n    justify-content: flex-end; }\n  .yo-modal-bottom {\n    -webkit-box-align: end;\n    -webkit-align-items: flex-end;\n    align-items: flex-end; }\n  .yo-modal-left {\n    -webkit-box-pack: start;\n    -webkit-justify-content: flex-start;\n    justify-content: flex-start; }\n  .yo-modal-stretch-x > .cont {\n    -webkit-box-flex: 1;\n    -webkit-flex: 1;\n    flex: 1;\n    width: .1px; }\n  .yo-modal-stretch-y > .cont {\n    -webkit-align-self: stretch;\n    align-self: stretch; }\n  .yo-modal-stretch > .cont {\n    -webkit-box-flex: 1;\n    -webkit-flex: 1;\n    flex: 1;\n    width: .1px;\n    -webkit-align-self: stretch;\n    align-self: stretch; }\n  .yo-modal > .cont {\n    position: relative;\n    overflow: hidden; }\n\n/**\r\n * Yo框架动画解决方案\r\n * Yo内置了超过60种动画形态，不同的动画可以任意组合\r\n */\n.ani {\n  -webkit-animation-duration: 1s;\n  animation-duration: 1s;\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both; }\n\n.ani.infinite {\n  -webkit-animation-iteration-count: infinite;\n  animation-iteration-count: infinite; }\n\n/**\r\n * @module fade\r\n * @description 定义淡入动画\r\n * @method fade-in\r\n */\n@-webkit-keyframes fade-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n@keyframes fade-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n.ani.fade-in {\n  -webkit-animation-name: fade-in;\n  animation-name: fade-in; }\n\n/**\r\n * @module fade\r\n * @description 定义淡出动画\r\n * @method fade-out\r\n */\n@-webkit-keyframes fade-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@keyframes fade-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n.ani.fade-out {\n  -webkit-animation-name: fade-out;\n  animation-name: fade-out; }\n\n/**\r\n * @module zoom\r\n * @description 定义放大进入动画\r\n * @method zoom-in\r\n */\n@-webkit-keyframes zoom-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale3d(0.3, 0.3, 0.3); }\n  50% {\n    opacity: 1; } }\n\n@keyframes zoom-in {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.3, 0.3, 0.3); }\n  50% {\n    opacity: 1; } }\n\n.ani.zoom-in {\n  -webkit-animation-name: zoom-in;\n  animation-name: zoom-in; }\n\n/**\r\n * @module zoom\r\n * @description 定义缩小退出动画\r\n * @method zoom-out\r\n */\n@-webkit-keyframes zoom-out {\n  0% {\n    opacity: 1; }\n  50% {\n    opacity: 0;\n    -webkit-transform: scale3d(0.3, 0.3, 0.3); }\n  100% {\n    opacity: 0; } }\n\n@keyframes zoom-out {\n  0% {\n    opacity: 1; }\n  50% {\n    opacity: 0;\n    transform: scale3d(0.3, 0.3, 0.3); }\n  100% {\n    opacity: 0; } }\n\n.ani.zoom-out {\n  -webkit-animation-name: zoom-out;\n  animation-name: zoom-out; }\n\n/**\r\n * @module fade\r\n * @description 定义淡入升起动画\r\n * @method fade-in-up\r\n */\n@-webkit-keyframes fade-in-up {\n  0% {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 100%, 0); }\n  100% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 0, 0); } }\n\n@keyframes fade-in-up {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, 100%, 0); }\n  100% {\n    opacity: 1;\n    transform: translate3d(0, 0, 0); } }\n\n.ani.fade-in-up {\n  -webkit-animation-name: fade-in-up;\n  animation-name: fade-in-up; }\n\n/**\r\n * @module fade\r\n * @description 定义从下面淡出动画\r\n * @method fade-out-down\r\n */\n@-webkit-keyframes fade-out-down {\n  0% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 0, 0); }\n  100% {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 100%, 0); } }\n\n@keyframes fade-out-down {\n  0% {\n    opacity: 1;\n    transform: translate3d(0, 0, 0); }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, 100%, 0); } }\n\n.ani.fade-out-down {\n  -webkit-animation-name: fade-out-down;\n  animation-name: fade-out-down; }\n\n/**\r\n * @module fade\r\n * @description 定义淡入落下动画\r\n * @method fade-in-down\r\n */\n@-webkit-keyframes fade-in-down {\n  0% {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -100%, 0); }\n  100% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 0, 0); } }\n\n@keyframes fade-in-down {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0); }\n  100% {\n    opacity: 1;\n    transform: translate3d(0, 0, 0); } }\n\n.ani.fade-in-down {\n  -webkit-animation-name: fade-in-down;\n  animation-name: fade-in-down; }\n\n/**\r\n * @module fade\r\n * @description 定义从上面淡出动画\r\n * @method fade-out-up\r\n */\n@-webkit-keyframes fade-out-up {\n  0% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 0, 0); }\n  100% {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -100%, 0); } }\n\n@keyframes fade-out-up {\n  0% {\n    opacity: 1;\n    transform: translate3d(0, 0, 0); }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0); } }\n\n.ani.fade-out-up {\n  -webkit-animation-name: fade-out-up;\n  animation-name: fade-out-up; }\n\n/**\r\n * @module element\r\n * @method yo-btn\r\n * @version 3.0.0\r\n * @description 构造按钮的自定义使用方法，勿使用`input`标签，因为边框为`::after`实现\r\n * @demo http://ued.qunar.com/hy2/yo/demo/src/html/element/yo-btn.html\r\n * @param {String} $name 定义扩展名称 <3.0.0>\r\n * @param {Length} $border-width 边框厚度 <3.0.0>\r\n * @param {Color} $border-color 边框色 <3.0.0>\r\n * @param {Color} $bgcolor 背景色 <3.0.0>\r\n * @param {Color} $color 文本色 <3.0.0>\r\n * @param {Color} $touch-border-color 触点（鼠标，手指或其它）按下时边框色 <3.0.0>\r\n * @param {Color} $touch-bgcolor 触点（鼠标，手指或其它）按下时背景色 <3.0.0>\r\n * @param {Color} $touch-color 触点（鼠标，手指或其它）按下时文本色 <3.0.0>\r\n * @param {Length} $padding 内补白 <3.0.0>\r\n * @param {Length} $radius 圆角半径长度 <3.0.0>\r\n * @param {Length} $font-size 字号大小 <3.0.0>\r\n * @param {Length} $width 宽度 <3.0.0>\r\n * @param {Length} $height 高度 <3.0.0>\r\n */\n.yo-btn {\n  display: inline-block;\n  height: 0.36rem;\n  line-height: 0.36rem;\n  padding: 0 1.2em;\n  vertical-align: top;\n  position: relative;\n  border-radius: 0.05rem;\n  border: 0 none;\n  background-color: #ff801a;\n  color: #fff;\n  text-align: center;\n  cursor: pointer; }\n  .yo-btn::after {\n    pointer-events: none;\n    position: absolute;\n    z-index: 999;\n    top: 0;\n    left: 0;\n    content: \" \";\n    border-color: #d36105;\n    border-style: solid;\n    border-width: 1px;\n    -webkit-transform-origin: 0 0;\n    transform-origin: 0 0; }\n    @media (max--moz-device-pixel-ratio: 1.49), (-webkit-max-device-pixel-ratio: 1.49), (max-device-pixel-ratio: 1.49), (max-resolution: 143dpi), (max-resolution: 1.49dppx) {\n      .yo-btn::after {\n        width: 100%;\n        height: 100%;\n        border-radius: 0.05rem; } }\n    @media (min--moz-device-pixel-ratio: 1.5) and (max--moz-device-pixel-ratio: 2.49), (-webkit-min-device-pixel-ratio: 1.5) and (-webkit-max-device-pixel-ratio: 2.49), (min-device-pixel-ratio: 1.5) and (max-device-pixel-ratio: 2.49), (min-resolution: 144dpi) and (max-resolution: 239dpi), (min-resolution: 1.5dppx) and (max-resolution: 2.49dppx) {\n      .yo-btn::after {\n        width: 200%;\n        height: 200%;\n        -webkit-transform: scale(0.5);\n        transform: scale(0.5);\n        border-radius: 0.1rem; } }\n    @media (min--moz-device-pixel-ratio: 2.5), (-webkit-min-device-pixel-ratio: 2.5), (min-device-pixel-ratio: 2.5), (min-resolution: 240dpi), (min-resolution: 2.5dppx) {\n      .yo-btn::after {\n        width: 300%;\n        height: 300%;\n        -webkit-transform: scale(0.33333);\n        transform: scale(0.33333);\n        border-radius: 0.15rem; } }\n  .yo-btn-disabled {\n    opacity: 1;\n    cursor: not-allowed;\n    background-color: #ffaa67;\n    color: white; }\n    .yo-btn-disabled::after {\n      border-color: #fa7f1c; }\n  .yo-btn-stacked {\n    display: block;\n    width: 100%; }\n\n/**\r\n * @module fragment\r\n * @method yo-dialog\r\n * @version 3.0.0\r\n * @description 构造yo-dialog的自定义使用方法\r\n * @demo http://ued.qunar.com/hy2/yo/demo/src/html/fragment/yo-dialog.html\r\n * @param {String} $name 定义扩展名称 <3.0.0>\r\n * @param {Length} $width 宽度 <3.0.0>\r\n * @param {Length} $height 高度 <3.0.0>\r\n * @param {Length} $radius 圆角半径长度 <3.0.0>\r\n * @param {Color} $border-color 边框色 <3.0.0>\r\n * @param {Color} $title-color 标题文本色 <3.0.0>\r\n * @param {Length} $title-font-size 标题字号 <3.0.0>\r\n * @param {Length} $bd-padding 主体内补白 <3.0.0>\r\n * @param {Length} $bd-font-size 主体字号 <3.0.0>\r\n */\n.yo-dialog {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n  flex-direction: column;\n  overflow: hidden;\n  padding-top: .15rem;\n  min-width: 2.8rem;\n  max-width: 90%;\n  margin: auto;\n  border-radius: 0.1rem;\n  background-color: #fff;\n  text-align: center; }\n  .yo-dialog > .hd {\n    position: relative;\n    overflow: hidden; }\n    .yo-dialog > .hd .title {\n      overflow: hidden;\n      height: 100%;\n      margin: 0 .6rem;\n      color: #212121;\n      font-size: 0.16rem; }\n    .yo-dialog > .hd .regret,\n    .yo-dialog > .hd .affirm {\n      position: absolute;\n      top: 0; }\n    .yo-dialog > .hd .regret {\n      left: .1rem; }\n    .yo-dialog > .hd .affirm {\n      right: .1rem; }\n  .yo-dialog > .bd {\n    overflow: auto;\n    -webkit-overflow-scrolling: touch;\n    min-height: .4rem;\n    padding: 0.03rem 0.1rem 0.15rem;\n    font-size: 0.16rem; }\n  .yo-dialog > .ft {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    text-align: center; }\n    .yo-dialog > .ft .yo-btn-dialog {\n      height: 0.44rem;\n      line-height: 0.44rem;\n      border-radius: 0;\n      background-color: #fff;\n      color: #00afc7;\n      font-size: 0.16rem;\n      display: block;\n      -webkit-box-flex: 1;\n      -webkit-flex: 1;\n      flex: 1;\n      width: .1px; }\n      .yo-dialog > .ft .yo-btn-dialog::after {\n        border-width: 1px 1px 0 0;\n        border-color: #ccc; }\n        @media (max--moz-device-pixel-ratio: 1.49), (-webkit-max-device-pixel-ratio: 1.49), (max-device-pixel-ratio: 1.49), (max-resolution: 143dpi), (max-resolution: 1.49dppx) {\n          .yo-dialog > .ft .yo-btn-dialog::after {\n            border-radius: 0; } }\n        @media (min--moz-device-pixel-ratio: 1.5) and (max--moz-device-pixel-ratio: 2.49), (-webkit-min-device-pixel-ratio: 1.5) and (-webkit-max-device-pixel-ratio: 2.49), (min-device-pixel-ratio: 1.5) and (max-device-pixel-ratio: 2.49), (min-resolution: 144dpi) and (max-resolution: 239dpi), (min-resolution: 1.5dppx) and (max-resolution: 2.49dppx) {\n          .yo-dialog > .ft .yo-btn-dialog::after {\n            border-radius: 0; } }\n        @media (min--moz-device-pixel-ratio: 2.5), (-webkit-min-device-pixel-ratio: 2.5), (min-device-pixel-ratio: 2.5), (min-resolution: 240dpi), (min-resolution: 2.5dppx) {\n          .yo-dialog > .ft .yo-btn-dialog::after {\n            border-radius: 0; } }\n      .yo-dialog > .ft .yo-btn-dialog.yo-btn-touch {\n        background-color: #f9f9f9; }\n      .yo-dialog > .ft .yo-btn-dialog.yo-btn-disabled {\n        background-color: white;\n        color: #94f2ff; }\n        .yo-dialog > .ft .yo-btn-dialog.yo-btn-disabled::after {\n          border-color: #ebebeb; }\n      .yo-dialog > .ft .yo-btn-dialog:last-child {\n        font-weight: bold;\n        border-bottom-right-radius: 0.1rem; }\n        .yo-dialog > .ft .yo-btn-dialog:last-child::after {\n          border-right-width: 0; }\n      .yo-dialog > .ft .yo-btn-dialog:first-child {\n        border-bottom-left-radius: 0.1rem; }\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n/**\r\n * Yo框架全局base定义\r\n * 本文件与variables不同地方在于，这里所定义的map可以使用在variables和任何地方\r\n * lib中map使用“_”开头，本文件中不使用\"_\"\r\n * base ⇌ extra\r\n */\n/**\r\n * Yo框架全局base定义\r\n * 本文件与variables不同地方在于，这里所定义的map可以使用在variables和任何地方\r\n * 本文件中map使用\"_\"开头，extra中不使用\"_\"\r\n * base ⇌ extra\r\n */\n/**\r\n * 合并base和extra中的同类base map\r\n * 用以解决业务方升级Yo时需比base和extra的一致性\r\n * 当extra为空时，base map将以base文件里的定义作为默认值\r\n * 当extra不为空时，base map使用extra文件里的定义\r\n */\n/**\n * Yo框架全局Variables\n * Yo基础变量map，如果不想定义某属性，将其value设置为null；\n * Yo仅使用2种长度单位：px用于边框，rem用于除边框之外的所有地方\n * variables中map使用“_”开头，本文件中不使用\"_\"\n * variables ⇌ config\n */\n/**\r\n * Yo框架全局Variables\r\n * Yo基础变量map，如果不想定义某属性，将其value设置为null\r\n * Yo仅使用2种长度单位：px用于边框，rem用于除边框之外的所有地方\r\n * 本文件中map使用\"_\"开头，config中不使用\"_\"\r\n * variables ⇌ config\r\n */\n/**\r\n * 合并variables和config中的同类map\r\n * 用以解决业务方升级Yo时需比config和variables的一致性\r\n * 当config为空时，使用variables中的map作为默认值\r\n * 当config不为空时，使用config中的定义\r\n */\n/**\r\n * Yo框架自定义全局函数\r\n * 扩充Sass默认函数库，用以增强语法\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的第一项\r\n * @function first\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的最后一项\r\n * @function last\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的倒数第几项\r\n * @function nth-last\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $index 指定需要返回的值在list中的倒数位置 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 移除SassList中的某个项目并返回新的List\r\n * @function remove\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {String} $value 指定需要被删除的值 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 截取SassList中的某个部分并返回新的List\r\n * @function slice\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $start 指定需要截取的开始下标 <2.1.0>\r\n * @param {Integer} $end 指定需要截取的结束下标（不包括end），当该值缺省时默认为末尾下标 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 从SassList中添加/删除项目，然后返回新的List。\r\n * @function splice\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $index 指定需要移除的开始下标 <2.1.0>\r\n * @param {Integer} $count 指定需要移除的数量，不可以为负值，0表示不移除 <2.1.0>\r\n * @param {String} $values 指定需要添加的新值（可以是多个），如果该值缺省，则表示只移除不添加新值 <2.1.0>\r\n */\n/**\r\n * Yo框架全局基础方法\r\n * 包括响应式方案，CSS3兼容性方案，厂商前缀方案，iconfont方案，flex布局等全局方法\r\n */\n/**\r\n * @module 常用方法\r\n * @description 给需要的属性加厂家前缀\r\n * @method prefix\r\n * @version 1.0.0\r\n * @param {String} $property 指定属性 <1.0.0>\r\n * @param {String} $value 指定属性值 <1.0.0>\r\n * @skip\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义字体图标\r\n * @method _iconfont\r\n * @version 1.0.0\r\n * @skip\r\n */\n/**\r\n * @module 常用方法\r\n * @description 四则运算(系统要求：iOS6.0+,Android4.4+)\r\n * @method calc\r\n * @version 1.7.0\r\n * @param {String} $property 指定需要进行计算的CSS属性 <1.7.0>\r\n * @param {String} $value 与原生CSS语法一致，区别在于需要使用引号包裹表达式 <1.7.0>\r\n * @example\r\n * .calc {\r\n *     @include calc(width, \"100% - 100px\");\r\n * }\r\n *\r\n * <div class=\"calc\">四则运算</div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义响应式方案\r\n * @method responsive\r\n * @version 1.0.0\r\n * @param {String} $media 指定媒体查询条件，取值为`config`文件map `media-types`中的值 <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 清除浮动方案\r\n * @method clearfix\r\n * @version 1.0.0\r\n * @param {String} $type 指定清除浮动的方式，包括：pseudo-element | bfc，默认值：pseudo-element <1.8.5>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 清除行内级元素间间隙方案\r\n * @method clearspace\r\n * @version 3.0.3\r\n * @param {Length} $font-size 指定子元素字号，默认值：.14rem <3.0.3>\r\n * @example\r\n * .demo {\r\n *     @include clearspace;\r\n * }\r\n *\r\n * <div class=\"demo\">\r\n *      <span class=\"item\">1</span>\r\n *      <span class=\"item\">2</span>\r\n *      <span class=\"item\">3</span>\r\n * </div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 描述元素内容在横、纵方向上的对齐方式，默认为水平垂直居中对齐\r\n * @method align\r\n * @version 2.0.0\r\n * @param {String} $flexbox 元素布局方式，可选值：flex | inline-flex，默认值：flex <2.0.0>\r\n * @param {Keyword} $justify-content 元素内容的水平对齐方式，取值与`justify-content`属性一致，默认值：center <2.0.0>\r\n * @param {Keyword} $align-items 元素内容的垂直对齐方式，取值与`align-items`属性一致，默认值：center <2.0.0>\r\n * @example\r\n * .demo {\r\n *     @include align;\r\n * }\r\n *\r\n * <div class=\"demo\">\r\n *      <img alt=\"未知尺寸图片居中\" />\r\n * </div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义是否有滚动条\r\n * @method overflow\r\n * @version 1.0.0\r\n * @param {String} $overflow 取值与最新原生语法一致，默认值：auto <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 生成全屏方法\r\n * @method fullscreen\r\n * @version 1.7.0\r\n * @param {Integer} $z-index 指定层叠级别 <1.7.0>\r\n * @param {Keywords} $position 指定定位方式，取除`static | relative`之外的值，默认值：absolute <1.8.5>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义使用何种滤镜\r\n * @method filter\r\n * @version 1.7.0\r\n * @param {String} $filter 取值与`filter`属性一致 <1.7.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义UA默认外观\r\n * @method appearance\r\n * @version 1.0.0\r\n * @param {String} $appearance 取值与`appearance`属性一致，默认值：none <1.0.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义如何选中内容\r\n * @method user-select\r\n * @version 1.0.0\r\n * @param {String} $user-select 取值与`user-select`属性一致，默认值：none <1.0.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义盒模型\r\n * @method box-sizing\r\n * @version 1.0.0\r\n * @param {String} $box-sizing 指定盒模型类型，取值与`box-sizing`属性一致，默认值：border-box <1.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义渐变色值\r\n * @method gradient\r\n * @version 1.0.0\r\n * @param {String} $type 指定渐变的4种类型：linear, repeating-linear, radial, repeating-radial <1.0.0>\r\n * @param {String} $dir 指定渐变方向，可选值：[left | right] || [top | bottom] | angle <2.0.0>\r\n * @param {String} $gradient 指定渐变取值，与w3c最新原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景图像缩放（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-size\r\n * @version 1.4.0\r\n * @param {Keywords | Length} $background-size 指定背景图缩放值，取值与`background-size`属性一致 <1.4.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景裁减（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-clip\r\n * @version 1.6.0\r\n * @param {Keywords} $background-clip 指定背景图缩放值，取值与`background-clip`属性一致 <1.6.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景显示区域（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-origin\r\n * @version 1.6.0\r\n * @param {Keywords} $background-origin 指定背景图`background-position`属性计算相对的参考点，取值与`background-origin`属性一致 <1.6.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 为元素添加边框（包括1px边框）\r\n * @method border\r\n * @version 2.0.0\r\n * @param {String} $border-width 指定边框厚度（单位为px），默认值：1px，取值与`border-width`属性一致，不同方向代表边框位置 <2.0.0>\r\n * @param {String} $border-color 指定边框颜色 <2.0.0>\r\n * @param {String} $border-style 指定边框样式 <2.0.0>\r\n * @param {String} $radius 指定边框圆角半径，默认值：null <2.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义圆角，用于修复某些安卓机型上“圆角+边框+背景”，背景溢出的情况\r\n * @method border-radius\r\n * @version 1.6.0\r\n * @param {Length} $border-radius 指定元素的圆角半径，取值与`border-radius`属性一致 <1.6.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 定义简单变换\r\n * @method transform\r\n * @version 1.0.0\r\n * @param {String} $transform 取值范围与`transform`属性一致 <1.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 定义变换原点\r\n * @method transform-origin\r\n * @version 1.0.0\r\n * @param {Length | Percentage | Keywords} $transform-origin 取值范围与`transform-origin`属性一致 <1.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定某元素的子元素是（看起来）位于三维空间内，还是在该元素所在的平面内被扁平化\r\n * @method transform-style\r\n * @version 2.0.0\r\n * @param {String} $transform-style 取值范围与`transform-style`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定观察者与「z=0」平面的距离，使具有三维位置变换的元素产生透视效果。「z>0」的三维元素比正常大，而「z<0」时则比正常小，大小程度由该属性的值决定。\r\n * @method perspective\r\n * @version 2.0.0\r\n * @param {none | Length} $perspective 取值范围与`perspective`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定透视点的位置\r\n * @method perspective-origin\r\n * @version 2.0.0\r\n * @param {Length | Percentage | Keywords} $perspective-origin 取值范围与`perspective-origin`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定元素背面面向用户时是否可见\r\n * @method backface-visibility\r\n * @version 2.0.0\r\n * @param {Keywords} $backface-visibility 取值范围与`backface-visibility`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 定义动画\r\n * @method animation\r\n * @version 1.0.0\r\n * @param {String} $animation 取值与原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定需要引用的动画名称\r\n * @method animation-name\r\n * @version 3.0.0\r\n * @param {String} $animation-name 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画运行一次所持续的时长\r\n * @method animation-duration\r\n * @version 3.0.0\r\n * @param {String} $animation-duration 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画运行方式\r\n * @method animation-timing-function\r\n * @version 3.0.0\r\n * @param {String} $animation-timing-function 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画延迟多久之后再开始\r\n * @method animation-delay\r\n * @version 3.0.0\r\n * @param {String} $animation-delay 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画循环几次\r\n * @method animation-iteration-count\r\n * @version 3.0.0\r\n * @param {String} $animation-iteration-count 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画的运动方向\r\n * @method animation-direction\r\n * @version 3.0.0\r\n * @param {String} $animation-direction 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画的运动状态\r\n * @method animation-play-state\r\n * @version 3.0.0\r\n * @param {String} $animation-play-state 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画时间之外的状态\r\n * @method animation-fill-mode\r\n * @version 3.0.0\r\n * @param {String} $animation-fill-mode 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Transition\r\n * @description 定义补间\r\n * @method transition\r\n * @version 1.0.0\r\n * @param {String} $transition 取值与原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义显示类型为伸缩盒\r\n * @method flexbox\r\n * @version 1.0.0\r\n * @param {String} $flexbox 默认值：flex，可选值：flex | inline-flex <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素如何分配空间\r\n * @method flex\r\n * @version 1.0.0\r\n * @param {Number} $flex 取值与`flex`属性一致，默认值：1 <1.0.0>\r\n * @param {String} $direction 默认值: row，可选值：row | column <1.5.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素的排版顺序\r\n * @method order\r\n * @version 1.0.0\r\n * @param {Integer} $order 取值与`order`属性一致，默认值：1 <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性盒子元素流动方向及遇见边界时是否换行(要求系统：iOS7.0+, Android4.4+)\r\n * @method flex-flow\r\n * @version 2.0.0\r\n * @param {String} $flex-flow 取值与`flex-flow`属性一致，默认值：row nowrap <2.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素的流动方向\r\n * @method flex-direction\r\n * @version 1.0.0\r\n * @param {String} $flex-direction 取值与`flex-direction`属性一致，默认值：row <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性盒子元素溢出后排版(要求系统：iOS7.0+, Android4.4+)\r\n * @method flex-wrap\r\n * @version 1.0.0\r\n * @param {String} $flex-wrap 取值与`flex-wrap`属性一致，默认值：nowrap <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性容器主轴对齐方式(其中`space-around`值需要iOS7.0+,Android4.4+)\r\n * @method justify-content\r\n * @version 1.0.0\r\n * @param {String} $justify-content 取值与`justify-content`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义多行弹性容器侧轴对齐方式(要求系统：iOS7.0+,Android4.4+)\r\n * @method align-content\r\n * @version 1.8.5\r\n * @param {String} $align-content 取值与`align-content`属性一致，默认值：center <1.8.5>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义单行弹性容器侧轴对齐方式\r\n * @method align-items\r\n * @version 1.0.0\r\n * @param {String} $align-items 取值与`align-items`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性容器中子元素自身的在侧轴对齐方式(要求系统：iOS7.0+,Android4.4+)\r\n * @method align-self\r\n * @version 1.0.0\r\n * @param {String} $align-self 取值与`align-self`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成矩形方法\r\n * @method rect\r\n * @version 1.0.0\r\n * @param {Length} $width 定义矩形的长度 <1.0.0>\r\n * @param {Length} $height 定义矩形的高度 <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成正方形方法\r\n * @method square\r\n * @version 1.0.0\r\n * @param {Length} $size 定义正方形的边长 <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成圆形方法\r\n * @method circle\r\n * @version 1.0.0\r\n * @param {Length} $size 定义圆的半径长度 <1.0.0>\r\n * @param {Length} $radius 定义圆的圆角半径长度 <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 在自适应宽度情况下，确保内容元素的宽高比固定，比如：实现随屏幕大小而变化的正方形。\r\n * @method fixed-scale\r\n * @version 3.0.10\r\n * @param {Length} $width 默认值：100%。用以指定内容元素的初始宽度，由于尺寸需动态变化，不要使用固定单位 <3.0.10>\r\n * @param {Length} $scale 默认值：1/1，即正方形。用以指定内容元素的宽度高比 <3.0.10>\r\n */\n/**\r\n * @module 文本\r\n * @description 链接处理方法\r\n * @method link\r\n * @version 1.0.0\r\n * @param {Color} $color 定义链接颜色 <1.0.0>\r\n */\n/**\r\n * @module 文本\r\n * @description 文本碰到边界是否换行\r\n * @method wrap\r\n * @version 1.0.0\r\n * @param {Boolean} $is-wrap 定义文本是否换行，默认值：true <2.0.0>\r\n */\n/**\r\n * @module 文本\r\n * @description 单行文本溢出时显示省略号\r\n * @method ellipsis\r\n * @version 1.0.0\r\n * @param {Length} $width 定义容器的宽度，默认值：null <2.0.0>\r\n * @param {Integer} $line-clamp 定义需要显示的行数，默认值：1（即使用单行溢出的处理方案），需要注意的是本参数只支持webkit内核 <2.1.2>\r\n */\n/**\r\n * @module 文本\r\n * @description 文字隐藏方案\r\n * @method texthide\r\n * @version 1.0.0\r\n * @param {Length} $width 定义容器的宽度，默认值：null <2.0.0>\r\n */\n/**\r\n * Yo框架全局Reset\r\n * Yo重置Mobile及高级浏览器上常见的差异\r\n */\n*,\n::before,\n::after {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }\n\nhtml,\nbody {\n  overflow: hidden;\n  height: 100%; }\n\n::-webkit-scrollbar {\n  display: none; }\n\nhtml {\n  background-color: #eee;\n  color: #212121;\n  font-size: 100px;\n  -webkit-user-select: none;\n  user-select: none; }\n\nbody {\n  margin: 0;\n  font-size: 0.14em;\n  line-height: 1.5;\n  font-family: Helvetica Neue, Helvetica, STHeiTi, sans-serif; }\n\nul,\nol,\ndl,\ndd,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nfigure,\nform,\nfieldset,\nlegend,\ninput,\ntextarea,\nbutton,\np,\nblockquote,\nth,\ntd,\npre,\nxmp {\n  margin: 0;\n  padding: 0; }\n\ninput,\ntextarea,\nbutton,\nselect,\npre,\nxmp,\ntt,\ncode,\nkbd,\nsamp {\n  line-height: inherit;\n  font-family: inherit; }\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nsmall,\nbig,\ninput,\ntextarea,\nbutton,\nselect {\n  font-size: inherit; }\n\naddress,\ncite,\ndfn,\nem,\ni,\noptgroup,\nvar {\n  font-style: normal; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n  table-layout: fixed;\n  text-align: left; }\n\nul,\nol,\nmenu {\n  list-style: none; }\n\nfieldset,\nimg {\n  border: 0;\n  vertical-align: middle; }\n\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nmain,\nmenu,\nnav,\nsection,\nsummary {\n  display: block; }\n\naudio,\ncanvas,\nvideo {\n  display: inline-block; }\n\nblockquote:before,\nblockquote:after,\nq:before,\nq:after {\n  content: \" \"; }\n\ntextarea,\npre,\nxmp {\n  overflow: auto;\n  -webkit-overflow-scrolling: touch; }\n\ntextarea {\n  resize: vertical; }\n\ninput,\ntextarea,\nbutton,\nselect,\nsummary,\na {\n  outline: 0 none; }\n\ninput,\ntextarea,\nbutton,\nselect {\n  color: inherit; }\n  input:disabled,\n  textarea:disabled,\n  button:disabled,\n  select:disabled {\n    opacity: 1; }\n\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  padding: 0;\n  border: 0; }\n\ninput[type=\"button\"],\ninput[type=\"submit\"],\ninput[type=\"reset\"],\ninput[type=\"file\"]::-webkit-file-upload-button,\ninput[type=\"search\"]::-webkit-search-cancel-button {\n  -webkit-appearance: none;\n  appearance: none; }\n\n::-webkit-details-marker {\n  display: none; }\n\nmark {\n  background-color: rgba(0, 0, 0, 0); }\n\na,\nins,\ns,\nu,\ndel {\n  text-decoration: none; }\n\na,\nimg {\n  -webkit-touch-callout: none; }\n\na {\n  color: #00afc7; }\n\n.g-clear::after,\n.g-mod::after {\n  display: block;\n  overflow: hidden;\n  clear: both;\n  height: 0;\n  content: \" \"; }\n\n@font-face {\n  font-family: event_node;\n  src: url(//s.qunarzz.com/event_node/font/0.0.36/event_node.woff) format(\"woff\"), url(//s.qunarzz.com/event_node/font/0.0.36/event_node.ttf) format(\"truetype\"); }\n\n.yo-ico {\n  font-family: event_node !important;\n  font-style: normal;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  vertical-align: middle; }\n\n/**\n * @module fragment\n * @method yo-modal\n * @version 3.0.0\n * @description 构造yo-modal的自定义使用方法\n * @demo http://ued.qunar.com/hy2/yo/demo/src/html/fragment/yo-modal.html\n * @param {String} $name 定义扩展名称 <3.0.0>\n * @param {Color} $bgcolor 遮罩背景色 <3.0.0>\n * @param {Color} $cont-bgcolor 内容区背景色 <3.0.0>\n */\n.yo-modal {\n  overflow: hidden;\n  position: absolute;\n  z-index: 1000;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  align-items: center;\n  background-color: rgba(0, 0, 0, 0.2); }\n  .yo-modal-top {\n    -webkit-box-align: start;\n    -webkit-align-items: flex-start;\n    align-items: flex-start; }\n  .yo-modal-right {\n    -webkit-box-pack: end;\n    -webkit-justify-content: flex-end;\n    justify-content: flex-end; }\n  .yo-modal-bottom {\n    -webkit-box-align: end;\n    -webkit-align-items: flex-end;\n    align-items: flex-end; }\n  .yo-modal-left {\n    -webkit-box-pack: start;\n    -webkit-justify-content: flex-start;\n    justify-content: flex-start; }\n  .yo-modal-stretch-x > .cont {\n    -webkit-box-flex: 1;\n    -webkit-flex: 1;\n    flex: 1;\n    width: .1px; }\n  .yo-modal-stretch-y > .cont {\n    -webkit-align-self: stretch;\n    align-self: stretch; }\n  .yo-modal-stretch > .cont {\n    -webkit-box-flex: 1;\n    -webkit-flex: 1;\n    flex: 1;\n    width: .1px;\n    -webkit-align-self: stretch;\n    align-self: stretch; }\n  .yo-modal > .cont {\n    position: relative;\n    overflow: hidden; }\n\n/**\r\n * Yo框架动画解决方案\r\n * Yo内置了超过60种动画形态，不同的动画可以任意组合\r\n */\n.ani {\n  -webkit-animation-duration: 1s;\n  animation-duration: 1s;\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both; }\n\n.ani.infinite {\n  -webkit-animation-iteration-count: infinite;\n  animation-iteration-count: infinite; }\n\n/**\r\n * @module fade\r\n * @description 定义淡入动画\r\n * @method fade-in\r\n */\n@-webkit-keyframes fade-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n@keyframes fade-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n.ani.fade-in {\n  -webkit-animation-name: fade-in;\n  animation-name: fade-in; }\n\n/**\r\n * Yo框架动画解决方案\r\n * Yo内置了超过60种动画形态，不同的动画可以任意组合\r\n */\n.ani {\n  -webkit-animation-duration: 1s;\n  animation-duration: 1s;\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both; }\n\n.ani.infinite {\n  -webkit-animation-iteration-count: infinite;\n  animation-iteration-count: infinite; }\n\n/**\r\n * @module fade\r\n * @description 定义淡出动画\r\n * @method fade-out\r\n */\n@-webkit-keyframes fade-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@keyframes fade-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n.ani.fade-out {\n  -webkit-animation-name: fade-out;\n  animation-name: fade-out; }\n\n/**\r\n * Yo框架动画解决方案\r\n * Yo内置了超过60种动画形态，不同的动画可以任意组合\r\n */\n.ani {\n  -webkit-animation-duration: 1s;\n  animation-duration: 1s;\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both; }\n\n.ani.infinite {\n  -webkit-animation-iteration-count: infinite;\n  animation-iteration-count: infinite; }\n\n/**\r\n * @module zoom\r\n * @description 定义放大进入动画\r\n * @method zoom-in\r\n */\n@-webkit-keyframes zoom-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: scale3d(0.3, 0.3, 0.3); }\n  50% {\n    opacity: 1; } }\n\n@keyframes zoom-in {\n  0% {\n    opacity: 0;\n    transform: scale3d(0.3, 0.3, 0.3); }\n  50% {\n    opacity: 1; } }\n\n.ani.zoom-in {\n  -webkit-animation-name: zoom-in;\n  animation-name: zoom-in; }\n\n/**\r\n * Yo框架动画解决方案\r\n * Yo内置了超过60种动画形态，不同的动画可以任意组合\r\n */\n.ani {\n  -webkit-animation-duration: 1s;\n  animation-duration: 1s;\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both; }\n\n.ani.infinite {\n  -webkit-animation-iteration-count: infinite;\n  animation-iteration-count: infinite; }\n\n/**\r\n * @module zoom\r\n * @description 定义缩小退出动画\r\n * @method zoom-out\r\n */\n@-webkit-keyframes zoom-out {\n  0% {\n    opacity: 1; }\n  50% {\n    opacity: 0;\n    -webkit-transform: scale3d(0.3, 0.3, 0.3); }\n  100% {\n    opacity: 0; } }\n\n@keyframes zoom-out {\n  0% {\n    opacity: 1; }\n  50% {\n    opacity: 0;\n    transform: scale3d(0.3, 0.3, 0.3); }\n  100% {\n    opacity: 0; } }\n\n.ani.zoom-out {\n  -webkit-animation-name: zoom-out;\n  animation-name: zoom-out; }\n\n/**\r\n * Yo框架动画解决方案\r\n * Yo内置了超过60种动画形态，不同的动画可以任意组合\r\n */\n.ani {\n  -webkit-animation-duration: 1s;\n  animation-duration: 1s;\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both; }\n\n.ani.infinite {\n  -webkit-animation-iteration-count: infinite;\n  animation-iteration-count: infinite; }\n\n/**\r\n * @module fade\r\n * @description 定义淡入升起动画\r\n * @method fade-in-up\r\n */\n@-webkit-keyframes fade-in-up {\n  0% {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 100%, 0); }\n  100% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 0, 0); } }\n\n@keyframes fade-in-up {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, 100%, 0); }\n  100% {\n    opacity: 1;\n    transform: translate3d(0, 0, 0); } }\n\n.ani.fade-in-up {\n  -webkit-animation-name: fade-in-up;\n  animation-name: fade-in-up; }\n\n/**\r\n * Yo框架动画解决方案\r\n * Yo内置了超过60种动画形态，不同的动画可以任意组合\r\n */\n.ani {\n  -webkit-animation-duration: 1s;\n  animation-duration: 1s;\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both; }\n\n.ani.infinite {\n  -webkit-animation-iteration-count: infinite;\n  animation-iteration-count: infinite; }\n\n/**\r\n * @module fade\r\n * @description 定义从下面淡出动画\r\n * @method fade-out-down\r\n */\n@-webkit-keyframes fade-out-down {\n  0% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 0, 0); }\n  100% {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 100%, 0); } }\n\n@keyframes fade-out-down {\n  0% {\n    opacity: 1;\n    transform: translate3d(0, 0, 0); }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, 100%, 0); } }\n\n.ani.fade-out-down {\n  -webkit-animation-name: fade-out-down;\n  animation-name: fade-out-down; }\n\n/**\r\n * Yo框架动画解决方案\r\n * Yo内置了超过60种动画形态，不同的动画可以任意组合\r\n */\n.ani {\n  -webkit-animation-duration: 1s;\n  animation-duration: 1s;\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both; }\n\n.ani.infinite {\n  -webkit-animation-iteration-count: infinite;\n  animation-iteration-count: infinite; }\n\n/**\r\n * @module fade\r\n * @description 定义淡入落下动画\r\n * @method fade-in-down\r\n */\n@-webkit-keyframes fade-in-down {\n  0% {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -100%, 0); }\n  100% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 0, 0); } }\n\n@keyframes fade-in-down {\n  0% {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0); }\n  100% {\n    opacity: 1;\n    transform: translate3d(0, 0, 0); } }\n\n.ani.fade-in-down {\n  -webkit-animation-name: fade-in-down;\n  animation-name: fade-in-down; }\n\n/**\r\n * Yo框架动画解决方案\r\n * Yo内置了超过60种动画形态，不同的动画可以任意组合\r\n */\n.ani {\n  -webkit-animation-duration: 1s;\n  animation-duration: 1s;\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both; }\n\n.ani.infinite {\n  -webkit-animation-iteration-count: infinite;\n  animation-iteration-count: infinite; }\n\n/**\r\n * @module fade\r\n * @description 定义从上面淡出动画\r\n * @method fade-out-up\r\n */\n@-webkit-keyframes fade-out-up {\n  0% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 0, 0); }\n  100% {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -100%, 0); } }\n\n@keyframes fade-out-up {\n  0% {\n    opacity: 1;\n    transform: translate3d(0, 0, 0); }\n  100% {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0); } }\n\n.ani.fade-out-up {\n  -webkit-animation-name: fade-out-up;\n  animation-name: fade-out-up; }\n\n/**\n * @module fragment\n * @method yo-modal\n * @version 3.0.0\n * @description 构造yo-modal的自定义使用方法\n * @demo http://ued.qunar.com/hy2/yo/demo/src/html/fragment/yo-modal.html\n * @param {String} $name 定义扩展名称 <3.0.0>\n * @param {Color} $bgcolor 遮罩背景色 <3.0.0>\n * @param {Color} $cont-bgcolor 内容区背景色 <3.0.0>\n */\n.yo-modal {\n  overflow: hidden;\n  position: absolute;\n  z-index: 1000;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  align-items: center;\n  background-color: rgba(0, 0, 0, 0.2); }\n  .yo-modal-top {\n    -webkit-box-align: start;\n    -webkit-align-items: flex-start;\n    align-items: flex-start; }\n  .yo-modal-right {\n    -webkit-box-pack: end;\n    -webkit-justify-content: flex-end;\n    justify-content: flex-end; }\n  .yo-modal-bottom {\n    -webkit-box-align: end;\n    -webkit-align-items: flex-end;\n    align-items: flex-end; }\n  .yo-modal-left {\n    -webkit-box-pack: start;\n    -webkit-justify-content: flex-start;\n    justify-content: flex-start; }\n  .yo-modal-stretch-x > .cont {\n    -webkit-box-flex: 1;\n    -webkit-flex: 1;\n    flex: 1;\n    width: .1px; }\n  .yo-modal-stretch-y > .cont {\n    -webkit-align-self: stretch;\n    align-self: stretch; }\n  .yo-modal-stretch > .cont {\n    -webkit-box-flex: 1;\n    -webkit-flex: 1;\n    flex: 1;\n    width: .1px;\n    -webkit-align-self: stretch;\n    align-self: stretch; }\n  .yo-modal > .cont {\n    position: relative;\n    overflow: hidden; }\n\n/**\r\n * @module element\r\n * @method yo-btn\r\n * @version 3.0.0\r\n * @description 构造按钮的自定义使用方法，勿使用`input`标签，因为边框为`::after`实现\r\n * @demo http://ued.qunar.com/hy2/yo/demo/src/html/element/yo-btn.html\r\n * @param {String} $name 定义扩展名称 <3.0.0>\r\n * @param {Length} $border-width 边框厚度 <3.0.0>\r\n * @param {Color} $border-color 边框色 <3.0.0>\r\n * @param {Color} $bgcolor 背景色 <3.0.0>\r\n * @param {Color} $color 文本色 <3.0.0>\r\n * @param {Color} $touch-border-color 触点（鼠标，手指或其它）按下时边框色 <3.0.0>\r\n * @param {Color} $touch-bgcolor 触点（鼠标，手指或其它）按下时背景色 <3.0.0>\r\n * @param {Color} $touch-color 触点（鼠标，手指或其它）按下时文本色 <3.0.0>\r\n * @param {Length} $padding 内补白 <3.0.0>\r\n * @param {Length} $radius 圆角半径长度 <3.0.0>\r\n * @param {Length} $font-size 字号大小 <3.0.0>\r\n * @param {Length} $width 宽度 <3.0.0>\r\n * @param {Length} $height 高度 <3.0.0>\r\n */\n.yo-btn {\n  display: inline-block;\n  height: 0.36rem;\n  line-height: 0.36rem;\n  padding: 0 1.2em;\n  vertical-align: top;\n  position: relative;\n  border-radius: 0.05rem;\n  border: 0 none;\n  background-color: #ff801a;\n  color: #fff;\n  text-align: center;\n  cursor: pointer; }\n  .yo-btn::after {\n    pointer-events: none;\n    position: absolute;\n    z-index: 999;\n    top: 0;\n    left: 0;\n    content: \" \";\n    border-color: #d36105;\n    border-style: solid;\n    border-width: 1px;\n    -webkit-transform-origin: 0 0;\n    transform-origin: 0 0; }\n    @media (max--moz-device-pixel-ratio: 1.49), (-webkit-max-device-pixel-ratio: 1.49), (max-device-pixel-ratio: 1.49), (max-resolution: 143dpi), (max-resolution: 1.49dppx) {\n      .yo-btn::after {\n        width: 100%;\n        height: 100%;\n        border-radius: 0.05rem; } }\n    @media (min--moz-device-pixel-ratio: 1.5) and (max--moz-device-pixel-ratio: 2.49), (-webkit-min-device-pixel-ratio: 1.5) and (-webkit-max-device-pixel-ratio: 2.49), (min-device-pixel-ratio: 1.5) and (max-device-pixel-ratio: 2.49), (min-resolution: 144dpi) and (max-resolution: 239dpi), (min-resolution: 1.5dppx) and (max-resolution: 2.49dppx) {\n      .yo-btn::after {\n        width: 200%;\n        height: 200%;\n        -webkit-transform: scale(0.5);\n        transform: scale(0.5);\n        border-radius: 0.1rem; } }\n    @media (min--moz-device-pixel-ratio: 2.5), (-webkit-min-device-pixel-ratio: 2.5), (min-device-pixel-ratio: 2.5), (min-resolution: 240dpi), (min-resolution: 2.5dppx) {\n      .yo-btn::after {\n        width: 300%;\n        height: 300%;\n        -webkit-transform: scale(0.33333);\n        transform: scale(0.33333);\n        border-radius: 0.15rem; } }\n  .yo-btn-disabled {\n    opacity: 1;\n    cursor: not-allowed;\n    background-color: #ffaa67;\n    color: white; }\n    .yo-btn-disabled::after {\n      border-color: #fa7f1c; }\n  .yo-btn-stacked {\n    display: block;\n    width: 100%; }\n\n/**\r\n * @module fragment\r\n * @method yo-dialog\r\n * @version 3.0.0\r\n * @description 构造yo-dialog的自定义使用方法\r\n * @demo http://ued.qunar.com/hy2/yo/demo/src/html/fragment/yo-dialog.html\r\n * @param {String} $name 定义扩展名称 <3.0.0>\r\n * @param {Length} $width 宽度 <3.0.0>\r\n * @param {Length} $height 高度 <3.0.0>\r\n * @param {Length} $radius 圆角半径长度 <3.0.0>\r\n * @param {Color} $border-color 边框色 <3.0.0>\r\n * @param {Color} $title-color 标题文本色 <3.0.0>\r\n * @param {Length} $title-font-size 标题字号 <3.0.0>\r\n * @param {Length} $bd-padding 主体内补白 <3.0.0>\r\n * @param {Length} $bd-font-size 主体字号 <3.0.0>\r\n */\n.yo-dialog {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n  flex-direction: column;\n  overflow: hidden;\n  padding-top: .15rem;\n  min-width: 2.8rem;\n  max-width: 90%;\n  margin: auto;\n  border-radius: 0.1rem;\n  background-color: #fff;\n  text-align: center; }\n  .yo-dialog > .hd {\n    position: relative;\n    overflow: hidden; }\n    .yo-dialog > .hd .title {\n      overflow: hidden;\n      height: 100%;\n      margin: 0 .6rem;\n      color: #212121;\n      font-size: 0.16rem; }\n    .yo-dialog > .hd .regret,\n    .yo-dialog > .hd .affirm {\n      position: absolute;\n      top: 0; }\n    .yo-dialog > .hd .regret {\n      left: .1rem; }\n    .yo-dialog > .hd .affirm {\n      right: .1rem; }\n  .yo-dialog > .bd {\n    overflow: auto;\n    -webkit-overflow-scrolling: touch;\n    min-height: .4rem;\n    padding: 0.03rem 0.1rem 0.15rem;\n    font-size: 0.16rem; }\n  .yo-dialog > .ft {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    text-align: center; }\n    .yo-dialog > .ft .yo-btn-dialog {\n      height: 0.44rem;\n      line-height: 0.44rem;\n      border-radius: 0;\n      background-color: #fff;\n      color: #00afc7;\n      font-size: 0.16rem;\n      display: block;\n      -webkit-box-flex: 1;\n      -webkit-flex: 1;\n      flex: 1;\n      width: .1px; }\n      .yo-dialog > .ft .yo-btn-dialog::after {\n        border-width: 1px 1px 0 0;\n        border-color: #ccc; }\n        @media (max--moz-device-pixel-ratio: 1.49), (-webkit-max-device-pixel-ratio: 1.49), (max-device-pixel-ratio: 1.49), (max-resolution: 143dpi), (max-resolution: 1.49dppx) {\n          .yo-dialog > .ft .yo-btn-dialog::after {\n            border-radius: 0; } }\n        @media (min--moz-device-pixel-ratio: 1.5) and (max--moz-device-pixel-ratio: 2.49), (-webkit-min-device-pixel-ratio: 1.5) and (-webkit-max-device-pixel-ratio: 2.49), (min-device-pixel-ratio: 1.5) and (max-device-pixel-ratio: 2.49), (min-resolution: 144dpi) and (max-resolution: 239dpi), (min-resolution: 1.5dppx) and (max-resolution: 2.49dppx) {\n          .yo-dialog > .ft .yo-btn-dialog::after {\n            border-radius: 0; } }\n        @media (min--moz-device-pixel-ratio: 2.5), (-webkit-min-device-pixel-ratio: 2.5), (min-device-pixel-ratio: 2.5), (min-resolution: 240dpi), (min-resolution: 2.5dppx) {\n          .yo-dialog > .ft .yo-btn-dialog::after {\n            border-radius: 0; } }\n      .yo-dialog > .ft .yo-btn-dialog.yo-btn-touch {\n        background-color: #f9f9f9; }\n      .yo-dialog > .ft .yo-btn-dialog.yo-btn-disabled {\n        background-color: white;\n        color: #94f2ff; }\n        .yo-dialog > .ft .yo-btn-dialog.yo-btn-disabled::after {\n          border-color: #ebebeb; }\n      .yo-dialog > .ft .yo-btn-dialog:last-child {\n        font-weight: bold;\n        border-bottom-right-radius: 0.1rem; }\n        .yo-dialog > .ft .yo-btn-dialog:last-child::after {\n          border-right-width: 0; }\n      .yo-dialog > .ft .yo-btn-dialog:first-child {\n        border-bottom-left-radius: 0.1rem; }\n", ""]);
 
 // exports
 
@@ -67440,10 +69090,485 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\n/**\r\n * Yo框架全局base定义\r\n * 本文件与variables不同地方在于，这里所定义的map可以使用在variables和任何地方\r\n * lib中map使用“_”开头，本文件中不使用\"_\"\r\n * base ⇌ extra\r\n */\n/**\r\n * Yo框架全局base定义\r\n * 本文件与variables不同地方在于，这里所定义的map可以使用在variables和任何地方\r\n * 本文件中map使用\"_\"开头，extra中不使用\"_\"\r\n * base ⇌ extra\r\n */\n/**\r\n * 合并base和extra中的同类base map\r\n * 用以解决业务方升级Yo时需比base和extra的一致性\r\n * 当extra为空时，base map将以base文件里的定义作为默认值\r\n * 当extra不为空时，base map使用extra文件里的定义\r\n */\n/**\n * Yo框架全局Variables\n * Yo基础变量map，如果不想定义某属性，将其value设置为null；\n * Yo仅使用2种长度单位：px用于边框，rem用于除边框之外的所有地方\n * variables中map使用“_”开头，本文件中不使用\"_\"\n * variables ⇌ config\n */\n/**\r\n * Yo框架全局Variables\r\n * Yo基础变量map，如果不想定义某属性，将其value设置为null\r\n * Yo仅使用2种长度单位：px用于边框，rem用于除边框之外的所有地方\r\n * 本文件中map使用\"_\"开头，config中不使用\"_\"\r\n * variables ⇌ config\r\n */\n/**\r\n * 合并variables和config中的同类map\r\n * 用以解决业务方升级Yo时需比config和variables的一致性\r\n * 当config为空时，使用variables中的map作为默认值\r\n * 当config不为空时，使用config中的定义\r\n */\n/**\r\n * Yo框架自定义全局函数\r\n * 扩充Sass默认函数库，用以增强语法\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的第一项\r\n * @function first\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的最后一项\r\n * @function last\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的倒数第几项\r\n * @function nth-last\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $index 指定需要返回的值在list中的倒数位置 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 移除SassList中的某个项目并返回新的List\r\n * @function remove\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {String} $value 指定需要被删除的值 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 截取SassList中的某个部分并返回新的List\r\n * @function slice\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $start 指定需要截取的开始下标 <2.1.0>\r\n * @param {Integer} $end 指定需要截取的结束下标（不包括end），当该值缺省时默认为末尾下标 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 从SassList中添加/删除项目，然后返回新的List。\r\n * @function splice\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $index 指定需要移除的开始下标 <2.1.0>\r\n * @param {Integer} $count 指定需要移除的数量，不可以为负值，0表示不移除 <2.1.0>\r\n * @param {String} $values 指定需要添加的新值（可以是多个），如果该值缺省，则表示只移除不添加新值 <2.1.0>\r\n */\n/**\r\n * Yo框架全局基础方法\r\n * 包括响应式方案，CSS3兼容性方案，厂商前缀方案，iconfont方案，flex布局等全局方法\r\n */\n/**\r\n * @module 常用方法\r\n * @description 给需要的属性加厂家前缀\r\n * @method prefix\r\n * @version 1.0.0\r\n * @param {String} $property 指定属性 <1.0.0>\r\n * @param {String} $value 指定属性值 <1.0.0>\r\n * @skip\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义字体图标\r\n * @method _iconfont\r\n * @version 1.0.0\r\n * @skip\r\n */\n/**\r\n * @module 常用方法\r\n * @description 四则运算(系统要求：iOS6.0+,Android4.4+)\r\n * @method calc\r\n * @version 1.7.0\r\n * @param {String} $property 指定需要进行计算的CSS属性 <1.7.0>\r\n * @param {String} $value 与原生CSS语法一致，区别在于需要使用引号包裹表达式 <1.7.0>\r\n * @example\r\n * .calc {\r\n *     @include calc(width, \"100% - 100px\");\r\n * }\r\n *\r\n * <div class=\"calc\">四则运算</div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义响应式方案\r\n * @method responsive\r\n * @version 1.0.0\r\n * @param {String} $media 指定媒体查询条件，取值为`config`文件map `media-types`中的值 <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 清除浮动方案\r\n * @method clearfix\r\n * @version 1.0.0\r\n * @param {String} $type 指定清除浮动的方式，包括：pseudo-element | bfc，默认值：pseudo-element <1.8.5>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 清除行内级元素间间隙方案\r\n * @method clearspace\r\n * @version 3.0.3\r\n * @param {Length} $font-size 指定子元素字号，默认值：.14rem <3.0.3>\r\n * @example\r\n * .demo {\r\n *     @include clearspace;\r\n * }\r\n *\r\n * <div class=\"demo\">\r\n *      <span class=\"item\">1</span>\r\n *      <span class=\"item\">2</span>\r\n *      <span class=\"item\">3</span>\r\n * </div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 描述元素内容在横、纵方向上的对齐方式，默认为水平垂直居中对齐\r\n * @method align\r\n * @version 2.0.0\r\n * @param {String} $flexbox 元素布局方式，可选值：flex | inline-flex，默认值：flex <2.0.0>\r\n * @param {Keyword} $justify-content 元素内容的水平对齐方式，取值与`justify-content`属性一致，默认值：center <2.0.0>\r\n * @param {Keyword} $align-items 元素内容的垂直对齐方式，取值与`align-items`属性一致，默认值：center <2.0.0>\r\n * @example\r\n * .demo {\r\n *     @include align;\r\n * }\r\n *\r\n * <div class=\"demo\">\r\n *      <img alt=\"未知尺寸图片居中\" />\r\n * </div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义是否有滚动条\r\n * @method overflow\r\n * @version 1.0.0\r\n * @param {String} $overflow 取值与最新原生语法一致，默认值：auto <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 生成全屏方法\r\n * @method fullscreen\r\n * @version 1.7.0\r\n * @param {Integer} $z-index 指定层叠级别 <1.7.0>\r\n * @param {Keywords} $position 指定定位方式，取除`static | relative`之外的值，默认值：absolute <1.8.5>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义使用何种滤镜\r\n * @method filter\r\n * @version 1.7.0\r\n * @param {String} $filter 取值与`filter`属性一致 <1.7.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义UA默认外观\r\n * @method appearance\r\n * @version 1.0.0\r\n * @param {String} $appearance 取值与`appearance`属性一致，默认值：none <1.0.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义如何选中内容\r\n * @method user-select\r\n * @version 1.0.0\r\n * @param {String} $user-select 取值与`user-select`属性一致，默认值：none <1.0.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义盒模型\r\n * @method box-sizing\r\n * @version 1.0.0\r\n * @param {String} $box-sizing 指定盒模型类型，取值与`box-sizing`属性一致，默认值：border-box <1.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义渐变色值\r\n * @method gradient\r\n * @version 1.0.0\r\n * @param {String} $type 指定渐变的4种类型：linear, repeating-linear, radial, repeating-radial <1.0.0>\r\n * @param {String} $dir 指定渐变方向，可选值：[left | right] || [top | bottom] | angle <2.0.0>\r\n * @param {String} $gradient 指定渐变取值，与w3c最新原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景图像缩放（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-size\r\n * @version 1.4.0\r\n * @param {Keywords | Length} $background-size 指定背景图缩放值，取值与`background-size`属性一致 <1.4.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景裁减（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-clip\r\n * @version 1.6.0\r\n * @param {Keywords} $background-clip 指定背景图缩放值，取值与`background-clip`属性一致 <1.6.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景显示区域（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-origin\r\n * @version 1.6.0\r\n * @param {Keywords} $background-origin 指定背景图`background-position`属性计算相对的参考点，取值与`background-origin`属性一致 <1.6.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 为元素添加边框（包括1px边框）\r\n * @method border\r\n * @version 2.0.0\r\n * @param {String} $border-width 指定边框厚度（单位为px），默认值：1px，取值与`border-width`属性一致，不同方向代表边框位置 <2.0.0>\r\n * @param {String} $border-color 指定边框颜色 <2.0.0>\r\n * @param {String} $border-style 指定边框样式 <2.0.0>\r\n * @param {String} $radius 指定边框圆角半径，默认值：null <2.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义圆角，用于修复某些安卓机型上“圆角+边框+背景”，背景溢出的情况\r\n * @method border-radius\r\n * @version 1.6.0\r\n * @param {Length} $border-radius 指定元素的圆角半径，取值与`border-radius`属性一致 <1.6.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 定义简单变换\r\n * @method transform\r\n * @version 1.0.0\r\n * @param {String} $transform 取值范围与`transform`属性一致 <1.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 定义变换原点\r\n * @method transform-origin\r\n * @version 1.0.0\r\n * @param {Length | Percentage | Keywords} $transform-origin 取值范围与`transform-origin`属性一致 <1.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定某元素的子元素是（看起来）位于三维空间内，还是在该元素所在的平面内被扁平化\r\n * @method transform-style\r\n * @version 2.0.0\r\n * @param {String} $transform-style 取值范围与`transform-style`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定观察者与「z=0」平面的距离，使具有三维位置变换的元素产生透视效果。「z>0」的三维元素比正常大，而「z<0」时则比正常小，大小程度由该属性的值决定。\r\n * @method perspective\r\n * @version 2.0.0\r\n * @param {none | Length} $perspective 取值范围与`perspective`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定透视点的位置\r\n * @method perspective-origin\r\n * @version 2.0.0\r\n * @param {Length | Percentage | Keywords} $perspective-origin 取值范围与`perspective-origin`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定元素背面面向用户时是否可见\r\n * @method backface-visibility\r\n * @version 2.0.0\r\n * @param {Keywords} $backface-visibility 取值范围与`backface-visibility`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 定义动画\r\n * @method animation\r\n * @version 1.0.0\r\n * @param {String} $animation 取值与原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定需要引用的动画名称\r\n * @method animation-name\r\n * @version 3.0.0\r\n * @param {String} $animation-name 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画运行一次所持续的时长\r\n * @method animation-duration\r\n * @version 3.0.0\r\n * @param {String} $animation-duration 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画运行方式\r\n * @method animation-timing-function\r\n * @version 3.0.0\r\n * @param {String} $animation-timing-function 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画延迟多久之后再开始\r\n * @method animation-delay\r\n * @version 3.0.0\r\n * @param {String} $animation-delay 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画循环几次\r\n * @method animation-iteration-count\r\n * @version 3.0.0\r\n * @param {String} $animation-iteration-count 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画的运动方向\r\n * @method animation-direction\r\n * @version 3.0.0\r\n * @param {String} $animation-direction 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画的运动状态\r\n * @method animation-play-state\r\n * @version 3.0.0\r\n * @param {String} $animation-play-state 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画时间之外的状态\r\n * @method animation-fill-mode\r\n * @version 3.0.0\r\n * @param {String} $animation-fill-mode 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Transition\r\n * @description 定义补间\r\n * @method transition\r\n * @version 1.0.0\r\n * @param {String} $transition 取值与原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义显示类型为伸缩盒\r\n * @method flexbox\r\n * @version 1.0.0\r\n * @param {String} $flexbox 默认值：flex，可选值：flex | inline-flex <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素如何分配空间\r\n * @method flex\r\n * @version 1.0.0\r\n * @param {Number} $flex 取值与`flex`属性一致，默认值：1 <1.0.0>\r\n * @param {String} $direction 默认值: row，可选值：row | column <1.5.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素的排版顺序\r\n * @method order\r\n * @version 1.0.0\r\n * @param {Integer} $order 取值与`order`属性一致，默认值：1 <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性盒子元素流动方向及遇见边界时是否换行(要求系统：iOS7.0+, Android4.4+)\r\n * @method flex-flow\r\n * @version 2.0.0\r\n * @param {String} $flex-flow 取值与`flex-flow`属性一致，默认值：row nowrap <2.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素的流动方向\r\n * @method flex-direction\r\n * @version 1.0.0\r\n * @param {String} $flex-direction 取值与`flex-direction`属性一致，默认值：row <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性盒子元素溢出后排版(要求系统：iOS7.0+, Android4.4+)\r\n * @method flex-wrap\r\n * @version 1.0.0\r\n * @param {String} $flex-wrap 取值与`flex-wrap`属性一致，默认值：nowrap <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性容器主轴对齐方式(其中`space-around`值需要iOS7.0+,Android4.4+)\r\n * @method justify-content\r\n * @version 1.0.0\r\n * @param {String} $justify-content 取值与`justify-content`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义多行弹性容器侧轴对齐方式(要求系统：iOS7.0+,Android4.4+)\r\n * @method align-content\r\n * @version 1.8.5\r\n * @param {String} $align-content 取值与`align-content`属性一致，默认值：center <1.8.5>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义单行弹性容器侧轴对齐方式\r\n * @method align-items\r\n * @version 1.0.0\r\n * @param {String} $align-items 取值与`align-items`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性容器中子元素自身的在侧轴对齐方式(要求系统：iOS7.0+,Android4.4+)\r\n * @method align-self\r\n * @version 1.0.0\r\n * @param {String} $align-self 取值与`align-self`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成矩形方法\r\n * @method rect\r\n * @version 1.0.0\r\n * @param {Length} $width 定义矩形的长度 <1.0.0>\r\n * @param {Length} $height 定义矩形的高度 <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成正方形方法\r\n * @method square\r\n * @version 1.0.0\r\n * @param {Length} $size 定义正方形的边长 <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成圆形方法\r\n * @method circle\r\n * @version 1.0.0\r\n * @param {Length} $size 定义圆的半径长度 <1.0.0>\r\n * @param {Length} $radius 定义圆的圆角半径长度 <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 在自适应宽度情况下，确保内容元素的宽高比固定，比如：实现随屏幕大小而变化的正方形。\r\n * @method fixed-scale\r\n * @version 3.0.10\r\n * @param {Length} $width 默认值：100%。用以指定内容元素的初始宽度，由于尺寸需动态变化，不要使用固定单位 <3.0.10>\r\n * @param {Length} $scale 默认值：1/1，即正方形。用以指定内容元素的宽度高比 <3.0.10>\r\n */\n/**\r\n * @module 文本\r\n * @description 链接处理方法\r\n * @method link\r\n * @version 1.0.0\r\n * @param {Color} $color 定义链接颜色 <1.0.0>\r\n */\n/**\r\n * @module 文本\r\n * @description 文本碰到边界是否换行\r\n * @method wrap\r\n * @version 1.0.0\r\n * @param {Boolean} $is-wrap 定义文本是否换行，默认值：true <2.0.0>\r\n */\n/**\r\n * @module 文本\r\n * @description 单行文本溢出时显示省略号\r\n * @method ellipsis\r\n * @version 1.0.0\r\n * @param {Length} $width 定义容器的宽度，默认值：null <2.0.0>\r\n * @param {Integer} $line-clamp 定义需要显示的行数，默认值：1（即使用单行溢出的处理方案），需要注意的是本参数只支持webkit内核 <2.1.2>\r\n */\n/**\r\n * @module 文本\r\n * @description 文字隐藏方案\r\n * @method texthide\r\n * @version 1.0.0\r\n * @param {Length} $width 定义容器的宽度，默认值：null <2.0.0>\r\n */\n/**\r\n * Yo框架全局Reset\r\n * Yo重置Mobile及高级浏览器上常见的差异\r\n */\n*,\n::before,\n::after {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }\n\nhtml,\nbody {\n  overflow: hidden;\n  height: 100%; }\n\n::-webkit-scrollbar {\n  display: none; }\n\nhtml {\n  background-color: #eee;\n  color: #212121;\n  font-size: 100px;\n  -webkit-user-select: none;\n  user-select: none; }\n\nbody {\n  margin: 0;\n  font-size: 0.14em;\n  line-height: 1.5;\n  font-family: Helvetica Neue, Helvetica, STHeiTi, sans-serif; }\n\nul,\nol,\ndl,\ndd,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nfigure,\nform,\nfieldset,\nlegend,\ninput,\ntextarea,\nbutton,\np,\nblockquote,\nth,\ntd,\npre,\nxmp {\n  margin: 0;\n  padding: 0; }\n\ninput,\ntextarea,\nbutton,\nselect,\npre,\nxmp,\ntt,\ncode,\nkbd,\nsamp {\n  line-height: inherit;\n  font-family: inherit; }\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nsmall,\nbig,\ninput,\ntextarea,\nbutton,\nselect {\n  font-size: inherit; }\n\naddress,\ncite,\ndfn,\nem,\ni,\noptgroup,\nvar {\n  font-style: normal; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n  table-layout: fixed;\n  text-align: left; }\n\nul,\nol,\nmenu {\n  list-style: none; }\n\nfieldset,\nimg {\n  border: 0;\n  vertical-align: middle; }\n\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nmain,\nmenu,\nnav,\nsection,\nsummary {\n  display: block; }\n\naudio,\ncanvas,\nvideo {\n  display: inline-block; }\n\nblockquote:before,\nblockquote:after,\nq:before,\nq:after {\n  content: \" \"; }\n\ntextarea,\npre,\nxmp {\n  overflow: auto;\n  -webkit-overflow-scrolling: touch; }\n\ntextarea {\n  resize: vertical; }\n\ninput,\ntextarea,\nbutton,\nselect,\nsummary,\na {\n  outline: 0 none; }\n\ninput,\ntextarea,\nbutton,\nselect {\n  color: inherit; }\n  input:disabled,\n  textarea:disabled,\n  button:disabled,\n  select:disabled {\n    opacity: 1; }\n\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  padding: 0;\n  border: 0; }\n\ninput[type=\"button\"],\ninput[type=\"submit\"],\ninput[type=\"reset\"],\ninput[type=\"file\"]::-webkit-file-upload-button,\ninput[type=\"search\"]::-webkit-search-cancel-button {\n  -webkit-appearance: none;\n  appearance: none; }\n\n::-webkit-details-marker {\n  display: none; }\n\nmark {\n  background-color: rgba(0, 0, 0, 0); }\n\na,\nins,\ns,\nu,\ndel {\n  text-decoration: none; }\n\na,\nimg {\n  -webkit-touch-callout: none; }\n\na {\n  color: #00afc7; }\n\n.g-clear::after,\n.g-mod::after {\n  display: block;\n  overflow: hidden;\n  clear: both;\n  height: 0;\n  content: \" \"; }\n\n@font-face {\n  font-family: event_node;\n  src: url(//s.qunarzz.com/event_node/font/0.0.36/event_node.woff) format(\"woff\"), url(//s.qunarzz.com/event_node/font/0.0.36/event_node.ttf) format(\"truetype\"); }\n\n.yo-ico {\n  font-family: event_node !important;\n  font-style: normal;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  vertical-align: middle; }\n\n/**\n * @module fragment\n * @method yo-carousel\n * @version 3.0.0\n * @description 构造yo-carousel的自定义使用方法\n * @demo http://ued.qunar.com/hy2/yo/demo/src/html/fragment/yo-carousel.html\n * @param {String} $name 定义扩展名称 <3.0.0>\n * @param {Length} $btn-size 按钮大小 <3.0.0>\n * @param {Color} $btn-bgcolor 按钮背景色 <3.0.0>\n * @param {Color} $btn-color 按钮文本色 <3.0.0>\n * @param {Color} $touch-btn-bgcolor 按钮按下背景色 <3.0.0>\n * @param {Color} $touch-btn-color 按钮按下文本色 <3.0.0>\n * @param {Length} $index-size 索引大小 <3.0.0>\n * @param {Color} $index-bgcolor 索引背景色 <3.0.0>\n * @param {Color} $on-index-bgcolor 索引当前项背景色 <3.0.0>\n */\n.yo-carousel {\n  position: relative;\n  overflow: hidden;\n  width: 100%;\n  text-align: center; }\n  .yo-carousel > .cont {\n    position: relative;\n    white-space: nowrap;\n    font-size: 0;\n    font-family: arial; }\n    .yo-carousel > .cont > .item {\n      display: inline-block;\n      font-size: 0.14rem;\n      font-family: Helvetica Neue, Helvetica, STHeiTi, sans-serif; }\n    .yo-carousel > .cont > .item {\n      width: 100%;\n      background-color: #eee; }\n    .yo-carousel > .cont .img {\n      max-width: 100%;\n      max-height: 100%;\n      height: auto; }\n  .yo-carousel > .index {\n    position: absolute;\n    bottom: .05rem;\n    left: 50%;\n    -webkit-transform: translate(-50%, 0) translateZ(0);\n    transform: translate(-50%, 0) translateZ(0); }\n    .yo-carousel > .index > li {\n      float: left;\n      margin: 0 .05rem;\n      width: 0.1rem;\n      height: 0.1rem;\n      border-radius: 50%;\n      background-color: #85c8d1; }\n      .yo-carousel > .index > li.on {\n        background-color: #09a5c4; }\n  .yo-carousel > .yo-ico {\n    position: absolute;\n    top: 50%;\n    -webkit-transform: translate(0, -50%);\n    transform: translate(0, -50%);\n    width: 0.44rem;\n    height: 0.44rem;\n    border-radius: 50%;\n    background-color: rgba(9, 165, 196, 0.8);\n    color: #fff;\n    line-height: 0.44rem;\n    cursor: pointer; }\n    .yo-carousel > .yo-ico:active, .yo-carousel > .yo-ico-touch {\n      background-color: rgba(9, 165, 196, 0.5); }\n  .yo-carousel > .yo-ico-prev {\n    left: 0; }\n  .yo-carousel > .yo-ico-next {\n    right: 0; }\n\n/**\r\n * Yo框架动画解决方案\r\n * Yo内置了超过60种动画形态，不同的动画可以任意组合\r\n */\n.ani {\n  -webkit-animation-duration: 1s;\n  animation-duration: 1s;\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both; }\n\n.ani.infinite {\n  -webkit-animation-iteration-count: infinite;\n  animation-iteration-count: infinite; }\n\n/**\r\n * @module fade\r\n * @description 定义淡入动画\r\n * @method fade-in\r\n */\n@-webkit-keyframes fade-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n@keyframes fade-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n.ani.fade-in {\n  -webkit-animation-name: fade-in;\n  animation-name: fade-in; }\n\n/**\r\n * @module fade\r\n * @description 定义淡出动画\r\n * @method fade-out\r\n */\n@-webkit-keyframes fade-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@keyframes fade-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n.ani.fade-out {\n  -webkit-animation-name: fade-out;\n  animation-name: fade-out; }\n\n.yo-carousel-fade > .cont > .item {\n  position: absolute;\n  right: 0; }\n  .yo-carousel-fade > .cont > .item:first-child {\n    position: relative; }\n  .yo-carousel-fade > .cont > .item img {\n    opacity: 0;\n    -webkit-transition: opacity 0.2s ease-in;\n    transition: opacity 0.2s ease-in; }\n\n.yo-carousel-fade > .cont .top {\n  z-index: 99; }\n  .yo-carousel-fade > .cont .top img {\n    opacity: 1; }\n\n.yo-carousel-scale > .cont > .item {\n  -webkit-transition: -webkit-transform 0.4s ease-in-out 0.2s;\n  transition: transform 0.4s ease-in-out 0.2s;\n  -webkit-transform: scale(0.7);\n  transform: scale(0.7); }\n\n.yo-carousel-scale > .cont > .on {\n  -webkit-transform: scale(1);\n  transform: scale(1); }\n\n.yo-carousel > .cont {\n  -webkit-transition: -webkit-transform 0.5s ease-in;\n  transition: transform 0.5s ease-in;\n  width: 100%; }\n  .yo-carousel > .cont .item {\n    z-index: 2; }\n    .yo-carousel > .cont .item > img {\n      max-height: none; }\n  .yo-carousel > .cont .top {\n    z-index: 5; }\n\n.yo-carousel .extra-item {\n  margin-left: -100%; }\n\n.yo-carousel .transition {\n  -webkit-transition: -webkit-transform 0.5s ease-in;\n  transition: transform 0.5s ease-in; }\n\n.yo-carousel .index {\n  z-index: 5;\n  -webkit-transform: translate(-50%, 0) translateZ(0);\n  transform: translate(-50%, 0) translateZ(0); }\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n/**\r\n * Yo框架全局base定义\r\n * 本文件与variables不同地方在于，这里所定义的map可以使用在variables和任何地方\r\n * lib中map使用“_”开头，本文件中不使用\"_\"\r\n * base ⇌ extra\r\n */\n/**\r\n * Yo框架全局base定义\r\n * 本文件与variables不同地方在于，这里所定义的map可以使用在variables和任何地方\r\n * 本文件中map使用\"_\"开头，extra中不使用\"_\"\r\n * base ⇌ extra\r\n */\n/**\r\n * 合并base和extra中的同类base map\r\n * 用以解决业务方升级Yo时需比base和extra的一致性\r\n * 当extra为空时，base map将以base文件里的定义作为默认值\r\n * 当extra不为空时，base map使用extra文件里的定义\r\n */\n/**\n * Yo框架全局Variables\n * Yo基础变量map，如果不想定义某属性，将其value设置为null；\n * Yo仅使用2种长度单位：px用于边框，rem用于除边框之外的所有地方\n * variables中map使用“_”开头，本文件中不使用\"_\"\n * variables ⇌ config\n */\n/**\r\n * Yo框架全局Variables\r\n * Yo基础变量map，如果不想定义某属性，将其value设置为null\r\n * Yo仅使用2种长度单位：px用于边框，rem用于除边框之外的所有地方\r\n * 本文件中map使用\"_\"开头，config中不使用\"_\"\r\n * variables ⇌ config\r\n */\n/**\r\n * 合并variables和config中的同类map\r\n * 用以解决业务方升级Yo时需比config和variables的一致性\r\n * 当config为空时，使用variables中的map作为默认值\r\n * 当config不为空时，使用config中的定义\r\n */\n/**\r\n * Yo框架自定义全局函数\r\n * 扩充Sass默认函数库，用以增强语法\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的第一项\r\n * @function first\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的最后一项\r\n * @function last\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的倒数第几项\r\n * @function nth-last\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $index 指定需要返回的值在list中的倒数位置 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 移除SassList中的某个项目并返回新的List\r\n * @function remove\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {String} $value 指定需要被删除的值 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 截取SassList中的某个部分并返回新的List\r\n * @function slice\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $start 指定需要截取的开始下标 <2.1.0>\r\n * @param {Integer} $end 指定需要截取的结束下标（不包括end），当该值缺省时默认为末尾下标 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 从SassList中添加/删除项目，然后返回新的List。\r\n * @function splice\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $index 指定需要移除的开始下标 <2.1.0>\r\n * @param {Integer} $count 指定需要移除的数量，不可以为负值，0表示不移除 <2.1.0>\r\n * @param {String} $values 指定需要添加的新值（可以是多个），如果该值缺省，则表示只移除不添加新值 <2.1.0>\r\n */\n/**\r\n * Yo框架全局基础方法\r\n * 包括响应式方案，CSS3兼容性方案，厂商前缀方案，iconfont方案，flex布局等全局方法\r\n */\n/**\r\n * @module 常用方法\r\n * @description 给需要的属性加厂家前缀\r\n * @method prefix\r\n * @version 1.0.0\r\n * @param {String} $property 指定属性 <1.0.0>\r\n * @param {String} $value 指定属性值 <1.0.0>\r\n * @skip\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义字体图标\r\n * @method _iconfont\r\n * @version 1.0.0\r\n * @skip\r\n */\n/**\r\n * @module 常用方法\r\n * @description 四则运算(系统要求：iOS6.0+,Android4.4+)\r\n * @method calc\r\n * @version 1.7.0\r\n * @param {String} $property 指定需要进行计算的CSS属性 <1.7.0>\r\n * @param {String} $value 与原生CSS语法一致，区别在于需要使用引号包裹表达式 <1.7.0>\r\n * @example\r\n * .calc {\r\n *     @include calc(width, \"100% - 100px\");\r\n * }\r\n *\r\n * <div class=\"calc\">四则运算</div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义响应式方案\r\n * @method responsive\r\n * @version 1.0.0\r\n * @param {String} $media 指定媒体查询条件，取值为`config`文件map `media-types`中的值 <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 清除浮动方案\r\n * @method clearfix\r\n * @version 1.0.0\r\n * @param {String} $type 指定清除浮动的方式，包括：pseudo-element | bfc，默认值：pseudo-element <1.8.5>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 清除行内级元素间间隙方案\r\n * @method clearspace\r\n * @version 3.0.3\r\n * @param {Length} $font-size 指定子元素字号，默认值：.14rem <3.0.3>\r\n * @example\r\n * .demo {\r\n *     @include clearspace;\r\n * }\r\n *\r\n * <div class=\"demo\">\r\n *      <span class=\"item\">1</span>\r\n *      <span class=\"item\">2</span>\r\n *      <span class=\"item\">3</span>\r\n * </div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 描述元素内容在横、纵方向上的对齐方式，默认为水平垂直居中对齐\r\n * @method align\r\n * @version 2.0.0\r\n * @param {String} $flexbox 元素布局方式，可选值：flex | inline-flex，默认值：flex <2.0.0>\r\n * @param {Keyword} $justify-content 元素内容的水平对齐方式，取值与`justify-content`属性一致，默认值：center <2.0.0>\r\n * @param {Keyword} $align-items 元素内容的垂直对齐方式，取值与`align-items`属性一致，默认值：center <2.0.0>\r\n * @example\r\n * .demo {\r\n *     @include align;\r\n * }\r\n *\r\n * <div class=\"demo\">\r\n *      <img alt=\"未知尺寸图片居中\" />\r\n * </div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义是否有滚动条\r\n * @method overflow\r\n * @version 1.0.0\r\n * @param {String} $overflow 取值与最新原生语法一致，默认值：auto <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 生成全屏方法\r\n * @method fullscreen\r\n * @version 1.7.0\r\n * @param {Integer} $z-index 指定层叠级别 <1.7.0>\r\n * @param {Keywords} $position 指定定位方式，取除`static | relative`之外的值，默认值：absolute <1.8.5>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义使用何种滤镜\r\n * @method filter\r\n * @version 1.7.0\r\n * @param {String} $filter 取值与`filter`属性一致 <1.7.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义UA默认外观\r\n * @method appearance\r\n * @version 1.0.0\r\n * @param {String} $appearance 取值与`appearance`属性一致，默认值：none <1.0.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义如何选中内容\r\n * @method user-select\r\n * @version 1.0.0\r\n * @param {String} $user-select 取值与`user-select`属性一致，默认值：none <1.0.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义盒模型\r\n * @method box-sizing\r\n * @version 1.0.0\r\n * @param {String} $box-sizing 指定盒模型类型，取值与`box-sizing`属性一致，默认值：border-box <1.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义渐变色值\r\n * @method gradient\r\n * @version 1.0.0\r\n * @param {String} $type 指定渐变的4种类型：linear, repeating-linear, radial, repeating-radial <1.0.0>\r\n * @param {String} $dir 指定渐变方向，可选值：[left | right] || [top | bottom] | angle <2.0.0>\r\n * @param {String} $gradient 指定渐变取值，与w3c最新原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景图像缩放（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-size\r\n * @version 1.4.0\r\n * @param {Keywords | Length} $background-size 指定背景图缩放值，取值与`background-size`属性一致 <1.4.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景裁减（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-clip\r\n * @version 1.6.0\r\n * @param {Keywords} $background-clip 指定背景图缩放值，取值与`background-clip`属性一致 <1.6.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景显示区域（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-origin\r\n * @version 1.6.0\r\n * @param {Keywords} $background-origin 指定背景图`background-position`属性计算相对的参考点，取值与`background-origin`属性一致 <1.6.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 为元素添加边框（包括1px边框）\r\n * @method border\r\n * @version 2.0.0\r\n * @param {String} $border-width 指定边框厚度（单位为px），默认值：1px，取值与`border-width`属性一致，不同方向代表边框位置 <2.0.0>\r\n * @param {String} $border-color 指定边框颜色 <2.0.0>\r\n * @param {String} $border-style 指定边框样式 <2.0.0>\r\n * @param {String} $radius 指定边框圆角半径，默认值：null <2.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义圆角，用于修复某些安卓机型上“圆角+边框+背景”，背景溢出的情况\r\n * @method border-radius\r\n * @version 1.6.0\r\n * @param {Length} $border-radius 指定元素的圆角半径，取值与`border-radius`属性一致 <1.6.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 定义简单变换\r\n * @method transform\r\n * @version 1.0.0\r\n * @param {String} $transform 取值范围与`transform`属性一致 <1.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 定义变换原点\r\n * @method transform-origin\r\n * @version 1.0.0\r\n * @param {Length | Percentage | Keywords} $transform-origin 取值范围与`transform-origin`属性一致 <1.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定某元素的子元素是（看起来）位于三维空间内，还是在该元素所在的平面内被扁平化\r\n * @method transform-style\r\n * @version 2.0.0\r\n * @param {String} $transform-style 取值范围与`transform-style`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定观察者与「z=0」平面的距离，使具有三维位置变换的元素产生透视效果。「z>0」的三维元素比正常大，而「z<0」时则比正常小，大小程度由该属性的值决定。\r\n * @method perspective\r\n * @version 2.0.0\r\n * @param {none | Length} $perspective 取值范围与`perspective`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定透视点的位置\r\n * @method perspective-origin\r\n * @version 2.0.0\r\n * @param {Length | Percentage | Keywords} $perspective-origin 取值范围与`perspective-origin`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定元素背面面向用户时是否可见\r\n * @method backface-visibility\r\n * @version 2.0.0\r\n * @param {Keywords} $backface-visibility 取值范围与`backface-visibility`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 定义动画\r\n * @method animation\r\n * @version 1.0.0\r\n * @param {String} $animation 取值与原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定需要引用的动画名称\r\n * @method animation-name\r\n * @version 3.0.0\r\n * @param {String} $animation-name 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画运行一次所持续的时长\r\n * @method animation-duration\r\n * @version 3.0.0\r\n * @param {String} $animation-duration 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画运行方式\r\n * @method animation-timing-function\r\n * @version 3.0.0\r\n * @param {String} $animation-timing-function 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画延迟多久之后再开始\r\n * @method animation-delay\r\n * @version 3.0.0\r\n * @param {String} $animation-delay 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画循环几次\r\n * @method animation-iteration-count\r\n * @version 3.0.0\r\n * @param {String} $animation-iteration-count 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画的运动方向\r\n * @method animation-direction\r\n * @version 3.0.0\r\n * @param {String} $animation-direction 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画的运动状态\r\n * @method animation-play-state\r\n * @version 3.0.0\r\n * @param {String} $animation-play-state 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画时间之外的状态\r\n * @method animation-fill-mode\r\n * @version 3.0.0\r\n * @param {String} $animation-fill-mode 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Transition\r\n * @description 定义补间\r\n * @method transition\r\n * @version 1.0.0\r\n * @param {String} $transition 取值与原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义显示类型为伸缩盒\r\n * @method flexbox\r\n * @version 1.0.0\r\n * @param {String} $flexbox 默认值：flex，可选值：flex | inline-flex <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素如何分配空间\r\n * @method flex\r\n * @version 1.0.0\r\n * @param {Number} $flex 取值与`flex`属性一致，默认值：1 <1.0.0>\r\n * @param {String} $direction 默认值: row，可选值：row | column <1.5.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素的排版顺序\r\n * @method order\r\n * @version 1.0.0\r\n * @param {Integer} $order 取值与`order`属性一致，默认值：1 <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性盒子元素流动方向及遇见边界时是否换行(要求系统：iOS7.0+, Android4.4+)\r\n * @method flex-flow\r\n * @version 2.0.0\r\n * @param {String} $flex-flow 取值与`flex-flow`属性一致，默认值：row nowrap <2.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素的流动方向\r\n * @method flex-direction\r\n * @version 1.0.0\r\n * @param {String} $flex-direction 取值与`flex-direction`属性一致，默认值：row <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性盒子元素溢出后排版(要求系统：iOS7.0+, Android4.4+)\r\n * @method flex-wrap\r\n * @version 1.0.0\r\n * @param {String} $flex-wrap 取值与`flex-wrap`属性一致，默认值：nowrap <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性容器主轴对齐方式(其中`space-around`值需要iOS7.0+,Android4.4+)\r\n * @method justify-content\r\n * @version 1.0.0\r\n * @param {String} $justify-content 取值与`justify-content`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义多行弹性容器侧轴对齐方式(要求系统：iOS7.0+,Android4.4+)\r\n * @method align-content\r\n * @version 1.8.5\r\n * @param {String} $align-content 取值与`align-content`属性一致，默认值：center <1.8.5>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义单行弹性容器侧轴对齐方式\r\n * @method align-items\r\n * @version 1.0.0\r\n * @param {String} $align-items 取值与`align-items`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性容器中子元素自身的在侧轴对齐方式(要求系统：iOS7.0+,Android4.4+)\r\n * @method align-self\r\n * @version 1.0.0\r\n * @param {String} $align-self 取值与`align-self`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成矩形方法\r\n * @method rect\r\n * @version 1.0.0\r\n * @param {Length} $width 定义矩形的长度 <1.0.0>\r\n * @param {Length} $height 定义矩形的高度 <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成正方形方法\r\n * @method square\r\n * @version 1.0.0\r\n * @param {Length} $size 定义正方形的边长 <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成圆形方法\r\n * @method circle\r\n * @version 1.0.0\r\n * @param {Length} $size 定义圆的半径长度 <1.0.0>\r\n * @param {Length} $radius 定义圆的圆角半径长度 <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 在自适应宽度情况下，确保内容元素的宽高比固定，比如：实现随屏幕大小而变化的正方形。\r\n * @method fixed-scale\r\n * @version 3.0.10\r\n * @param {Length} $width 默认值：100%。用以指定内容元素的初始宽度，由于尺寸需动态变化，不要使用固定单位 <3.0.10>\r\n * @param {Length} $scale 默认值：1/1，即正方形。用以指定内容元素的宽度高比 <3.0.10>\r\n */\n/**\r\n * @module 文本\r\n * @description 链接处理方法\r\n * @method link\r\n * @version 1.0.0\r\n * @param {Color} $color 定义链接颜色 <1.0.0>\r\n */\n/**\r\n * @module 文本\r\n * @description 文本碰到边界是否换行\r\n * @method wrap\r\n * @version 1.0.0\r\n * @param {Boolean} $is-wrap 定义文本是否换行，默认值：true <2.0.0>\r\n */\n/**\r\n * @module 文本\r\n * @description 单行文本溢出时显示省略号\r\n * @method ellipsis\r\n * @version 1.0.0\r\n * @param {Length} $width 定义容器的宽度，默认值：null <2.0.0>\r\n * @param {Integer} $line-clamp 定义需要显示的行数，默认值：1（即使用单行溢出的处理方案），需要注意的是本参数只支持webkit内核 <2.1.2>\r\n */\n/**\r\n * @module 文本\r\n * @description 文字隐藏方案\r\n * @method texthide\r\n * @version 1.0.0\r\n * @param {Length} $width 定义容器的宽度，默认值：null <2.0.0>\r\n */\n/**\r\n * Yo框架全局Reset\r\n * Yo重置Mobile及高级浏览器上常见的差异\r\n */\n*,\n::before,\n::after {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }\n\nhtml,\nbody {\n  overflow: hidden;\n  height: 100%; }\n\n::-webkit-scrollbar {\n  display: none; }\n\nhtml {\n  background-color: #eee;\n  color: #212121;\n  font-size: 100px;\n  -webkit-user-select: none;\n  user-select: none; }\n\nbody {\n  margin: 0;\n  font-size: 0.14em;\n  line-height: 1.5;\n  font-family: Helvetica Neue, Helvetica, STHeiTi, sans-serif; }\n\nul,\nol,\ndl,\ndd,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nfigure,\nform,\nfieldset,\nlegend,\ninput,\ntextarea,\nbutton,\np,\nblockquote,\nth,\ntd,\npre,\nxmp {\n  margin: 0;\n  padding: 0; }\n\ninput,\ntextarea,\nbutton,\nselect,\npre,\nxmp,\ntt,\ncode,\nkbd,\nsamp {\n  line-height: inherit;\n  font-family: inherit; }\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nsmall,\nbig,\ninput,\ntextarea,\nbutton,\nselect {\n  font-size: inherit; }\n\naddress,\ncite,\ndfn,\nem,\ni,\noptgroup,\nvar {\n  font-style: normal; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n  table-layout: fixed;\n  text-align: left; }\n\nul,\nol,\nmenu {\n  list-style: none; }\n\nfieldset,\nimg {\n  border: 0;\n  vertical-align: middle; }\n\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nmain,\nmenu,\nnav,\nsection,\nsummary {\n  display: block; }\n\naudio,\ncanvas,\nvideo {\n  display: inline-block; }\n\nblockquote:before,\nblockquote:after,\nq:before,\nq:after {\n  content: \" \"; }\n\ntextarea,\npre,\nxmp {\n  overflow: auto;\n  -webkit-overflow-scrolling: touch; }\n\ntextarea {\n  resize: vertical; }\n\ninput,\ntextarea,\nbutton,\nselect,\nsummary,\na {\n  outline: 0 none; }\n\ninput,\ntextarea,\nbutton,\nselect {\n  color: inherit; }\n  input:disabled,\n  textarea:disabled,\n  button:disabled,\n  select:disabled {\n    opacity: 1; }\n\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  padding: 0;\n  border: 0; }\n\ninput[type=\"button\"],\ninput[type=\"submit\"],\ninput[type=\"reset\"],\ninput[type=\"file\"]::-webkit-file-upload-button,\ninput[type=\"search\"]::-webkit-search-cancel-button {\n  -webkit-appearance: none;\n  appearance: none; }\n\n::-webkit-details-marker {\n  display: none; }\n\nmark {\n  background-color: rgba(0, 0, 0, 0); }\n\na,\nins,\ns,\nu,\ndel {\n  text-decoration: none; }\n\na,\nimg {\n  -webkit-touch-callout: none; }\n\na {\n  color: #00afc7; }\n\n.g-clear::after,\n.g-mod::after {\n  display: block;\n  overflow: hidden;\n  clear: both;\n  height: 0;\n  content: \" \"; }\n\n@font-face {\n  font-family: event_node;\n  src: url(//s.qunarzz.com/event_node/font/0.0.36/event_node.woff) format(\"woff\"), url(//s.qunarzz.com/event_node/font/0.0.36/event_node.ttf) format(\"truetype\"); }\n\n.yo-ico {\n  font-family: event_node !important;\n  font-style: normal;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  vertical-align: middle; }\n\n/**\n * @module fragment\n * @method yo-carousel\n * @version 3.0.0\n * @description 构造yo-carousel的自定义使用方法\n * @demo http://ued.qunar.com/hy2/yo/demo/src/html/fragment/yo-carousel.html\n * @param {String} $name 定义扩展名称 <3.0.0>\n * @param {Length} $btn-size 按钮大小 <3.0.0>\n * @param {Color} $btn-bgcolor 按钮背景色 <3.0.0>\n * @param {Color} $btn-color 按钮文本色 <3.0.0>\n * @param {Color} $touch-btn-bgcolor 按钮按下背景色 <3.0.0>\n * @param {Color} $touch-btn-color 按钮按下文本色 <3.0.0>\n * @param {Length} $index-size 索引大小 <3.0.0>\n * @param {Color} $index-bgcolor 索引背景色 <3.0.0>\n * @param {Color} $on-index-bgcolor 索引当前项背景色 <3.0.0>\n */\n.yo-carousel {\n  position: relative;\n  overflow: hidden;\n  width: 100%;\n  text-align: center; }\n  .yo-carousel > .cont {\n    position: relative;\n    white-space: nowrap;\n    font-size: 0;\n    font-family: arial; }\n    .yo-carousel > .cont > .item {\n      display: inline-block;\n      font-size: 0.14rem;\n      font-family: Helvetica Neue, Helvetica, STHeiTi, sans-serif; }\n    .yo-carousel > .cont > .item {\n      width: 100%;\n      background-color: #eee; }\n    .yo-carousel > .cont .img {\n      max-width: 100%;\n      max-height: 100%;\n      height: auto; }\n  .yo-carousel > .index {\n    position: absolute;\n    bottom: .05rem;\n    left: 50%;\n    -webkit-transform: translate(-50%, 0) translateZ(0);\n    transform: translate(-50%, 0) translateZ(0); }\n    .yo-carousel > .index > li {\n      float: left;\n      margin: 0 .05rem;\n      width: 0.1rem;\n      height: 0.1rem;\n      border-radius: 50%;\n      background-color: #85c8d1; }\n      .yo-carousel > .index > li.on {\n        background-color: #09a5c4; }\n  .yo-carousel > .yo-ico {\n    position: absolute;\n    top: 50%;\n    -webkit-transform: translate(0, -50%);\n    transform: translate(0, -50%);\n    width: 0.44rem;\n    height: 0.44rem;\n    border-radius: 50%;\n    background-color: rgba(9, 165, 196, 0.8);\n    color: #fff;\n    line-height: 0.44rem;\n    cursor: pointer; }\n    .yo-carousel > .yo-ico:active, .yo-carousel > .yo-ico-touch {\n      background-color: rgba(9, 165, 196, 0.5); }\n  .yo-carousel > .yo-ico-prev {\n    left: 0; }\n  .yo-carousel > .yo-ico-next {\n    right: 0; }\n\n/**\r\n * Yo框架动画解决方案\r\n * Yo内置了超过60种动画形态，不同的动画可以任意组合\r\n */\n.ani {\n  -webkit-animation-duration: 1s;\n  animation-duration: 1s;\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both; }\n\n.ani.infinite {\n  -webkit-animation-iteration-count: infinite;\n  animation-iteration-count: infinite; }\n\n/**\r\n * @module fade\r\n * @description 定义淡入动画\r\n * @method fade-in\r\n */\n@-webkit-keyframes fade-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n@keyframes fade-in {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n.ani.fade-in {\n  -webkit-animation-name: fade-in;\n  animation-name: fade-in; }\n\n/**\r\n * Yo框架动画解决方案\r\n * Yo内置了超过60种动画形态，不同的动画可以任意组合\r\n */\n.ani {\n  -webkit-animation-duration: 1s;\n  animation-duration: 1s;\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both; }\n\n.ani.infinite {\n  -webkit-animation-iteration-count: infinite;\n  animation-iteration-count: infinite; }\n\n/**\r\n * @module fade\r\n * @description 定义淡出动画\r\n * @method fade-out\r\n */\n@-webkit-keyframes fade-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@keyframes fade-out {\n  0% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n.ani.fade-out {\n  -webkit-animation-name: fade-out;\n  animation-name: fade-out; }\n\n.yo-carousel-fade > .cont > .item {\n  position: absolute;\n  right: 0; }\n  .yo-carousel-fade > .cont > .item:first-child {\n    position: relative; }\n  .yo-carousel-fade > .cont > .item img {\n    opacity: 0;\n    -webkit-transition: opacity 0.2s ease-in;\n    transition: opacity 0.2s ease-in; }\n\n.yo-carousel-fade > .cont .top {\n  z-index: 99; }\n  .yo-carousel-fade > .cont .top img {\n    opacity: 1; }\n\n.yo-carousel-scale > .cont > .item {\n  -webkit-transition: -webkit-transform 0.4s ease-in-out 0.2s;\n  transition: transform 0.4s ease-in-out 0.2s;\n  -webkit-transform: scale(0.7);\n  transform: scale(0.7); }\n\n.yo-carousel-scale > .cont > .on {\n  -webkit-transform: scale(1);\n  transform: scale(1); }\n\n.yo-carousel > .cont {\n  -webkit-transition: -webkit-transform 0.5s ease-in;\n  transition: transform 0.5s ease-in;\n  width: 100%; }\n  .yo-carousel > .cont .item {\n    z-index: 2; }\n    .yo-carousel > .cont .item > img {\n      max-height: none; }\n  .yo-carousel > .cont .top {\n    z-index: 5; }\n\n.yo-carousel .extra-item {\n  margin-left: -100%; }\n\n.yo-carousel .transition {\n  -webkit-transition: -webkit-transform 0.5s ease-in;\n  transition: transform 0.5s ease-in; }\n\n.yo-carousel .index {\n  z-index: 5;\n  -webkit-transform: translate(-50%, 0) translateZ(0);\n  transform: translate(-50%, 0) translateZ(0); }\n", ""]);
 
 // exports
 
+
+/***/ }),
+
+/***/ "./src/yo-component/common/ComponentCore.js":
+/*!**************************************************!*\
+  !*** ./src/yo-component/common/ComponentCore.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = undefined;
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _assign = __webpack_require__(/*! babel-runtime/core-js/object/assign */ "./node_modules/babel-runtime/core-js/object/assign.js");
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ "./node_modules/babel-runtime/core-js/object/get-prototype-of.js");
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ "./node_modules/babel-runtime/helpers/classCallCheck.js");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ "./node_modules/babel-runtime/helpers/createClass.js");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ "./node_modules/babel-runtime/helpers/possibleConstructorReturn.js");
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ "./node_modules/babel-runtime/helpers/inherits.js");
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _class, _temp; /**
+                    * 大型组件使用的抽象Model类，用于集中管理组件内部的逻辑和状态。
+                    */
+
+
+var _EventEmitter2 = __webpack_require__(/*! ./EventEmitter */ "./src/yo-component/common/EventEmitter.js");
+
+var _EventEmitter3 = _interopRequireDefault(_EventEmitter2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ComponentCore = (_temp = _class = function (_EventEmitter) {
+    (0, _inherits3.default)(ComponentCore, _EventEmitter);
+
+    function ComponentCore(namespace) {
+        (0, _classCallCheck3.default)(this, ComponentCore);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (ComponentCore.__proto__ || (0, _getPrototypeOf2.default)(ComponentCore)).call(this));
+
+        _this.instanceId = ++ComponentCore.instanceId;
+        _this.namespace = namespace;
+        return _this;
+    }
+
+    (0, _createClass3.default)(ComponentCore, [{
+        key: '_getEventName',
+        value: function _getEventName(eventName) {
+            return 'yo/component/' + this.namespace + '/' + eventName + '/' + this.instanceId;
+        }
+    }, {
+        key: 'emitEvent',
+        value: function emitEvent(eventName) {
+            for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+                args[_key - 1] = arguments[_key];
+            }
+
+            this.emit.apply(this, [this._getEventName(eventName)].concat(args));
+            return this;
+        }
+    }, {
+        key: 'registerEventHandler',
+        value: function registerEventHandler(eventName, handler) {
+            this.on(this._getEventName(eventName), handler.bind(this));
+            return this;
+        }
+    }, {
+        key: 'getAttr',
+        value: function getAttr(item, attrKey) {
+            return typeof item.get === 'function' ? item.get(attrKey) : item[attrKey];
+        }
+    }, {
+        key: 'setAttr',
+        value: function setAttr(item, attrKey, value) {
+            var ret = null;
+            if (typeof item.set === 'function') {
+                ret = item.set(attrKey, value);
+            } else {
+                ret = (0, _assign2.default)({}, item, (0, _defineProperty3.default)({}, attrKey, value));
+            }
+            return ret;
+        }
+    }]);
+    return ComponentCore;
+}(_EventEmitter3.default), _class.instanceId = -1, _temp);
+exports.default = ComponentCore;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/yo-component/common/EventEmitter.js":
+/*!*************************************************!*\
+  !*** ./src/yo-component/common/EventEmitter.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = undefined;
+
+var _set = __webpack_require__(/*! babel-runtime/core-js/set */ "./node_modules/babel-runtime/core-js/set.js");
+
+var _set2 = _interopRequireDefault(_set);
+
+var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ "./node_modules/babel-runtime/helpers/classCallCheck.js");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ "./node_modules/babel-runtime/helpers/createClass.js");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _weakMap = __webpack_require__(/*! babel-runtime/core-js/weak-map */ "./node_modules/babel-runtime/core-js/weak-map.js");
+
+var _weakMap2 = _interopRequireDefault(_weakMap);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Apply = Function.prototype.apply;
+var privateMap = new _weakMap2.default();
+
+// For making private properties.
+function internal(obj) {
+    if (!privateMap.has(obj)) {
+        privateMap.set(obj, {});
+    }
+
+    return privateMap.get(obj);
+}
+
+/** Class EventEmitter for event-driven architecture. */
+
+var EventEmitter = function () {
+    /**
+     * Constructor.
+     *
+     * @constructor
+     * @param {number|null} maxListeners.
+     * @param {object} localConsole.
+     *
+     * Set private initial parameters:
+     *   _events, _callbacks, _maxListeners, _console.
+     *
+     * @return {this}
+     */
+    function EventEmitter() {
+        var maxListeners = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+        var localConsole = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : console;
+        (0, _classCallCheck3.default)(this, EventEmitter);
+
+        var self = internal(this);
+
+        self._events = new _set2.default();
+        self._callbacks = {};
+        self._console = localConsole;
+        self._maxListeners = maxListeners === null ? null : parseInt(maxListeners, 10);
+
+        return this;
+    }
+
+    /**
+     * Add callback to the event.
+     *
+     * @param {string} eventName.
+     * @param {function} callback
+     * @param {object|null} context - In than context will be called callback.
+     * @param {number} weight - Using for sorting callbacks calls.
+     *
+     * @return {this}
+     */
+
+
+    (0, _createClass3.default)(EventEmitter, [{
+        key: '_addCallback',
+        value: function _addCallback(eventName, callback, context, weight) {
+            this._getCallbacks(eventName).push({
+                callback: callback,
+                context: context,
+                weight: weight
+            });
+
+            // Sort the array of callbacks in
+            // the order of their call by "weight".
+            this._getCallbacks(eventName).sort(function (a, b) {
+                return a.weight > b.weight;
+            });
+
+            return this;
+        }
+
+        /**
+         * Get all callback for the event.
+         *
+         * @param {string} eventName
+         *
+         * @return {object|undefined}
+         */
+
+    }, {
+        key: '_getCallbacks',
+        value: function _getCallbacks(eventName) {
+            return internal(this)._callbacks[eventName];
+        }
+
+        /**
+         * Get callback's index for the event.
+         *
+         * @param {string} eventName
+         * @param {callback} callback
+         *
+         * @return {number|null}
+         */
+
+    }, {
+        key: '_getCallbackIndex',
+        value: function _getCallbackIndex(eventName, callback) {
+            return this._has(eventName) ? this._getCallbacks(eventName).findIndex(function (element) {
+                return element.callback === callback;
+            }) : null;
+        }
+
+        /**
+         * Check if we achive maximum of listeners for the event.
+         *
+         * @param {string} eventName
+         *
+         * @return {bool}
+         */
+
+    }, {
+        key: '_achieveMaxListener',
+        value: function _achieveMaxListener(eventName) {
+            return internal(this)._maxListeners !== null && internal(this)._maxListeners <= this.listenersNumber(eventName);
+        }
+
+        /**
+         * Check if callback is already exists for the event.
+         *
+         * @param {string} eventName
+         * @param {function} callback
+         * @param {object|null} context - In than context will be called callback.
+         *
+         * @return {bool}
+         */
+
+    }, {
+        key: '_callbackIsExists',
+        value: function _callbackIsExists(eventName, callback, context) {
+            var callbackInd = this._getCallbackIndex(eventName, callback);
+            var activeCallback = callbackInd !== -1 ? this._getCallbacks(eventName)[callbackInd] : void 0;
+
+            return callbackInd !== -1 && activeCallback && activeCallback.context === context;
+        }
+
+        /**
+         * Check is the event was already added.
+         *
+         * @param {string} eventName
+         *
+         * @return {bool}
+         */
+
+    }, {
+        key: '_has',
+        value: function _has(eventName) {
+            return internal(this)._events.has(eventName);
+        }
+
+        /**
+         * Add the listener.
+         *
+         * @param {string} eventName
+         * @param {function} callback
+         * @param {object|null} context - In than context will be called callback.
+         * @param {number} weight - Using for sorting callbacks calls.
+         *
+         * @return {this}
+         */
+
+    }, {
+        key: 'on',
+        value: function on(eventName, callback) {
+            var context = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+            var weight = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+
+            /* eslint no-unused-vars: 0 */
+            var self = internal(this);
+
+            if (typeof callback !== 'function') {
+                throw new TypeError(callback + ' is not a function');
+            }
+
+            // If event wasn't added before - just add it
+            // and define callbacks as an empty object.
+            if (!this._has(eventName)) {
+                self._events.add(eventName);
+                self._callbacks[eventName] = [];
+            } else {
+                // Check if we reached maximum number of listeners.
+                if (this._achieveMaxListener(eventName)) {
+                    self._console.warn('Max listeners (' + self._maxListeners + ')' + (' for event "' + eventName + '" is reached!'));
+                }
+
+                // Check if the same callback has already added.
+                if (this._callbackIsExists.apply(this, arguments)) {
+                    self._console.warn('Event "' + eventName + '"' + (' already has the callback ' + callback + '.'));
+                }
+            }
+
+            this._addCallback.apply(this, arguments);
+
+            return this;
+        }
+
+        /**
+         * Add the listener which will be executed only once.
+         *
+         * @param {string} eventName
+         * @param {function} callback
+         * @param {object|null} context - In than context will be called callback.
+         * @param {number} weight - Using for sorting callbacks calls.
+         *
+         * @return {this}
+         */
+
+    }, {
+        key: 'once',
+        value: function once(eventName, callback) {
+            var _this = this;
+
+            var context = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+            var weight = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+
+            var onceCallback = function onceCallback() {
+                for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                    args[_key] = arguments[_key];
+                }
+
+                _this.off(eventName, onceCallback);
+                return Apply.call(callback, context, args);
+            };
+
+            return this.on(eventName, onceCallback, context, weight);
+        }
+
+        /**
+         * Remove an event at all or just remove selected callback from the event.
+         *
+         * @param {string} eventName
+         * @param {function} callback
+         *
+         * @return {this}
+         */
+
+    }, {
+        key: 'off',
+        value: function off(eventName) {
+            var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+            var self = internal(this);
+            var callbackInd = void 0;
+
+            if (this._has(eventName)) {
+                if (callback === null) {
+                    // Remove the event.
+                    self._events.delete(eventName);
+                    // Remove all listeners.
+                    self._callbacks[eventName] = null;
+                } else {
+                    callbackInd = this._getCallbackIndex(eventName, callback);
+
+                    if (callbackInd !== -1) {
+                        self._callbacks[eventName].splice(callbackInd, 1);
+                        // Remove all equal callbacks.
+                        this.off.apply(this, arguments);
+                    }
+                }
+            }
+
+            return this;
+        }
+
+        /**
+         * Trigger the event.
+         *
+         * @param {string} eventName
+         * @param {...args} args - All arguments which should be passed into callbacks.
+         *
+         * @return {this}
+         */
+
+    }, {
+        key: 'emit',
+        value: function emit(eventName) {
+            for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+                args[_key2 - 1] = arguments[_key2];
+            }
+
+            if (this._has(eventName)) {
+                // All callbacks will be triggered sorter by "weight" parameter.
+                this._getCallbacks(eventName).forEach(function (element) {
+                    return Apply.call(element.callback, element.context, args);
+                });
+            }
+
+            return this;
+        }
+
+        /**
+         * Clear all events and callback links.
+         *
+         * @return {this}
+         */
+
+    }, {
+        key: 'clear',
+        value: function clear() {
+            var self = internal(this);
+
+            self._events.clear();
+            self._callbacks = {};
+
+            return this;
+        }
+
+        /**
+         * Returns number of listeners for the event.
+         *
+         * @param {string} eventName
+         *
+         * @return {number|null} - Number of listeners for event
+         *                         or null if event isn't exists.
+         */
+
+    }, {
+        key: 'listenersNumber',
+        value: function listenersNumber(eventName) {
+            return this._has(eventName) ? this._getCallbacks(eventName).length : null;
+        }
+    }]);
+    return EventEmitter;
+}();
+
+exports.default = EventEmitter;
+module.exports = exports['default'];
 
 /***/ }),
 
@@ -68179,6 +70304,2121 @@ module.exports = exports['default'];
 
 /***/ }),
 
+/***/ "./src/yo-component/lazyimage/index.js":
+/*!*********************************************!*\
+  !*** ./src/yo-component/lazyimage/index.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = undefined;
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ "./node_modules/babel-runtime/core-js/object/get-prototype-of.js");
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ "./node_modules/babel-runtime/helpers/classCallCheck.js");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ "./node_modules/babel-runtime/helpers/createClass.js");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ "./node_modules/babel-runtime/helpers/possibleConstructorReturn.js");
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ "./node_modules/babel-runtime/helpers/inherits.js");
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _class, _temp; /**
+                    * @component LazyImage
+                    * @author jiao.shen
+                    * @description 懒加载图片组件，只能在 `Scroller` 和 `List` 中使用。
+                    *
+                    * 使用这个组件代替img标签后，会延迟加载这个图片，直到List组件的滚动使得该图片位于可视区域之内。
+                    * @instructions {instruInfo: ./lazyimage.md}{instruUrl: scroller/lazyimage.html?hideIcon}
+                    * @version  3.0.2
+                    */
+
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _utils = __webpack_require__(/*! ../common/utils */ "./src/yo-component/common/utils.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TO_BE_LOADED = 0;
+var LOADING = 1;
+var LOADED = 2;
+
+var _default = (_temp = _class = function (_Component) {
+    (0, _inherits3.default)(_default, _Component);
+
+    function _default(props) {
+        (0, _classCallCheck3.default)(this, _default);
+
+        // 0->等待load,1->loading,2->loaded
+        var _this = (0, _possibleConstructorReturn3.default)(this, (_default.__proto__ || (0, _getPrototypeOf2.default)(_default)).call(this, props));
+
+        _this.loading = TO_BE_LOADED;
+        _this.state = {
+            src: _this.props.defaultImage
+        };
+        return _this;
+    }
+
+    (0, _createClass3.default)(_default, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            this.refresh(this.context);
+            var scroller = this.context.list || this.context.scroller;
+            if (scroller) {
+                scroller.childLazyImages.push(this);
+                if (scroller.loadImage) {
+                    setTimeout(function () {
+                        scroller.loadImage(_this2);
+                    }, 0);
+                }
+            }
+        }
+
+        // 父组件render时,需要重置这个组件的loaded状态和context
+
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            // 此处的 refresh 需要等到 didupdate 之后才能获取正确的位置
+            // this.refresh(nextContext);
+            this._isUpdate = true;
+
+            if (this.state.src !== nextProps.src) {
+                this.loading = TO_BE_LOADED;
+                this.setState({ src: this.props.defaultImage });
+            }
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate() {
+            if (this._isUpdate) {
+                this._isUpdate = false;
+
+                this.refresh(this.context);
+            }
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            var scroller = this.context.list || this.context.scroller;
+            if (scroller) {
+                scroller.childLazyImages.splice(scroller.childLazyImages.indexOf(this), 1);
+            }
+            this.canLoadImage = false;
+        }
+    }, {
+        key: 'refresh',
+        value: function refresh(context) {
+            this.canLoadImage = true;
+            this.offsetY = context.offsetY;
+            this.itemRef = context.itemRef;
+            this.infinite = context.infinite;
+            // 如果不是infinite的列表，那么应该获取offsetTop(这个开销还挺大的，不过没得优化了)，反之，则使用translateY
+            if (!this.infinite) {
+                this.offsetTop = (0, _utils.getElementOffsetY)(this.img);
+                this.height = this.img.offsetHeight;
+            }
+        }
+    }, {
+        key: 'load',
+        value: function load(callback) {
+            var _this3 = this;
+
+            if (this.loading === TO_BE_LOADED) {
+                var src = this.props.src,
+                    tmpImg = new Image();
+
+                this.loading = LOADING;
+
+                tmpImg.onload = function () {
+                    // 在lazyimage正在加载时组件unmount(主要是在SPA模式下有可能发生关闭view的情况)会报错
+                    // 因此这里需要简单判断一下组件的实例是否还存在
+                    // bugfix: 在网速不稳定的情况下，有可能这个lazyimage加载的图片比之前加载的图片更晚下载完
+                    // 这个时候会引起加载图片错乱的问题，因此需要再加一个判断
+                    if (_this3 && _this3.canLoadImage && src === _this3.props.src) {
+                        _this3.loading = LOADED;
+                        _this3.setState({ src: src, loaded: true });
+                        if (callback) {
+                            callback();
+                        }
+                    }
+                };
+                tmpImg.src = src;
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this4 = this;
+
+            var _props = this.props,
+                height = _props.height,
+                style = _props.style,
+                customAttr = _props.customAttr;
+
+            if (this.context.list) {
+                if (height == null && style.height == null) {
+                    throw Error('yo-lazyimage: 在List组件中使用LazyImage必须指定图片的高度。');
+                }
+            }
+
+            return _react2.default.createElement('img', (0, _extends3.default)({}, (0, _utils.inheritProps)(this.props, ['onTouchStart', 'onTouchMove', 'onTouchEnd', 'onTouchCancel', 'width', 'height', 'className', 'title', 'style']), {
+                alt: this.props.alt,
+                ref: function ref(img) {
+                    if (img) _this4.img = img;
+                },
+                src: this.state.src
+            }, customAttr));
+        }
+    }]);
+    return _default;
+}(_react.Component), _class.contextTypes = {
+    // 从父组件context接收的属性
+    // list/scroller组件实例的引用
+    list: _propTypes2.default.object,
+    scroller: _propTypes2.default.object,
+    // listitem的offsetY(infinite模式下)
+    offsetY: _propTypes2.default.number,
+    // listitem实例的引用
+    itemRef: _propTypes2.default.object,
+    // 是否是Scroller下面的Lazyload,而不是List下面的
+    isScroller: _propTypes2.default.bool,
+    // 是否是infinite列表
+    infinite: _propTypes2.default.bool
+}, _class.propTypes = {
+    /**
+     * @property defaultImage
+     * @type String
+     * @default null
+     * @description 默认图片，在原图片还没有完成加载时展示。
+     */
+    defaultImage: _propTypes2.default.string,
+    /**
+     * @property src
+     * @type String
+     * @default null
+     * @description 图片src，必需。
+     */
+    src: _propTypes2.default.string.isRequired,
+    /**
+     * @property className
+     * @type String
+     * @default null
+     * @description 给img标签加的类名。
+     */
+    className: _propTypes2.default.string,
+    /**
+     * @property width
+     * @type Number
+     * @default null
+     * @description 图片宽度。
+     */
+    width: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+    /**
+     * @property height
+     * @type Number
+     * @default null
+     * @description 图片高度。
+     */
+    height: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+    /**
+     * @property customAttr
+     * @type Object
+     * @default null
+     * @description 附加给img dom节点的自定义属性，属性名需要以data-开头。
+     */
+    customAttr: _propTypes2.default.object,
+    /**
+     * @property style
+     * @type Object
+     * @default null
+     * @description 附加给img dom节点的style。
+     */
+    style: _propTypes2.default.object,
+    /**
+     * @property alt
+     * @type String
+     * @default null
+     * @description 和img标签的alt属性相同。
+     */
+    alt: _propTypes2.default.string,
+    /**
+     * @property title
+     * @type String
+     * @default null
+     * @description 和img标签的title属性相同。
+     */
+    title: _propTypes2.default.string,
+    onTouchStart: _propTypes2.default.func,
+    onTouchMove: _propTypes2.default.func,
+    onTouchEnd: _propTypes2.default.func,
+    onTouchCancel: _propTypes2.default.func
+}, _class.defaultProps = {
+    defaultImage: null,
+    src: null,
+    className: null,
+    width: null,
+    height: null,
+    customAttr: {},
+    style: null
+}, _temp);
+
+exports.default = _default;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/yo-component/list/ListCore.js":
+/*!*******************************************!*\
+  !*** ./src/yo-component/list/ListCore.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = undefined;
+
+var _assign = __webpack_require__(/*! babel-runtime/core-js/object/assign */ "./node_modules/babel-runtime/core-js/object/assign.js");
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ "./node_modules/babel-runtime/core-js/object/get-prototype-of.js");
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ "./node_modules/babel-runtime/helpers/classCallCheck.js");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ "./node_modules/babel-runtime/helpers/createClass.js");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ "./node_modules/babel-runtime/helpers/possibleConstructorReturn.js");
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ "./node_modules/babel-runtime/helpers/inherits.js");
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _class, _temp; /**
+                    * List核心逻辑,负责管理List组件的内部状态
+                    */
+
+
+var _ComponentCore2 = __webpack_require__(/*! ../common/ComponentCore */ "./src/yo-component/common/ComponentCore.js");
+
+var _ComponentCore3 = _interopRequireDefault(_ComponentCore2);
+
+var _utils = __webpack_require__(/*! ../common/utils */ "./src/yo-component/common/utils.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ListCore = (_temp = _class = function (_ComponentCore) {
+    (0, _inherits3.default)(ListCore, _ComponentCore);
+
+    /**
+     * @param dataSource 数据源
+     * @param offsetY 列表的初始Y偏移
+     * @param infinite 是否是无穷列表
+     * @param itemHeight 列表项高度
+     * @param visibleSize 保留在列表容器中列表项的数组
+     * @description 构造函数,会通过调用refresh方法进行初始化
+     */
+    function ListCore(_ref) {
+        var dataSource = _ref.dataSource,
+            _ref$offsetY = _ref.offsetY,
+            offsetY = _ref$offsetY === undefined ? 0 : _ref$offsetY,
+            _ref$infinite = _ref.infinite,
+            infinite = _ref$infinite === undefined ? true : _ref$infinite,
+            itemHeight = _ref.itemHeight,
+            _ref$infiniteSize = _ref.infiniteSize,
+            infiniteSize = _ref$infiniteSize === undefined ? 12 : _ref$infiniteSize,
+            _ref$staticSectionHei = _ref.staticSectionHeight,
+            staticSectionHeight = _ref$staticSectionHei === undefined ? 0 : _ref$staticSectionHei;
+        (0, _classCallCheck3.default)(this, ListCore);
+
+        // 静态属性
+        // 这些属性不会随着父组件render改变
+        var _this = (0, _possibleConstructorReturn3.default)(this, (ListCore.__proto__ || (0, _getPrototypeOf2.default)(ListCore)).call(this, 'list'));
+
+        _this.itemHeight = itemHeight;
+        // 保存列表项定位信息的表,List组件不定高模式的核心数据结构
+        _this.positionMap = {};
+        // 在refresh中设置的属性可以通过父组件的render改变
+        _this.refresh({
+            dataSource: dataSource,
+            refreshAll: false,
+            infiniteSize: infiniteSize,
+            staticSectionHeight: staticSectionHeight,
+            offsetY: offsetY,
+            infinite: infinite
+        });
+        return _this;
+    }
+
+    /**
+     * @param ds
+     * @param refreshAll
+     * @param visibleSize
+     * @param offsetY
+     * @param infinite
+     * @param startIndex
+     * @returns {ListCore}
+     * @description 设置实例属性, 在构造函数中被调用,也会在组件的componentWillReceiveProps回调中调用
+     * 可以根据props初始化/重置组件的状态
+     */
+
+
+    (0, _createClass3.default)(ListCore, [{
+        key: 'refresh',
+        value: function refresh(_ref2) {
+            var _ref2$dataSource = _ref2.dataSource,
+                dataSource = _ref2$dataSource === undefined ? this.dataSource : _ref2$dataSource,
+                _ref2$refreshAll = _ref2.refreshAll,
+                refreshAll = _ref2$refreshAll === undefined ? false : _ref2$refreshAll,
+                _ref2$infiniteSize = _ref2.infiniteSize,
+                infiniteSize = _ref2$infiniteSize === undefined ? this.visibleSize : _ref2$infiniteSize,
+                _ref2$staticSectionHe = _ref2.staticSectionHeight,
+                staticSectionHeight = _ref2$staticSectionHe === undefined ? this.staticSectionHeight : _ref2$staticSectionHe,
+                _ref2$offsetY = _ref2.offsetY,
+                offsetY = _ref2$offsetY === undefined ? this.offsetY : _ref2$offsetY,
+                _ref2$infinite = _ref2.infinite,
+                infinite = _ref2$infinite === undefined ? this.infinite : _ref2$infinite;
+
+            if (!Array.isArray(dataSource)) {
+                if (typeof dataSource.toArray === 'function') {
+                    dataSource = dataSource.toArray();
+                } else {
+                    throw new Error('yo-list: dataSource必须为数组或者Immutable List!');
+                }
+            }
+
+            if (!dataSource.length) {
+                throw new Error('yo-list: dataSource不能为空数组!');
+            }
+
+            this.WINDOW_HEIGHT = !_utils.isEnvNode && window.screen.height || 736;
+            this.infinite = infinite;
+            this.VISIBLE_SIZE = infiniteSize;
+            this.dataSource = this.renderDataSource(dataSource, refreshAll);
+            this.isHeightFixed = this.ifHeightFixed();
+            this.direction = this.getDirection(offsetY);
+            this.offsetY = offsetY;
+            this.startIndex = this.refreshStartIndexByOffsetY(offsetY);
+            this.staticSectionHeight = staticSectionHeight;
+            this.visibleList = this.getVisibleList(offsetY);
+            this.totalHeight = this.getTotalHeight();
+
+            this.emitChange();
+
+            return this;
+        }
+
+        /**
+         * @param dataSource
+         * @returns {boolean}
+         * 判断数据源中的元素是否都被计算出(设置了)高度
+         */
+
+    }, {
+        key: 'ifHeightFixed',
+        value: function ifHeightFixed() {
+            var _this2 = this;
+
+            var dataSource = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.dataSource;
+
+            return dataSource.every(function (item) {
+                return !!_this2.getAttr(item.srcData, 'height');
+            }) || !!this.itemHeight || !this.infinite;
+        }
+
+        /**
+         * @returns {number}
+         * 返回一个guid
+         */
+
+    }, {
+        key: 'getGuid',
+        value: function getGuid() {
+            return ++ListCore.guid;
+        }
+
+        /**
+         * @param offsetY
+         * @returns {string}
+         * 根据传入的offsetY计算出组件滚动的方向
+         */
+
+    }, {
+        key: 'getDirection',
+        value: function getDirection(offsetY) {
+            return offsetY - this.offsetY >= 0 ? 'down' : 'up';
+        }
+
+        /**
+         * @param offsetY
+         * @returns {number}
+         * 根据传入的offsetY计算startIndex,startIndex被用来计算visibleList(无穷模式中保留在容器中的列表项的数组)
+         */
+
+    }, {
+        key: 'refreshStartIndexByOffsetY',
+        value: function refreshStartIndexByOffsetY(y) {
+            var offsetY = _utils.isEnvNode ? y - this.WINDOW_HEIGHT / 5 : y - window.screen.height / 5;
+
+            if (this.infinite && this.isHeightFixed) {
+                for (var i = 0; i < this.dataSource.length; i++) {
+                    var item = this.dataSource[i];
+                    var itemPosData = this.getItemPositionData(item);
+                    if (i === 0 && itemPosData.height > offsetY) {
+                        return i;
+                    } else if (i > 0) {
+                        var prev = this.dataSource[i - 1];
+                        var prevPosData = this.getItemPositionData(prev);
+                        if (prevPosData._translateY < offsetY && prevPosData._translateY >= offsetY) {
+                            return i;
+                        }
+                    }
+                }
+            } else if (this.infinite) {
+                return this.startIndex ? this.startIndex : 0;
+            }
+
+            return 0;
+        }
+
+        /**
+         * @param offsetY
+         * @returns {ListCore}
+         * 在列表滚动时,根据offsetY更新visibleList
+         */
+
+    }, {
+        key: 'onScrollTo',
+        value: function onScrollTo(offsetY, manually) {
+            this.direction = this.getDirection(offsetY);
+            this.offsetY = offsetY;
+            if (manually) {
+                this.startIndex = 0;
+            }
+            var cachedIndex = this.startIndex;
+            if (this.infinite) {
+                this.visibleList = this.getVisibleList(offsetY);
+                // 只有当visibleList里面的内容真正发生变化的时候才触发onchange
+                // 这样可以确保setState调用次数最少
+                if (this.startIndex !== cachedIndex || this.startIndex === 0 && this.offsetY === 0 || manually) {
+                    this.emitChange();
+                }
+            }
+
+            return this;
+        }
+    }, {
+        key: 'getItemPositionData',
+        value: function getItemPositionData(item) {
+            var key = this.getAttr(item, 'key');
+            return item._type === 'groupTitle' ? item : this.positionMap[key];
+        }
+    }, {
+        key: 'setItemPositionData',
+        value: function setItemPositionData(item, attr) {
+            // grouptitle做特殊处理,因为grouptitle是grouplist组件内部的数据对象,所以不会修改到源数据
+            // 与此同时，grouplist需要获取到_translateY这些信息，因此也只能在原来的数据对象上修改
+            if (item._type === 'groupTitle') {
+                (0, _assign2.default)(item, attr);
+            } else if (this.positionMap[item.key]) {
+                (0, _assign2.default)(this.positionMap[item.key], attr);
+            }
+        }
+
+        /**
+         * @param ds
+         * @param refreshAll
+         * @returns {Array}
+         * 处理数据源
+         * 为每个元素的在pos表中的项添加_order(无穷模式下该列表项对应的槽的index),_resolved(是否已经计算出位置),_index(在数据源中的位置)
+         * _translateY(无穷列表中元素的translateY)和_bottom(列表项的bottom)
+         */
+
+    }, {
+        key: 'renderDataSource',
+        value: function renderDataSource(ds) {
+            var _this3 = this;
+
+            var refreshAll = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+            return ds.map(function (ditem, i) {
+                var key = _this3.getAttr(ditem, 'key');
+                var renderedItem = {};
+
+                if (key == null) {
+                    if (_this3.infinite) {
+                        throw new Error('infinite模式的列表数据源的每一项必须有key属性。');
+                    } else {
+                        key = _this3.getGuid();
+                        if (false) {}
+                    }
+                }
+
+                // 区分groupTitle和item，因为groupTitle是组件添加的，不会影响到源数据，所以可以直接在上面增加属性
+                renderedItem = ditem._type !== 'groupTitle' ? {
+                    // srcData指向源数据
+                    srcData: ditem,
+                    key: key,
+                    _index: i,
+                    _type: 'item'
+                } : (0, _assign2.default)(ditem, { srcData: ditem, _index: i }); // 这里给title增加了一个指向自己的指针srcData，这是为了兼容其他普通item的数据格式，而不是在使用它的地方做各种判断
+
+                if (refreshAll) {
+                    _this3.setItemPositionData(renderedItem, { _bottom: null, _translateY: null, _order: null });
+                }
+
+                var itemPosData = _this3.getItemPositionData(renderedItem);
+                if (!itemPosData) {
+                    itemPosData = _this3.positionMap[renderedItem.key] = {};
+                }
+
+                var itemHeight = _this3.getAttr(ditem, 'height');
+                var noHeightIdentified = _this3.itemHeight == null && itemHeight == null && itemPosData.height == null;
+
+                var mergedItemHeight = null;
+                if (itemHeight != null) {
+                    mergedItemHeight = itemHeight;
+                } else if (itemPosData.height != null) {
+                    mergedItemHeight = itemPosData.height;
+                } else {
+                    mergedItemHeight = _this3.itemHeight;
+                }
+
+                if (_this3.infinite) {
+                    // 设置height,_order,_resolved和_index
+                    // 如果这个item具有高度,则直接设为resolved
+                    _this3.setItemPositionData(renderedItem, {
+                        height: mergedItemHeight,
+                        _order: i % _this3.VISIBLE_SIZE,
+                        _resolved: _this3.infinite && !noHeightIdentified,
+                        _index: i
+                    });
+                    // 即使这个元素高度确定,之前一个高度为null,也无法算出translateY和bottom
+                    // 此处再次验证之前一个元素是否为resolve
+                    if (i > 0) {
+                        var prevItemPosData = _this3.getItemPositionData(ds[i - 1]);
+                        if (!prevItemPosData._resolved) {
+                            _this3.setItemPositionData(renderedItem, { _resolved: false });
+                        }
+                    }
+                    // 第一个item,直接设置_translateY为0
+                    if (i === 0) {
+                        _this3.setItemPositionData(renderedItem, { _translateY: 0 });
+                    }
+                    // 之后的所有item,如果有height,设置它们的_translateY为前一个元素的bottom
+                    // 设置它们的bottom为_translateY+height
+                    if (itemPosData._resolved && !itemPosData._bottom) {
+                        var _translateY = i === 0 ? 0 : _this3.getItemPositionData(ds[i - 1])._bottom;
+                        var _bottom = _translateY + itemPosData.height;
+                        _this3.setItemPositionData(renderedItem, {
+                            _translateY: _translateY,
+                            _bottom: _bottom
+                        });
+                    } else if (!itemPosData._resolved) {
+                        // 不定高的情况
+                        if (i > 0) {
+                            var _prevItemPosData = _this3.getItemPositionData(ds[i - 1]);
+                            if (_prevItemPosData._bottom) {
+                                _this3.setItemPositionData(renderedItem, { _translateY: _prevItemPosData._bottom });
+                            }
+                        }
+                    }
+                }
+
+                return renderedItem;
+            });
+        }
+
+        /**
+         * @param i
+         * @param borderY
+         * @param dataSource
+         * @returns {boolean}
+         * 根据offsetY计算出刚好跨过offsetY的元素(top在y之上,bottom在y之下),或者是一个没有完成定位的元素
+         */
+
+    }, {
+        key: 'isBorderItem',
+        value: function isBorderItem(i, borderY) {
+            var dataSource = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.dataSource;
+
+            var itemPosData = this.getItemPositionData(dataSource[i]);
+            return itemPosData._resolved && itemPosData._bottom >= borderY && itemPosData._translateY <= borderY || !itemPosData._resolved;
+        }
+
+        /**
+         * @param startY
+         * @param startIndex
+         * @param direction
+         * @param dataSource
+         * @param VISIBLE_SIZE
+         * @returns {Number}
+         * 根据当前滚动的方向和y计算出startIndex
+         * 缓存了当前的startIndex,这样可以将查找的开销从O(n)降低到O(1),在处理大列表的时候可以提升性能
+         */
+
+    }, {
+        key: 'getStartItemIndex',
+        value: function getStartItemIndex(startY) {
+            var sIndex = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.startIndex;
+            var direction = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.direction;
+            var dataSource = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : this.dataSource;
+            var VISIBLE_SIZE = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : this.VISIBLE_SIZE;
+
+            var len = dataSource.length;
+            var startIndex = sIndex;
+            // 从保存的startIndex开始循环,根据当前滚动的方向的不同,i相应增加/减少
+            // 这样可以将查找的时间复杂度从线性降低到常量
+            if (direction === 'down' || startIndex === 0) {
+                for (var i = startIndex; i < len; i++) {
+                    if (this.isBorderItem(i, startY)) {
+                        startIndex = i;
+                        break;
+                    }
+                }
+            } else {
+                for (var _i = startIndex; _i >= 0; _i--) {
+                    if (this.isBorderItem(_i, startY)) {
+                        startIndex = _i;
+                        break;
+                    }
+                }
+            }
+
+            if (startIndex > dataSource.length - VISIBLE_SIZE) {
+                startIndex = dataSource.length - VISIBLE_SIZE > 0 ? dataSource.length - VISIBLE_SIZE : 0;
+            }
+
+            return startIndex;
+        }
+
+        /**
+         * @param startIndex
+         * @param dataSource
+         * @param VISIBLE_SIZE
+         * @returns {Number}
+         * 根据startIndex算出endIndex
+         */
+
+    }, {
+        key: 'getEndItemIndex',
+        value: function getEndItemIndex(startIndex) {
+            var dataSource = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.dataSource;
+            var VISIBLE_SIZE = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.VISIBLE_SIZE;
+
+            return startIndex + VISIBLE_SIZE > dataSource.length ? dataSource.length : startIndex + VISIBLE_SIZE;
+        }
+
+        /**
+         * @param offsetY
+         * @param sIndex
+         * @param dataSource
+         * @param VISIBLE_SIZE
+         * @returns {Array}
+         * 根据offsetY算出visibleList
+         */
+
+    }, {
+        key: 'getVisibleList',
+        value: function getVisibleList() {
+            var offsetY = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.offsetY;
+            var sIndex = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+            var dataSource = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.dataSource;
+
+            offsetY = offsetY - this.staticSectionHeight;
+            var ret = null;
+
+            if (this.infinite) {
+                var startY = offsetY - this.WINDOW_HEIGHT / 5;
+                startY = startY > 0 ? startY : 0;
+                var startIndex = sIndex === null ? this.getStartItemIndex(startY) : sIndex,
+                    endIndex = this.getEndItemIndex(startIndex);
+
+                ret = [];
+                for (var i = startIndex; i < endIndex; i++) {
+                    var item = this.dataSource[i];
+                    ret.push((0, _assign2.default)({}, item, this.getItemPositionData(item)));
+                }
+                this.startIndex = startIndex;
+            } else {
+                ret = dataSource.slice();
+            }
+
+            return ret;
+        }
+
+        /**
+         * @param dataSource
+         * @returns {Object}
+         * 获取数据源中第一个还没有resolve的元素
+         */
+
+    }, {
+        key: 'getFirstNotResolvedItemIndex',
+        value: function getFirstNotResolvedItemIndex() {
+            var _this4 = this;
+
+            var dataSource = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.dataSource;
+
+            return dataSource.findIndex(function (ditem, i) {
+                if (i > 0) {
+                    var itemPosData = _this4.getItemPositionData(ditem);
+                    var prevItemPosData = _this4.getItemPositionData(dataSource[i - 1]);
+                    return !itemPosData._resolved && prevItemPosData._resolved;
+                }
+                return false;
+            });
+        }
+
+        /**
+         * @param key
+         * @param dataSource
+         * @returns {Number}
+         * 根据key返回一个数据源中的元素
+         */
+
+    }, {
+        key: 'getItemIndexByKey',
+        value: function getItemIndexByKey(key) {
+            var dataSource = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.dataSource;
+
+            return dataSource.findIndex(function (item) {
+                return item.key === key;
+            });
+        }
+
+        /**
+         * @param notResolvedItemIndex
+         * @param dataSource
+         * 更新一个未定位元素的_translateY,它是前一个元素的_bottom
+         */
+
+    }, {
+        key: 'updateTranslateY',
+        value: function updateTranslateY(notResolvedItemIndex) {
+            var dataSource = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.dataSource;
+
+            var notResolvedItem = dataSource[notResolvedItemIndex];
+
+            if (notResolvedItem) {
+                var prevItemIndex = notResolvedItemIndex - 1;
+                var prevItem = dataSource[prevItemIndex];
+                var prevItemPosData = this.getItemPositionData(prevItem);
+
+                if (prevItemPosData && prevItemPosData._resolved) {
+                    this.setItemPositionData(notResolvedItem, { _translateY: prevItemPosData._bottom });
+                    // 同时也需要更新visibleList里面对应item的定位信息
+                    var visibleListItemToBeUpdated = this.visibleList.find(function (item) {
+                        return item.key === notResolvedItem.key;
+                    });
+                    if (visibleListItemToBeUpdated) {
+                        (0, _assign2.default)(visibleListItemToBeUpdated, this.getItemPositionData(notResolvedItem));
+                    }
+                }
+            }
+        }
+
+        /**
+         * @param key
+         * @param height
+         * @param dataSource
+         * @returns {ListCore}
+         * 不定高模式的核心逻辑,定位一个尚未定位的列表项
+         * 在列表项的componentDidUpdate和Mount中被调用,传入已经渲染好的列表项的dom高度,然后更新数据源中对应元素的高度并计算它的定位
+         * 在该元素完成定位后,渲染下一个未被定位的列表项,并重复以上逻辑,直到visibleList中所有的项都完成定位
+         */
+
+    }, {
+        key: 'resolveItem',
+        value: function resolveItem(key, height) {
+            var dataSource = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.dataSource;
+
+            var targetIndex = this.getItemIndexByKey(key);
+            var targetItem = this.dataSource[targetIndex];
+            var _translateY = void 0;
+
+            if (targetIndex > 0) {
+                var prevItemPosData = this.getItemPositionData(dataSource[targetIndex - 1]);
+                _translateY = prevItemPosData._bottom;
+            } else {
+                _translateY = 0;
+            }
+
+            if (_translateY != null) {
+                var _bottom = _translateY + height;
+                var _resolved = true;
+                this.setItemPositionData(targetItem, { _translateY: _translateY, _bottom: _bottom, _resolved: _resolved, height: height });
+                this.visibleList = this.getVisibleList();
+                this.totalHeight += height;
+                this.updateTranslateY(this.getFirstNotResolvedItemIndex());
+                this.emitChange();
+            }
+
+            return this;
+        }
+
+        /**
+         * @param dataSource
+         * @returns {Array}
+         * 计算列表中所有项的高度,用来refresh Scroller
+         */
+
+    }, {
+        key: 'getTotalHeight',
+        value: function getTotalHeight() {
+            var _this5 = this;
+
+            var dataSource = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.dataSource;
+
+            return dataSource.reduce(function (acc, item) {
+                var ret = acc;
+                var itemPosData = _this5.getItemPositionData(item);
+                ret += itemPosData._resolved ? itemPosData.height : 0;
+                return ret;
+            }, 0) + this.staticSectionHeight;
+        }
+
+        /**
+         * @returns {ListCore}
+         * 触发组件change事件,组件收到change事件后会执行setState
+         */
+
+    }, {
+        key: 'emitChange',
+        value: function emitChange() {
+            this.emitEvent('change', this.visibleList, this.totalHeight);
+            return this;
+        }
+    }]);
+    return ListCore;
+}(_ComponentCore3.default), _class.guid = -1, _temp);
+exports.default = ListCore;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/yo-component/list/ListItem.js":
+/*!*******************************************!*\
+  !*** ./src/yo-component/list/ListItem.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = undefined;
+
+var _assign = __webpack_require__(/*! babel-runtime/core-js/object/assign */ "./node_modules/babel-runtime/core-js/object/assign.js");
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ "./node_modules/babel-runtime/core-js/object/get-prototype-of.js");
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ "./node_modules/babel-runtime/helpers/classCallCheck.js");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ "./node_modules/babel-runtime/helpers/createClass.js");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ "./node_modules/babel-runtime/helpers/possibleConstructorReturn.js");
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ "./node_modules/babel-runtime/helpers/inherits.js");
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _class, _temp; /**
+                    * 列表项组件
+                    */
+
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _utils = __webpack_require__(/*! ../common/utils */ "./src/yo-component/common/utils.js");
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _touchable = __webpack_require__(/*! ../touchable/touchable */ "./src/yo-component/touchable/touchable.js");
+
+var _touchable2 = _interopRequireDefault(_touchable);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = (_temp = _class = function (_Component) {
+    (0, _inherits3.default)(_default, _Component);
+
+    /**
+     * key和translateY在shouldComponentUpdate中会被使用
+     * 将会根据nextProps.item中对应的值,来决定是否render
+     * @param props
+     */
+    function _default(props) {
+        (0, _classCallCheck3.default)(this, _default);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (_default.__proto__ || (0, _getPrototypeOf2.default)(_default)).call(this, props));
+
+        _this.key = props.item.key;
+        _this.translateY = props.item._translateY;
+        return _this;
+    }
+
+    (0, _createClass3.default)(_default, [{
+        key: 'getChildContext',
+        value: function getChildContext() {
+            return { offsetY: this.props.item._translateY, itemRef: this };
+        }
+
+        /**
+         * 不定高的核心逻辑,在dom rendered以后更新对应列表项的定位信息,并渲染出下一个未经定位的列表项,直到填满visibleList的size
+         */
+
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            var isHeightFixed = this.props.listModel.isHeightFixed;
+            // 不定高无穷列表的容器是flex-box的话, 浏览器会先渲染dom然后调整高度, 这时候取到的高度不准
+            // setTimeout是无奈之举，确实没有想到更好的办法，因为这个调整高度的时机用js根本无法准确获取
+
+            if (isHeightFixed) {
+                this.updateItemHeightWhenDomRendered();
+            } else {
+                this.domNode.style.visibility = 'hidden';
+                setTimeout(function () {
+                    _this2.updateItemHeightWhenDomRendered();
+                    _this2.domNode.style.visibility = 'visible';
+                }, _utils.DELAY_TIME_FOR_INFINITE_WITHOUT_HEIGHT);
+            }
+        }
+
+        /**
+         * 根据之前的key和_translateY和接收到的props.item中的对应值,决定是否render
+         * 使用者定义的shouldItemUpdate可以接收到shouldComponentUpdate的结果,并返回一个新的结果
+         * @param nextProps
+         * @returns {Bool}
+         */
+
+    }, {
+        key: 'shouldComponentUpdate',
+        value: function shouldComponentUpdate(nextProps) {
+            var listModel = nextProps.listModel,
+                shouldItemUpdate = nextProps.shouldItemUpdate;
+
+            var ret = true;
+            // 当容器内部item的key和translateY发生变化时重新render
+            if (listModel.infinite && this.key === nextProps.item.key && this.translateY === nextProps.item._translateY) {
+                ret = false;
+            }
+
+            this.key = nextProps.item.key;
+            this.translateY = nextProps.item._translateY;
+
+            if (shouldItemUpdate && !ret) {
+                return shouldItemUpdate(nextProps.item.srcData, this.props.item.srcData);
+            }
+            return ret;
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate() {
+            this.updateItemHeightWhenDomRendered();
+        }
+
+        /**
+         * 不定高模式的无穷列表需要在列表项渲染后更新它的位置信息
+         */
+
+    }, {
+        key: 'updateItemHeightWhenDomRendered',
+        value: function updateItemHeightWhenDomRendered() {
+            var _props = this.props,
+                item = _props.item,
+                listModel = _props.listModel,
+                onListItemUpdate = _props.onListItemUpdate;
+
+
+            if (!item._resolved && item._translateY !== undefined && listModel.infinite && !listModel.isHeightFixed) {
+                listModel.resolveItem(item.key, this.domNode.offsetHeight);
+            }
+
+            onListItemUpdate(item.srcData, this.domNode);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this3 = this;
+
+            var _props2 = this.props,
+                renderItem = _props2.renderItem,
+                item = _props2.item,
+                onItemTap = _props2.onItemTap,
+                listModel = _props2.listModel,
+                itemTouchClass = _props2.itemTouchClass,
+                itemExtraClass = _props2.itemExtraClass,
+                onItemTouchStart = _props2.onItemTouchStart;
+
+            var transform = 'translate(0,' + item._translateY + 'px) translateZ(0px)';
+            var infiniteStyle = {
+                WebkitTransform: transform,
+                transform: transform,
+                height: item.height,
+                position: 'absolute',
+                top: 0
+            };
+            var basicProps = {
+                ref: function ref(dom) {
+                    _this3.domNode = dom;
+                },
+                style: listModel.infinite ? infiniteStyle : null
+            };
+            var additionalProps = {
+                className: (0, _classnames2.default)(item._type !== 'groupTitle' ? 'item' : 'group-title label', itemExtraClass(item.srcData, item._index))
+            };
+
+            return _react2.default.createElement(
+                _touchable2.default,
+                {
+                    internalUse: true,
+                    onTap: onItemTap,
+                    touchClass: itemTouchClass(item.srcData, item._index),
+                    onTouchStart: function onTouchStart(evt) {
+                        onItemTouchStart(item.srcData, item._index, evt);
+                    }
+                },
+                _react2.default.createElement(
+                    'li',
+                    (0, _assign2.default)({}, basicProps, additionalProps),
+                    renderItem(item.srcData, item._index)
+                )
+            );
+        }
+    }]);
+    return _default;
+}(_react.Component), _class.propTypes = {
+    item: _propTypes2.default.object,
+    listModel: _propTypes2.default.object,
+    itemTouchClass: _propTypes2.default.func,
+    itemExtraClass: _propTypes2.default.func,
+    scroller: _propTypes2.default.object,
+    onItemTouchStart: _propTypes2.default.func,
+    renderItem: _propTypes2.default.func,
+    onItemTap: _propTypes2.default.func,
+    onListItemUpdate: _propTypes2.default.func
+}, _class.childContextTypes = {
+    offsetY: _propTypes2.default.number,
+    itemRef: _propTypes2.default.object
+}, _class.defaultProps = {
+    onListItemUpdate: function onListItemUpdate() {}
+}, _temp);
+
+exports.default = _default;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/yo-component/list/index.js":
+/*!****************************************!*\
+  !*** ./src/yo-component/list/index.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+__webpack_require__(/*! ./style.scss */ "./src/yo-component/list/style.scss");
+
+var _list = __webpack_require__(/*! ./list */ "./src/yo-component/list/list.js");
+
+var _list2 = _interopRequireDefault(_list);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _list2.default;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/yo-component/list/list.js":
+/*!***************************************!*\
+  !*** ./src/yo-component/list/list.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = undefined;
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ "./node_modules/babel-runtime/core-js/object/get-prototype-of.js");
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ "./node_modules/babel-runtime/helpers/classCallCheck.js");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ "./node_modules/babel-runtime/helpers/createClass.js");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ "./node_modules/babel-runtime/helpers/possibleConstructorReturn.js");
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ "./node_modules/babel-runtime/helpers/inherits.js");
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _class, _temp; /**
+                    * @component List
+                    * @version 3.0.0
+                    * @description 列表组件，继承了Scroller的特性，有下拉刷新和加载更多功能。
+                    *
+                    * 除此之外，List优化了长列表的性能，在数据源较大时能够提升滚动的性能并避免内存溢出。
+                    *
+                    * 使用列表组件实现的组件：GroupList、Calendar、SwipeMenuList。
+                    *
+                    * 特别感谢大明哥(leeds.li)和她的不定高无穷列表的实现思路。
+                    * @author jiao.shen
+                    * @instructions {instruInfo: ./list/list.md}{instruUrl: list/infinite_mode_with_height.html?hideIcon}
+                    * @instructions {instruInfo: ./list/example.md}{instruUrl: list/base.html?hideIcon}
+                    * @instructions {instruInfo: ./list/modify_height.md}{instruUrl: list/modify_height.html?hideIcon}
+                    * @instructions {instruInfo: ./list/static_section.md}{instruUrl: list/static_section.html?hideIcon}
+                    */
+
+
+var _ListCore = __webpack_require__(/*! ./ListCore */ "./src/yo-component/list/ListCore.js");
+
+var _ListCore2 = _interopRequireDefault(_ListCore);
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _scroller = __webpack_require__(/*! ../scroller/scroller */ "./src/yo-component/scroller/scroller.js");
+
+var _scroller2 = _interopRequireDefault(_scroller);
+
+var _ListItem = __webpack_require__(/*! ./ListItem */ "./src/yo-component/list/ListItem.js");
+
+var _ListItem2 = _interopRequireDefault(_ListItem);
+
+var _lazyimage = __webpack_require__(/*! ../lazyimage */ "./src/yo-component/lazyimage/index.js");
+
+var _lazyimage2 = _interopRequireDefault(_lazyimage);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _utils = __webpack_require__(/*! ../common/utils */ "./src/yo-component/common/utils.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var defaultProps = {
+    infinite: false,
+    offsetY: 0,
+    infiniteSize: 12,
+    itemTouchClass: 'item-touch',
+    onScroll: function onScroll() {},
+    onInfiniteAppend: function onInfiniteAppend() {},
+    renderItem: function renderItem(item) {
+        return typeof item.get === 'function' ? item.get('text') : item.text;
+    },
+
+    extraClass: '',
+    containerExtraClass: '',
+    groupTitleExtraClass: '',
+    usePullRefresh: false,
+    onRefresh: function onRefresh() {},
+
+    useLoadMore: false,
+    onLoad: function onLoad() {},
+    onItemTap: function onItemTap() {},
+
+    shouldItemUpdate: null,
+    itemExtraClass: function itemExtraClass() {
+        return '';
+    },
+    onItemTouchStart: function onItemTouchStart() {},
+
+    disabled: false,
+    directionLockThreshold: 50,
+    style: null,
+    scrollWithoutTouchStart: true,
+    staticSection: null,
+    staticSectionHeight: null,
+    deceleration: 0.0015,
+    stickyOffset: 0
+};
+
+var propTypes = {
+    /**
+     * @property dataSource
+     * @type Array/Immutable List
+     * @default none
+     * @description 组件的数据源，数组或者Immutable List类型，内部元素必须是对象或者Immutable Map。
+     * 如果需要给无穷列表的项定高度，可以给元素添加height属性(数字类型)，
+     * 也可以通过itemHeight属性统一设置列表项的高度(见itemHeight属性的描述)，
+     * 如果列表元素有text属性且没有传入renderItem，会直接以text的值作为listitem的内容渲染。
+     */
+    dataSource: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.shape({
+        height: _propTypes2.default.number,
+        text: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+        key: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string])
+    })), _propTypes2.default.object]).isRequired,
+    /**
+     * @property renderItem
+     * @type Function
+     * @default (item)=>item.text
+     * @description 定制如何根据列表项数据对象渲染列表项的函数，接收参数item(数据对象)和index(在数据源中的index)，返回一个JSX。
+     * 如果传入字符串，则会应用于所有列表项。
+     *
+     * 例子:`` renderItem={(item)=><p>{item.someAttr}</p>} ``
+     */
+    renderItem: _propTypes2.default.func,
+    /**
+     * @property onItemTap
+     * @type Function
+     * @default null
+     * @param {Object} item 列表项对应的数据对象
+     * @param {Number} index 列表项在数据源中的index
+     * @param {DOMElement} target 当前tap事件的target
+     * @description 点击列表项时的事件回调，接收三个参数item(列表项对应的数据对象)，index(列表项在数据源中的index)以及target(当前事件的event.target)，
+     *
+     * List实现了独特的手势系统以达到iOS列表的手势效果，任何情况下都应该使用这个属性为ListItem绑定事件，而不是给ListItem中的节点绑定onTouchTap事件。
+     */
+    onItemTap: _propTypes2.default.func,
+    /**
+     * @property infinite
+     * @type Bool
+     * @default false
+     * @description 是否使用无穷列表模式。
+     *
+     * 开启无穷列表模式后，列表中只会保留infiniteSize个节点，并随着滚动复用这些节点，以此来优化大列表的性能，但是滚动过程中会有性能损耗。
+     * 如果你的列表项数量不大(比如只有几十个)，请不要开启无穷模式。
+     */
+    infinite: _propTypes2.default.bool,
+    /**
+     * @property infiniteSize
+     * @type Number
+     * @default 12
+     * @description 无穷列表模式下，保留在列表容器中列表项的个数(参见无穷列表模式的说明).
+     *
+     * 注意:这个值应该随着列表容器的高度和列表项高度选取一个合适的值，否则可能出现列表容器底部出现空白的情况。
+     * 如果这个值设置的过大，会降低列表的滚动性能，因此请根据实际情况(List容器的高度和列表项的高度)灵活配置。
+     */
+    infiniteSize: _propTypes2.default.number,
+    /**
+     * @property itemHeight
+     * @type Number
+     * @default null
+     * @description 无穷列表中列表项的高度。
+     *
+     * 如果数据源中的对象没有height属性，也没有设置itemHeight，则会使用不定高的无穷列表模式。
+     * 在不定高模式下，每个项的高度会在渲染进容器以后确定，因此比定高模式多一次offsetHeight的查询，性能会差一些。
+     */
+    itemHeight: _propTypes2.default.number,
+    /**
+     * @property offsetY
+     * @type Number
+     * @default 0
+     * @description 组件的初始位置的Y坐标。
+     */
+    offsetY: _propTypes2.default.number,
+    /**
+     * 内容底部留白
+     *
+     * @property contentInset
+     * @type Number
+     * @description 内容区域周围的留白，**目前仅支持 bottom**。主要用于适配 iPhoneX，在下方留出一定间隙。有『加载更多』时，显示在『加载更多』的下方。可以通过设置背景色来改变留白的颜色。
+     * @default {bottom:0}
+     * @version 3.0.13
+     */
+    contentInset: _propTypes2.default.shape({
+        bottom: _propTypes2.default.number
+    }),
+    /**
+     * @property itemExtraClass
+     * @type String/Function
+     * @default "item item-wrap"
+     * @param {Object} item 列表项对应的数据对象
+     * @param {Number} index 列表项在数据源中的index
+     * 可以接受字符串形式。例如"custom-list-item"（会自动应用在所有列表项容器上）
+     * 或者一个函数，这个函数接受参数item（列表项对应的dataSource中的数据对象），index（数据源index）
+     *
+     * 例:(item)=>{return item.customClassName}/'custom-item-classname'。
+     * @description 给列表项容器元素添加的class
+     */
+    itemExtraClass: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.func]),
+    /**
+     * @skip
+     * 给grouptitle定制的属性,不会向外暴露。
+     */
+    groupTitleExtraClass: _propTypes2.default.string,
+    /**
+     * @property itemTouchClass
+     * @type String/Function
+     * @default item-touch
+     * @param {Object} item 列表项对应的数据对象
+     * @param {Number} index 列表项在数据源中的index
+     * @description 列表项被点击时的className，可以接收字符串或者函数，使用方式与itemExtraClass一致。
+     */
+    itemTouchClass: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.func]),
+    /**
+     * @property onScroll
+     * @type Function
+     * @default null
+     * @param {Number} y 当前列表的y轴偏移
+     * @param {Enum {'up','down'}} direction 列表滚动的方向,向上('up')或者向下('down')
+     * @description 绑定给list内部scroller的onScroll回调,在列表滚动时触发。
+     */
+    onScroll: _propTypes2.default.func,
+    /**
+     * @property style
+     * @type Object
+     * @default null
+     * @description 给List容器节点绑定的额外样式。
+     * @version 3.0.2
+     */
+    style: _propTypes2.default.object,
+    /**
+     * @property onInfiniteAppend
+     * @type Function
+     * @default null
+     * @param {Array} visibleList 当前渲染在列表容器中的数据项数组
+     * @description 无穷列表中列表项update时触发的事件回调，接收参数visibleList(数组)，为目前渲染在列表容器中的数据项。
+     */
+    onInfiniteAppend: _propTypes2.default.func,
+    /**
+     * @property staticSection
+     * @type Element
+     * @default null
+     * @version 3.0.3
+     * @description 在所有列表项之上渲染的一块静态区域，在开启Infinite模式时，这块区域不会参与列表项的回收复用。
+     */
+    staticSection: _propTypes2.default.element,
+    /**
+     * @property extraClass
+     * @type String
+     * @default null
+     * @description 组件容器元素的额外className。
+     */
+    extraClass: _propTypes2.default.string,
+    /**
+     * @property containerExtraClass
+     * @type String
+     * @default null
+     * @description 列表容器元素额外的className(对应ul.yo-list节点)。
+     */
+    containerExtraClass: _propTypes2.default.string,
+    /**
+     * @property usePullRefresh
+     * @type Bool
+     * @default false
+     * @description 是否使用下拉刷新，见Scroller同名属性。
+     */
+    usePullRefresh: _propTypes2.default.bool,
+    /**
+     * 下拉刷新高度
+     *
+     * @property pullRefreshHeight
+     * @type Number
+     * @description 触发下拉刷新状态的高度（一般即为下拉刷新提示区域的高度）。
+     * @default 40
+     */
+    pullRefreshHeight: _propTypes2.default.number,
+    /**
+     * 下拉刷新渲染函数
+     *
+     * @property renderPullRefresh
+     * @type Function
+     * @returns {JSX} 用来渲染 pullRefresh 的 JSX
+     * @description () => JSX
+     *
+     * 自定义的下拉刷新渲染函数。
+     */
+    renderPullRefresh: _propTypes2.default.func,
+    /**
+     * @property onRefresh
+     * @type Function
+     * @param {Array} dataSource 当前的数据源
+     * @default null
+     * @description 下拉刷新触发的事件回调。
+     */
+    onRefresh: _propTypes2.default.func,
+    /**
+     * @property useLoadMore
+     * @type Bool
+     * @default false
+     * @description 是否开启加载更多，见Scroller同名属性。
+     */
+    useLoadMore: _propTypes2.default.bool,
+    /**
+     * 加载更多高度
+     *
+     * @property loadMoreHeight
+     * @type Number
+     * @description 触发加载更多状态的高度（一般即为加载更多提示区域的高度）。
+     * @default 40
+     */
+    loadMoreHeight: _propTypes2.default.number,
+    /**
+     * 加载更多渲染函数
+     *
+     * @property renderLoadMore
+     * @type Function
+     * @returns {JSX} 用来渲染 loadMore 的 JSX
+     * @description () => JSX
+     *
+     * 自定义的加载更多渲染函数。
+     */
+    renderLoadMore: _propTypes2.default.func,
+    /**
+     * @property onLoad
+     * @type Function
+     * @param {Array} dataSource 当前数据源
+     * @default null
+     * @description 加载更多时触发的事件回调。
+     */
+    onLoad: _propTypes2.default.func,
+    /**
+     * @property shouldItemUpdate
+     * @type Function
+     * @default null
+     * @param {Object} next 即将传给列表项组件的item对象
+     * @param {Object} now 当前列表项组件对应的item对象
+     * @description 绑定给列表项组件的shouldComponentUpdate，可以避免额外的render，用于提升列表的滚动性能。
+     *
+     * 实验表明，组件的render开销对于某些老式手机(例如三星Note2)是不能忽视的，因此list默认为所有的列表项组件配置了shouldComponentUpdate，会根据
+     * item的_guid属性(List组件自己做的，不需要使用者传入)做比较决定是否需要render，这样可以最小化render的次数。有些情况下，这种比较方式会阻止使用者期待触发的render，导致组件更新行为违反了使用者的意愿，这时候需要通过设置shouldItemUpdate属性改变默认的shouldComponentUpdate的返回值
+     *
+     * shouldItemUpdate能够接受两个参数，next(ListItem组件的下一个props中的item属性)，
+     * now(ListItem当前的props的item属性)。它必须返回一个布尔值，false则会跳过render，true会继续执行render(与shouldComponentUpdate返回值的含义相同)。
+     */
+    shouldItemUpdate: _propTypes2.default.func,
+    /**
+     * @property disabled
+     * @type Bool
+     * @default false
+     * @description 是否禁止滚动，参见Scroller的同名属性。
+     */
+    disabled: _propTypes2.default.bool,
+    /**
+     * @property stickyOffset
+     * @type Number
+     * @default 0
+     * @description 给staticSection内部吸顶容器设置的y轴偏移。
+     * @version 3.0.6
+     */
+    stickyOffset: _propTypes2.default.number,
+    /**
+     * @skip
+     * @property onItemTouchStart
+     * 专门给SwipeMenuList使用的属性，不向外暴露
+     */
+    onItemTouchStart: _propTypes2.default.func,
+    onListItemUpdate: _propTypes2.default.func,
+    /**
+     * 方向锁定阈值
+     *
+     * @property directionLockThreshold
+     * @type Number
+     * @description 只允许单向滚动的时候，会根据这个阈值来判定响应哪个方向上的位移：某一方向位移减去另一个方向位移超过阈值，就会判定为这个方向的滚动。
+     * @default 5
+     * @version 3.0.2
+     */
+    directionLockThreshold: _propTypes2.default.number,
+    /**
+     * @property deceleration
+     * @type Number
+     * @description 滚动视图开始惯性滚动时减速的加速度，默认为0.001。
+     * @version 3.0.6
+     */
+    deceleration: _propTypes2.default.number,
+    /**
+     * @property scrollWithoutTouchStart
+     * @type Bool
+     * @default false
+     * @description ** 实验中的属性 **
+     * 在默认情况下一次用户触发（非调用scrollTo方法）scroller的滚动需要由touchstart事件来启动，在某些情况下，例如scroller从disable状态切换到enable状态时，
+     * 可能不能接收到这一瞬间的touchstart事件，这可能导致用户期待的滚动过程没有发生。
+     * 开启这个属性为true以后将允许scroller用touchmove启动滚动过程，这可以解决上述场景的问题。
+     * @version 3.0.2
+     */
+    scrollWithoutTouchStart: _propTypes2.default.bool
+};
+
+var List = (_temp = _class = function (_Component) {
+    (0, _inherits3.default)(List, _Component);
+
+    function List(props) {
+        (0, _classCallCheck3.default)(this, List);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (List.__proto__ || (0, _getPrototypeOf2.default)(List)).call(this, props));
+
+        var dataSource = props.dataSource,
+            offsetY = props.offsetY,
+            itemHeight = props.itemHeight,
+            infinite = props.infinite,
+            infiniteSize = props.infiniteSize;
+
+
+        _this.childLazyImages = [];
+        _this.staticSectionContaienr = null;
+        _this.listModel = new _ListCore2.default({
+            dataSource: dataSource,
+            offsetY: offsetY,
+            infinite: infinite,
+            itemHeight: itemHeight,
+            infiniteSize: infiniteSize
+        });
+        _this.state = {
+            visibleList: _this.listModel.visibleList,
+            totalHeight: _this.listModel.totalHeight
+        };
+        return _this;
+    }
+
+    (0, _createClass3.default)(List, [{
+        key: 'getChildContext',
+        value: function getChildContext() {
+            return { list: this, infinite: this.listModel.infinite };
+        }
+    }, {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            var _this2 = this;
+
+            this.listModel.registerEventHandler('change', function (visibleList, totalHeight) {
+                _this2.setState({ visibleList: visibleList, totalHeight: totalHeight });
+                _this2.props.onInfiniteAppend(visibleList, totalHeight);
+            });
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this3 = this;
+
+            // 在不定高模式下,需要等待所有列表项完成定位才能刷新scroller, didmount的时候虽然dom已经渲染完成
+            // 但是所有列表项做定位尚未完成
+            setTimeout(function () {
+                // 一定要优先刷新staticSectionHeight，否则下面的一系列操作都可能出现不准确的情况
+                _this3.refreshStaticSectionHeight();
+                if (_this3.scroller) {
+                    // 用来标记列表是否在滚动,和手势有关,在gesture.js中可以查到这个属性是如何被使用的
+                    _this3.scroller.isScrolling = false;
+                }
+                // 刷新scroller,因为infinite不定高模式的totalHeight要等到item渲染完毕才能计算出来
+                if (_this3.listModel.infinite && _this3.scroller) {
+                    _this3.scroller.refresh({ scrollerHeight: _this3.listModel.totalHeight }, true);
+                }
+                // 如果设置了offsetY,滚动到offsetY
+                var offsetY = _this3.props.offsetY;
+
+                if (offsetY !== 0) {
+                    _this3.scrollTo(offsetY, 0);
+                }
+                // 刷新lazyload图片,不然头几个item的懒加载图片都不会加载
+                // 加setTimeout是为了处理不定高的场景,因为不定高的列表会先把列表项渲染进容器然后再去做定位
+                // 所以didmount时间触发的时候,列表项还没有完成定位
+                _this3.tryLoadLazyImages(offsetY);
+            }, this.listModel.isHeightFixed ? 0 : _utils.DELAY_TIME_FOR_INFINITE_WITHOUT_HEIGHT);
+        }
+
+        /**
+         * @param nextProps
+         * dataSource,infiniteSize是根据初始值计算出来的状态,在这里需要进行reset
+         * 其他属性不需要reset
+         */
+
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            var _this4 = this;
+
+            var dataSource = nextProps.dataSource,
+                infiniteSize = nextProps.infiniteSize,
+                offsetY = nextProps.offsetY;
+
+            this.listModel.refresh({
+                dataSource: dataSource,
+                refreshAll: true,
+                infiniteSize: infiniteSize
+            });
+
+            // 等待dom更新结束后再做以下操作
+            setTimeout(function () {
+                if (_this4.props.offsetY !== offsetY) {
+                    _this4.scrollTo(offsetY, 0);
+                }
+                _this4.refreshStaticSectionHeight();
+                _this4.tryLoadLazyImages(_this4.listModel.offsetY);
+                // 当offsetY位于可滚动范围之外时自动调整
+                if (_this4.scroller && -_this4.scroller.maxScrollY < _this4.listModel.offsetY) {
+                    _this4.scrollTo(_this4.scroller.maxScrollY, 300);
+                }
+            }, 0);
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate() {
+            // infinite模式的lazyload不需要再didupdate时刷新
+            // 因为infinite的节点是复用的,而随着滚动会不定的render,因此会触发大量的didupdate,浪费性能
+            // 所以可以在receiveprops时做刷新,因为节点复用的缘故,不需要等待dom render
+            if (!this.listModel.infinite) {
+                this.tryLoadLazyImages(this.listModel.offsetY);
+            }
+            // infinite模式下，刷新列表的总高度
+            if (this.scroller && this.listModel.infinite) {
+                this.scroller.refresh({ scrollerHeight: this.state.totalHeight }, true);
+            }
+        }
+
+        /**
+         * 绑定给Scoller的ScrollEnd事件回调
+         */
+
+    }, {
+        key: 'onScrollEnd',
+        value: function onScrollEnd() {
+            // 滚动停止后重置isScrolling标志
+            this.scroller.isScrolling = false;
+        }
+
+        /**
+         * @param offsetY
+         * @param manually
+         * 随着Scroller的滚动更新visibleList
+         */
+
+    }, {
+        key: 'onScroll',
+        value: function onScroll(offsetY, manually) {
+            if (this.scroller && offsetY !== this.listModel.offsetY) {
+                if (!manually) {
+                    this.scroller.isScrolling = true;
+                }
+                this.listModel.onScrollTo(offsetY, manually);
+                this.props.onScroll(-offsetY, this.listModel.direction);
+                this.tryLoadLazyImages(offsetY);
+            }
+        }
+
+        /**
+         * @skip
+         * @method refreshStaticSectionHeight
+         * @description 获取staticSectionHeight，然后更新列表的总高度
+         */
+
+    }, {
+        key: 'refreshStaticSectionHeight',
+        value: function refreshStaticSectionHeight() {
+            if (this.staticSectionContaienr != null) {
+                this.listModel.staticSectionHeight = this.staticSectionContaienr.offsetHeight;
+                this.listModel.totalHeight = this.listModel.getTotalHeight();
+                // 获取到最新的totalHeight之后需要刷新一下
+                if (this.scroller && this.listModel.infinite) {
+                    this.scroller.refresh({ scrollerHeight: this.listModel.totalHeight }, true);
+                }
+            }
+        }
+
+        /**
+         * @method refresh
+         * @description 刷新列表,应该在列表容器高度发生改变时调用
+         */
+
+    }, {
+        key: 'refresh',
+        value: function refresh() {
+            this.scroller.refresh(this.props.infinite ? { scrollerHeight: this.state.totalHeight } : {});
+        }
+
+        /**
+         * @method resetLoadStatus
+         * @param {Bool} hasLoadMore 是否能够加载更多，如果传入false，加载更多区域的文字将会变成 没有更多了，并且继续向下滚动时不会触发onLoadMore。
+         * @description 重置加载更多功能。
+         * @version 3.0.7
+         */
+
+    }, {
+        key: 'resetLoadStatus',
+        value: function resetLoadStatus(hasLoadMore) {
+            this.scroller.resetLoadStatus(hasLoadMore);
+        }
+
+        /**
+         * @method stopRefreshing
+         * @param {Bool} [successed]  下拉刷新是否成功,默认为false
+         * @description 中止下拉刷新过程。在列表发生下拉刷新之后你应该调用这个方法去中止它(比如服务器响应已经返回的时候),否则刷新不会自动终止。
+         */
+
+    }, {
+        key: 'stopRefreshing',
+        value: function stopRefreshing(successed) {
+            if (this.scroller) {
+                this.scroller.stopRefreshing(successed);
+            }
+        }
+
+        /**
+         * @method stopLoading
+         * @param {Bool} [successed]  加载更多是否成功,默认为false
+         * @description 中止加载更多过程,使用方式和场景与stopRefreshing一致。
+         */
+
+    }, {
+        key: 'stopLoading',
+        value: function stopLoading(successed) {
+            if (this.scroller) {
+                this.scroller.stopLoading(successed);
+            }
+        }
+
+        /**
+         * @method startRefreshing
+         * @description 模拟下拉刷新,调用这个方法后,会立刻停止当前的滚动并回到列表顶部,然后开始下拉刷新过程。
+         *
+         * 注意:你仍然需要手动调用stopRefreshing方法
+         */
+
+    }, {
+        key: 'startRefreshing',
+        value: function startRefreshing() {
+            if (this.scroller.isScrolling) {
+                this.scroller.stopAnimate();
+                this.scroller.isScrolling = false;
+            }
+
+            if (this.listModel.infinite) {
+                this.scroller.startRefreshing(0);
+                this.onScroll(0, true);
+            } else {
+                this.scroller.startRefreshing();
+            }
+        }
+
+        /**
+         * 尝试加载处于可视区域内的lazyimage
+         * @param y
+         */
+
+    }, {
+        key: 'tryLoadLazyImages',
+        value: function tryLoadLazyImages(y) {
+            var _this5 = this;
+
+            y = y - this.listModel.staticSectionHeight;
+            if (this.childLazyImages.length && this.scroller) {
+                this.childLazyImages.forEach(function (img) {
+                    return _this5.loadImage(img, y);
+                });
+            }
+        }
+
+        /**
+         * @skip
+         * @method loadImage
+         * @param img LazyImage 实例
+         * @description 判断并决定是否加载 LazyImage
+         */
+
+    }, {
+        key: 'loadImage',
+        value: function loadImage(img, y) {
+            if (this.scroller) {
+                if (y === undefined) y = this.listModel.offsetY;
+                var containerBottomY = y + this.scroller.wrapperHeight;
+                if (this.listModel.infinite) {
+                    if (containerBottomY > img.itemRef.translateY) {
+                        img.load();
+                    }
+                } else if (img.loading !== 2) {
+                    var listItemDom = img.itemRef.domNode;
+                    var offsetTop = listItemDom.offsetTop;
+                    if (listItemDom && containerBottomY > offsetTop) {
+                        img.load();
+                    }
+                }
+            }
+        }
+
+        /**
+         * @method scrollTo
+         * @param {Number} y 要滚动到的目标y坐标
+         * @param {Number} [time] 动画时间,默认为0。
+         * (在开启了无穷模式的情况下,为了提高滚动的性能,不管time传入什么值都会被重设为0.因为快速滚过很长的距离在无穷模式下会带来巨大的性能损耗)
+         * @description 让List滚动到某个位置
+         */
+
+    }, {
+        key: 'scrollTo',
+        value: function scrollTo() {
+            var offsetY = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+            var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+            if (this.scroller) {
+                // 考虑到infinite的渲染机制,滚动一个过长的距离会触发大量的dom更新,性能会很差
+                // 因此当当前offetY大于一定数值时就将time设为0,2000是个magic number,凭感觉设的
+                var aniDuration = this.listModel.infinite ? 0 : time;
+                this.scroller.scrollTo(0, offsetY, aniDuration);
+                this.onScroll(-offsetY, true);
+            }
+        }
+
+        /**
+         * @method stopAnimate
+         * @description 立刻停止滚动。
+         */
+
+    }, {
+        key: 'stopAnimate',
+        value: function stopAnimate() {
+            if (this.scroller) {
+                this.scroller.stopAnimate();
+            }
+        }
+
+        /**
+         * @param item
+         * @param i
+         * @returns {JSX}
+         * 渲染列表项容器
+         */
+
+    }, {
+        key: 'renderItemWrap',
+        value: function renderItemWrap(item, i) {
+            var _props = this.props,
+                _onItemTap = _props.onItemTap,
+                renderItem = _props.renderItem,
+                onListItemUpdate = _props.onListItemUpdate,
+                groupTitleExtraClass = _props.groupTitleExtraClass,
+                shouldItemUpdate = _props.shouldItemUpdate,
+                onItemTouchStart = _props.onItemTouchStart;
+            var _props2 = this.props,
+                itemTouchClass = _props2.itemTouchClass,
+                itemExtraClass = _props2.itemExtraClass;
+
+            var realActiveClass = itemTouchClass,
+                realExtraClass = itemExtraClass;
+            // 由于itemExtraClass可以传入string或者函数,这里统一为函数
+            // 做法是将string转换成一个返回该string的id函数
+            if (typeof itemExtraClass === 'string' || itemExtraClass === null) {
+                realExtraClass = function realExtraClass() {
+                    return itemExtraClass;
+                };
+            }
+            // the same
+            if (typeof itemTouchClass === 'string' || itemTouchClass === null) {
+                realActiveClass = function realActiveClass() {
+                    return itemTouchClass;
+                };
+            }
+
+            return _react2.default.createElement(_ListItem2.default, {
+                parent: this,
+                itemTouchClass: realActiveClass,
+                key: this.listModel.infinite ? i : item.key,
+                renderItem: renderItem,
+                onItemTap: function onItemTap(target) {
+                    _onItemTap(item.srcData, item._index, target);
+                },
+                shouldItemUpdate: shouldItemUpdate,
+                onItemTouchStart: onItemTouchStart,
+                item: item,
+                itemExtraClass: realExtraClass,
+                groupTitleExtraClass: groupTitleExtraClass,
+                listModel: this.listModel,
+                onListItemUpdate: onListItemUpdate
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this6 = this;
+
+            var _props3 = this.props,
+                containerExtraClass = _props3.containerExtraClass,
+                infiniteSize = _props3.infiniteSize,
+                _onRefresh = _props3.onRefresh,
+                _onLoad = _props3.onLoad;
+            var infinite = this.listModel.infinite;
+
+            var containerClass = (0, _classnames2.default)('yo-list', containerExtraClass, infinite ? 'yo-list-infinite' : '');
+            var visibleList = this.state.visibleList;
+
+
+            return _react2.default.createElement(
+                _scroller2.default,
+                (0, _extends3.default)({}, (0, _utils.inheritProps)(this.props, ['scrollWithoutTouchStart', 'style', 'directionLockThreshold', 'disabled', 'extraClass', 'pullRefreshHeight', 'renderPullRefresh', 'loadMoreHeight', 'renderLoadMore', 'useLoadMore', 'usePullRefresh', 'deceleration', 'stickyOffset', 'onScrollStart', 'contentInset']), {
+                    tap: true,
+                    autoRefresh: !infinite,
+                    ref: function ref(scroller) {
+                        if (scroller) {
+                            _this6.scroller = scroller;
+                        }
+                    },
+                    onScroll: function onScroll(evt) {
+                        return _this6.onScroll(-evt.contentOffset.y);
+                    },
+                    onScrollEnd: function onScrollEnd() {
+                        return _this6.onScrollEnd();
+                    },
+                    onRefresh: function onRefresh() {
+                        _onRefresh(_this6.listModel.dataSource);
+                    },
+                    onLoad: function onLoad() {
+                        _onLoad(_this6.listModel.dataSource);
+                    },
+                    enableLazyLoad: false
+                }),
+                this.props.staticSection != null ? _react2.default.createElement(
+                    'div',
+                    {
+                        ref: function ref(dom) {
+                            if (dom) {
+                                _this6.staticSectionContaienr = dom;
+                            }
+                        },
+                        className: 'yo-list-static-section'
+                    },
+                    this.props.staticSection
+                ) : null,
+                _react2.default.createElement(
+                    'ul',
+                    {
+                        className: containerClass,
+                        ref: function ref(dom) {
+                            _this6.listContainer = dom;
+                        }
+                    },
+                    infinite ? // 无穷列表模式,在列表容器内设置固定数目的槽,随着滚动不停更新这些槽内部的内容和translateY
+                    (0, _utils.getArrayByLength)(infiniteSize).fill(1).map(function (__, i) {
+                        var item = visibleList.find(function (it) {
+                            return it._order === i;
+                        });
+                        return item ? _this6.renderItemWrap(item, i) : null;
+                    }) : // 静态列表,渲染出所有的item
+                    visibleList.map(function (item, i) {
+                        return _this6.renderItemWrap(item, i);
+                    })
+                )
+            );
+        }
+    }]);
+    return List;
+}(_react.Component), _class.INFINITE_SCROLLTO_WITH_ANIMATION_DISTANCE = 2000, _class.childContextTypes = {
+    list: _propTypes2.default.object,
+    infinite: _propTypes2.default.bool
+}, _temp);
+exports.default = List;
+
+
+List.defaultProps = defaultProps;
+List.propTypes = propTypes;
+List.LazyImage = _lazyimage2.default;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/yo-component/list/style.scss":
+/*!******************************************!*\
+  !*** ./src/yo-component/list/style.scss ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "@charset \"UTF-8\";\n/**\r\n * Yo框架全局base定义\r\n * 本文件与variables不同地方在于，这里所定义的map可以使用在variables和任何地方\r\n * lib中map使用“_”开头，本文件中不使用\"_\"\r\n * base ⇌ extra\r\n */\n/**\r\n * Yo框架全局base定义\r\n * 本文件与variables不同地方在于，这里所定义的map可以使用在variables和任何地方\r\n * 本文件中map使用\"_\"开头，extra中不使用\"_\"\r\n * base ⇌ extra\r\n */\n/**\r\n * 合并base和extra中的同类base map\r\n * 用以解决业务方升级Yo时需比base和extra的一致性\r\n * 当extra为空时，base map将以base文件里的定义作为默认值\r\n * 当extra不为空时，base map使用extra文件里的定义\r\n */\n/**\n * Yo框架全局Variables\n * Yo基础变量map，如果不想定义某属性，将其value设置为null；\n * Yo仅使用2种长度单位：px用于边框，rem用于除边框之外的所有地方\n * variables中map使用“_”开头，本文件中不使用\"_\"\n * variables ⇌ config\n */\n/**\r\n * Yo框架全局Variables\r\n * Yo基础变量map，如果不想定义某属性，将其value设置为null\r\n * Yo仅使用2种长度单位：px用于边框，rem用于除边框之外的所有地方\r\n * 本文件中map使用\"_\"开头，config中不使用\"_\"\r\n * variables ⇌ config\r\n */\n/**\r\n * 合并variables和config中的同类map\r\n * 用以解决业务方升级Yo时需比config和variables的一致性\r\n * 当config为空时，使用variables中的map作为默认值\r\n * 当config不为空时，使用config中的定义\r\n */\n/**\r\n * Yo框架自定义全局函数\r\n * 扩充Sass默认函数库，用以增强语法\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的第一项\r\n * @function first\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的最后一项\r\n * @function last\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 返回SassList中的倒数第几项\r\n * @function nth-last\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $index 指定需要返回的值在list中的倒数位置 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 移除SassList中的某个项目并返回新的List\r\n * @function remove\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {String} $value 指定需要被删除的值 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 截取SassList中的某个部分并返回新的List\r\n * @function slice\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $start 指定需要截取的开始下标 <2.1.0>\r\n * @param {Integer} $end 指定需要截取的结束下标（不包括end），当该值缺省时默认为末尾下标 <2.1.0>\r\n */\n/**\r\n * @module List扩展函数\r\n * @description 从SassList中添加/删除项目，然后返回新的List。\r\n * @function splice\r\n * @version 2.1.0\r\n * @param {String} $list 指定一个Sass List <2.1.0>\r\n * @param {Integer} $index 指定需要移除的开始下标 <2.1.0>\r\n * @param {Integer} $count 指定需要移除的数量，不可以为负值，0表示不移除 <2.1.0>\r\n * @param {String} $values 指定需要添加的新值（可以是多个），如果该值缺省，则表示只移除不添加新值 <2.1.0>\r\n */\n/**\r\n * Yo框架全局基础方法\r\n * 包括响应式方案，CSS3兼容性方案，厂商前缀方案，iconfont方案，flex布局等全局方法\r\n */\n/**\r\n * @module 常用方法\r\n * @description 给需要的属性加厂家前缀\r\n * @method prefix\r\n * @version 1.0.0\r\n * @param {String} $property 指定属性 <1.0.0>\r\n * @param {String} $value 指定属性值 <1.0.0>\r\n * @skip\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义字体图标\r\n * @method _iconfont\r\n * @version 1.0.0\r\n * @skip\r\n */\n/**\r\n * @module 常用方法\r\n * @description 四则运算(系统要求：iOS6.0+,Android4.4+)\r\n * @method calc\r\n * @version 1.7.0\r\n * @param {String} $property 指定需要进行计算的CSS属性 <1.7.0>\r\n * @param {String} $value 与原生CSS语法一致，区别在于需要使用引号包裹表达式 <1.7.0>\r\n * @example\r\n * .calc {\r\n *     @include calc(width, \"100% - 100px\");\r\n * }\r\n *\r\n * <div class=\"calc\">四则运算</div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义响应式方案\r\n * @method responsive\r\n * @version 1.0.0\r\n * @param {String} $media 指定媒体查询条件，取值为`config`文件map `media-types`中的值 <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 清除浮动方案\r\n * @method clearfix\r\n * @version 1.0.0\r\n * @param {String} $type 指定清除浮动的方式，包括：pseudo-element | bfc，默认值：pseudo-element <1.8.5>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 清除行内级元素间间隙方案\r\n * @method clearspace\r\n * @version 3.0.3\r\n * @param {Length} $font-size 指定子元素字号，默认值：.14rem <3.0.3>\r\n * @example\r\n * .demo {\r\n *     @include clearspace;\r\n * }\r\n *\r\n * <div class=\"demo\">\r\n *      <span class=\"item\">1</span>\r\n *      <span class=\"item\">2</span>\r\n *      <span class=\"item\">3</span>\r\n * </div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 描述元素内容在横、纵方向上的对齐方式，默认为水平垂直居中对齐\r\n * @method align\r\n * @version 2.0.0\r\n * @param {String} $flexbox 元素布局方式，可选值：flex | inline-flex，默认值：flex <2.0.0>\r\n * @param {Keyword} $justify-content 元素内容的水平对齐方式，取值与`justify-content`属性一致，默认值：center <2.0.0>\r\n * @param {Keyword} $align-items 元素内容的垂直对齐方式，取值与`align-items`属性一致，默认值：center <2.0.0>\r\n * @example\r\n * .demo {\r\n *     @include align;\r\n * }\r\n *\r\n * <div class=\"demo\">\r\n *      <img alt=\"未知尺寸图片居中\" />\r\n * </div>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 定义是否有滚动条\r\n * @method overflow\r\n * @version 1.0.0\r\n * @param {String} $overflow 取值与最新原生语法一致，默认值：auto <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 生成全屏方法\r\n * @method fullscreen\r\n * @version 1.7.0\r\n * @param {Integer} $z-index 指定层叠级别 <1.7.0>\r\n * @param {Keywords} $position 指定定位方式，取除`static | relative`之外的值，默认值：absolute <1.8.5>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义使用何种滤镜\r\n * @method filter\r\n * @version 1.7.0\r\n * @param {String} $filter 取值与`filter`属性一致 <1.7.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义UA默认外观\r\n * @method appearance\r\n * @version 1.0.0\r\n * @param {String} $appearance 取值与`appearance`属性一致，默认值：none <1.0.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义如何选中内容\r\n * @method user-select\r\n * @version 1.0.0\r\n * @param {String} $user-select 取值与`user-select`属性一致，默认值：none <1.0.0>\r\n */\n/**\r\n * @module 用户界面\r\n * @description 定义盒模型\r\n * @method box-sizing\r\n * @version 1.0.0\r\n * @param {String} $box-sizing 指定盒模型类型，取值与`box-sizing`属性一致，默认值：border-box <1.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义渐变色值\r\n * @method gradient\r\n * @version 1.0.0\r\n * @param {String} $type 指定渐变的4种类型：linear, repeating-linear, radial, repeating-radial <1.0.0>\r\n * @param {String} $dir 指定渐变方向，可选值：[left | right] || [top | bottom] | angle <2.0.0>\r\n * @param {String} $gradient 指定渐变取值，与w3c最新原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景图像缩放（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-size\r\n * @version 1.4.0\r\n * @param {Keywords | Length} $background-size 指定背景图缩放值，取值与`background-size`属性一致 <1.4.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景裁减（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-clip\r\n * @version 1.6.0\r\n * @param {Keywords} $background-clip 指定背景图缩放值，取值与`background-clip`属性一致 <1.6.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义背景显示区域（AndroidBrowser2.3.*还需要厂商前缀）\r\n * @method background-origin\r\n * @version 1.6.0\r\n * @param {Keywords} $background-origin 指定背景图`background-position`属性计算相对的参考点，取值与`background-origin`属性一致 <1.6.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 为元素添加边框（包括1px边框）\r\n * @method border\r\n * @version 2.0.0\r\n * @param {String} $border-width 指定边框厚度（单位为px），默认值：1px，取值与`border-width`属性一致，不同方向代表边框位置 <2.0.0>\r\n * @param {String} $border-color 指定边框颜色 <2.0.0>\r\n * @param {String} $border-style 指定边框样式 <2.0.0>\r\n * @param {String} $radius 指定边框圆角半径，默认值：null <2.0.0>\r\n */\n/**\r\n * @module 背景与边框\r\n * @description 定义圆角，用于修复某些安卓机型上“圆角+边框+背景”，背景溢出的情况\r\n * @method border-radius\r\n * @version 1.6.0\r\n * @param {Length} $border-radius 指定元素的圆角半径，取值与`border-radius`属性一致 <1.6.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 定义简单变换\r\n * @method transform\r\n * @version 1.0.0\r\n * @param {String} $transform 取值范围与`transform`属性一致 <1.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 定义变换原点\r\n * @method transform-origin\r\n * @version 1.0.0\r\n * @param {Length | Percentage | Keywords} $transform-origin 取值范围与`transform-origin`属性一致 <1.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定某元素的子元素是（看起来）位于三维空间内，还是在该元素所在的平面内被扁平化\r\n * @method transform-style\r\n * @version 2.0.0\r\n * @param {String} $transform-style 取值范围与`transform-style`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定观察者与「z=0」平面的距离，使具有三维位置变换的元素产生透视效果。「z>0」的三维元素比正常大，而「z<0」时则比正常小，大小程度由该属性的值决定。\r\n * @method perspective\r\n * @version 2.0.0\r\n * @param {none | Length} $perspective 取值范围与`perspective`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定透视点的位置\r\n * @method perspective-origin\r\n * @version 2.0.0\r\n * @param {Length | Percentage | Keywords} $perspective-origin 取值范围与`perspective-origin`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Transform\r\n * @description 指定元素背面面向用户时是否可见\r\n * @method backface-visibility\r\n * @version 2.0.0\r\n * @param {Keywords} $backface-visibility 取值范围与`backface-visibility`属性一致 <2.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 定义动画\r\n * @method animation\r\n * @version 1.0.0\r\n * @param {String} $animation 取值与原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定需要引用的动画名称\r\n * @method animation-name\r\n * @version 3.0.0\r\n * @param {String} $animation-name 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画运行一次所持续的时长\r\n * @method animation-duration\r\n * @version 3.0.0\r\n * @param {String} $animation-duration 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画运行方式\r\n * @method animation-timing-function\r\n * @version 3.0.0\r\n * @param {String} $animation-timing-function 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画延迟多久之后再开始\r\n * @method animation-delay\r\n * @version 3.0.0\r\n * @param {String} $animation-delay 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画循环几次\r\n * @method animation-iteration-count\r\n * @version 3.0.0\r\n * @param {String} $animation-iteration-count 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画的运动方向\r\n * @method animation-direction\r\n * @version 3.0.0\r\n * @param {String} $animation-direction 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画的运动状态\r\n * @method animation-play-state\r\n * @version 3.0.0\r\n * @param {String} $animation-play-state 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Animation\r\n * @description 指定动画时间之外的状态\r\n * @method animation-fill-mode\r\n * @version 3.0.0\r\n * @param {String} $animation-fill-mode 取值与原生语法一致 <3.0.0>\r\n */\n/**\r\n * @module Transition\r\n * @description 定义补间\r\n * @method transition\r\n * @version 1.0.0\r\n * @param {String} $transition 取值与原生语法一致 <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义显示类型为伸缩盒\r\n * @method flexbox\r\n * @version 1.0.0\r\n * @param {String} $flexbox 默认值：flex，可选值：flex | inline-flex <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素如何分配空间\r\n * @method flex\r\n * @version 1.0.0\r\n * @param {Number} $flex 取值与`flex`属性一致，默认值：1 <1.0.0>\r\n * @param {String} $direction 默认值: row，可选值：row | column <1.5.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素的排版顺序\r\n * @method order\r\n * @version 1.0.0\r\n * @param {Integer} $order 取值与`order`属性一致，默认值：1 <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性盒子元素流动方向及遇见边界时是否换行(要求系统：iOS7.0+, Android4.4+)\r\n * @method flex-flow\r\n * @version 2.0.0\r\n * @param {String} $flex-flow 取值与`flex-flow`属性一致，默认值：row nowrap <2.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义伸缩盒子元素的流动方向\r\n * @method flex-direction\r\n * @version 1.0.0\r\n * @param {String} $flex-direction 取值与`flex-direction`属性一致，默认值：row <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性盒子元素溢出后排版(要求系统：iOS7.0+, Android4.4+)\r\n * @method flex-wrap\r\n * @version 1.0.0\r\n * @param {String} $flex-wrap 取值与`flex-wrap`属性一致，默认值：nowrap <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性容器主轴对齐方式(其中`space-around`值需要iOS7.0+,Android4.4+)\r\n * @method justify-content\r\n * @version 1.0.0\r\n * @param {String} $justify-content 取值与`justify-content`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义多行弹性容器侧轴对齐方式(要求系统：iOS7.0+,Android4.4+)\r\n * @method align-content\r\n * @version 1.8.5\r\n * @param {String} $align-content 取值与`align-content`属性一致，默认值：center <1.8.5>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义单行弹性容器侧轴对齐方式\r\n * @method align-items\r\n * @version 1.0.0\r\n * @param {String} $align-items 取值与`align-items`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module Flexbox\r\n * @description 定义弹性容器中子元素自身的在侧轴对齐方式(要求系统：iOS7.0+,Android4.4+)\r\n * @method align-self\r\n * @version 1.0.0\r\n * @param {String} $align-self 取值与`align-self`属性一致，默认值：center <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成矩形方法\r\n * @method rect\r\n * @version 1.0.0\r\n * @param {Length} $width 定义矩形的长度 <1.0.0>\r\n * @param {Length} $height 定义矩形的高度 <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成正方形方法\r\n * @method square\r\n * @version 1.0.0\r\n * @param {Length} $size 定义正方形的边长 <1.0.0>\r\n */\n/**\r\n * @module 形状\r\n * @description 生成圆形方法\r\n * @method circle\r\n * @version 1.0.0\r\n * @param {Length} $size 定义圆的半径长度 <1.0.0>\r\n * @param {Length} $radius 定义圆的圆角半径长度 <1.0.0>\r\n */\n/**\r\n * @module 常用方法\r\n * @description 在自适应宽度情况下，确保内容元素的宽高比固定，比如：实现随屏幕大小而变化的正方形。\r\n * @method fixed-scale\r\n * @version 3.0.10\r\n * @param {Length} $width 默认值：100%。用以指定内容元素的初始宽度，由于尺寸需动态变化，不要使用固定单位 <3.0.10>\r\n * @param {Length} $scale 默认值：1/1，即正方形。用以指定内容元素的宽度高比 <3.0.10>\r\n */\n/**\r\n * @module 文本\r\n * @description 链接处理方法\r\n * @method link\r\n * @version 1.0.0\r\n * @param {Color} $color 定义链接颜色 <1.0.0>\r\n */\n/**\r\n * @module 文本\r\n * @description 文本碰到边界是否换行\r\n * @method wrap\r\n * @version 1.0.0\r\n * @param {Boolean} $is-wrap 定义文本是否换行，默认值：true <2.0.0>\r\n */\n/**\r\n * @module 文本\r\n * @description 单行文本溢出时显示省略号\r\n * @method ellipsis\r\n * @version 1.0.0\r\n * @param {Length} $width 定义容器的宽度，默认值：null <2.0.0>\r\n * @param {Integer} $line-clamp 定义需要显示的行数，默认值：1（即使用单行溢出的处理方案），需要注意的是本参数只支持webkit内核 <2.1.2>\r\n */\n/**\r\n * @module 文本\r\n * @description 文字隐藏方案\r\n * @method texthide\r\n * @version 1.0.0\r\n * @param {Length} $width 定义容器的宽度，默认值：null <2.0.0>\r\n */\n/**\r\n * Yo框架全局Reset\r\n * Yo重置Mobile及高级浏览器上常见的差异\r\n */\n*,\n::before,\n::after {\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }\n\nhtml,\nbody {\n  overflow: hidden;\n  height: 100%; }\n\n::-webkit-scrollbar {\n  display: none; }\n\nhtml {\n  background-color: #eee;\n  color: #212121;\n  font-size: 100px;\n  -webkit-user-select: none;\n  user-select: none; }\n\nbody {\n  margin: 0;\n  font-size: 0.14em;\n  line-height: 1.5;\n  font-family: Helvetica Neue, Helvetica, STHeiTi, sans-serif; }\n\nul,\nol,\ndl,\ndd,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nfigure,\nform,\nfieldset,\nlegend,\ninput,\ntextarea,\nbutton,\np,\nblockquote,\nth,\ntd,\npre,\nxmp {\n  margin: 0;\n  padding: 0; }\n\ninput,\ntextarea,\nbutton,\nselect,\npre,\nxmp,\ntt,\ncode,\nkbd,\nsamp {\n  line-height: inherit;\n  font-family: inherit; }\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nsmall,\nbig,\ninput,\ntextarea,\nbutton,\nselect {\n  font-size: inherit; }\n\naddress,\ncite,\ndfn,\nem,\ni,\noptgroup,\nvar {\n  font-style: normal; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n  table-layout: fixed;\n  text-align: left; }\n\nul,\nol,\nmenu {\n  list-style: none; }\n\nfieldset,\nimg {\n  border: 0;\n  vertical-align: middle; }\n\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nmain,\nmenu,\nnav,\nsection,\nsummary {\n  display: block; }\n\naudio,\ncanvas,\nvideo {\n  display: inline-block; }\n\nblockquote:before,\nblockquote:after,\nq:before,\nq:after {\n  content: \" \"; }\n\ntextarea,\npre,\nxmp {\n  overflow: auto;\n  -webkit-overflow-scrolling: touch; }\n\ntextarea {\n  resize: vertical; }\n\ninput,\ntextarea,\nbutton,\nselect,\nsummary,\na {\n  outline: 0 none; }\n\ninput,\ntextarea,\nbutton,\nselect {\n  color: inherit; }\n  input:disabled,\n  textarea:disabled,\n  button:disabled,\n  select:disabled {\n    opacity: 1; }\n\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  padding: 0;\n  border: 0; }\n\ninput[type=\"button\"],\ninput[type=\"submit\"],\ninput[type=\"reset\"],\ninput[type=\"file\"]::-webkit-file-upload-button,\ninput[type=\"search\"]::-webkit-search-cancel-button {\n  -webkit-appearance: none;\n  appearance: none; }\n\n::-webkit-details-marker {\n  display: none; }\n\nmark {\n  background-color: rgba(0, 0, 0, 0); }\n\na,\nins,\ns,\nu,\ndel {\n  text-decoration: none; }\n\na,\nimg {\n  -webkit-touch-callout: none; }\n\na {\n  color: #00afc7; }\n\n.g-clear::after,\n.g-mod::after {\n  display: block;\n  overflow: hidden;\n  clear: both;\n  height: 0;\n  content: \" \"; }\n\n@font-face {\n  font-family: event_node;\n  src: url(//s.qunarzz.com/event_node/font/0.0.36/event_node.woff) format(\"woff\"), url(//s.qunarzz.com/event_node/font/0.0.36/event_node.ttf) format(\"truetype\"); }\n\n.yo-ico {\n  font-family: event_node !important;\n  font-style: normal;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  vertical-align: middle; }\n\n/**\r\n * Yo框架动画解决方案\r\n * Yo内置了超过60种动画形态，不同的动画可以任意组合\r\n */\n.ani {\n  -webkit-animation-duration: 1s;\n  animation-duration: 1s;\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both; }\n\n.ani.infinite {\n  -webkit-animation-iteration-count: infinite;\n  animation-iteration-count: infinite; }\n\n/**\r\n * @module rotate\r\n * @description 定义旋转动画\r\n * @method rotate\r\n */\n@-webkit-keyframes rotate {\n  from {\n    -webkit-transform: rotatez(0); }\n  to {\n    -webkit-transform: rotatez(360deg); } }\n\n@keyframes rotate {\n  from {\n    transform: rotatez(0); }\n  to {\n    transform: rotatez(360deg); } }\n\n.ani.rotate {\n  -webkit-animation-name: rotate;\n  animation-name: rotate; }\n\n/**\n * @module element\n * @method yo-loadtip\n * @version 3.0.0\n * @description 构造加载提示的自定义使用方法\n * @demo http://ued.qunar.com/hy2/yo/demo/src/html/element/yo-loadtip.html\n * @param {String} $name 定义扩展名称 <3.0.0>\n * @param {Color} $color 文本色 <3.0.0>\n * @param {Length} $font-size 字号大小 <3.0.0>\n * @param {Color} $ico-color ico颜色 <3.0.0>\n */\n.yo-loadtip {\n  display: -webkit-inline-box;\n  display: -webkit-inline-flex;\n  display: inline-flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  align-items: center;\n  color: #666; }\n  .yo-loadtip > .yo-ico {\n    display: block;\n    color: #00afc7;\n    -webkit-transition: -webkit-transform .3s;\n    transition: transform .3s;\n    -webkit-transform: rotatez(0deg);\n    transform: rotatez(0deg); }\n    .yo-loadtip > .yo-ico-flip {\n      -webkit-transform: rotatez(180deg);\n      transform: rotatez(180deg); }\n  .yo-loadtip > .yo-ico-loading {\n    position: relative;\n    z-index: 1000;\n    -webkit-animation: rotate 1s infinite linear;\n    animation: rotate 1s infinite linear; }\n  .yo-loadtip > .text {\n    margin-left: .1rem; }\n    .yo-loadtip > .text > .time {\n      display: block;\n      font-size: .12rem; }\n\n.yo-load {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n  align-items: center;\n  position: absolute;\n  width: 100%;\n  -webkit-transform: translate(0, 0);\n  transform: translate(0, 0); }\n\n.yo-scroller-fullscreen {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0; }\n\n/**\n * @module fragment\n * @method yo-list\n * @version 3.0.0\n * @description 构造列表的自定义使用方法\n * @demo http://ued.qunar.com/hy2/yo/demo/src/html/fragment/yo-list.html\n * @param {String} $name 定义扩展名称 <3.0.0>\n * @param {Length} $margin 外边距 <3.0.0>\n * @param {Length} $radius 圆角半径长度 <3.0.0>\n * @param {Length} $border-width 外边框厚度 <3.0.0>\n * @param {Color} $border-color 边框色 <3.0.0>\n * @param {Length} $item-padding 子项的内补白 <3.0.0>\n * @param {Length} $label-padding 列表组头内补白 <3.0.0>\n * @param {Color} $label-bgcolor 列表组头背景色 <3.0.0>\n * @param {Color} $touch-bgcolor 子项点击反馈背景色 <3.0.0>\n * @param {Color} $on-bgcolor 子项选中背景色 <3.0.0>\n * @param {Color} $on-color 子项选中文本色 <3.0.0>\n * @param {Color} $item-border-color 子项边框色 <3.0.0>\n * @param {Color} $label-border-color 列表组头边框色 <3.0.0>\n * @param {Length} $item-font-size 子项字号 <3.0.0>\n * @param {Length} $label-font-size 列表组头字号 <3.0.0>\n * @param {Length} $item-border-space 子项边线左侧偏移量 <3.0.0>\n * @param {Length} $more-font-size 更多区域字号 <3.0.0>\n * @param {Color} $more-color 更多区域文本色 <3.0.0>\n */\n.yo-list {\n  position: relative;\n  z-index: 0; }\n  .yo-list::after {\n    pointer-events: none;\n    position: absolute;\n    z-index: 999;\n    top: 0;\n    left: 0;\n    content: \" \";\n    border-color: #ccc;\n    border-style: solid;\n    border-width: 0 0 1px;\n    -webkit-transform-origin: 0 0;\n    transform-origin: 0 0; }\n    @media (max--moz-device-pixel-ratio: 1.49), (-webkit-max-device-pixel-ratio: 1.49), (max-device-pixel-ratio: 1.49), (max-resolution: 143dpi), (max-resolution: 1.49dppx) {\n      .yo-list::after {\n        width: 100%;\n        height: 100%; } }\n    @media (min--moz-device-pixel-ratio: 1.5) and (max--moz-device-pixel-ratio: 2.49), (-webkit-min-device-pixel-ratio: 1.5) and (-webkit-max-device-pixel-ratio: 2.49), (min-device-pixel-ratio: 1.5) and (max-device-pixel-ratio: 2.49), (min-resolution: 144dpi) and (max-resolution: 239dpi), (min-resolution: 1.5dppx) and (max-resolution: 2.49dppx) {\n      .yo-list::after {\n        width: 200%;\n        height: 200%;\n        -webkit-transform: scale(0.5);\n        transform: scale(0.5); } }\n    @media (min--moz-device-pixel-ratio: 2.5), (-webkit-min-device-pixel-ratio: 2.5), (min-device-pixel-ratio: 2.5), (min-resolution: 240dpi), (min-resolution: 2.5dppx) {\n      .yo-list::after {\n        width: 300%;\n        height: 300%;\n        -webkit-transform: scale(0.33333);\n        transform: scale(0.33333); } }\n  .yo-list > .label,\n  .yo-list > .item,\n  .yo-list .front {\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: flex;\n    -webkit-box-align: center;\n    -webkit-align-items: center;\n    align-items: center; }\n    .yo-list > .label > .flex,\n    .yo-list > .item > .flex,\n    .yo-list .front > .flex {\n      -webkit-box-flex: 1;\n      -webkit-flex: 1;\n      flex: 1;\n      width: .1px;\n      margin: 0 .1rem; }\n      .yo-list > .label > .flex:first-child,\n      .yo-list > .item > .flex:first-child,\n      .yo-list .front > .flex:first-child {\n        margin-left: 0; }\n      .yo-list > .label > .flex:last-child,\n      .yo-list > .item > .flex:last-child,\n      .yo-list .front > .flex:last-child {\n        margin-right: 0; }\n    .yo-list > .label > .yo-ico,\n    .yo-list > .item > .yo-ico,\n    .yo-list .front > .yo-ico {\n      display: block; }\n      .yo-list > .label > .yo-ico:last-child,\n      .yo-list > .item > .yo-ico:last-child,\n      .yo-list .front > .yo-ico:last-child {\n        color: #aaa;\n        font-size: 0.12rem; }\n    .yo-list > .label.tr,\n    .yo-list > .item.tr,\n    .yo-list .front.tr {\n      padding: 0; }\n  .yo-list > .label {\n    padding: 0.03rem 0.1rem;\n    position: relative;\n    background-color: #eee;\n    color: #666;\n    font-size: 0.13rem;\n    font-weight: normal; }\n    .yo-list > .label::after {\n      pointer-events: none;\n      position: absolute;\n      z-index: 999;\n      top: 0;\n      left: 0;\n      content: \" \";\n      border-color: #eee;\n      border-style: solid;\n      border-width: 1px 0;\n      -webkit-transform-origin: 0 0;\n      transform-origin: 0 0; }\n      @media (max--moz-device-pixel-ratio: 1.49), (-webkit-max-device-pixel-ratio: 1.49), (max-device-pixel-ratio: 1.49), (max-resolution: 143dpi), (max-resolution: 1.49dppx) {\n        .yo-list > .label::after {\n          width: 100%;\n          height: 100%; } }\n      @media (min--moz-device-pixel-ratio: 1.5) and (max--moz-device-pixel-ratio: 2.49), (-webkit-min-device-pixel-ratio: 1.5) and (-webkit-max-device-pixel-ratio: 2.49), (min-device-pixel-ratio: 1.5) and (max-device-pixel-ratio: 2.49), (min-resolution: 144dpi) and (max-resolution: 239dpi), (min-resolution: 1.5dppx) and (max-resolution: 2.49dppx) {\n        .yo-list > .label::after {\n          width: 200%;\n          height: 200%;\n          -webkit-transform: scale(0.5);\n          transform: scale(0.5); } }\n      @media (min--moz-device-pixel-ratio: 2.5), (-webkit-min-device-pixel-ratio: 2.5), (min-device-pixel-ratio: 2.5), (min-resolution: 240dpi), (min-resolution: 2.5dppx) {\n        .yo-list > .label::after {\n          width: 300%;\n          height: 300%;\n          -webkit-transform: scale(0.33333);\n          transform: scale(0.33333); } }\n    .yo-list > .label:first-child::after {\n      border-width: 0 0 1px; }\n    .yo-list > .label + .item::after {\n      border-width: 0; }\n    .yo-list > .label > .col {\n      padding: 0.03rem 0.1rem; }\n  .yo-list > .item,\n  .yo-list .front {\n    padding: 0.11rem 0.1rem 0.12rem; }\n  .yo-list > .item {\n    overflow: hidden;\n    background-color: #fff;\n    color: #212121;\n    position: relative; }\n    .yo-list > .item::after {\n      pointer-events: none;\n      position: absolute;\n      z-index: 999;\n      top: 0;\n      left: 0;\n      content: \" \";\n      border-color: #ddd;\n      border-style: solid;\n      border-width: 1px 0 0;\n      -webkit-transform-origin: 0 0;\n      transform-origin: 0 0; }\n      @media (max--moz-device-pixel-ratio: 1.49), (-webkit-max-device-pixel-ratio: 1.49), (max-device-pixel-ratio: 1.49), (max-resolution: 143dpi), (max-resolution: 1.49dppx) {\n        .yo-list > .item::after {\n          width: 100%;\n          height: 100%; } }\n      @media (min--moz-device-pixel-ratio: 1.5) and (max--moz-device-pixel-ratio: 2.49), (-webkit-min-device-pixel-ratio: 1.5) and (-webkit-max-device-pixel-ratio: 2.49), (min-device-pixel-ratio: 1.5) and (max-device-pixel-ratio: 2.49), (min-resolution: 144dpi) and (max-resolution: 239dpi), (min-resolution: 1.5dppx) and (max-resolution: 2.49dppx) {\n        .yo-list > .item::after {\n          width: 200%;\n          height: 200%;\n          -webkit-transform: scale(0.5);\n          transform: scale(0.5); } }\n      @media (min--moz-device-pixel-ratio: 2.5), (-webkit-min-device-pixel-ratio: 2.5), (min-device-pixel-ratio: 2.5), (min-resolution: 240dpi), (min-resolution: 2.5dppx) {\n        .yo-list > .item::after {\n          width: 300%;\n          height: 300%;\n          -webkit-transform: scale(0.33333);\n          transform: scale(0.33333); } }\n    .yo-list > .item::after {\n      left: 0.1rem; }\n    .yo-list > .item:first-child::after {\n      border-width: 0; }\n    .yo-list > .item-input > .input {\n      -webkit-appearance: none;\n      appearance: none;\n      display: block;\n      width: 100%;\n      min-height: .21rem;\n      border: 0; }\n      .yo-list > .item-input > .input::-webkit-input-placeholder {\n        color: #bbb; }\n    .yo-list > .item-stacked {\n      display: block; }\n      .yo-list > .item-stacked > .mark {\n        padding-bottom: .05rem; }\n    .yo-list > .item.item-active:active,\n    .yo-list > .item.item-active:active .front, .yo-list > .item.item-touch,\n    .yo-list > .item.item-touch .front {\n      background-color: #f8f8f8; }\n    .yo-list > .item > .col {\n      padding: 0.11rem 0.1rem 0.12rem; }\n  .yo-list-infinite::after {\n    border-width: 0; }\n  .yo-list-infinite > .label,\n  .yo-list-infinite > .item {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%; }\n  .yo-list-infinite > .item:last-child::after {\n    border-width: 1px 0; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./src/yo-component/modal/modal.js":
 /*!*****************************************!*\
   !*** ./src/yo-component/modal/modal.js ***!
@@ -68680,6 +72920,2301 @@ exports.default = RealModal;
 
 RealModal.defaultProps = defaultProps;
 RealModal.propTypes = propTypes;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/yo-component/scroller/scroller.js":
+/*!***********************************************!*\
+  !*** ./src/yo-component/scroller/scroller.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = undefined;
+
+var _keys = __webpack_require__(/*! babel-runtime/core-js/object/keys */ "./node_modules/babel-runtime/core-js/object/keys.js");
+
+var _keys2 = _interopRequireDefault(_keys);
+
+var _assign = __webpack_require__(/*! babel-runtime/core-js/object/assign */ "./node_modules/babel-runtime/core-js/object/assign.js");
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ "./node_modules/babel-runtime/core-js/object/get-prototype-of.js");
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ "./node_modules/babel-runtime/helpers/classCallCheck.js");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ "./node_modules/babel-runtime/helpers/createClass.js");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ "./node_modules/babel-runtime/helpers/possibleConstructorReturn.js");
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ "./node_modules/babel-runtime/helpers/inherits.js");
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _class, _temp; /**
+                    * 滚动组件
+                    *
+                    * @component Scroller
+                    * @version 3.0.0
+                    * @description 滚动组件,用来提供滚动容器。
+                    *
+                    * - 提供了横向滚动和纵向滚动。
+                    * - 提供了『下拉刷新』和『加载更多』功能。
+                    * - 提供了 `transition` 和 `requestAnimationFrame` 两种实现滚动的方式。
+                    * - 提供了 `transform` 和 `position:absolute` 两种实现位移的方式。
+                    *
+                    * 确定高度：Scroller 必须有一个确定的高度才能正常工作，因为它实际上就是将一系列不确定高度的子组件装进一个确定高度的容器。实现确定高度的方式有很多种：flex、指定高度、position: absolute等等。
+                    *
+                    * 内容容器：作为一个滚动组件，Scroller 会创建一个 div 作为滚动容器。如果 Scroller 的子元素只有一个，则会把这个子元素当做内容容器；否则，会创建一个 div 作为内容容器。
+                    * @instructions {instruInfo: ./scroller/basic.md}{instruUrl: scroller/base.html?hideIcon}
+                    * @instructions {instruInfo: ./scroller/refresh.md}{instruUrl: scroller/refresh.html?hideIcon}
+                    * @instructions {instruInfo: ./scroller/scrollevent.md}{instruUrl: scroller/scroll.html?hideIcon}
+                    */
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _utils = __webpack_require__(/*! ./utils */ "./src/yo-component/scroller/utils.js");
+
+var _utils2 = _interopRequireDefault(_utils);
+
+var _utils3 = __webpack_require__(/*! ../common/utils */ "./src/yo-component/common/utils.js");
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _throttle = __webpack_require__(/*! lodash/throttle */ "./node_modules/lodash/throttle.js");
+
+var _throttle2 = _interopRequireDefault(_throttle);
+
+var _lazyimage = __webpack_require__(/*! ../lazyimage */ "./src/yo-component/lazyimage/index.js");
+
+var _lazyimage2 = _interopRequireDefault(_lazyimage);
+
+var _sticky = __webpack_require__(/*! ../sticky */ "./src/yo-component/sticky/index.js");
+
+var _sticky2 = _interopRequireDefault(_sticky);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var REFRESHSTATUS = {
+    PULL: 'pullrefresh_pull',
+    RELEASE: 'pullrefresh_release',
+    LOAD: 'pullrefresh_load',
+    SUCCESS: 'pullrefresh_success',
+    FAIL: 'pullrefresh_fail'
+};
+var LOADSTATUS = {
+    PULL: 'loadmore_pull',
+    RELEASE: 'loadmore_release',
+    LOAD: 'loadmore_load',
+    NOMORE: 'loadmore_nomore'
+};
+
+var _ref2 = _utils3.isEnvNode ? {} : _utils2.default.getRAF(),
+    rAF = _ref2.rAF,
+    cancelrAF = _ref2.cancelrAF;
+
+var defaultProps = {
+    extraClass: '',
+    containerExtraClass: '',
+    containerExtraStyle: {},
+    contentOffset: {
+        x: 0,
+        y: 0
+    },
+    contentInset: {
+        bottom: 0
+    },
+    disabled: false,
+    scrollX: false,
+    scrollY: true,
+    freeScroll: false,
+    directionLockThreshold: 5, // 锁定某一滚动方向的阀值
+    momentum: true, // 惯性滚动
+    bounce: true, // 弹性滚动
+    bounceTime: 600, // 弹性滚动时间
+    bounceEasing: _utils3.isEnvNode ? null : _utils2.default.ease.circular, // 弹性滚动easing函数
+    preventDefault: true, // 阻止默认事件
+    preventDefaultException: { tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT)$/ }, // 阻止默认事件的例外
+    stopPropagation: false, // 阻止冒泡
+    HWCompositing: true, // 是否开启硬件加速
+    useTransition: true,
+    useTransform: true,
+    onScroll: null, // 滚动事件的回调
+    usePullRefresh: false,
+    pullRefreshHeight: 40,
+    renderPullRefresh: null,
+    onRefresh: null,
+    useLoadMore: false,
+    loadMoreHeight: 40,
+    renderLoadMore: null,
+    onLoad: null,
+    autoRefresh: true,
+    wrapper: null,
+    enableLazyLoad: true,
+    scrollWithouTouchStart: false,
+    stickyOffset: 0
+};
+
+var propTypes = {
+    /**
+     * 组件额外class
+     *
+     * @property extraClass
+     * @type String
+     * @description 为组件根节点提供额外的class。
+     * @default ''
+     */
+    extraClass: _propTypes2.default.string,
+    /**
+     * 内容容器额外class
+     *
+     * @property containerExtraClass
+     * @type String
+     * @description 为组件中的内容容器提供额外的class。
+     * @default ''
+     */
+    containerExtraClass: _propTypes2.default.string,
+    /**
+     * 内容容器额外style
+     *
+     * @property containerExtraStyle
+     * @type String
+     * @description 为组件中的内容容器提供额外的style，主要用于横向滚动时，动态设置容器的宽度。
+     * @default {}
+     * @version 3.0.6
+     */
+    containerExtraStyle: _propTypes2.default.object,
+    /**
+     * 内容位移
+     *
+     * @property contentOffset
+     * @type {x: Number, y: Mumber}
+     * @description 组件中内容的初始位移，这个属性变化时，会重置内容的位移。
+     * @default {x: 0, y: 0}
+     */
+    contentOffset: _propTypes2.default.shape({
+        x: _propTypes2.default.number,
+        y: _propTypes2.default.number
+    }),
+    /**
+     * 内容底部留白
+     *
+     * @property contentInset
+     * @type Number
+     * @description 内容区域周围的留白，**目前仅支持 bottom**。主要用于适配 iPhoneX，在下方留出一定间隙。有『加载更多』时，显示在『加载更多』的下方。可以通过设置背景色来改变留白的颜色。
+     * @default {bottom:0}
+     * @version 3.0.13
+     */
+    contentInset: _propTypes2.default.shape({
+        bottom: _propTypes2.default.number
+    }),
+    /**
+     * @property stickyOffset
+     * @type Number
+     * @description 吸顶容器偏移，如果你希望吸顶容器不位于top:0的位置，可以修改这个属性。
+     * @default 0
+     * @version 3.0.6
+     */
+    stickyOffset: _propTypes2.default.number,
+    /**
+     * 是否禁止滚动
+     *
+     * @property disabled
+     * @type Bool
+     * @description 是否禁止滚动，默认允许滚动。
+     * @default false
+     */
+    disabled: _propTypes2.default.bool,
+    /**
+     * 横向滚动
+     *
+     * @property scrollX
+     * @type Bool
+     * @description 是否开启横向滚动，默认关闭。
+     * @default false
+     */
+    scrollX: _propTypes2.default.bool,
+    /**
+     * 纵向滚动
+     *
+     * @property scrollY
+     * @type Bool
+     * @description 是否开启纵向滚动,默认开启。
+     * @default true
+     */
+    scrollY: _propTypes2.default.bool,
+    /**
+     * 自由滚动
+     *
+     * @property freeScroll
+     * @type Bool
+     * @description 是否开启自由滚动。当设置为 `false` 时，只能响应某一个方向的滚动；当设置为 `true` 时，可以同时响应横向和纵向滚动（`scrollX` 和 `scrollY` 必须同时为 `true`）。
+     * @default false
+     * @skip
+     */
+    freeScroll: _propTypes2.default.bool,
+    /**
+     * 方向锁定阈值
+     *
+     * @property directionLockThreshold
+     * @type Number
+     * @description 只允许单向滚动的时候，会根据这个阀值来判定响应哪个方向上的位移：某一方向位移减去另一个方向位移超过阀值，就会判定为这个方向的滚动。
+     *
+     * 一个常见的示例是：在一个纵向滚动的 Scroller 中嵌套一个横向滚动的 Scroller。此时，如果斜着（约45°）滚动，则内层的 Scroller 会先响应，
+     * 但是不会锁定，触摸事件会向冒泡到外层的 Scroller，导致外层的 Scroller 也会响应。此时将 directionLockThreshold 设置成 0，保证不管向哪个方向滚动，
+     * Scroller 都会锁定方向而不向外冒泡，就不会出现同时响应的问题了。
+     * @default 5
+     */
+    directionLockThreshold: _propTypes2.default.number,
+    /**
+     * 惯性滚动
+     *
+     * @property momentum
+     * @type Bool
+     * @description 是否允许惯性滚动。当设置为 `true`，手指离开时，如果还有速度会继续滚动一段距离；当设置为 `false` ，手指离开时会立即停止滚动。
+     * @default true
+     */
+    momentum: _propTypes2.default.bool,
+    /**
+     * 弹性滚动
+     *
+     * @property bounce
+     * @type Bool
+     * @description 当滚动超出内容范围时，是否可以继续滚动一截。
+     * @default true
+     */
+    bounce: _propTypes2.default.bool,
+    /**
+     * 弹性滚动回弹时间
+     *
+     * @property bounceTime
+     * @type Number
+     * @description 当弹性滚动一截之后，回到滚动范围内位置的时间，单位为毫秒（ms）。
+     * @default 600
+     */
+    bounceTime: _propTypes2.default.number,
+    /**
+     * 弹性滚动回弹动画
+     *
+     * @property bounceEasing
+     * @type Object
+     * @description 弹性回滚动画。
+     *
+     * Scroller 提供了五种默认的动画函数：`quadratic`, `circular`, `back`, `bounce`, `elastic`，可以通过 `Scroller.ease.xxx` 来使用。
+     *
+     * 用户也可以自定义动画对象，比如：
+     *
+     * ``
+     * {
+     *     style: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+     *     fn: function (k) {
+     *         return k * ( 2 - k );
+     *     }
+     * }
+     * ``
+     * @default Scroller.ease.circular
+     */
+    bounceEasing: _propTypes2.default.object,
+    /**
+     * transition开关
+     *
+     * @property useTransition
+     * @type Bool
+     * @description 如果设置为true,会使用transition来实现滚动效果;如果设置为false,会使用requestAnimationFrame来实现。
+     * @default true
+     */
+    useTransition: _propTypes2.default.bool,
+    /**
+     * transform开关
+     *
+     * @property useTransform
+     * @type Bool
+     * @description 如果设置为true,会使用transform来实现位移;如果设置为false,会使用left和top来实现位移（position: absolute）。
+     * @default true
+     */
+    useTransform: _propTypes2.default.bool,
+    /**
+     * 滚动事件回调
+     *
+     * @property onScroll
+     * @type Function
+     * @param {e} event 滚动事件的回调，结构为: {contentOffset: {x: x, y: y}}
+     * @description (event) => void
+     *
+     * 滚动事件的回调。一旦设置了这个回调，为了能够监听滚动事件，会将useTransition属性强制设置为false，会由此带来一定的性能牺牲。
+     */
+    onScroll: _propTypes2.default.func,
+    /**
+     * 自动刷新高度
+     *
+     * @property autoRefresh
+     * @type Bool
+     * @description 默认为true,在componentDidUpdate的时候会自动刷新高度;如果设置为false,则在内容发生变化时，需要用户主动调用refresh方法来刷新高度。
+     * @default true
+     * @skip
+     */
+    autoRefresh: _propTypes2.default.bool,
+    /**
+     * 硬件加速
+     *
+     * @property HWCompositing
+     * @type Bool
+     * @description 是否开启硬件加速
+     * @default true
+     */
+    HWCompositing: _propTypes2.default.bool,
+    eventPassthrough: _propTypes2.default.bool,
+    /**
+     * @property preventDefault
+     * @type Bool
+     * @description 是否需要在Scroller容器上对所有的触摸事件（touchstart/touchmove/touchend/touchcancel）调用preventDefault。
+     * 这个属性的默认值为true，这是为了避免一些安卓的兼容性问题。如果你发现一些默认效果没有被触发（例如输入框的blur），可以尝试设置这个属性为false。
+     */
+    preventDefault: _propTypes2.default.bool,
+    preventDefaultException: _propTypes2.default.object,
+    stopPropagation: _propTypes2.default.bool,
+    /**
+     * 下拉刷新
+     *
+     * @property usePullRefresh
+     * @type Bool
+     * @description 是否开启下拉刷新功能
+     * @default false
+     * hasPullRefresh
+     */
+    usePullRefresh: _propTypes2.default.bool,
+    /**
+     * 下拉刷新事件回调
+     *
+     * @property onRefresh
+     * @type Function
+     * @param {e} event 结构为: ({contentOffset: {x: x, y: y}})
+     * @description (event) => void
+     *
+     * 下拉刷新时开始刷新的回调。
+     */
+    onRefresh: _propTypes2.default.func,
+    /**
+     * 下拉刷新高度
+     *
+     * @property pullRefreshHeight
+     * @type Number
+     * @description 触发下拉刷新状态的高度（一般即为下拉刷新提示区域的高度）
+     * @default 40
+     * 可以考虑不要
+     */
+    pullRefreshHeight: _propTypes2.default.number,
+    /**
+     * 下拉刷新渲染函数
+     *
+     * @property renderPullRefresh
+     * @type Function
+     * @returns {JSX} 用来渲染 pullRefresh 的 JSX
+     * @description () => JSX
+     *
+     * 自定义的下拉刷新渲染函数
+     */
+    renderPullRefresh: _propTypes2.default.func,
+    /**
+     * 加载更多
+     *
+     * @property useLoadMore
+     * @type Bool
+     * @description 是否开启加载更多功能.『加载更多』与『下拉刷新』略有不同，加载更多的提示区域是追加在内容区域的最后
+     * @default false
+     * hasLoadMore
+     */
+    useLoadMore: _propTypes2.default.bool,
+    /**
+     * 加载更多事件回调
+     *
+     * @property onLoad
+     * @type Function
+     * @param {e} event 结构为: ({contentOffset: {x: x, y: y}})
+     * @description (event) => void
+     *
+     * 加载更多时开始加载的回调。
+     */
+    onLoad: _propTypes2.default.func,
+    /**
+     * 加载更多高度
+     *
+     * @property loadMoreHeight
+     * @type Number
+     * @description 触发加载更多状态的高度（一般即为加载更多提示区域的高度）
+     * @default 40
+     */
+    loadMoreHeight: _propTypes2.default.number,
+    /**
+     * 加载更多渲染函数
+     *
+     * @property renderLoadMore
+     * @type Function
+     * @returns {JSX} 用来渲染 loadMore 的 JSX
+     * @description () => JSX
+     *
+     * 自定义的加载更多渲染函数
+     */
+    renderLoadMore: _propTypes2.default.func,
+    deceleration: _propTypes2.default.number,
+    wrapper: _propTypes2.default.object,
+    children: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.object, _propTypes2.default.string]),
+    style: _propTypes2.default.object,
+    /**
+     * @skip
+     * @property enableLazyLoad
+     * @type Bool
+     * @description 是否开启图片lazyload,默认为true
+     */
+    enableLazyLoad: _propTypes2.default.bool,
+    /**
+     * @property scrollWithoutTouchStart
+     * @type Bool
+     * @default false
+     * @description ** 实验中的属性 **
+     * 在默认情况下一次用户触发（非调用scrollTo方法）scroller的滚动需要由touchstart事件来启动，在某些情况下，例如scroller从disable状态切换到enable状态时，
+     * 可能不能接收到这一瞬间的touchstart事件，这可能导致用户期待的滚动过程没有发生。
+     * 开启这个属性为true以后将允许scroller用touchmove启动滚动过程，这可以解决上述场景的问题。
+     * @version 3.0.2
+     */
+    scrollWithoutTouchStart: _propTypes2.default.bool
+};
+
+var Scroller = (_temp = _class = function (_Component) {
+    (0, _inherits3.default)(Scroller, _Component);
+
+    function Scroller(props) {
+        (0, _classCallCheck3.default)(this, Scroller);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (Scroller.__proto__ || (0, _getPrototypeOf2.default)(Scroller)).call(this, props));
+
+        _this.x = 0;
+        _this.y = 0;
+        _this.directionX = 0;
+        _this.directionY = 0;
+        _this._scrollerStyle = {};
+
+        _this._resetProps(props, true);
+
+        _this.childLazyImages = [];
+        _this.stickyHeaders = [];
+        _this.stickyIndex = null;
+        _this.stickyOffset = null;
+        _this.wrapperOffsetTop = null;
+        return _this;
+    }
+
+    (0, _createClass3.default)(Scroller, [{
+        key: 'getChildContext',
+        value: function getChildContext() {
+            return { scroller: this, isScroller: this.props.enableLazyLoad };
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            this.wrapper = this.noWrapper ? this.wrapper : this.refs.wrapper;
+            this.scroller = this.refs.scroller;
+
+            // 重置 position 属性
+            if (!this.useTransform) {
+                if (!/relative|absolute/i.test(this._scrollerStyle)) {
+                    this._scrollerStyle.position = 'relative';
+                }
+            }
+
+            this.refresh();
+
+            this._setRefreshStatus(REFRESHSTATUS.PULL);
+            this._setLoadStatus(LOADSTATUS.PULL);
+            // 内容区域高度小于容器高度时，不需要再重新定位loadMore的位置，refresh内部已经定位正确
+            // this._refreshLoadMore();
+
+            this._resetPosition();
+            this.scrollTo(this.props.contentOffset.x, this.props.contentOffset.y);
+
+            this.innerWidth = window.innerWidth;
+            this.innerHeight = window.innerHeight;
+
+            // 修复子元素存在 input 输入框时，浏览器强制让 input 显示在可见区域，收缩键盘后无法向上滑倒顶部的 bug
+            this._resetScrollTop = function () {
+                var wrapper = _this2.refs.wrapper;
+                // v3.0.14 修复 `scroller.js` 中因 `refs.wrapper` 不存在而报错的问题
+
+                if (wrapper && wrapper.scrollTop > 0) {
+                    setTimeout(function () {
+                        wrapper.scrollTop = 0;
+                    }, 100); // 防止有输入框获得焦点时收缩键盘时强制输入框展示在现实区域而出现的闪烁问题
+                }
+            };
+
+            this._resize = function () {
+                var lastWidth = _this2.innerWidth,
+                    lastHeigth = _this2.innerHeight;
+                var _window = window,
+                    width = _window.innerWidth,
+                    height = _window.innerHeight;
+
+
+                _this2.innerWidth = width;
+                _this2.innerHeight = height;
+                // 判断是否为键盘收起
+                if (width === lastWidth && height > lastHeigth) {
+                    _this2._resetScrollTop();
+                }
+                _this2.forceUpdate();
+            };
+
+            window.addEventListener('orientationchange', this._resize, false);
+            window.addEventListener('resize', (0, _throttle2.default)(this._resize, 100), false);
+            window.addEventListener('focusout', this._resetScrollTop, false); // Safari 在键盘的展开和收起时不会触发 resize， 故使用 focusout。
+
+            this._tryLoadLazyImages();
+            this._refreshSticky(true);
+
+            if (this.stickyHeaders.length) {
+                this.useTransition = false;
+            }
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            this._resetProps(nextProps);
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            // 重置 contentOffset
+            if (prevProps.contentOffset.x !== this.props.contentOffset.x || prevProps.contentOffset.y !== this.props.contentOffset.y) {
+                this.scrollTo(this.props.contentOffset.x, this.props.contentOffset.y);
+            }
+
+            // 重置 position 属性
+            if (!this.useTransform) {
+                if (!/relative|absolute/i.test(this._scrollerStyle)) {
+                    this._scrollerStyle.position = 'relative';
+                    this._setStyle(this.scroller, this._scrollerStyle);
+                }
+            }
+
+            // 重新获取容器和内容尺寸
+            if (this.props.autoRefresh) {
+                this.refresh();
+            }
+
+            // 重置 pullRefresh 和 loadMore
+            if (prevState.usePullRefresh !== this.state.usePullRefresh) {
+                this._setRefreshStatus(REFRESHSTATUS.PULL);
+            }
+            if (prevState.useLoadMore !== this.state.useLoadMore) {
+                this._setLoadStatus(LOADSTATUS.PULL);
+                this._refreshLoadMore();
+            }
+
+            if (this.stickyHeaders.length) {
+                this.useTransition = false;
+            }
+
+            this._tryLoadLazyImages();
+            this._refreshSticky(true);
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            window.removeEventListener('orientationchange', this._resize, false);
+            window.removeEventListener('resize', this._resize, false);
+        }
+    }, {
+        key: '_resetProps',
+        value: function _resetProps(props, init) {
+            this.state = this.state || {};
+
+            // 重置 useTransition 和 useTransform
+            this.translateZ = props.HWCompositing && _utils2.default.hasPerspective ? ' translateZ(0)' : '';
+            this.useTransition = _utils2.default.hasTransition && props.useTransition;
+            this.useTransform = _utils2.default.hasTransform && props.useTransform;
+
+            if (props.onScroll) {
+                this.useTransition = false;
+            }
+
+            // 重置 scrollX 和 scrollY
+            this.eventPassthrough = props.eventPassthrough === true ? 'vertical' : props.eventPassthrough;
+            this.preventDefault = !this.eventPassthrough && props.preventDefault;
+            this.scrollY = this.eventPassthrough === 'vertical' ? false : props.scrollY;
+            this.scrollX = this.eventPassthrough === 'horizontal' ? false : props.scrollX;
+            this.verticalBounce = this.scrollY ? props.bounce : false;
+            this.horizontalBounce = this.scrollX ? props.bounce : false;
+
+            // 重置 下拉刷新 和 加载更多
+            if (init) {
+                this.state.usePullRefresh = this.scrollY && !this.scrollX && props.usePullRefresh;
+                this.state.useLoadMore = this.scrollY && !this.scrollX && props.useLoadMore;
+            } else {
+                this.setState({
+                    usePullRefresh: this.scrollY && !this.scrollX && props.usePullRefresh,
+                    useLoadMore: this.scrollY && !this.scrollX && props.useLoadMore
+                });
+            }
+
+            // 重置 wrapper（内容容器）
+            // 兼容 Qreact 用 getOnlyChild(props) 替代 props.children && !props.children.length
+            this.noWrapper = !!props.wrapper && (0, _utils3.getOnlyChild)(props) && !this.state.usePullRefresh && !this.state.useLoadMore;
+
+            if (this.noWrapper) {
+                this.wrapper = props.wrapper;
+            }
+
+            // 如果disable状态发生了变化，需要重置initiated
+            if (this.disabled !== props.disabled) {
+                this.initiated = 0;
+            }
+            // 重置 disabled
+            this.disabled = props.disabled;
+            this.freeScroll = props.freeScroll && !this.eventPassthrough;
+            this.directionLockThreshold = this.eventPassthrough ? 0 : props.directionLockThreshold;
+        }
+    }, {
+        key: '_handleTouchStart',
+        value: function _handleTouchStart(e) {
+            if (this.disabled || this.initiated && _utils2.default.eventType[e.type] !== this.initiated) {
+                return;
+            }
+
+            if (this.preventDefault && !_utils2.default.isBadAndroid && !_utils2.default.preventDefaultException(e.target, this.props.preventDefaultException)) {
+                e.preventDefault();
+            }
+            if (this.props.stopPropagation) {
+                e.stopPropagation();
+            }
+
+            var point = e.touches ? e.touches[0] : e;
+
+            this.initiated = _utils2.default.eventType[e.type];
+            this.moved = false;
+            this.distX = 0;
+            this.distY = 0;
+            this.directionX = 0;
+            this.directionY = 0;
+            this.directionLocked = 0;
+
+            this.startTime = _utils2.default.getTime();
+
+            this.stopAnimate();
+
+            this.startX = this.x;
+            this.startY = this.y;
+            this.absStartX = this.x;
+            this.absStartY = this.y;
+            this.pointX = point.pageX;
+            this.pointY = point.pageY;
+
+            // this._execEvent('beforeScrollStart');
+        }
+    }, {
+        key: '_handleTouchMove',
+        value: function _handleTouchMove(e) {
+            if (this.disabled) {
+                return;
+            }
+
+            if (_utils2.default.eventType[e.type] !== this.initiated) {
+                if (this.props.scrollWithoutTouchStart) {
+                    this._handleTouchStart(e);
+                } else {
+                    return;
+                }
+            }
+
+            if (this.preventDefault) {
+                // increases performance on Android? TODO: check!
+                e.preventDefault();
+            }
+
+            if (this.props.stopPropagation) {
+                e.stopPropagation();
+            }
+
+            var point = e.touches ? e.touches[0] : e;
+            var timestamp = _utils2.default.getTime();
+            var deltaX = point.pageX - this.pointX;
+            var deltaY = point.pageY - this.pointY;
+            var newX = void 0;
+            var newY = void 0;
+
+            this.pointX = point.pageX;
+            this.pointY = point.pageY;
+
+            this.distX += deltaX;
+            this.distY += deltaY;
+
+            var absDistX = Math.abs(this.distX);
+            var absDistY = Math.abs(this.distY);
+
+            // We need to move at least 10 pixels for the scrolling to initiate
+            if (timestamp - this.endTime > 300 && absDistX < 10 && absDistY < 10) {
+                return;
+            }
+
+            // If you are scrolling in one direction lock the other
+            if (!this.directionLocked && !this.freeScroll) {
+                if (absDistX > absDistY + this.directionLockThreshold) {
+                    this.directionLocked = 'h'; // lock horizontally
+                } else if (absDistY >= absDistX + this.directionLockThreshold) {
+                    this.directionLocked = 'v'; // lock vertically
+                } else {
+                    this.directionLocked = 'n'; // no lock
+                }
+            }
+
+            if (this.directionLocked === 'h') {
+                if (this.eventPassthrough === 'vertical') {
+                    e.preventDefault();
+                } else if (this.eventPassthrough === 'horizontal') {
+                    this.initiated = false;
+                    return;
+                }
+
+                deltaY = 0;
+            } else if (this.directionLocked === 'v') {
+                if (this.eventPassthrough === 'horizontal') {
+                    e.preventDefault();
+                } else if (this.eventPassthrough === 'vertical') {
+                    this.initiated = false;
+                    return;
+                }
+
+                deltaX = 0;
+            }
+
+            newX = this.x + deltaX;
+            newY = this.y + deltaY;
+
+            // Slow down if outside of the boundaries
+            if (newX > 0) {
+                newX = this.horizontalBounce ? this.x + deltaX / 3 : 0;
+            } else if (newX < this.maxScrollX) {
+                newX = this.horizontalBounce ? this.x + deltaX / 3 : this.maxScrollX;
+            }
+
+            if (newY > 0) {
+                newY = this.verticalBounce ? this.y + deltaY / 3 : 0;
+            } else if (newY < this.maxScrollY) {
+                newY = this.verticalBounce ? this.y + deltaY / 3 : this.maxScrollY;
+            }
+
+            if (deltaX > 0) {
+                this.directionX = -1;
+            } else if (deltaX < 0) {
+                this.directionX = 1;
+            } else {
+                this.directionX = 0;
+            }
+
+            if (deltaY > 0) {
+                this.directionY = -1;
+            } else if (deltaY < 0) {
+                this.directionY = 1;
+            } else {
+                this.directionY = 0;
+            }
+
+            if (!this.moved) {
+                this._execEvent('onScrollStart');
+            }
+
+            this.moved = true;
+
+            this._translate(newX, newY);
+
+            if (timestamp - this.startTime > 300) {
+                this.startTime = timestamp;
+                this.startX = this.x;
+                this.startY = this.y;
+            }
+
+            this._execEvent('onScroll');
+        }
+    }, {
+        key: '_handleTouchEnd',
+        value: function _handleTouchEnd(e) {
+            if (this.disabled || _utils2.default.eventType[e.type] !== this.initiated) {
+                return;
+            }
+
+            if (this.preventDefault && !_utils2.default.preventDefaultException(e.target, this.props.preventDefaultException)) {
+                e.preventDefault();
+            }
+
+            if (this.props.stopPropagation) {
+                e.stopPropagation();
+            }
+
+            var momentumX = void 0;
+            var momentumY = void 0;
+            var duration = _utils2.default.getTime() - this.startTime;
+            var newX = Math.round(this.x);
+            var newY = Math.round(this.y);
+            var time = 0;
+
+            this.isInTransition = 0;
+            this.initiated = 0;
+            this.endTime = _utils2.default.getTime();
+
+            // set pullrefresh
+            if (this.state.usePullRefresh && this.y >= this.props.pullRefreshHeight) {
+                if (this.refreshState === REFRESHSTATUS.LOAD) {
+                    this.scrollTo(this.x, this.props.pullRefreshHeight, 200);
+                } else {
+                    this._setRefreshStatus(REFRESHSTATUS.LOAD);
+                    this.scrollTo(this.x, this.props.pullRefreshHeight, 300);
+                    this._execEvent('onRefresh');
+                }
+                return;
+            }
+
+            // set loadmore
+            // jiao.shen:此处将y<=max改成了y<max
+            // 因为如果scroller正好滚到下边缘停住的时候,这时候如果scroller render,就会立刻触发loadmore,和使用习惯不符
+            if (this.state.useLoadMore && this.y < this.maxScrollY) {
+                if (this.loadState !== LOADSTATUS.NOMORE && this.loadState !== LOADSTATUS.LOAD) {
+                    this._setLoadStatus(LOADSTATUS.LOAD);
+                    this._execEvent('onLoad');
+                }
+            }
+
+            // reset if we are outside of the boundaries
+            if (this._resetPosition(this.props.bounceTime)) {
+                return;
+            }
+
+            this.scrollTo(newX, newY); // ensures that the last position is rounded
+
+            if (!this.moved) {
+                this._execEvent('onScrollCancel');
+                return;
+            }
+
+            // start momentum animation if needed
+            if (this.props.momentum && duration < 300) {
+                momentumX = this.hasHorizontalScroll ? _utils2.default.momentum(this.x, this.startX, duration, this.maxScrollX, this.horizontalBounce ? this.wrapperWidth : 0, this.props.deceleration) : {
+                    destination: newX,
+                    duration: 0
+                };
+                momentumY = this.hasVerticalScroll ? _utils2.default.momentum(this.y, this.startY, duration, this.maxScrollY, this.verticalBounce ? this.wrapperHeight : 0, this.props.deceleration) : {
+                    destination: newY,
+                    duration: 0
+                };
+                newX = momentumX.destination;
+                newY = momentumY.destination;
+                time = Math.max(momentumX.duration, momentumY.duration);
+                this.isInTransition = 1;
+            }
+
+            if (newX !== this.x || newY !== this.y) {
+                var easing = void 0;
+
+                // change easing function when scroller goes out of the boundaries
+                if (newX > 0 || newX < this.maxScrollX || newY > 0 || newY < this.maxScrollY) {
+                    easing = _utils2.default.ease.quadratic;
+                }
+
+                this.scrollTo(newX, newY, time, easing);
+                this._execEvent('onMomentumScrollBegin', {
+                    targetX: newX,
+                    targetY: newY
+                });
+                return;
+            }
+
+            this._execEvent('onScrollEnd');
+        }
+    }, {
+        key: '_handleTransitionEnd',
+        value: function _handleTransitionEnd(e) {
+            if (e.target !== this.scroller || !this.isInTransition) {
+                return;
+            }
+
+            this._transitionTime();
+            if (!this._resetPosition(this.props.bounceTime)) {
+                this.isInTransition = false;
+                this._execEvent('onScrollEnd');
+            }
+        }
+
+        /**
+         * 尝试加载处于可视区域内的lazyimage
+         * @param forceRefresh bool 强制刷新 Image 的位置
+         */
+
+    }, {
+        key: '_tryLoadLazyImages',
+        value: function _tryLoadLazyImages(forceRefresh) {
+            var _this3 = this;
+
+            if (this.childLazyImages.length) {
+                this.childLazyImages.forEach(function (img) {
+                    return _this3.loadImage(img, forceRefresh);
+                });
+            }
+        }
+
+        /**
+         * @method loadImage
+         * @param img LazyImage 实例
+         * @param forceRefresh bool 强制刷新 Image 的位置
+         * @description 判断并决定是否加载 LazyImage
+         * @skip
+         */
+
+    }, {
+        key: 'loadImage',
+        value: function loadImage(img, forceRefresh) {
+            var self = this;
+            var _top = img.offsetTop - this.wrapperOffsetTop + this.y;
+
+            if (forceRefresh) {
+                img.refresh(img.context);
+            }
+            if (_top < self.wrapperHeight) {
+                // 出现在当前可视区域和可视区域上方都加载
+                img.load(function () {
+                    var _height = img.props.style && img.props.style.height ? img.props.style.height : img.props.height;
+                    var _width = img.props.style && img.props.style.width ? img.props.style.width : img.props.width;
+                    if (!_height || !_width) {
+                        // 如果设置了高度，就不再重新刷新
+                        self.refresh();
+                    }
+                });
+            }
+        }
+    }, {
+        key: '_getCurrentSticky',
+        value: function _getCurrentSticky() {
+            var stickyOffset = this.props.stickyOffset;
+
+            var ret = null;
+            if (this.y < 0) {
+                var absY = Math.abs(this.y - stickyOffset);
+                var wrapperTop = this.wrapperOffsetTop;
+                var upperHeaders = this.stickyHeaders.filter(function (header) {
+                    return header.offsetTop - wrapperTop <= absY;
+                });
+
+                if (upperHeaders.length) {
+                    var currentHeader = upperHeaders[upperHeaders.length - 1];
+                    var nextHeader = this.stickyHeaders[upperHeaders.length];
+                    var index = upperHeaders.length - 1;
+                    if (nextHeader) {
+                        var distToNext = nextHeader.offsetTop - wrapperTop - absY;
+                        var adjustOffset = distToNext > currentHeader.height ? 0 : -(currentHeader.height - distToNext);
+                        ret = { currentHeader: currentHeader, adjustOffset: adjustOffset, index: index };
+                    } else {
+                        ret = { currentHeader: currentHeader, adjustOffset: 0, index: index };
+                    }
+                } else {
+                    ret = null;
+                }
+            } else {
+                ret = null;
+            }
+            return ret;
+        }
+    }, {
+        key: '_refreshSticky',
+        value: function _refreshSticky(forceRefresh) {
+            if (this.stickyHeaders.length) {
+                var currentSticky = this._getCurrentSticky();
+                var stickyNode = this.refs.stickyNode;
+
+                if (currentSticky) {
+                    var currentHeader = currentSticky.currentHeader,
+                        adjustOffset = currentSticky.adjustOffset;
+
+
+                    if (currentSticky.index !== this.stickyIndex || currentSticky.adjustOffset !== this.stickyOffset || forceRefresh) {
+                        var transform = 'translate(0px,' + adjustOffset + 'px) translateZ(0px)';
+                        stickyNode.style.transform = transform;
+                        stickyNode.style.webkitTransform = transform;
+                        stickyNode.style.display = 'block';
+                        stickyNode.className = currentHeader.stickyExtraClass;
+                        _reactDom2.default.render(_react2.default.cloneElement(currentHeader.onlyChild), stickyNode);
+
+                        this.stickyIndex = currentSticky.index;
+                        this.stickyOffset = currentSticky.adjustOffset;
+                    }
+                } else {
+                    this.stickyIndex = null;
+                    this.stickyOffset = null;
+                    stickyNode.style.display = 'none';
+                }
+            }
+        }
+
+        /**
+         * @method stopAnimate
+         * @description 停止当前的滚动动画，包括：惯性滚动、回弹、ScrollTo等。
+         */
+
+    }, {
+        key: 'stopAnimate',
+        value: function stopAnimate() {
+            if (this.useTransition && this.isInTransition) {
+                this._transitionTime();
+                this.isInTransition = false;
+
+                var pos = this._getComputedPosition();
+
+                this._translate(Math.round(pos.x), Math.round(pos.y));
+                this._execEvent('onScrollEnd');
+            } else if (!this.useTransition && this.isAnimating) {
+                this._execEvent('onScrollEnd');
+                cancelrAF(this.rAF);
+
+                this.isAnimating = false;
+            }
+        }
+
+        /**
+         * @method _getComputedPosition
+         * @returns {Object} 当前内容区域位移，{x: x, y: y}
+         * @description 获取当前内容区域的位移
+         * @skip
+         */
+
+    }, {
+        key: '_getComputedPosition',
+        value: function _getComputedPosition() {
+            var matrix = window.getComputedStyle(this.scroller, null);
+            var x = void 0;
+            var y = void 0;
+
+            if (this.useTransform) {
+                matrix = matrix[_utils2.default.style.transform].split(')')[0].split(', ');
+                x = +(matrix[12] || matrix[4]);
+                y = +(matrix[13] || matrix[5]);
+            } else {
+                x = +matrix.left.replace(/[^-\d.]/g, '');
+                y = +matrix.top.replace(/[^-\d.]/g, '');
+            }
+
+            return { x: x, y: y };
+        }
+
+        /**
+         * @method _execEvent
+         * @param {string} eventType 事件类型
+         * @param {Object} param 参数
+         * @description 触发事件回调
+         * @skip
+         */
+
+    }, {
+        key: '_execEvent',
+        value: function _execEvent(eventType, param) {
+            // console.log(eventType)
+            if (eventType === 'onScroll' || eventType === 'onScrollEnd') {
+                this._tryLoadLazyImages();
+                this._refreshSticky();
+            }
+            if (eventType === 'onScrollStart') {
+                this.isScrolling = true;
+            }
+            if (eventType === 'onScrollEnd') {
+                this.isScrolling = false;
+            }
+            if (this.props[eventType]) {
+                this.props[eventType].apply(this, [{
+                    contentOffset: {
+                        x: this.x,
+                        y: this.y
+                    },
+                    param: param
+                }]);
+            }
+        }
+
+        /**
+         * @method refresh
+         * @param {Object} [refreshOption] 刷新参数，{wrapperWidth, wrapperHeight, scrollerWidth, scrollerHeight}
+         * @description 刷新 Scroller，一般场景**不推荐使用**，因为当内容改变的时候，Scroller 会自动 render。
+         *
+         * 使用场景1：需要强制设置 Scroller 本身的宽高和内容容器的宽高时，可以通过refreshOption来传入宽高代替dom的宽高。
+         *
+         * 使用场景2：在某些不是通过 setState 或 Redux 等方式来改变内容导致 Scroller 不会 render 时，可以强制重新获取Scroller宽高和内容容器宽高。
+         */
+
+    }, {
+        key: 'refresh',
+        value: function refresh() {
+            var refreshOption = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+            var callFromList = arguments[1];
+
+            if (!callFromList) {
+                this.wrapperWidth = typeof refreshOption.wrapperWidth !== 'undefined' ? refreshOption.wrapperWidth : this.wrapper.clientWidth;
+                this.wrapperHeight = typeof refreshOption.wrapperHeight !== 'undefined' ? refreshOption.wrapperHeight : this.wrapper.clientHeight;
+                this.scrollerWidth = typeof refreshOption.scrollerWidth !== 'undefined' ? refreshOption.scrollerWidth : this.scroller.offsetWidth;
+
+                if (this.refs.wrapper) {
+                    this.wrapperOffsetTop = (0, _utils3.getElementOffsetY)(this.refs.wrapper, null);
+                }
+            }
+
+            this.scrollerHeight = typeof refreshOption.scrollerHeight !== 'undefined' ? refreshOption.scrollerHeight : this.scroller.offsetHeight;
+
+            // 如果有下拉刷新，设置下拉刷新的位置，重置scrollerHeight
+            if (this.state.useLoadMore && this.refs.LoadMore) {
+                this.refs.LoadMore.style.visibility = this.scrollerHeight > 0 ? 'visible' : 'hidden';
+                this.refs.LoadMore.style.top = this.scrollerHeight + 'px';
+                this.scrollerHeight += this.props.loadMoreHeight;
+            }
+
+            this.maxScrollX = this.wrapperWidth - this.scrollerWidth;
+            this.maxScrollY = this.wrapperHeight - this.scrollerHeight - this.props.contentInset.bottom;
+
+            this.hasHorizontalScroll = this.props.scrollX && this.maxScrollX < 0;
+            this.hasVerticalScroll = this.props.scrollY && this.maxScrollY < 0;
+
+            if (!this.hasHorizontalScroll) {
+                this.maxScrollX = 0;
+                this.scrollerWidth = this.wrapperWidth;
+            }
+
+            if (!this.hasVerticalScroll) {
+                this.maxScrollY = 0;
+                this.scrollerHeight = this.wrapperHeight;
+            }
+
+            this.endTime = 0;
+            this.directionX = 0;
+            this.directionY = 0;
+        }
+
+        /**
+         * @method refreshLazyImage
+         * @version 3.0.12
+         * @description 刷新 Scroller 中的 LazyImage。
+         *
+         * 使用场景：在某些不是通过 setState 或 Redux 等方式来**直接改变** Scroller 的内容导致 Scroller 不会 render 时，由于内容宽高发生了变化，需要通过本方法来刷新 LazyImage 的位置信息。
+         */
+
+    }, {
+        key: 'refreshLazyImage',
+        value: function refreshLazyImage() {
+            this._tryLoadLazyImages(true);
+        }
+
+        /**
+         * @method _resetPosition
+         * @param {Number} [time] 滚动到临界点的时间
+         * @description 校正当前内容的位置，如果超出了可滚动的范围，则滚动到临界点。主要用于回弹。
+         * @skip
+         */
+
+    }, {
+        key: '_resetPosition',
+        value: function _resetPosition(time) {
+            var x = this.x;
+            var y = this.y;
+            var animateTime = time || 0;
+
+            if (this.refreshState === REFRESHSTATUS.LOAD && this.y === this.props.pullRefreshHeight) {
+                return false;
+            }
+
+            if (!this.hasHorizontalScroll || this.x > 0) {
+                x = 0;
+            } else if (this.x < this.maxScrollX) {
+                x = this.maxScrollX;
+            }
+
+            if (!this.hasVerticalScroll || this.y > 0) {
+                y = 0;
+            } else if (this.y < this.maxScrollY) {
+                y = this.maxScrollY;
+            }
+
+            if (x === this.x && y === this.y) {
+                return false;
+            }
+
+            this.scrollTo(x, y, animateTime, this.props.bounceEasing);
+
+            return true;
+        }
+
+        /**
+         * @method scrollTo
+         * @param {Number} x 水平位移，默认值为当前水平位移
+         * @param {Number} y 垂直位移，默认值为当前垂直位移
+         * @param {Number} time 滚动时间，默认值为0
+         * @param {Object} [easing] 滚动动画对象。参照 `bounceEasing` 参数。
+         *
+         * @description 滚动到某个位置。
+         */
+
+    }, {
+        key: 'scrollTo',
+        value: function scrollTo() {
+            var x = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.x;
+            var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.y;
+            var time = arguments[2];
+            var easing = arguments[3];
+            // TODO: 给scrollTo加上回调，由于transitionend事件并不能针对某一次的transition，所以暂时不好处理
+            var _easing = easing || _utils2.default.ease.circular;
+            var transitionType = this.useTransition && _easing.style;
+
+            this.isInTransition = this.useTransition && time > 0;
+
+            if (!time || transitionType) {
+                if (transitionType) {
+                    this._transitionTimingFunction(_easing.style);
+                    this._transitionTime(time);
+                }
+                this._translate(x, y);
+            } else {
+                this._animate(x, y, time, _easing.fn);
+            }
+            // 由于scrollto不会触发onScroll事件，因此这里需要手动刷新一下sticky
+            this._refreshSticky(true);
+            this._tryLoadLazyImages();
+        }
+    }, {
+        key: '_transitionTimingFunction',
+        value: function _transitionTimingFunction(easing) {
+            this._scrollerStyle[_utils2.default.style.transitionTimingFunction] = easing;
+        }
+    }, {
+        key: '_transitionTime',
+        value: function _transitionTime(time) {
+            var _this4 = this;
+
+            var _time = time || 0;
+            var durationProp = _utils2.default.style.transitionDuration;
+            if (!this.useTransition) {
+                return;
+            }
+
+            if (!durationProp) {
+                return;
+            }
+            this._scrollerStyle[durationProp] = _time + 'ms';
+
+            if (!_time && _utils2.default.isBadAndroid) {
+                this._scrollerStyle[durationProp] = '0.0001ms';
+
+                // remove 0.0001ms
+                rAF(function () {
+                    if (_this4._scrollerStyle[durationProp] === '0.0001ms') {
+                        _this4._scrollerStyle[durationProp] = '0s';
+                    }
+                });
+            }
+
+            this._setStyle(this.scroller, this._scrollerStyle);
+        }
+    }, {
+        key: '_setStyle',
+        value: function _setStyle(dom, style) {
+            var _style = (0, _assign2.default)({}, style);
+            var _dom = dom;
+
+            (0, _keys2.default)(_style).forEach(function (key) {
+                _dom.style[key] = _style[key];
+            });
+        }
+    }, {
+        key: '_translate',
+        value: function _translate(x, y) {
+            if (this.useTransform) {
+                this._scrollerStyle[_utils2.default.style.transform] = 'translate(' + x + 'px,' + y + 'px)' + this.translateZ;
+
+                this.x = x;
+                this.y = y;
+
+                this._setStyle(this.scroller, this._scrollerStyle);
+            } else {
+                var _x = Math.round(x);
+                var _y = Math.round(y);
+
+                this._scrollerStyle.left = _x + 'px';
+                this._scrollerStyle.top = _y + 'px';
+
+                this.x = _x;
+                this.y = _y;
+
+                this._setStyle(this.scroller, this._scrollerStyle);
+            }
+
+            if (this.state.usePullRefresh) {
+                if (y >= this.props.pullRefreshHeight && this.refreshState === REFRESHSTATUS.PULL) {
+                    this._setRefreshStatus(REFRESHSTATUS.RELEASE);
+                } else if (y < this.props.pullRefreshHeight && this.refreshState === REFRESHSTATUS.RELEASE) {
+                    this._setRefreshStatus(REFRESHSTATUS.PULL);
+                }
+            }
+
+            if (this.state.useLoadMore) {
+                if (this.maxScrollY - y > 0 && this.loadState === LOADSTATUS.PULL) {
+                    // this._setRefreshStatus(LOADSTATUS.RELEASE);
+                    this._setLoadStatus(LOADSTATUS.RELEASE);
+                } else if (this.maxScrollY - y <= 0 && this.loadState === LOADSTATUS.RELEASE) {
+                    // this._setRefreshStatus(LOADSTATUS.PULL);
+                    this._setLoadStatus(LOADSTATUS.PULL);
+                }
+            }
+        }
+    }, {
+        key: '_animate',
+        value: function _animate(destX, destY, duration, easingFn) {
+            var _this5 = this;
+
+            var self = this;
+            var startX = this.x;
+            var startY = this.y;
+            var startTime = _utils2.default.getTime();
+            var destTime = startTime + duration;
+
+            var step = function step() {
+                var now = _utils2.default.getTime();
+                var easing = easingFn((now - startTime) / duration);
+                var newX = (destX - startX) * easing + startX;
+                var newY = (destY - startY) * easing + startY;
+
+                if (now >= destTime) {
+                    self.isAnimating = false;
+                    self._translate(destX, destY);
+
+                    if (!self._resetPosition(self.props.bounceTime)) {
+                        self._execEvent('onScrollEnd');
+                    }
+
+                    return;
+                }
+
+                self._translate(newX, newY);
+
+                _this5._execEvent('onScroll');
+
+                if (self.isAnimating) {
+                    cancelrAF(self.rAF);
+                    self.rAF = rAF(step);
+                }
+            };
+
+            this.isAnimating = true;
+            step();
+        }
+    }, {
+        key: '_setRefreshStatus',
+        value: function _setRefreshStatus(status) {
+            var _this6 = this;
+
+            if (!this.state.usePullRefresh) {
+                return;
+            }
+
+            var _prevRefreshState = this.refreshState;
+            this.refreshState = status;
+
+            (0, _keys2.default)(REFRESHSTATUS).forEach(function (item) {
+                var _ref = REFRESHSTATUS[item];
+                if (_this6.refs[_ref]) {
+                    _this6.refs[_ref].style.display = status === _ref ? '' : 'none';
+                }
+            });
+
+            var releaseIcon = this.refs[REFRESHSTATUS.RELEASE].querySelector('i');
+            var pullIcon = this.refs[REFRESHSTATUS.PULL].querySelector('i');
+
+            // todo: 为啥用了react之后，这个地方需要setTimeout才能正常动画
+            setTimeout(function () {
+                if (_prevRefreshState === REFRESHSTATUS.PULL && status === REFRESHSTATUS.RELEASE) {
+                    releaseIcon.style[_utils2.default.style.transform] = '';
+                    pullIcon.style[_utils2.default.style.transform] = 'rotate(180deg)';
+                } else {
+                    releaseIcon.style[_utils2.default.style.transform] = 'rotate(-180deg)';
+                    pullIcon.style[_utils2.default.style.transform] = '';
+                }
+            }, 0);
+        }
+    }, {
+        key: '_setLoadStatus',
+        value: function _setLoadStatus(status) {
+            var _this7 = this;
+
+            if (!this.state.useLoadMore) {
+                return;
+            }
+
+            var _prevLoadState = this.loadState;
+            this.loadState = status;
+
+            (0, _keys2.default)(LOADSTATUS).forEach(function (item) {
+                var _ref = LOADSTATUS[item];
+                if (_this7.refs[_ref]) {
+                    _this7.refs[_ref].style.display = status === _ref ? '' : 'none';
+                }
+            });
+
+            var releaseIcon = this.refs[LOADSTATUS.RELEASE].querySelector('i');
+            var pullIcon = this.refs[LOADSTATUS.PULL].querySelector('i');
+
+            // todo: 为啥用了react之后，这个地方需要setTimeout才能正常动画
+            setTimeout(function () {
+                if (_prevLoadState === LOADSTATUS.PULL && status === LOADSTATUS.RELEASE) {
+                    releaseIcon.style[_utils2.default.style.transform] = '';
+                    pullIcon.style[_utils2.default.style.transform] = 'rotate(180deg)';
+                } else {
+                    releaseIcon.style[_utils2.default.style.transform] = 'rotate(-180deg)';
+                    pullIcon.style[_utils2.default.style.transform] = '';
+                }
+            }, 0);
+        }
+
+        /**
+         * @method resetLoadStatus
+         * @param {Bool} hasLoadMore 是否能够加载更多，如果传入false，加载更多区域的文字将会变成 没有更多了，并且继续向下滚动时不会触发onLoadMore。
+         * @description 重置加载更多功能。
+         * @version 3.0.7
+         */
+
+    }, {
+        key: 'resetLoadStatus',
+        value: function resetLoadStatus(hasLoadMore) {
+            this._setLoadStatus(hasLoadMore ? LOADSTATUS.PULL : LOADSTATUS.NOMORE);
+        }
+
+        /**
+         * @method startRefreshing
+         * @param {Number} [time] 滚动到顶部的时间，默认为 300ms
+         * @description 强制开始刷新。这个方法一般是用在切换筛选项或者关键字等场景，来达到回到顶部并且开始刷新的效果。如果是用户下拉触发 `onRefresh` 时，就不需要再调用这个方法了。
+         */
+
+    }, {
+        key: 'startRefreshing',
+        value: function startRefreshing() {
+            var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 300;
+
+            if (this.state.usePullRefresh && this.refreshState !== REFRESHSTATUS.LOAD) {
+                this._setRefreshStatus(REFRESHSTATUS.LOAD);
+                this.scrollTo(this.x, this.props.pullRefreshHeight, time);
+
+                this._execEvent('onRefresh');
+            }
+        }
+
+        /**
+         * @method stopRefreshing
+         * @param {Bool} status 刷新的状态。true表示加载成功，false表示加载失败。
+         * @param {Object} [config] 停止刷新的动画配置
+         * @param {number} [config.duration] 回到顶部的动画时间，默认是300ms
+         * @description 停止刷新，停止之后会自动滚动到顶部。
+         */
+
+    }, {
+        key: 'stopRefreshing',
+        value: function stopRefreshing(status) {
+            var _this8 = this;
+
+            var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { duration: 300 };
+
+            if (this.state.usePullRefresh && this.refreshState === REFRESHSTATUS.LOAD) {
+                this._setRefreshStatus(status ? REFRESHSTATUS.SUCCESS : REFRESHSTATUS.FAIL);
+
+                // 方案一：放在scrollTo的回调中处理状态，但是scrollTo的回调有时候会有问题；可以通过this.disabled = true 来禁止滚动解决现有的问题
+                // this.scrollTo(this.x, 0, 300, null, ()=>{
+                //     this._setRefreshStatus(REFRESHSTATUS.PULL);
+                // });
+
+                // 方案二：setTimeout的方式，但是不准确，尤其是在比较卡的机器上
+                this.scrollTo(this.x, 0, config.duration);
+                this.disabled = true;
+                setTimeout(function () {
+                    _this8._setRefreshStatus(REFRESHSTATUS.PULL);
+                    _this8._setLoadStatus(LOADSTATUS.PULL);
+                    _this8.disabled = false;
+                }, config.duration);
+            }
+        }
+
+        /**
+         * @method stopLoading
+         * @param {Bool} status 刷新的状态。true表示加载了更多数据，false表示没有更多数据了。
+         * @description 停止加载更多。
+         */
+
+    }, {
+        key: 'stopLoading',
+        value: function stopLoading(status) {
+            if (this.state.useLoadMore && this.loadState === LOADSTATUS.LOAD) {
+                this._setLoadStatus(status ? LOADSTATUS.PULL : LOADSTATUS.NOMORE);
+            }
+        }
+
+        /**
+         * @method _refreshLoadMore
+         * @skip
+         * @private
+         * @description 更新useLoadMore属性时的逻辑（该逻辑必须放到refresh之后，因为refresh才会计算的到正确的scrollerHeight）
+         *
+         * 1. 如果是去掉useLoadMore，需要重新设置位置（因为scrollerHeight变少了）
+         * 2. 如果是加上useLoadMore，需要设置LoadMore的位置（此时的scrollerHeight是包括loadMoreHeight的，所以需要减去loadMoreHHeight）
+         */
+
+    }, {
+        key: '_refreshLoadMore',
+        value: function _refreshLoadMore() {
+            if (!this.state.useLoadMore) {
+                this._resetPosition();
+            } else {
+                if (this.refs.LoadMore) {
+                    this.refs.LoadMore.style.top = this.scrollerHeight - this.props.loadMoreHeight + 'px';
+                }
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this9 = this;
+
+            var _props = this.props,
+                extraClass = _props.extraClass,
+                containerExtraClass = _props.containerExtraClass,
+                pullRefreshHeight = _props.pullRefreshHeight,
+                loadMoreHeight = _props.loadMoreHeight,
+                stickyOffset = _props.stickyOffset;
+
+            var pullRefreshContent = void 0;
+            var loadMoreContent = void 0;
+
+            if (this.state.usePullRefresh) {
+                var pullRefreshTpl = _react2.default.createElement(
+                    'div',
+                    {
+                        ref: 'pullrefresh',
+                        className: 'yo-load',
+                        style: {
+                            height: pullRefreshHeight + 'px',
+                            lineHeight: pullRefreshHeight + 'px',
+                            top: -pullRefreshHeight + 'px'
+                        }
+                    },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'yo-loadtip', ref: 'pullrefresh_pull' },
+                        _react2.default.createElement(
+                            'i',
+                            { className: 'yo-ico' },
+                            '\uF07B'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'text' },
+                            '\u4E0B\u62C9\u53EF\u4EE5\u5237\u65B0'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'yo-loadtip', ref: 'pullrefresh_release' },
+                        _react2.default.createElement(
+                            'i',
+                            { className: 'yo-ico' },
+                            '\uF079'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'text' },
+                            '\u91CA\u653E\u7ACB\u5373\u66F4\u65B0'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'yo-loadtip', ref: 'pullrefresh_load' },
+                        _react2.default.createElement(
+                            'i',
+                            { className: 'yo-ico yo-ico-loading' },
+                            '\uF089'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'text' },
+                            '\u52AA\u529B\u52A0\u8F7D\u4E2D...'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'yo-loadtip', ref: 'pullrefresh_success' },
+                        _react2.default.createElement(
+                            'i',
+                            { className: 'yo-ico yo-ico-succ' },
+                            '\uF078'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'text' },
+                            '\u52A0\u8F7D\u6210\u529F'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'yo-loadtip', ref: 'pullrefresh_fail' },
+                        _react2.default.createElement(
+                            'i',
+                            { className: 'yo-ico yo-ico-fail' },
+                            '\uF077'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'text' },
+                            '\u52A0\u8F7D\u5931\u8D25'
+                        )
+                    )
+                );
+
+                pullRefreshContent = this.props.renderPullRefresh ? this.props.renderPullRefresh() : pullRefreshTpl;
+            }
+
+            if (this.state.useLoadMore) {
+                var loadMoreTpl = _react2.default.createElement(
+                    'div',
+                    {
+                        ref: 'LoadMore',
+                        className: 'yo-load',
+                        style: {
+                            height: loadMoreHeight + 'px',
+                            lineHeight: loadMoreHeight + 'px',
+                            top: -loadMoreHeight + 'px'
+                        }
+                    },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'yo-loadtip', ref: 'loadmore_pull' },
+                        _react2.default.createElement(
+                            'i',
+                            { className: 'yo-ico' },
+                            '\uF079'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'text' },
+                            '\u4E0A\u62C9\u52A0\u8F7D\u66F4\u591A'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'yo-loadtip', ref: 'loadmore_release' },
+                        _react2.default.createElement(
+                            'i',
+                            { className: 'yo-ico' },
+                            '\uF07B'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'text' },
+                            '\u91CA\u653E\u7ACB\u5373\u52A0\u8F7D'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'yo-loadtip', ref: 'loadmore_load' },
+                        _react2.default.createElement(
+                            'i',
+                            { className: 'yo-ico yo-ico-loading' },
+                            '\uF089'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'text' },
+                            '\u6B63\u5728\u52A0\u8F7D...'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'yo-loadtip', ref: 'loadmore_nomore' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'text' },
+                            '\u6CA1\u6709\u66F4\u591A\u4E86...'
+                        )
+                    )
+                );
+
+                loadMoreContent = this.props.renderLoadMore ? this.props.renderLoadMore() : loadMoreTpl;
+            }
+
+            var wrapperStyle = (0, _assign2.default)({ overflow: 'hidden', paddingBottom: this.props.contentInset.bottom }, this.props.style);
+            // let wrapperStyle = Object.assign({ overflow: 'hidden' }, this.props.style);
+            var scrollerStyle = (0, _assign2.default)({}, this.props.containerExtraStyle, this._scrollerStyle);
+            var scrollerContent = void 0;
+            var _wrapperClassName = (0, _classnames2.default)('yo-scroller', extraClass);
+            var _scrollerClassName = (0, _classnames2.default)('scroller', containerExtraClass);
+
+            // 兼容 Qreact
+            var theOnlyChild = (0, _utils3.getOnlyChild)(this.props);
+
+            if (this.noWrapper) {
+                // 1. 不需要滚动容器（只适用于特殊的、内容的宽高已知的情况）
+                scrollerContent = _react2.default.cloneElement(this.props.children, {
+                    ref: 'scroller',
+                    onTouchStart: function onTouchStart(evt) {
+                        return _this9._handleTouchStart(evt);
+                    },
+                    onTouchMove: function onTouchMove(evt) {
+                        return _this9._handleTouchMove(evt);
+                    },
+                    onTouchEnd: function onTouchEnd(evt) {
+                        return _this9._handleTouchEnd(evt);
+                    },
+                    onTouchCancel: function onTouchCancel(evt) {
+                        return _this9._handleTouchEnd(evt);
+                    },
+                    onTransitionEnd: function onTransitionEnd(evt) {
+                        return _this9._handleTransitionEnd(evt);
+                    }
+                });
+                // 兼容 Qreact
+            } else if (theOnlyChild && typeof theOnlyChild.type === 'string' && !this.state.usePullRefresh && !this.state.useLoadMore) {
+                // 2. 将内容的最外层节点当做滚动容器
+                if (theOnlyChild.props && theOnlyChild.props.className) {
+                    _scrollerClassName = (0, _classnames2.default)('scroller', theOnlyChild.props.className);
+                } else {
+                    _scrollerClassName = 'scroller';
+                }
+
+                var content = _react2.default.cloneElement(theOnlyChild, {
+                    ref: 'scroller',
+                    className: _scrollerClassName,
+                    style: scrollerStyle
+                });
+
+                scrollerContent = _react2.default.createElement(
+                    'div',
+                    {
+                        ref: 'wrapper',
+                        className: _wrapperClassName,
+                        onTouchStart: function onTouchStart(evt) {
+                            return _this9._handleTouchStart(evt);
+                        },
+                        onTouchMove: function onTouchMove(evt) {
+                            return _this9._handleTouchMove(evt);
+                        },
+                        onTouchEnd: function onTouchEnd(evt) {
+                            return _this9._handleTouchEnd(evt);
+                        },
+                        onTouchCancel: function onTouchCancel(evt) {
+                            return _this9._handleTouchEnd(evt);
+                        },
+                        onTransitionEnd: function onTransitionEnd(evt) {
+                            return _this9._handleTransitionEnd(evt);
+                        },
+                        style: wrapperStyle
+                    },
+                    _react2.default.createElement('div', {
+                        ref: 'stickyNode',
+                        style: { position: 'absolute', top: stickyOffset, left: 0, right: 0, zIndex: 9999 },
+                        className: 'sticky'
+                    }),
+                    content
+                );
+            } else {
+                // 3. 在内容的外面加一层滚动容器
+                scrollerContent = _react2.default.createElement(
+                    'div',
+                    {
+                        ref: 'wrapper',
+                        className: _wrapperClassName,
+                        onTouchStart: function onTouchStart(evt) {
+                            return _this9._handleTouchStart(evt);
+                        },
+                        onTouchMove: function onTouchMove(evt) {
+                            return _this9._handleTouchMove(evt);
+                        },
+                        onTouchEnd: function onTouchEnd(evt) {
+                            return _this9._handleTouchEnd(evt);
+                        },
+                        onTouchCancel: function onTouchCancel(evt) {
+                            return _this9._handleTouchEnd(evt);
+                        },
+                        onTransitionEnd: function onTransitionEnd(evt) {
+                            return _this9._handleTransitionEnd(evt);
+                        },
+                        style: wrapperStyle
+                    },
+                    _react2.default.createElement('div', {
+                        ref: 'stickyNode',
+                        style: { position: 'absolute', top: stickyOffset, left: 0, right: 0, zIndex: 9999 },
+                        className: 'sticky'
+                    }),
+                    _react2.default.createElement(
+                        'div',
+                        { className: _scrollerClassName, ref: 'scroller', style: scrollerStyle },
+                        this.props.children,
+                        pullRefreshContent,
+                        loadMoreContent
+                    )
+                );
+            }
+
+            return scrollerContent;
+        }
+    }]);
+    return Scroller;
+}(_react.Component), _class.ease = _utils2.default.ease, _class.childContextTypes = {
+    scroller: _propTypes2.default.object,
+    isScroller: _propTypes2.default.bool
+}, _temp);
+exports.default = Scroller;
+
+
+Scroller.defaultProps = defaultProps;
+Scroller.propTypes = propTypes;
+Scroller.Sticky = _sticky2.default;
+Scroller.LazyImage = _lazyimage2.default;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/yo-component/scroller/utils.js":
+/*!********************************************!*\
+  !*** ./src/yo-component/scroller/utils.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _typeof2 = __webpack_require__(/*! babel-runtime/helpers/typeof */ "./node_modules/babel-runtime/helpers/typeof.js");
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+var _keys = __webpack_require__(/*! babel-runtime/core-js/object/keys */ "./node_modules/babel-runtime/core-js/object/keys.js");
+
+var _keys2 = _interopRequireDefault(_keys);
+
+var _utils = __webpack_require__(/*! ../common/utils */ "./src/yo-component/common/utils.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var utils = !_utils.isEnvNode ? function () {
+    var me = {};
+    var _elementStyle = document.createElement('div').style;
+
+    var _vendor = function () {
+        var vendors = ['t', 'WebkitT', 'MozT', 'msT', 'OT'];
+        var transform = void 0;
+
+        for (var i = 0, l = vendors.length; i < l; i++) {
+            transform = vendors[i] + 'ransform';
+            if (transform in _elementStyle) {
+                return vendors[i].substr(0, vendors[i].length - 1);
+            }
+        }
+
+        return false;
+    }();
+
+    var _prefixStyle = function _prefixStyle(style) {
+        if (_vendor === false) {
+            return false;
+        }
+        if (_vendor === '') {
+            return style;
+        }
+        return _vendor + style.charAt(0).toUpperCase() + style.substr(1);
+    };
+
+    me.getTime = Date.now || function getTime() {
+        return new Date().getTime();
+    };
+
+    me.getRAF = function () {
+        function basicRAF(callback) {
+            return window.setTimeout(callback, 1000 / 60);
+        }
+
+        var rAF = window.cancelAnimationFrame && window.requestAnimationFrame || window.webkitCancelAnimationFrame && window.webkitRequestAnimationFrame || window.mozCancelAnimationFrame && window.mozRequestAnimationFrame || window.oCancelAnimationFrame && window.oRequestAnimationFrame || window.msCancelAnimationFrame && window.msRequestAnimationFrame || basicRAF;
+
+        var cancelrAF = window.cancelAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame || window.oCancelAnimationFrame || window.msCancelAnimationFrame || window.clearTimeout;
+
+        if (me.isBadAndroid) {
+            rAF = basicRAF;
+            cancelrAF = window.clearTimeout;
+        }
+
+        return { rAF: rAF, cancelrAF: cancelrAF };
+    };
+
+    me.extend = function (target, obj) {
+        (0, _keys2.default)(obj).forEach(function (i) {
+            target[i] = obj[i];
+        });
+    };
+
+    me.momentum = function (current, start, time, lowerMargin, wrapperSize, deceleration) {
+        var distance = current - start,
+            destination = void 0,
+            duration = void 0;
+        var speed = Math.abs(distance) / time;
+
+        deceleration = deceleration === undefined ? 0.0015 : deceleration;
+
+        destination = current + speed * speed / (2 * deceleration) * (distance < 0 ? -1 : 1);
+        duration = speed / deceleration;
+
+        if (destination < lowerMargin) {
+            destination = wrapperSize ? lowerMargin - wrapperSize / 2.5 * (speed / 8) : lowerMargin;
+            distance = Math.abs(destination - current);
+            duration = distance / speed;
+        } else if (destination > 0) {
+            destination = wrapperSize ? wrapperSize / 2.5 * (speed / 8) : 0;
+            distance = Math.abs(current) + destination;
+            duration = distance / speed;
+        }
+
+        return {
+            destination: Math.round(destination),
+            duration: duration
+        };
+    };
+
+    var _transform = _prefixStyle('transform');
+
+    me.extend(me, {
+        hasTransform: _transform !== false,
+        hasPerspective: _prefixStyle('perspective') in _elementStyle,
+        hasTouch: 'ontouchstart' in window,
+        hasPointer: !!(window.PointerEvent || window.MSPointerEvent), // IE10 is prefixed
+        hasTransition: _prefixStyle('transition') in _elementStyle
+    });
+
+    /*
+        This should find all Android browsers lower than build 535.19 (both stock browser and webview)
+        - galaxy S2 is ok
+        - 2.3.6 : `AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1`
+        - 4.0.4 : `AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30`
+        - galaxy S3 is badAndroid (stock brower, webview)
+        `AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30`
+        - galaxy S4 is badAndroid (stock brower, webview)
+        `AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30`
+        - galaxy S5 is OK
+        `AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Mobile Safari/537.36 (Chrome/)`
+        - galaxy S6 is OK
+        `AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Mobile Safari/537.36 (Chrome/)`
+        */
+    me.isBadAndroid = function () {
+        var appVersion = window.navigator.appVersion;
+        var _isBadAndroid = false;
+        // Android browser is not a chrome browser.
+        if (/Android/.test(appVersion) && !/Chrome\/\d/.test(appVersion)) {
+            var safariVersion = appVersion.match(/Safari\/(\d+.\d)/);
+            if (safariVersion && (typeof safariVersion === 'undefined' ? 'undefined' : (0, _typeof3.default)(safariVersion)) === 'object' && safariVersion.length >= 2) {
+                _isBadAndroid = parseFloat(safariVersion[1]) < 535.19;
+            } else {
+                _isBadAndroid = true;
+            }
+        } else {
+            _isBadAndroid = false;
+        }
+
+        return _isBadAndroid;
+    }();
+
+    me.extend(me.style = {}, {
+        transform: _transform,
+        transitionTimingFunction: _prefixStyle('transitionTimingFunction'),
+        transitionDuration: _prefixStyle('transitionDuration'),
+        transitionDelay: _prefixStyle('transitionDelay'),
+        transformOrigin: _prefixStyle('transformOrigin')
+    });
+
+    me.preventDefaultException = function (el, exceptions) {
+        var keys = (0, _keys2.default)(exceptions);
+
+        for (var i = 0, len = keys.length; i < len; i++) {
+            var attr = keys[i];
+            if (exceptions[attr].test(el[attr])) {
+                return true;
+            }
+        }
+
+        return false;
+    };
+
+    me.extend(me.eventType = {}, {
+        touchstart: 1,
+        touchmove: 1,
+        touchend: 1
+
+        // mousedown: 2,
+        // mousemove: 2,
+        // mouseup: 2,
+        //
+        // pointerdown: 3,
+        // pointermove: 3,
+        // pointerup: 3,
+        //
+        // MSPointerDown: 3,
+        // MSPointerMove: 3,
+        // MSPointerUp: 3
+    });
+
+    me.extend(me.ease = {}, {
+        quadratic: {
+            style: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+            fn: function fn(k) {
+                return k * (2 - k);
+            }
+        },
+        circular: {
+            style: 'cubic-bezier(0.1, 0.57, 0.1, 1)', // Not properly "circular" but this looks better, it should be (0.075, 0.82, 0.165, 1)
+            fn: function fn(k) {
+                var _k = k - 1;
+                return Math.sqrt(1 - _k * _k);
+            }
+        },
+        back: {
+            style: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+            fn: function fn(k) {
+                var b = 4;
+                var _k = k - 1;
+                return _k * _k * ((b + 1) * _k + b) + 1;
+            }
+        },
+        bounce: {
+            style: '',
+            fn: function fn(k) {
+                var y = void 0,
+                    _k = k;
+
+                if (_k / 1 < 1 / 2.75) {
+                    _k = _k / 1;
+                    y = 7.5625 * _k * _k;
+                } else if (k < 2 / 2.75) {
+                    _k -= 1.5 / 2.75;
+                    y = 7.5625 * _k * _k + 0.75;
+                } else if (k < 2.5 / 2.75) {
+                    _k -= 2.25 / 2.75;
+                    y = 7.5625 * _k * _k + 0.9375;
+                } else {
+                    _k -= 2.625 / 2.75;
+                    y = 7.5625 * _k * _k + 0.984375;
+                }
+
+                return y;
+            }
+        },
+        elastic: {
+            style: '',
+            fn: function fn(k) {
+                var f = 0.22,
+                    e = 0.4;
+
+                if (k === 0) {
+                    return 0;
+                }
+                if (k === 1) {
+                    return 1;
+                }
+
+                return e * Math.pow(2, -10 * k) * Math.sin((k - f / 4) * (2 * Math.PI) / f) + 1;
+            }
+        }
+    });
+
+    return me;
+}() : {};
+
+exports.default = utils;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./src/yo-component/sticky/index.js":
+/*!******************************************!*\
+  !*** ./src/yo-component/sticky/index.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = undefined;
+
+var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ "./node_modules/babel-runtime/core-js/object/get-prototype-of.js");
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ "./node_modules/babel-runtime/helpers/classCallCheck.js");
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ "./node_modules/babel-runtime/helpers/createClass.js");
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ "./node_modules/babel-runtime/helpers/possibleConstructorReturn.js");
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ "./node_modules/babel-runtime/helpers/inherits.js");
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _class, _temp; /**
+                    * @component Sticky
+                    * @description `Sticky` 组件，只能在 `Scroller` 内部或者列表系列组件的 `staticSection` 中使用，
+                    * 它内部的子元素在 `Scroller` 滚动时将会获得吸顶效果。
+                    *
+                    * `Sticky` 是一个虚拟组件，它只会给它的唯一子元素添加额外的逻辑，而不会改变原有的 `dom` 结构。
+                    * @instructions {instruInfo: ./sticky.md}{instruUrl: scroller/sticky.html?hideIcon}
+                    * @author jiao.shen
+                    * @version  3.0.2
+                    */
+
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _utils = __webpack_require__(/*! ../common/utils */ "./src/yo-component/common/utils.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Sticky = (_temp = _class = function (_Component) {
+    (0, _inherits3.default)(Sticky, _Component);
+
+    function Sticky() {
+        (0, _classCallCheck3.default)(this, Sticky);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (Sticky.__proto__ || (0, _getPrototypeOf2.default)(Sticky)).call(this));
+
+        _this.domNode = null;
+        _this.height = null;
+        _this.offsetTop = null;
+        _this.className = null;
+        return _this;
+    }
+
+    (0, _createClass3.default)(Sticky, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.scroller = this.context.scroller;
+
+            if (this.scroller) {
+                this.initialize();
+                this.scroller.stickyHeaders.push(this);
+            }
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate() {
+            this.initialize();
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            var _this2 = this;
+
+            if (this.scroller) {
+                this.scroller.stickyHeaders = this.scroller.stickyHeaders.filter(function (header) {
+                    return header !== _this2;
+                });
+            }
+        }
+    }, {
+        key: 'initialize',
+        value: function initialize() {
+            var height = this.props.height;
+
+            this.domNode = _reactDom2.default.findDOMNode(this);
+            if (height == null) {
+                this.height = this.domNode.offsetHeight;
+            } else {
+                this.height = this.props.height;
+            }
+            this.offsetTop = (0, _utils.getElementOffsetY)(this.domNode, null);
+            this.className = this.domNode.className;
+            this.onlyChild = _react2.default.Children.only(this.props.children);
+            this.stickyExtraClass = this.props.stickyExtraClass;
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.Children.only(this.props.children);
+        }
+    }]);
+    return Sticky;
+}(_react.Component), _class.propTypes = {
+    /**
+     * @property stickyExtraClass
+     * @type String
+     * @default null
+     * @description 在Sticky的子元素处在吸顶状态时，为Scroller的sticky容器添加的额外样式类。
+     */
+    stickyExtraClass: _propTypes2.default.string,
+    /**
+     * @property height
+     * @type number
+     * @default null
+     * @version 3.0.6
+     * @description 吸顶元素的高度，在infinite的列表组件的staticSection中使用时，设置这个属性可以提高列表的滚动性能。
+     */
+    height: _propTypes2.default.number,
+    children: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.object, _propTypes2.default.string])
+}, _class.defaultProps = {
+    stickyExtraClass: ''
+}, _class.contextTypes = {
+    scroller: _propTypes2.default.object
+}, _temp);
+exports.default = Sticky;
 module.exports = exports['default'];
 
 /***/ }),

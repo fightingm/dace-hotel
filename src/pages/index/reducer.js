@@ -1,12 +1,12 @@
-import { FETCH_POSTS } from './action';
+import { FETCH_BANNER } from './action';
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case FETCH_POSTS:
+    case FETCH_BANNER:
       // 只能返回对象，不能返回数组
       return {
         ...state,
-        posts: action.payload.data.slice(0,7).map(({ id, title }) => ({ id, title }))
+        banner: action.payload
       };
     default:
       return state;

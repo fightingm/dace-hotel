@@ -1,11 +1,11 @@
-export const FETCH_POSTS = 'fetch_posts';
-export const fetchPosts = () => async (dispatch, getState, api) => {
-  const { posts } = getState();
-  if (!posts) {
-    const res = await api.get('http://jsonplaceholder.typicode.com/posts');
+export const FETCH_BANNER = 'fetch_banner';
+export const fetchBanner = () => async (dispatch, getState, api) => {
+  const { banner } = getState();
+  if (!banner) {
+    const res = await api.get('http://yapi.demo.qunar.com/mock/16428/banner');
     return dispatch({
-      type: FETCH_POSTS,
-      payload: res
+      type: FETCH_BANNER,
+      payload: res.data.data
     });
   }
   return null;

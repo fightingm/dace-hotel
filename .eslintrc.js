@@ -9,6 +9,9 @@ module.exports = {
     'react/default-props-match-prop-types': 0,
     'one-var': 0,
     'no-nested-ternary': 0,
-    'no-underscore-dangle': 0
+    'no-underscore-dangle': 0,
+    'import/no-unresolved': 0,
+    'import/extensions': 0,
+    'react/no-array-index-key': 0
   }
 };
