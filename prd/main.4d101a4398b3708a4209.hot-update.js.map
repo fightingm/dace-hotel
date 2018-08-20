@@ -1,0 +1,1 @@
+{"version":3,"file":"main.4d101a4398b3708a4209.hot-update.js","sources":["webpack:///src/yo-component/list/index.js"],"sourcesContent":["// import './style.scss';\nimport List from './list';\n\nexport default List;"],"mappings":";;;;;;;;;;;;;;;;;AACA;AACA;;;;;AACA;AACA;;;;;;;;A","sourceRoot":""}

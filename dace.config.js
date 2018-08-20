@@ -15,11 +15,11 @@ module.exports = {
     appConfig.resolve.modules = [...appConfig.resolve.modules, path.resolve('src')];
 
     appConfig.resolve.extensions.push('.scss');
-    appConfig.resolve.alias = {
-      ...appConfig.resolve.alias,
-      '$self-yo-config': path.resolve('src/yo-config'),
-      '$self-yo-component': path.resolve('src/yo-component')
-    };
+    // appConfig.resolve.alias = {
+    //   ...appConfig.resolve.alias,
+    //   '$self-yo-config': path.resolve('src/yo-config'),
+    //   '$self-yo-component': path.resolve('src/yo-component')
+    // };
 
     appConfig.module.rules.push({
       test: /\.scss$/,

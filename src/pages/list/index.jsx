@@ -14,7 +14,7 @@ export default class HotelList extends Component {
   };
 
   static defaultProps = {
-    list: [{ attrs: {}, id: '000', price: 123 }]
+    list: []
   }
 
   static getInitialProps = ({ store }) => {

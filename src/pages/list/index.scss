@@ -1,4 +1,15 @@
 
+// 引入所需的变量和函数
+@import "yo-config/core/extra";
+@import "yo-style/core/merge-extra";
+//merge-config 中用到了 variables,variables中用到了base,必须先调用merge-extra,才能访问到base
+@import "yo-config/core/config";
+@import "yo-style/core/merge-config";
+@import "yo-style/core/function";
+@import "yo-style/core/classes";
+
+// 引入真正的组件样式
+@import "yo-style/component/list";
 
 .mh-list {
   font-size: 12px;

@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Head } from 'dace';
+import './index.scss';
 
 // import Header from '../../components/Header';
 
