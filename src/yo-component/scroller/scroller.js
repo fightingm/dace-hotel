@@ -1429,23 +1429,23 @@ export default class Scroller extends Component {
                     }}
                 >
                     <div className="yo-loadtip" ref="pullrefresh_pull">
-                        <i className="yo-ico">&#xf07b;</i>
+                        <i className="yo-ico">&#xf48a;</i>
                         <div className="text">下拉可以刷新</div>
                     </div>
                     <div className="yo-loadtip" ref="pullrefresh_release">
-                        <i className="yo-ico">&#xf079;</i>
+                        <i className="yo-ico">&#xf48a;</i>
                         <div className="text">释放立即更新</div>
                     </div>
                     <div className="yo-loadtip" ref="pullrefresh_load">
-                        <i className="yo-ico yo-ico-loading">&#xf089;</i>
+                        <i className="yo-ico yo-ico-loading">&#xf48a;</i>
                         <div className="text">努力加载中...</div>
                     </div>
                     <div className="yo-loadtip" ref="pullrefresh_success">
-                        <i className="yo-ico yo-ico-succ">&#xf078;</i>
+                        <i className="yo-ico yo-ico-succ">&#xf48a;</i>
                         <div className="text">加载成功</div>
                     </div>
                     <div className="yo-loadtip" ref="pullrefresh_fail">
-                        <i className="yo-ico yo-ico-fail">&#xf077;</i>
+                        <i className="yo-ico yo-ico-fail">&#xf48a;</i>
                         <div className="text">加载失败</div>
                     </div>
                 </div>
@@ -1466,15 +1466,15 @@ export default class Scroller extends Component {
                     }}
                 >
                     <div className="yo-loadtip" ref="loadmore_pull">
-                        <i className="yo-ico">&#xf079;</i>
+                        <i className="yo-ico">&#xf48a;</i>
                         <div className="text">上拉加载更多</div>
                     </div>
                     <div className="yo-loadtip" ref="loadmore_release">
-                        <i className="yo-ico">&#xf07b;</i>
+                        <i className="yo-ico">&#xf48a;</i>
                         <div className="text">释放立即加载</div>
                     </div>
                     <div className="yo-loadtip" ref="loadmore_load">
-                        <i className="yo-ico yo-ico-loading">&#xf089;</i>
+                        <i className="yo-ico yo-ico-loading">&#xf48a;</i>
                         <div className="text">正在加载...</div>
                     </div>
                     <div className="yo-loadtip" ref="loadmore_nomore">
