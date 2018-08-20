@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import Carousel from 'yo-component/carousel';
 import Alert from 'yo-component/alert';
+import Touchable from 'yo-component/touchable';
+
 
 import Layout from '../../layouts/default';
 import { fetchBanner } from './action';
@@ -69,7 +71,12 @@ export default class Index extends Component {
                 <div className="time-line" />
                 <div className="keyword-line" />
               </div>
-              <div className="submit-box" onClick={this.goList}>搜索酒店</div>
+              <Touchable
+                touchClass="touchable-highlight"
+                onTap={this.goList}
+              >
+                <div className="submit-box">搜索酒店</div>
+              </Touchable>
             </div>
             <div className="other-link">
               <div className="per-sale link-item" />

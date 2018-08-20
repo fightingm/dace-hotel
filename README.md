@@ -1,5 +1,4 @@
-
-1. 踩过的坑：
+1. 首屏css：
   服务端渲染没有处理css,样式是通过客户端渲染js加上去的，所以页面会闪一下
 
 2.使用react-helmet(也就是dace的Head组件)注入script失败
@@ -29,31 +28,34 @@
 5.如果是客户端渲染用到了redux异步请求数据，客户端会执行两次render，一次请求成功之前，一次是之后，所以如果依赖异步请求的数据，需要做判断。
 
 ## 待解决
-1. css文件去重处理
-2. 路由动态加载
+1. 路由动态加载
 
+
+## 关于组件样式的抽离
 'yo-config/core/reset.scss'的样式在每一个组件样式中都会被引入，所以将他抽离到通用样式中。
-当我们在引入每个组件的样式的时候，不仅需要引入自己的.scss，还需要以下的scss文件，这些文件包含了一些变量和函数会在组件中被使用。
-@import "yo-config/core/extra";
-@import "yo-style/core/merge-extra";
-@import "yo-config/core/config";
-@import "yo-style/core/merge-config";
-@import "yo-style/core/function";
-@import "yo-style/core/classes";
 
-功能划分
+当我们在引入每个组件的样式的时候，不仅需要引入自己的.scss，还需要以下的scss文件，这些文件包含了一些变量和函数会在组件中被使用。
+```less
+  @import "yo-config/core/extra";
+  @import "yo-style/core/merge-extra";
+  @import "yo-config/core/config";
+  @import "yo-style/core/merge-config";
+  @import "yo-style/core/function";
+  @import "yo-style/core/classes";
+```
+## 功能划分
 
 1.首页：
   地址选择页面
   入离店日期选择页面
   关键词搜索页面
 
-2.列表页
+2.列表页：
   地图页面
   位置区域组件
   筛选条件组件
 
-3.详情页
+3.详情页：
   酒店图片
   酒店介绍页
   评价页面
@@ -61,7 +63,7 @@
   点击报价弹框
   点击价格展开收缩
 
-4. 通用组件
+4. 通用组件：
     calendar组件
     carousel组件
     range组件
