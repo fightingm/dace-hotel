@@ -13,6 +13,9 @@
 @import "yo-style/ani/fade-out-up";
 @import "yo-style/ani/rotate";
 
+.yo-ico-back::after {
+  content: '\f3cd';
+}
 
 // @media screen and (min-width: 640px) {
 //   html {

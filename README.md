@@ -1,7 +1,10 @@
-1. 首屏css：
+1. 首屏css
+
   服务端渲染没有处理css,样式是通过客户端渲染js加上去的，所以页面会闪一下
 
-2.使用react-helmet(也就是dace的Head组件)注入script失败
+2. Head组件
+
+使用react-helmet(也就是dace的Head组件)注入script失败
   一开始使用`dangerouslySetInnerHTML`来设置`script`里面的代码，发现不生效
   react-helmet的使用方法是这样的：
   ```html
@@ -17,9 +20,12 @@
   </script>
   ```
 3.rem布局
+  rem的计算：设计稿(宽度750px)上有一个元素宽度是100px,我想在css中使用1rem来表示。
+  设备宽度/1rem = 设计稿宽度/100px
+  375px/1rem = 750/100px;
+  所以，在6s上，1rem = 50px;
   为了兼容yo组件，我们设计在6s的设计稿中，1rem = 100px;
   所以设计稿上面的尺寸要/200，来转换成我们的rem值。
-  比如设计稿上有一个元素是375px * 150px， 转换成rem就是1.875rem * 0.75rem
 
 4. sass-loader没有做去重处理，所以项目使用fast-sass-loader来处理scss文件，但是fast-sass-loader中使用alias别名的方式@import会找不到模块，暂时只能用相对路径引入
 因为yo的每一个组件都是可以独立使用的，所以引入的时候每个组件本身都回去加载

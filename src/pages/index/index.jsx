@@ -9,6 +9,7 @@ import Touchable from 'yo-component/touchable';
 
 
 import Layout from '../../layouts/default';
+import Header from './components/header';
 import { fetchBanner } from './action';
 import reducer from './reducer';
 import './index.scss';
@@ -58,6 +59,7 @@ export default class Index extends Component {
     return (
       <Layout>
         <div className="mh-index">
+          <Header />
           <div className="hd-banner">
             {
               this.renderCarousel()

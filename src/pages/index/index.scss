@@ -13,6 +13,12 @@
 @import "yo-style/component/carousel";
 
 .mh-index {
+  .back {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9;
+  }
   .hd-banner {
     background: #f7f7f7;
     height: 1.375rem;
