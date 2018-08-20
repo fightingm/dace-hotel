@@ -1,4 +1,4 @@
 import axios from 'axios';
-import '$self-config/axios.config';
+import 'config/axios.config';
 
 export default axios;

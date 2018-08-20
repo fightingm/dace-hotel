@@ -1,7 +1,7 @@
 import axios from 'axios';
-import isEnvNode from '$self-util/isEnvNode';
-import { loading } from '$self-component/loading';
-import Tracker from '$self-util/Tracker';
+import isEnvNode from 'util/isEnvNode';
+import { loading } from 'yo-component/loading';
+// import Tracker from 'util/Tracker';
 
 axios.defaults.xsrfCookieName = 'eventCsrfToken';
 axios.defaults.xsrfHeaderName = 'x-csrf-token';
@@ -21,7 +21,7 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use((response) => {
   if (!isEnvNode) {
     response.config && response.config.needLoading && loading.hide();
-    response.request.responseURL && Tracker.ajaxTrack(response.config.startTime, response.request.responseURL);
+    // response.request.responseURL && Tracker.ajaxTrack(response.config.startTime, response.request.responseURL);
   }
   const { status = -1, message = '请求异常，请您重试', data } = response.data;
 
@@ -36,7 +36,7 @@ axios.interceptors.response.use((response) => {
 }, (error) => {
   if (!isEnvNode) {
     loading.hide();
-    Tracker.notifyError(error);
+    // Tracker.notifyError(error);
   }
   const errData = { status: -1, message: '服务端请求异常，请您重试', error };
   return Promise.reject(errData);

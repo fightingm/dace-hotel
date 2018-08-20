@@ -8,29 +8,29 @@ import axios from './axios';
  * @return {object} 返回Promise对象
  */
 function getLocation(timeout = 5000, maximumAge = 30 * 60 * 1000) {
-    return new Promise((resolve, reject) => {
-        hysdk.getLocation({
-            type: 'wgs84',
-            timeout,
-            maximumAge,
-            success: (res) => {
-                const result = {
-                    latitude: res.coords.latitude,
-                    longitude: res.coords.longitude
-                };
-                resolve(result);
-            },
-            fail: (e) => {
-                reject(e);
-            }
-        });
-
-        // 在微信浏览器，用户拒绝授权时，hysdk没有执行fail回调
-        // 所以在此强制reject
-        setTimeout(() => {
-            reject();
-        }, timeout);
+  return new Promise((resolve, reject) => {
+    hysdk.getLocation({
+      type: 'wgs84',
+      timeout,
+      maximumAge,
+      success: (res) => {
+        const result = {
+          latitude: res.coords.latitude,
+          longitude: res.coords.longitude
+        };
+        resolve(result);
+      },
+      fail: (e) => {
+        reject(e);
+      }
     });
+
+    // 在微信浏览器，用户拒绝授权时，hysdk没有执行fail回调
+    // 所以在此强制reject
+    setTimeout(() => {
+      reject();
+    }, timeout);
+  });
 }
 
 /**
@@ -40,39 +40,31 @@ function getLocation(timeout = 5000, maximumAge = 30 * 60 * 1000) {
  * @return {object} 返回Promise对象
  */
 function getCityByGPS(timeout = 5000, maximumAge = 30 * 60 * 1000, latitude, longitude) {
-    const url = '/api/location/getCityByGPS.json';
-    if (latitude && longitude) {
-        return axios({
-            url,
-            params: {
-                latitude: latitude,
-                longitude: longitude
-            }
-        }).then(data => {
-            return data.city;
-        });
-    }
-    return new Promise((resolve, reject) => {
-        getLocation(timeout, maximumAge)
-        .then((res) => {
-            axios({
-                url,
-                params: {
-                    latitude: res.latitude,
-                    longitude: res.longitude
-                }
-            }).then(data => {
-                return resolve(data.city);
-            }).catch((e) => {
-                return reject(e);
-            });
-        }).catch((e) => {
-            return reject(e);
-        });
-    });
+  const url = '/api/location/getCityByGPS.json';
+  if (latitude && longitude) {
+    return axios({
+      url,
+      params: {
+        latitude,
+        longitude
+      }
+    }).then(data => data.city);
+  }
+  return new Promise((resolve, reject) => {
+    getLocation(timeout, maximumAge)
+      .then((res) => {
+        axios({
+          url,
+          params: {
+            latitude: res.latitude,
+            longitude: res.longitude
+          }
+        }).then(data => resolve(data.city)).catch(e => reject(e));
+      }).catch(e => reject(e));
+  });
 }
 
 export {
-    getLocation,
-    getCityByGPS
+  getLocation,
+  getCityByGPS
 };
